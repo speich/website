@@ -1,0 +1,160 @@
+/**
+Changes made to the jsviz library to adapt to the NAFIDAS needs, e.g. a directed graph with.
+
+**/
+
+
+*SVGGraphView.js*
+
+var SVGGraphView = function( container, skewView ) {
+
+	this.container = container;
+
+	this.frameLeft = 0;
+	this.frameTop = 0;
+
+	this.skewView = skewView;
+	this.skewBase = 0;
+	this.skewX = 1;
+	this.skewY = 1;
+
+	this['nodes'] = {};
+
+	this['edges'] = {};
+	
+	this.SVGNS = 'http://www.w3.org/2000/svg';
+	
+	this.svg = document.createElementNS(this.SVGNS, "svg");
+	
+	this.df = document.createElementNS(this.SVGNS, 'defs');
+	this.svg.appendChild(this.df);
+
+	this.svg.setAttribute("version", "1.1");
+	this.container.appendChild( this.svg );
+
+	this.eg = document.createElementNS(this.SVGNS, "g");
+	this.svg.appendChild(this.eg);
+
+	this.ng = document.createElementNS(this.SVGNS, "g");
+ 	this.svg.appendChild(this.ng);
+
+	this.defaultEdgeProperties = {
+		'stroke': '#c4c4c4',
+		'stroke-width': '2px',
+		'stroke-dasharray': '2,8'			
+	}
+}
+
+.addNode() {
+	
+	// With an SVG View Element
+	if ( domElement.localName=="g" || domElement.localName=="circle" || domElement.localName == "text" ) {
+	
+	
+	
+	
+.drawNode() {
+
+
+
+if( domNode.localName == 'circle' || domNode.localName == 'g') {
+
+
+
+
+SVGGraphView.prototype.addEdge = function( particleA, particleB, edgeProperties ) {
+	if ( !this['edges'][particleA.id] ) {
+		this['edges'][particleA.id]={};
+	}
+	if ( !this['edges'][particleA.id][particleB.id] ) {
+		var edge = document.createElementNS(this.SVGNS, "polyline");
+		if ( !edgeProperties ) {
+			edgeProperties = this.defaultEdgeProperties;
+		}
+		for ( var p in edgeProperties ) {
+			if (p == 'EdgeDirection') {
+				var direction = edgeProperties['EdgeDirection'];
+				// 1 from particleB to particleA
+				// 2 from particleA to particleB
+				// 3 both ways
+				if (direction == 1 || direction == 3) {
+					var MId = this.drawMarker(particleA, particleB, { EdgeType: 'start', stroke: edgeProperties['stroke']});
+					edge.setAttribute('marker-start', 'url(#' + MId + ')');
+				}
+				if (direction == 2 || direction == 3) {
+					var MId = this.drawMarker(particleA, particleB, { EdgeType: 'end', stroke: edgeProperties['stroke']});
+					edge.setAttribute('marker-end', 'url(#' + MId + ')');
+				}
+			}
+			else {
+				edge.setAttribute(p, edgeProperties[p]);
+			}
+		}
+		this.edges[particleA.id][particleB.id] = edge;
+		edge.id = 'edge'+particleA.id+':'+particleB.id;
+		this.eg.appendChild(edge);
+ 		this['edges'][particleA.id][particleB.id] = {
+			source: particleA,
+			target: particleB,
+			domEdge: edge
+		}
+		return edge;
+	} else {
+		return this['edges'][particleA.id][particleB.id].domEdge;
+	}
+}
+
+
+/**
+ * Create a marker arrow for the edge.
+ * @param {Particle} particleA
+ * @param {Particle} particleB
+ * @param {object}	marker properties
+ * @return string Marker id
+ */
+SVGGraphView.prototype.drawMarker = function(particleA, particleB, Props){
+	var Marker = document.createElementNS(this.SVGNS, 'marker');
+	Marker.setAttribute('markerUnits', 'userSpaceOnUse');
+	Marker.setAttribute('markerWidth', 10);
+	Marker.setAttribute('markerHeight', 10);
+	Marker.setAttribute('orient', 'auto');
+	// start arrow head where circle ends
+	// TODO: better method to get X
+	var MrefX = Number(this.nodes[particleA.id].domElement.getElementsByTagName('circle')[0].getAttribute('r'));
+	var p = document.createElementNS(this.SVGNS, 'polyline');
+	p.setAttribute('fill', Props['stroke']);
+	Marker.setAttribute('refY', 5);
+	if (Props['EdgeType'] == 'end') {
+		var MId = 'ME';	// end marker
+		Marker.setAttribute('refX', MrefX + Number(Marker.getAttribute('markerWidth')));
+		p.setAttribute('points', '0,0 10,5 0,10 1,5');
+	}
+	else if (Props['EdgeType'] == 'start') {
+		var MId = 'MS';	// start marker
+		Marker.setAttribute('refX', -MrefX);
+		p.setAttribute('points', '10,0 0,5 10,10 9,4');
+	}
+	Marker.setAttribute('id', MId + particleA.id + ':' + particleB.id);
+	Marker.appendChild(p);
+	this.df.appendChild(Marker);
+	return Marker.id;
+}
+
+ParticleModel.js
+	// added padding to canvas
+	setSize: function( frameWidth, frameHeight ) {
+		this.boundsLeft = 40 + (-frameWidth/this.view.skewX)/2;
+		this.boundsRight = -40 + (frameWidth/this.view.skewX)/2;
+		this.boundsTop = 10 + (-frameHeight/this.view.skewY)/2;
+		this.boundsBottom = -30 + (frameHeight/this.view.skewY)/2;
+	},
+
+in applyForces() {
+	see post http://groups.google.com/group/jsviz/browse_thread/thread/6fa0d257b8cb556f
+	...
+	var scanLength=parseInt(springs.length/10) + 1;
+	
+	...
+	scanLength=parseInt(magnets.length/10) + 1;
+	
+	

@@ -1,0 +1,92 @@
+<?php require_once '../library/inc_script.php'; ?>
+<!DOCTYPE html>
+<html>
+<head>
+<title><?php echo $web->getWindowTitle(); ?>: dojo confirm dialog</title>
+<meta charset="utf-8">
+<link href="../layout/reset.css" rel="stylesheet" type="text/css">
+<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="../layout/layout.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+.dijitDialog {
+	width: 300px;
+}
+.dialogConfirmButtons {
+	border-top: 1px solid #ccc;
+	padding-top: 3px;
+
+}
+</style>
+</head>
+
+<body class="claro">
+<?php require_once 'inc_body_begin.php'; ?>
+<h1>Confirm dialog with dojo</h1>
+<p>The demo on this page simulates the blocking behavior of JavaScript's native
+<a href="https://developer.mozilla.org/en/DOM/window.confirm">window.confirm()</a> method by using a
+<a href="http://dojotoolkit.org/api/1.6/dojo/Deferred">dojo.Deferred()</a>.</p>
+<p>The DialogConfirm.show() method is called 6 times in a loop. You can either cancel the loop, press 'OK' on each
+dialog or tick the checkbox and the remaining dialogs will be skipped.</p>
+<p id="startLink">Wait for dojo to load...</p>
+<p>For more information read my short article about the <a href="../articles/?p=291">DialogConfirm widget</a>
+or get the <a href="https://github.com/speich/dialogconfirm">code on github</a>.</p>
+<script type="text/javascript">
+var dojoConfig = {
+	async: true,
+	packages: [
+		{ 'name': 'snet', 'location': '/library/speich.net' }
+	]
+};
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js" type="text/javascript"></script>
+<script type="text/javascript">
+require([
+	'dojo/_base/array',
+	'dojo/_base/Deferred',
+	'dojo/dom',
+	'dojo/dom-construct',
+	'snet/DialogConfirm'
+], function(array, Deferred, dom, construct, DialogConfirm) {
+
+	function startDemo() {
+		var dfds = [];
+		var arr = [0,1,2,3,4,5];
+
+		dfds[0] = new Deferred();
+		dfds[0].resolve(false); // dummy to attach initial dfd to
+
+		array.forEach(arr, function(value, i) {
+			dfds[i + 1] = dfds[i].then(function(remember) {
+				if (!remember) {
+					var dialog = new snet.DialogConfirm({
+						title: 'Confirm dialog #' + i,
+						duration: 500,
+						content: '<p>I love dojo. I love dojo. I love dojo.</p>'
+					});
+					return dialog.show();
+				}
+				else {
+					var dfd = new Deferred();
+					dfd.resolve(true);
+					console.log('skipped');
+					return dfd;
+				}
+			});
+		});
+	}
+
+	dom.byId('startLink').innerHTML = '';
+	construct.create('button', {
+		'class':'button',
+		innerHTML: '<span>start dialog demo</span>',
+		'onclick': function() {
+			startDemo();
+		}
+	}, dom.byId('startLink'));
+});
+
+
+</script>
+<?php require_once 'inc_body_end.php'; ?>
+</body>
+</html>
