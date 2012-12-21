@@ -96,11 +96,12 @@ require([
 	'dojox/charting/StoreSeries',
 	'dgrid/Grid',
 	'dgrid/extensions/ColumnResizer',
-	'dojo/_base/declare',
+	'dgrid/Selection',
+	'dojo/on',
 	'xstyle/has-class',
 	'xstyle/css',
 	'put-selector/put'
-], function(Memory, query, Chart2D, snet, Tooltip, Legend, StoreSeries, Grid, ColumnResizer, declare) {
+], function(Memory, query, Chart2D, snet, Tooltip, Legend, StoreSeries, Grid, ColumnResizer, Selection, declare) {
 
 	var data = [
 		{ id: 1, f: 2.8, w: 2.9, d: 124, l: 268, r1: 103, lens: '300mm f/2.8G ED VR II AF-S', model: 'Nikon', fLength: 300, link: 'http://imaging.nikon.com/lineup/lens/singlefocal/Telephoto/af-s_300mmf_28g_ed_vr2/index.htm', img: 'http://cdn-4.nikon-cdn.com/en_INC/IMG/Assets/Camera-Lenses/2010/2186-AF-S-NIKKOR-300mm-f2.6G-ED-VR-II-Super-Telephoto/Views/160_2186_AFS-300-ED-VR-II_front.png' },
@@ -118,7 +119,7 @@ require([
 
 	});
 
-	var grid = declare([Grid, ColumnResizer])({
+	var grid = declare([Grid, ColumnResizer, Selection])({
 		columns: [
 			{ label: 'make', field: 'model', renderCell: function(object, data, td, options) {
 				td.innerHTML = '<span class="'+ object.model.toLowerCase() + '"></span>' + object.model;
