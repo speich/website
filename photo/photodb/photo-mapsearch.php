@@ -113,7 +113,7 @@ switch ($web->getHost()) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: Bildarchiv Kartensuche</title>
 <?php require_once '../../layout/inc_head.php' ?>

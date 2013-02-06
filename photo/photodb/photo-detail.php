@@ -254,7 +254,7 @@ function getColor($img) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title>speich.net Bildarchiv: Foto <?php echo $photo[0]['imgTitle'] ?></title>
 <?php require_once '../../layout/inc_head.php' ?>

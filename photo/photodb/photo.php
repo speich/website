@@ -71,7 +71,7 @@ function renderData($db, $arrData) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title>speich.net Bildarchiv: Fotos<?php echo $theme != '' ? ' '.$theme : ''; ?></title>
 <?php require_once '../../layout/inc_head.php' ?>
