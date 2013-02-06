@@ -1,6 +1,6 @@
 <?php include '../library/inc_script.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: Curriculum Vitae von Simon Speich</title>
 <?php require_once '../layout/inc_head.php' ?>

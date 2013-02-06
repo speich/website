@@ -1,6 +1,6 @@
 <?php require_once '../library/inc_script.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: Ausrüstung</title>
 <?php require_once '../layout/inc_head.php' ?>
