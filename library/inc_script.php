@@ -18,18 +18,18 @@ include_once 'Menu.php';
 include_once 'PagedNav.php';
 
 $web = new Website();
-$web->setLastUpdate('31.01.2013');
+$web->setLastUpdate('18.12.2012');
 $lang = $web->getLang();
 $web->setLang($lang);
 
 if ($lang === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
-	$metaContent = 'Website von Simon Speich über Fotografie und Webprogrammierung';
+	$metaDescription = 'Website von Simon Speich über Fotografie und Webprogrammierung';
 	$metaKeywords = 'Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Foto, Photographie';
 }
 else {
 	$windowTitle = 'Photography and web programming';
-	$metaContent = 'Simon Speich\'s website about photography and web programming';
+	$metaDescription = 'Simon Speich\'s website about photography and web programming';
 	$metaKeywords = 'photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
 $web->setWindowTitle('speich.net ::: '.$windowTitle);
