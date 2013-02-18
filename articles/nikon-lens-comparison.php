@@ -24,7 +24,7 @@
 }
 .claro .dgrid { border-width: 1px 0 0 0; }
 #grid.dgrid {
-	height: 640px;
+	height: 800px;
 	margin: 24px 0;
 }
 #grid .dgrid-header {
@@ -107,10 +107,12 @@ require([
 		{ id: 2, f: 2.8, w: 4.62, d: 160, l: 368, r1: 87, lens: '400mm f/2.8G ED VR AF-S', model: 'Nikon', fLength: 400, link: 'http://imaging.nikon.com/lineup/lens/singlefocal/Telephoto/af-s_400mmf_28g_vr/index.htm', img: 'http://cdn-4.nikon-cdn.com/en_INC/IMG/Assets/Camera-Lenses/2010/2171_AF-S-NIKKOR-400mmf-2.8G-ED-VR/Views/160_2171_AF-S-NIKKOR-400mmf-2.8G-ED-VR_front.png' },
 		{ id: 3, f: 4, w: 3.88, d: 140, l: 391, r1: 129, lens: '500mm f/4G ED VR AF-S', model: 'Nikon', fLength: 500, link: 'http://imaging.nikon.com/lineup/lens/singlefocal/Telephoto/af-s_500mmf_4g_vr/index.htm', img: 'http://cdn-4.nikon-cdn.com/en_INC/IMG/Assets/Camera-Lenses/2010/2172-AF-S-NIKKOR-500mm-f-4G-ED-VR/Views/160_2172_AF-S-NIKKOR-500mm-f-4G-ED-VR_front.png' },
 		{ id: 4, f: 4, w: 5.06, d: 166, l: 445, r1: 119, lens: '600mm f/4G ED VR AF-S', model: 'Nikon', fLength: 600, link: 'http://imaging.nikon.com/lineup/lens/singlefocal/Telephoto/af-s_600mmf_4g_vr/index.htm', img: 'http://cdn-4.nikon-cdn.com/en_INC/IMG/Assets/Camera-Lenses/2010/2173_AF-S-NIKKOR-600mm-f-4G-ED-VR/Views/160_2173_AF-S-NIKKOR-600mm-f-4G-ED-VR_FRONT.png' },
+		{ id: 9, f: 5.6, w: 4.59, d: 160, l: 461, r1: 174, lens: '800mm f/5.6G ED VR AF-S', model: 'Nikon', fLength: 800, link: 'http://imaging.nikon.com/lineup/lens/singlefocal/Telephoto/af-s_800mmf_56g_fl_ed_vr/index.htm', img: 'http://cdn-4.nikon-cdn.com/en_INC/o/LDqJE40w3j_g9iVRjQ6KkyaYSas/Views/160_2205-AF-S-NIKKOR-800mm.png' },
 		{ id: 5, f: 2.8, w: 2.4, d: 128, l: 248, r1: 125, lens: '300mm f/2.8L IS II USM', model: 'Canon', fLength: 300, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_300mm_f_2_8l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef300_28lisu_c2_60x90.gif' },
 		{ id: 6, f: 2.8, w: 3.85, d: 163, l: 343, r1: 104, lens: '400mm f/2.8L IS II USM', model: 'Canon', fLength: 400, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_400mm_f_2_8l_is_ii_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/cameras/lenses/EF400_LISIIU/profile/ef400lisiiu_3q_90x60.gif' },
 		{ id: 7, f: 4, w: 3.19, d: 146, l: 383, r1: 157, lens: '500mm f/4L IS II USM ', model: 'Canon', fLength: 500, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_500mm_f_4l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef500_4lisu_c2_60x90.gif' },
-		{ id: 8, f: 4, w: 3.92, d: 168, l: 448, r1: 153, lens: '600mm f/4L IS II USM ', model: 'Canon', fLength: 600, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_600mm_f_4l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef600_4lisu_c2_60x90.gif' }
+		{ id: 8, f: 4, w: 3.92, d: 168, l: 448, r1: 153, lens: '600mm f/4L IS II USM ', model: 'Canon', fLength: 600, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_600mm_f_4l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef600_4lisu_c2_60x90.gif' },
+		{ id: 10, f: 5.6, w: 4.5, d: 162, l: 461, r1: 177, lens: '800mm f/5.6L IS USM ', model: 'Canon', fLength: 800, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_800mm_f_5_6l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef800_56lisu_cl_hr_60x90.gif' }
 	];
 
 	var store = new Memory({
@@ -120,17 +122,17 @@ require([
 
 	var grid = declare([Grid, ColumnResizer])({
 		columns: [
-			{ label: 'make', field: 'model', renderCell: function(object, data, td, options) {
+			{ label: 'Marke', field: 'model', renderCell: function(object, data, td, options) {
 				td.innerHTML = '<span class="'+ object.model.toLowerCase() + '"></span>' + object.model;
 			} },
-			{ label: "lens", field: 'lens', renderCell: function(object, data, td, options) {
+			{ label: "Objektiv", field: 'lens', renderCell: function(object, data, td, options) {
 				td.innerHTML = '<a href="' + object.link + '"><img class="thumb" src="' + object.img + '">' + object.lens + '</a>';
 			}},
-			{ label: "aperture", field: 'f' },
-			{ label: "weight [kg]", field: 'w' },
-			{ label: "diameter [mm]", field: 'd' },
-			{ label: "length [mm]", field: 'l' },
-			{ label: "focal length/weight [mm/kg]", field: 'r1' }
+			{ label: "Blende", field: 'f' },
+			{ label: "Gewicht [kg]", field: 'w' },
+			{ label: "Durchmesser [mm]", field: 'd' },
+			{ label: "Länge [mm]", field: 'l' },
+			{ label: "Brennweite/Gewicht [mm/kg]", field: 'r1' }
 		]
 	}, 'grid');
 	grid.renderArray(data);
@@ -245,7 +247,7 @@ require([
 		title: 'Brennweite [mm]',
 		titleOrientation: 'away',
 		min: 290,
-		max: 610,
+		max: 810,
 		majorTicks: true,
 		majorLabels: true,
 		minorLabels: false,
@@ -277,7 +279,7 @@ require([
 	chartLength.addAxis("y", {
 		title: 'Länge [mm]',
 		min: 240,
-		max: 450,
+		max: 460,
 		vertical: true,
 		majorTickStep: 50,
 		fixUpper: "major",
@@ -289,7 +291,7 @@ require([
 	chartRatio.addAxis("y", {
 		title: 'Verhältnis [mm/kg]',
 		min: 80,
-		max: 160,
+		max: 170,
 		vertical: true,
 		majorTickStep: 20,
 		fixUpper: "major",
