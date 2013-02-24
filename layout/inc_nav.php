@@ -87,28 +87,24 @@ switch($mainNav->getActive()) {
 function createMenuPhoto($sideNav, $web) {
 	$lang = ucfirst($web->getLang());
 
-	$db = new PhotoDb();
+	$db = new PhotoDbNav();
 	$db->connect();
 	$sideNav->autoActive = false;
 	// note: theme id' are used as menu ids
 	$sideNav->add(array(1, 'f', 'Bildarchiv', $db->getWebRoot().'photo/photodb/photo.php'));
 	$sideNav->add(array(2, 1,'Alle Fotos', $db->getWebRoot().'photo/photodb/photo.php'.$db->getQuery(array('theme', 'pgNav'), 2)));
 	$sideNav->add(array(3, 'f', 'Bildsuche', $db->getWebRoot().'photo/photodb/photo-search.php'.$db->getQuery(array('qt' => 'full'))));
-		$sideNav->Add(array(4, 3, 'Volltext-Suche', $db->getWebRoot().'photo/photodb/photo-search.php'.$db->getQuery(array('qt' => 'full'))));
-		$sideNav->Add(array(5, 3, 'Geografische Suche', $db->getWebRoot().'photo/photodb/photo-mapsearch.php'.$db->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))));
-//		$sideNav->Add(array(6, 3, 'Wissenschaftliche Namen', $db->getWebRoot().'photo/photodb/photo-suche.php'.$db->getQuery(array('qt' => 'sci'))));
+		$sideNav->add(array(4, 3, 'Volltext-Suche', $db->getWebRoot().'photo/photodb/photo-search.php'.$db->getQuery(array('qt' => 'full'))));
+		$sideNav->add(array(5, 3, 'Geografische Suche', $db->getWebRoot().'photo/photodb/photo-mapsearch.php'.$db->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))));
+//		$sideNav->add(array(6, 3, 'Wissenschaftliche Namen', $db->getWebRoot().'photo/photodb/photo-suche.php'.$db->getQuery(array('qt' => 'sci'))));
 //	$sideNav->add(array(7, 'f', 'Bildrechte', $db->getWebRoot().'photo/bildrechte.php'.$db->getQuery(array('theme', 'PgNav'), 2)));
 //	$sideNav->add(array(8, 'f', 'Gallerie', $db->getWebRoot().'photo/photodb/gallerie.php'.$db->getQuery(array('theme', 'PgNav'), 2)));
 	$sideNav->add(array(9, 'f', 'Ausrüstung', $db->getWebRoot().'photo/ausruestung.php'.$db->getQuery(array('theme', 'gNav'), 2)));
 
-	$sql = "SELECT s.Id SubjectAreaId, s.Name".$lang." SubjectArea, t.Id ThemeId, t.Name".$lang." Theme FROM SubjectAreas s
-	 INNER JOIN Themes t ON t.SubjectAreaId = s.Id
-	 INNER JOIN Images_Themes It ON t.Id = It.ThemeId
-	 ORDER BY s.Name".$lang." ASC, t.Name".$lang." ASC";
-	$rst = $db->db->query($sql);
+	$themes = $db->getThemes($lang);
 	$arrDel = array('pgNav', 'numRec');
 	$lastSubjectArea = null;
-	while ($row = $rst->fetch(PDO::FETCH_ASSOC)) {
+	while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {
 		if ($row['SubjectArea'] != $lastSubjectArea) {
 			$arrAdd = array('theme' => $row['ThemeId']);
 			$link = $db->getWebRoot().'photo/photodb/photo.php'.$db->getQuery($arrAdd, $arrDel);
@@ -121,12 +117,13 @@ function createMenuPhoto($sideNav, $web) {
 	}
 
 
-	$sql = "SELECT DISTINCT 'Länder', Id, Name".$lang." FROM Countries
-		INNER JOIN Location_Countries
-		INNER JOIN Images_Locations";
-	$rst = $db->db->query($sql);
-	$sideNav->add(array('c'.$row['ThemeId'], 's'.$row['SubjectAreaId'], htmlspecialchars($row['Theme']), $link));
-
+	$countries = $db->getCountries($lang);
+	//var_dump($countries);
+	$arrAdd = array('countries' => 'c1');
+	$link = $db->getWebRoot().'photo/photodb/photo.php'.$db->getQuery($arrAdd, $arrDel);
+	while ($row = $countries->fetch(PDO::FETCH_ASSOC)) {
+		$sideNav->add(array($row['countryId'], 'c1', htmlspecialchars($row['country']), $link));
+	}
 
 	$sideNav->setActive();
 	if (isset($_GET['theme'])) {

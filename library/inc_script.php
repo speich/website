@@ -14,6 +14,7 @@ $incPath.= $path.'/library';
 set_include_path($incPath);
 include_once 'Website.php';
 include_once 'PhotoDb.php';
+include_once 'PhotoDbNav.php';
 include_once 'Menu.php';
 include_once 'PagedNav.php';
 
