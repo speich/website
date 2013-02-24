@@ -43,7 +43,7 @@ $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
 switch($mainNav->getActive()) {
 	case 1:
-		createMenuPhoto($sideNav);
+		createMenuPhoto($sideNav, $web);
 		break;
 	case 2:
 		$sideNav->autoActive = false;
@@ -82,8 +82,11 @@ switch($mainNav->getActive()) {
 /**
  * Creates the sidemenu for the main menu 'Fotografie'
  * @param Menu $sideNav
+ * @param Website $web
  */
-function createMenuPhoto($sideNav) {
+function createMenuPhoto($sideNav, $web) {
+	$lang = ucfirst($web->getLang());
+
 	$db = new PhotoDb();
 	$db->connect();
 	$sideNav->autoActive = false;
@@ -98,10 +101,10 @@ function createMenuPhoto($sideNav) {
 //	$sideNav->add(array(8, 'f', 'Gallerie', $db->getWebRoot().'photo/photodb/gallerie.php'.$db->getQuery(array('theme', 'PgNav'), 2)));
 	$sideNav->add(array(9, 'f', 'Ausrüstung', $db->getWebRoot().'photo/ausruestung.php'.$db->getQuery(array('theme', 'gNav'), 2)));
 
-	$sql = "SELECT s.Id SubjectAreaId, s.Name SubjectArea, t.Id ThemeId, t.Name Theme FROM SubjectAreas s
+	$sql = "SELECT s.Id SubjectAreaId, s.Name".$lang." SubjectArea, t.Id ThemeId, t.Name".$lang." Theme FROM SubjectAreas s
 	 INNER JOIN Themes t ON t.SubjectAreaId = s.Id
 	 INNER JOIN Images_Themes It ON t.Id = It.ThemeId
-	 ORDER BY s.Name ASC, t.Name ASC";
+	 ORDER BY s.Name".$lang." ASC, t.Name".$lang." ASC";
 	$rst = $db->db->query($sql);
 	$arrDel = array('pgNav', 'numRec');
 	$lastSubjectArea = null;
@@ -116,6 +119,15 @@ function createMenuPhoto($sideNav) {
 		$sideNav->add(array('t'.$row['ThemeId'], 's'.$row['SubjectAreaId'], htmlspecialchars($row['Theme']), $link));
 		$lastSubjectArea = $row['SubjectArea'];
 	}
+
+
+	$sql = "SELECT DISTINCT 'Länder', Id, Name".$lang." FROM Countries
+		INNER JOIN Location_Countries
+		INNER JOIN Images_Locations";
+	$rst = $db->db->query($sql);
+	$sideNav->add(array('c'.$row['ThemeId'], 's'.$row['SubjectAreaId'], htmlspecialchars($row['Theme']), $link));
+
+
 	$sideNav->setActive();
 	if (isset($_GET['theme'])) {
 		// unset item ('Alle Fotos'), otherwise it would always be active

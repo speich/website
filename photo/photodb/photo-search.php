@@ -2,6 +2,7 @@
 require_once 'photoinc.php';
 
 if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
+	$lang = ucfirst($web->getLang());
 	/* For each column in each table create separate UNION and repeat for each search word.
 	This way for each hit in a column we get one scorecount and for each search word */
 	$sql = "SELECT score, t1.imgId imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgTitle imgTitle, I.imgDesc imgDesc,
@@ -27,10 +28,10 @@ if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
 	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT K.Name) keywords FROM Images_Keywords IK
 		INNER JOIN Keywords K ON IK.keywordId = K.id
 		GROUP BY imgId) t2 ON t1.imgId = t2.imgId
-	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT L.Name) locations FROM Images_Locations IL
+	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT L.Name".$lang." locations FROM Images_Locations IL
 		INNER JOIN Locations L ON IL.locationId = L.id
 		GROUP BY imgId) t3 ON t1.imgId = t3.imgId
-	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT T.name) themes FROM Images_Themes IT
+	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT T.Name".$lang.") themes FROM Images_Themes IT
 		INNER JOIN Themes T ON IT.themeId = T.id
 		GROUP BY imgId) t4 ON t1.imgId = t4.imgId
 	LEFT JOIN Exif E ON t1.imgId = E.imgId

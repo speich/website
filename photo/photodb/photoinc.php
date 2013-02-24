@@ -30,8 +30,9 @@ $numRecPerPage = isset($_GET['numRecPp']) ? $_GET['numRecPp'] : 14;
 // filtering
 $sqlFilter = '';
 if (isset($_GET['theme'])) {
+	$lang = ucfirst($web->getLang());
 	$themeId = preg_replace("/\D*/", '', $_GET['theme']);	// sanitize for security reasons
-	$sql = "SELECT Id, Name FROM Themes WHERE Id = :themeId";
+	$sql = "SELECT Id, Name".$lang." Name FROM Themes WHERE Id = :themeId";
 	$db = new PhotoDb();
 	$db->connect();
 	$stmt = $db->db->prepare($sql);

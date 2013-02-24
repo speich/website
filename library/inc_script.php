@@ -18,7 +18,7 @@ include_once 'Menu.php';
 include_once 'PagedNav.php';
 
 $web = new Website();
-$web->setLastUpdate('17.02.2013');
+$web->setLastUpdate('23.02.2013');
 $lang = $web->getLang();
 $web->setLang($lang);
 
