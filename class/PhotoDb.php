@@ -6,6 +6,7 @@
  *
  */
 class PhotoDb extends Website {
+	/** @var PDO|null */
 	public $db = null;
 	// paths are always appended to webroot ('/' or a subfolder) and start therefore with a foldername
 	// and not with a slash, but end with a slash
@@ -56,11 +57,11 @@ class PhotoDb extends Website {
 	 * @return bool
 	 */
 	public function beginTransaction() {
-		if ($this->HasActiveTransaction === true) {
+		if ($this->hasActiveTransaction === true) {
 			return false;
 		} else {
-			$this->HasActiveTransaction = $this->Db->beginTransaction();
-			return $this->HasActiveTransaction;
+			$this->hasActiveTransaction = $this->db->beginTransaction();
+			return $this->hasActiveTransaction;
 		}
 	}
 	
@@ -69,8 +70,8 @@ class PhotoDb extends Website {
 	 * @return bool
 	 */
 	public function commit() {
-		$this->HasActiveTransaction = false;
-		return $this->Db->commit();
+		$this->hasActiveTransaction = false;
+		return $this->db->commit();
    }
 	
 	/**
@@ -78,27 +79,28 @@ class PhotoDb extends Website {
 	 * @return bool
 	 */
 	function rollback() {
-		$this->HasActiveTransaction = false;
-		return $this->Db->rollback();
+		$this->hasActiveTransaction = false;
+		return $this->db->rollback();
    }	
 	
 	/**
 	 * Returns the file name of the database.
 	 * @return string
 	 */	
-	public function getDbName() { return $this->DbName; }
+	public function getDbName() { return $this->dbName; }
 
 
 	/**
 	 * Provides access to the different paths in the PhotoDB project.
+	 * @param string $name
 	 * @return string
-	 * @param string $Name
 	 */
 	public function getPath($name) {
 		switch($name) {
 			case 'webRoot': $path = $this->getWebRoot(); break;	// redudant, but for convenience
 			case 'db': $path = $this->pathDb; break;
 			case 'img': $path = $this->pathImg; break;
+			default: $path = '/';
 		}
 		return $path;	// pdo functions need full path to work with subfolders on windows
 	}
@@ -117,12 +119,12 @@ class PhotoDb extends Website {
 		$Sql = "INSERT INTO Images (Id, ImgFolder, ImgName, DateAdded, LastChange)
 			VALUES (NULL, :ImgFolder, :ImgName,".time().",".time().")
 		";
-		$this->BeginTransaction();
-		$Stmt = $this->Db->prepare($Sql);
-		$Stmt->bindParam(':ImgName', $ImgName);
-		$Stmt->bindParam(':ImgFolder', $ImgFolder);
-		$Stmt->execute();
-		$ImgId = $this->Db->lastInsertId();
+		$this->beginTransaction();
+		$stmt = $this->db->prepare($Sql);
+		$stmt->bindParam(':ImgName', $ImgName);
+		$stmt->bindParam(':ImgFolder', $ImgFolder);
+		$stmt->execute();
+		$ImgId = $this->db->lastInsertId();
 		// insert exif data
 		if (!$this->InsertExif($ImgId, $Img)) {
 			echo 'failed';
@@ -131,14 +133,14 @@ class PhotoDb extends Website {
 		$Sql = "SELECT Id, ImgFolder, ImgName, ImgDate,	ImgTechInfo, FilmTypeId, RatingId,
 			DateAdded, LastChange, ImgDesc,	ImgTitle, Public, DatePublished, ImgDateOriginal, ImgLat, ImgLng
 			FROM Images WHERE Id = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
-		$Stmt->bindParam(':ImgId', $ImgId);
-		$Stmt->execute();
+		$stmt = $this->db->prepare($Sql);
+		$stmt->bindParam(':ImgId', $ImgId);
+		$stmt->execute();
 		$strXml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$strXml .= '<HtmlFormData xml:lang="de-CH">';
 		// image data
 		$strXml .= '<Image';
-		foreach ($Stmt->fetch(PDO::FETCH_ASSOC) as $Key => $Val) {
+		foreach ($stmt->fetch(PDO::FETCH_ASSOC) as $Key => $Val) {
 			// each col in db is attribute of xml element Image
 			if (strpos($Key, 'Date') !== false &&	!is_null($Val) && $Val != '' && $Key != 'ImgDate') {
 				$strXml .= ' '.$Key.'="'.date("d.m.Y", $Val).'"';
@@ -171,7 +173,7 @@ class PhotoDb extends Website {
 			DateAdded, LastChange, ImgDesc, ImgTitle, Public, DatePublished, 
 			ImgDateOriginal, ImgLat, ImgLng	
 			FROM Images	WHERE Id = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$strXml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -193,7 +195,7 @@ class PhotoDb extends Website {
 		$strXml .= '/>';
 		// themes
 		$Sql = "SELECT ThemeId FROM Images_Themes WHERE ImgId = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$strXml .= '<Themes Id="'.$ImgId.'">';
@@ -205,7 +207,7 @@ class PhotoDb extends Website {
 		$Sql = "SELECT Name, KeywordId FROM Images_Keywords IK
 			INNER JOIN Keywords ON IK.KeywordId = Keywords.Id
 			WHERE ImgId = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$strXml .= '<Keywords Id="'.$ImgId.'">';
@@ -219,7 +221,7 @@ class PhotoDb extends Website {
 			INNER JOIN ScientificNames sn ON isn.ScientificNameId = sn.Id
 			INNER JOIN Sexes ss ON isn.SexId = ss.Id
 			WHERE ImgId = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$strXml .= '<ScientificNames Id="'.$ImgId.'">';
@@ -236,7 +238,7 @@ class PhotoDb extends Website {
 			INNER JOIN Locations_Countries lc ON l.Id = lc.LocationId
 			WHERE ImgId = :ImgId";
 		// AND CountryId = ???
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$strXml .= '<Locations Id="'.$ImgId;
@@ -266,7 +268,7 @@ class PhotoDb extends Website {
 		// TODO: after UpdateAll send updated data back to browser (like Edit), for ex. LocationId would be updated
 		$Xml = new DOMDocument();
 		$Xml->loadXML($XmlData);
-		$this->BeginTransaction();
+		$this->beginTransaction();
 		// update images
 		$Attributes = $Xml->getElementsByTagName('Image')->item(0)->attributes;
 		$ImgId = $Attributes->getNamedItem('Id')->nodeValue;
@@ -278,7 +280,7 @@ class PhotoDb extends Website {
 		}
 		$Sql = rtrim($Sql, ',');
 		$Sql .= " WHERE Id = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Count = 0;
 		foreach ($Attributes as $Attr) {
 			if (strpos($Attr->nodeName, 'Date') !== false && $Attr->nodeName != 'ImgDate') {
@@ -294,12 +296,12 @@ class PhotoDb extends Website {
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$Sql = "UPDATE Images SET LastChange = ".time()." WHERE Id = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		// update images_keywords		
 		$Sql = "DELETE FROM Images_Keywords WHERE ImgId = :ImgId";	// Delete all first -> add current keywords back. User might have deleted keyword, which would not be transmitted
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		if ($Xml->getElementsByTagName('Keywords')->length > 0) {
@@ -307,25 +309,25 @@ class PhotoDb extends Website {
 			$ImgId = $El->getAttribute('Id');
 			$Children = $El->childNodes;
 			$Sql1 = "INSERT INTO Images_Keywords (ImgId, KeywordId) VALUES (:ImgId, :KeywordId)";
-			$Stmt1 = $this->Db->prepare($Sql1);
+			$Stmt1 = $this->db->prepare($Sql1);
 			$Stmt1->bindParam(':ImgId', $ImgId);
 			$Stmt1->bindParam(':KeywordId', $KeywordId);
 			$Sql2 = "INSERT INTO Keywords (Id, Name) VALUES (NULL, :Name)";
-			$Stmt2 = $this->Db->prepare($Sql2);
+			$Stmt2 = $this->db->prepare($Sql2);
 			$Stmt2->bindParam(':Name', $Keyword);
 			$Sql3 = "SELECT KeywordId FROM Images_Keywords WHERE ImgId = :ImgId AND KeywordId = :KeywordId";
-			$Stmt3 = $this->Db->prepare($Sql3);
+			$Stmt3 = $this->db->prepare($Sql3);
 			$Stmt3->bindParam(':ImgId', $ImgId);
 			$Stmt3->bindParam(':KeywordId', $KeywordId);
 			$Sql4 = "SELECT Id FROM Keywords WHERE Name = :Name";
-			$Stmt4 = $this->Db->prepare($Sql4);
+			$Stmt4 = $this->db->prepare($Sql4);
 			$Stmt4->bindParam(':Name', $Keyword);
 			foreach ($Children as $Child) {
 				$KeywordId = $Child->getAttribute('Id');
 				$Keyword = $Child->getAttribute('Name');
 				// 1. Insert into keyword table first if new keyword,e.g no id. and
 				// use (returned) id for table Images_Keywords.
-				// Note: Its possible that there is no id posted, but keyword is already in db -> check name first 
+				// Note: Its possible that there is no id posted, but keyword is already in db -> check name first
 				if ($KeywordId == '') { // new?
 					$Stmt4->execute();
 					if ($Row = $Stmt4->fetch(PDO::FETCH_ASSOC)) {
@@ -333,7 +335,7 @@ class PhotoDb extends Website {
 					}
 					else {
 						$Stmt2->execute();
-						$KeywordId = $this->Db->lastInsertId();
+						$KeywordId = $this->db->lastInsertId();
 					}
 					$Stmt4->closeCursor();
 				}
@@ -350,12 +352,12 @@ class PhotoDb extends Website {
 		// update images_themes
 		$El = $Xml->getElementsByTagName('Themes')->item(0);
 		$Sql = "DELETE FROM Images_Themes WHERE ImgId = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		$Children = $El->childNodes;
 		$Sql = "INSERT INTO Images_Themes (ImgId, ThemeId) VALUES (:ImgId, :ThemeId)";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->bindParam(':ThemeId', $ThemeId);
 		foreach ($Children as $Child) {
@@ -364,14 +366,14 @@ class PhotoDb extends Website {
 		}
 		// update Images_ScientificNames. Note: not every image has a species.
 		$Sql = "DELETE FROM Images_ScientificNames WHERE ImgId = :ImgId";
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		if ($Xml->getElementsByTagName('ScientificNames')->length > 0) {
 			$El = $Xml->getElementsByTagName('ScientificNames')->item(0);		
 			$Children = $El->childNodes;
 			$Sql = "INSERT INTO Images_ScientificNames (ImgId, ScientificNameId, SexId) VALUES (:ImgId, :SpeciesId, :SexId)";
-			$Stmt = $this->Db->prepare($Sql);
+			$Stmt = $this->db->prepare($Sql);
 			$Stmt->bindParam(':ImgId', $ImgId);
 			$Stmt->bindParam(':SpeciesId', $SpeciesId);
 			$Stmt->bindParam(':SexId', $SexId);
@@ -387,7 +389,7 @@ class PhotoDb extends Website {
 		// All queries have to be executed singledly, because resulting records are used as input. -> do not put in one transaction
 		// TODO: consequences for multiuser ?
 		$Sql = "DELETE FROM Images_Locations WHERE ImgId = :ImgId";	// always remove first before setting new locs, maybe user simply wants to remove locs
-		$Stmt = $this->Db->prepare($Sql);
+		$Stmt = $this->db->prepare($Sql);
 		$Stmt->bindParam(':ImgId', $ImgId);
 		$Stmt->execute();
 		if ($Xml->getElementsByTagName('Locations')->length > 0) {
@@ -405,7 +407,7 @@ class PhotoDb extends Website {
 						INNER JOIN Locations_Countries lc ON lc.LocationId = l.Id
 						WHERE Name = :Name AND CountryId = :CountryId
 					";
-					$Stmt = $this->Db->prepare($Sql);
+					$Stmt = $this->db->prepare($Sql);
 					$Stmt->bindParam(':Name', $Name);
 					$Stmt->bindParam(':CountryId', $CountryId);
 					$Stmt->execute();
@@ -414,12 +416,12 @@ class PhotoDb extends Website {
 				 	}
 				 	else {
 						$Sql = "INSERT INTO Locations (Id, Name) VALUES (NULL, :Name)";
-						$Stmt = $this->Db->prepare($Sql);
+						$Stmt = $this->db->prepare($Sql);
 						$Stmt->bindParam(':Name', $Name);
 						$Stmt->execute();
-						$LocationId = $this->Db->lastInsertId();
+						$LocationId = $this->db->lastInsertId();
 						$Sql = "INSERT INTO Locations_Countries (LocationId, CountryId) VALUES (:LocationId, :CountryId)";
-						$Stmt = $this->Db->prepare($Sql);			
+						$Stmt = $this->db->prepare($Sql);
 						$Stmt->bindParam(':LocationId', $LocationId);
 						$Stmt->bindParam(':CountryId', $CountryId);
 						$Stmt->execute();
@@ -428,14 +430,14 @@ class PhotoDb extends Website {
 				// 2. Check if location was not inserted previously into Images_Locations,
 				// because user might have the same location twice in the list. 
 				$Sql = "SELECT LocationId FROM Images_Locations WHERE ImgId = :ImgId AND LocationId = :LocationId";
-				$Stmt = $this->Db->prepare($Sql);
+				$Stmt = $this->db->prepare($Sql);
 				$Stmt->bindParam(':ImgId', $ImgId);
 				$Stmt->bindParam(':LocationId', $LocationId);
 				$Stmt->execute();
 			 	// 3. Insert location into table Images_Locations
 			 	if (!$Row = $Stmt->fetch(PDO::FETCH_ASSOC)) {
 			 		$Sql = "INSERT INTO Images_Locations (ImgId, LocationId) VALUES (:ImgId, :LocationId)";
-			 		$Stmt = $this->Db->prepare($Sql);
+			 		$Stmt = $this->db->prepare($Sql);
 					$Stmt->bindParam(':ImgId', $ImgId);
 					$Stmt->bindParam(':LocationId', $LocationId);
 					$Stmt->execute();
@@ -446,7 +448,7 @@ class PhotoDb extends Website {
 			echo 'success';
 		}
 		else {
-			print_r($this->Db->ErrorInfo());
+			print_r($this->db->ErrorInfo());
 			$this->RollBack();
 			echo 'failed';
 		}
@@ -460,13 +462,13 @@ class PhotoDb extends Website {
 	 */
 	public function delete($ImgId) {
 		$ImgId = preg_replace("/\D/",'', $ImgId);	// allow only numbers
-		$this->BeginTransaction();
-		$this->Db->exec("DELETE FROM Images WHERE Id = $ImgId");
-		$this->Db->exec("DELETE FROM Exif WHERE ImgId = $ImgId");
-		$this->Db->exec("DELETE FROM Images_ScientificNames WHERE ImgId = $ImgId");
-		$this->Db->exec("DELETE FROM Images_Keywords WHERE ImgId = $ImgId");
-	 	$this->Db->exec("DELETE FROM Images_Themes WHERE ImgId = $ImgId");
-		$this->Db->exec("DELETE FROM Images_Locations WHERE ImgId = $ImgId");
+		$this->beginTransaction();
+		$this->db->exec("DELETE FROM Images WHERE Id = $ImgId");
+		$this->db->exec("DELETE FROM Exif WHERE ImgId = $ImgId");
+		$this->db->exec("DELETE FROM Images_ScientificNames WHERE ImgId = $ImgId");
+		$this->db->exec("DELETE FROM Images_Keywords WHERE ImgId = $ImgId");
+	 	$this->db->exec("DELETE FROM Images_Themes WHERE ImgId = $ImgId");
+		$this->db->exec("DELETE FROM Images_Locations WHERE ImgId = $ImgId");
 		if ($this->Commit()) {
 			echo 'success';
 		}
@@ -486,7 +488,7 @@ class PhotoDb extends Website {
 	public function insertExif($ImgId, $Img = null) {
 		if (is_null($Img)) {
 			$Sql = "SELECT ImgFolder, ImgName FROM Images WHERE Id = :ImgId";
-			$Stmt = $this->Db->prepare($Sql);
+			$Stmt = $this->db->prepare($Sql);
 			$Stmt->bindParam(':ImgId', $ImgId);
 			$Stmt->execute();
 			$Row = $Stmt->fetch(PDO::FETCH_ASSOC);
@@ -497,7 +499,7 @@ class PhotoDb extends Website {
 		$Path = $this->getWebRoot().$this->getPath('Img');
 		$arrExif = $Exif->ReadArray($Img, $Path, FOTODB_EXIF_READ_ORIGINAL);
 		if (count($arrExif) > 0) {
-			$this->BeginTransaction();
+			$this->beginTransaction();
 			$SqlTemp = "";
 			$Sql = "INSERT OR REPLACE INTO Exif (ImgId, ";	// deletes row first if conflict occurs
 			foreach ($arrExif as $Key => $Val) {	// column names
@@ -519,14 +521,14 @@ class PhotoDb extends Website {
 				}
 			}
 			$Sql .= rtrim($SqlTemp, ',').");";
-			$Stmt = $this->Db->prepare($Sql);
+			$Stmt = $this->db->prepare($Sql);
 			$Stmt->bindParam(':ImgId', $ImgId);
 			$Stmt->execute();
 			// Use exif date also as column value in Images table. Scanned slides have only
 			// date of scanning, which should not be inserted of course.
 			if ($arrExif['Model'] != 'Nikon SUPER COOLSCAN 5000 ED' && $arrExif['DateOrig'] != '') {	
 				$Sql = 'UPDATE Images SET ImgDateOriginal = :Date WHERE Id = :ImgId';
-				$Stmt = $this->Db->prepare($Sql);
+				$Stmt = $this->db->prepare($Sql);
 				$Stmt->bindParam(':ImgId', $ImgId);
 				$Stmt->bindParam(':Date', strtotime($arrExif['DateOrig']));
 				$Stmt->execute();
@@ -554,7 +556,7 @@ class PhotoDb extends Website {
 					WHERE CountryId = :CountryId";
 				}
 				$Sql .=	" ORDER BY Name ASC";
-				$Stmt = $this->Db->prepare($Sql);
+				$Stmt = $this->db->prepare($Sql);
 				if (!is_null($CountryId)) {
 					$Stmt->bindParam(':CountryId', $CountryId);
 				}
@@ -569,7 +571,7 @@ class PhotoDb extends Website {
 				$Offset = (isset($_POST['start']) && preg_match('/^[0-9]+$/', $_POST['start']) === 1) ? $_POST['start'] : 0;
 				$Sql = "SELECT Id, Name FROM Keywords WHERE Name LIKE '%'||:Query||'%' ORDER BY Name ASC
 					LIMIT :Limit OFFSET :Offset";				
-				$Stmt = $this->Db->prepare($Sql);
+				$Stmt = $this->db->prepare($Sql);
 				$Stmt->bindParam(':Query', $Query);
 				$Stmt->bindParam(':Limit', $Limit);
 				$Stmt->bindParam(':Offset', $Offset);
@@ -585,7 +587,7 @@ class PhotoDb extends Website {
 				$Limit = (isset($_POST['count']) && preg_match('/[0-9]+/', $_POST['count']) !== false) ? $_POST['count'] : 50;
 				$Offset = (isset($_POST['start']) && preg_match('/[0-9]+/', $_POST['start']) !== false) ? $_POST['start'] : 0;
 				$Sql = "SELECT Id, NameDe, NameEn, NameLa FROM ScientificNames WHERE $ColName LIKE '%'||:Query||'%' LIMIT :Limit OFFSET :Offset";				
-				$Stmt = $this->Db->prepare($Sql);
+				$Stmt = $this->db->prepare($Sql);
 				$Stmt->bindParam(':Query', $Query);
 				$Stmt->bindParam(':Limit', $Limit);
 				$Stmt->bindParam(':Offset', $Offset);
@@ -610,7 +612,7 @@ class PhotoDb extends Website {
 	 */
 	public function getNumRec($sql, $colName, $arrBind, $lastPage = null) {
 		$colName = preg_replace('/[^a-zA-Z0-9_\.]/', '', $colName);	// sanitize
-		$expr = "/&?pgNav=[0-9]*|&?sort=[0-9]*|&?numRecPp=[0-9]*/";	// these query vars can change withpout having to reset numRec 
+		$expr = "/&?pgNav=[0-9]*|&?sort=[0-9]*|&?numRecPp=[0-9]*/";	// these query vars can change without having to reset numRec
 		$queryLast = parse_url($lastPage);
 		if (array_key_exists('query', $queryLast)) {
 			$queryLast = preg_replace($expr, '', $queryLast['query']);
@@ -625,7 +627,6 @@ class PhotoDb extends Website {
 		else {
 			$queryCurr = '';
 		}
-
 		if (!isset($_SESSION[$this->getNamespace()]['numRec']) || $queryLast != $queryCurr) {
 			$pattern = '/^SELECT (.|\s)*? FROM/';
 			$sql = preg_replace($pattern, 'SELECT COUNT('.$colName.') numRec FROM', $sql);
