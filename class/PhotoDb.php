@@ -41,7 +41,7 @@ class PhotoDb extends Website {
 				$this->db->exec('PRAGMA full_column_names = 0');
 				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
 				$this->db->sqliteCreateAggregate('GROUP_CONCAT', array($this, 'groupConcatStep'), array($this, 'groupConcatFinalize'));
-				$this->db->sqliteCreateFunction('STRTOTIME', array($this, 'strToTime'));
+				//$this->db->sqliteCreateFunction('STRTOTIME', array($this, 'strToTime'));
 			}
 			catch (PDOException $Error) {
 				echo $Error->getMessage();
