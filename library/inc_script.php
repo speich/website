@@ -26,12 +26,12 @@ $web->setLang($lang);
 if ($lang === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
 	$metaDescription = 'Website von Simon Speich über Fotografie und Webprogrammierung';
-	$metaKeywords = 'Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Foto, Photographie';
+	$metaKeywords = 'Simon Speich, Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Foto, Photographie';
 }
 else {
 	$windowTitle = 'Photography and web programming';
 	$metaDescription = 'Simon Speich\'s website about photography and web programming';
-	$metaKeywords = 'photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
+	$metaKeywords = 'Simon Speich, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
 $web->setWindowTitle('speich.net ::: '.$windowTitle);
 
