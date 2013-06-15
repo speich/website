@@ -17,6 +17,7 @@
 }
 
 #legend {
+	font-size: 10px;
 	display: inline-block;
 	width: 90px;
 	margin-top: 80px;
@@ -256,6 +257,7 @@ require([
 	chartWeight.addAxis("x", xAxis);
 	chartWeight.addAxis("y", {
 		title: 'Gewicht [kg]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 2,
 		max: 6,
 		vertical: true,
@@ -266,6 +268,7 @@ require([
   	chartDiameter.addAxis("x", xAxis);
 	chartDiameter.addAxis("y", {
 		title: 'Durchmesser [mm]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 120,
 		max: 170,
 		vertical: true,
@@ -277,6 +280,7 @@ require([
 	chartLength.addAxis("x", xAxis);
 	chartLength.addAxis("y", {
 		title: 'Länge [mm]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 240,
 		max: 460,
 		vertical: true,
@@ -289,6 +293,7 @@ require([
 	chartRatio.addAxis("x", xAxis);
 	chartRatio.addAxis("y", {
 		title: 'Verhältnis [mm/kg]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 80,
 		max: 170,
 		vertical: true,

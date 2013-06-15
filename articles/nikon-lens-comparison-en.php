@@ -14,13 +14,6 @@
 	height: 245px;
 	display: inline-block;
 }
-
-#legend {
-	display: inline-block;
-	width: 90px;
-	margin-top: 80px;
-	font-family: Verdana, Tahoma, Helvetica, Arial, sans-serif;
-}
 .claro .dgrid { border-width: 1px 0 0 0; }
 #grid.dgrid {
 	height: 800px;
@@ -129,6 +122,7 @@ require([
 			{ label: "focal length/weight [mm/kg]", field: 'r1' }
 		]
 	}, 'grid'),
+
 	chartWeight = new Chart2D('chartWeight', {
 		title: 'Lens Weight'
 	}),
@@ -138,6 +132,7 @@ require([
 	chartLength = new Chart2D('chartLength', {
 		title: 'Lens Length'
 	}),
+
 	chartRatio = new Chart2D('chartRatio', {
 		title: 'Ratio of Focal Length to Weight'
 	}),
@@ -192,6 +187,7 @@ require([
 	xAxis = {
 		title: 'Focal length [mm]',
 		titleOrientation: 'away',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 290,
 		max: 810,
 		majorTicks: true,
@@ -199,13 +195,6 @@ require([
 		minorLabels: false,
 		minorTicks: false
 	};
-
-	grid.renderArray(data);
-	grid.sort('lens', false);
-	chartWeight.setTheme(snet);
-	chartDiameter.setTheme(snet);
-	chartLength.setTheme(snet);
-	chartRatio.setTheme(snet);
 
 	chartWeight.addPlot("default", {
 		type: "Lines",
@@ -223,51 +212,53 @@ require([
 		type: "Lines",
 		markers: true
 	});
+
 	chartWeight.addAxis("x", xAxis);
 	chartWeight.addAxis("y", {
 		title: 'Weight [kg]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 2,
 		max: 6,
 		vertical: true,
 		minorTicks: true,
-		minorTickStep: 0.25,
-		fixed: true
+		minorTickStep: 0.5
 	});
   	chartDiameter.addAxis("x", xAxis);
 	chartDiameter.addAxis("y", {
 		title: 'Diameter [mm]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 120,
 		max: 170,
 		vertical: true,
 		fixUpper: "major",
 		fixLower: "major",
-		minorTicks: true,
-		fixed: false
+		minorTicks: true
 	});
 	chartLength.addAxis("x", xAxis);
 	chartLength.addAxis("y", {
 		title: 'Length [mm]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 240,
 		max: 460,
 		vertical: true,
 		majorTickStep: 50,
 		fixUpper: "major",
 		minorTicks: true,
-		minorTickStep: 10,
-		fixed: false
+		minorTickStep: 10
 	});
 	chartRatio.addAxis("x", xAxis);
 	chartRatio.addAxis("y", {
 		title: 'Ratio [mm/kg]',
+		titleFont: 'normal normal normal 11px Verdana',
 		min: 80,
 		max: 170,
 		vertical: true,
 		majorTickStep: 20,
 		fixUpper: "major",
 		minorTicks: true,
-		minorTickStep: 4,
-		fixed: false
+		minorTickStep: 2
 	});
+
 	chartWeight.addSeries("Nikon", dataSeries1);
 	chartWeight.addSeries("Canon", dataSeries2);
 	chartDiameter.addSeries("Nikon", dataSeries3);
@@ -276,6 +267,11 @@ require([
 	chartLength.addSeries("Canon", dataSeries6);
 	chartRatio.addSeries("Nikon", dataSeries7);
 	chartRatio.addSeries("Canon", dataSeries8);
+
+	chartWeight.setTheme(snet);
+	chartDiameter.setTheme(snet);
+	chartLength.setTheme(snet);
+	chartRatio.setTheme(snet);
 
 	new Tooltip(chartWeight, "default");
 	new Tooltip(chartDiameter, "default");
@@ -286,6 +282,9 @@ require([
 	chartDiameter.render();
 	chartLength.render();
 	chartRatio.render();
+
+	grid.renderArray(data);
+	grid.sort('lens', false);
 });
 
 </script>
