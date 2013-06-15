@@ -1,7 +1,3 @@
-/**
- * Created by Simon Speich, www.speich.net
- * Date: 25.11.2011, v1.1
- */
 define([
 	'dojo/_base/lang',
 	'dojo/_base/declare',

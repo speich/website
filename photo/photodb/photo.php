@@ -14,7 +14,7 @@ else if (isset($_GET['country'])) {
 	$sql.= ", lc.countryId countryId";
 }
 $sql.= ", CASE WHEN i.imgDateOriginal IS NULL THEN
-		(CASE WHEN i.imgDate IS NOT NULL THEN DATETIME(STRTOTIME(i.imgDate), 'unixepoch', 'localtime') END)
+		(CASE WHEN i.imgDate IS NOT NULL THEN DATETIME(i.imgDate, 'unixepoch', 'localtime') END)
 	ELSE DATETIME(i.imgDateOriginal, 'unixepoch', 'localtime') END date
 	FROM Images i";
 if (isset($_GET['theme'])) {

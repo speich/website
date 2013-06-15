@@ -66,10 +66,10 @@ $arrPhotoNav['en'] = array(
 
 $path = $web->getWebRoot().'articles';
 $arrArticleNav['de'] = array(
-	array(1, 'f', 'Alle Artikel', $path.'articles/')
+	array(1, 'f', 'Alle Artikel', $path.'/')
 );
 $arrArticleNav['en'] = array(
-	array(1, 'f', 'All Articles', $path.'articles/')
+	array(1, 'f', 'All Articles', $path.'/')
 );
 
 $path = $web->getWebRoot().'projects';

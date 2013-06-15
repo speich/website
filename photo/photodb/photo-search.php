@@ -7,7 +7,7 @@ if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
 	This way for each hit in a column we get one scorecount and for each search word */
 	$sql = "SELECT score, t1.imgId imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgTitle imgTitle, I.imgDesc imgDesc,
 		CASE WHEN I.imgDateOriginal IS NULL THEN
-			(CASE WHEN I.imgDate IS NOT NULL THEN DATETIME(STRTOTIME(I.imgDate), 'unixepoch', 'localtime') END)
+			(CASE WHEN I.imgDate IS NOT NULL THEN DATETIME(I.imgDate, 'unixepoch', 'localtime') END)
 		ELSE DATETIME(I.imgDateOriginal, 'unixepoch', 'localtime') END date,
 		keywords, locations, themes
 		FROM (

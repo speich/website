@@ -45,7 +45,7 @@ function handleShutdown() {
 // -> use register_shutdown_function() in addition
 ob_start();
 set_error_handler('handleError', E_ALL);
-if ($_SERVER['HTTP_HOST'] !== 'www.speich.net') {	// for some unknown reason this calls eregi() on my server which is deprecated and generates error
+if ($_SERVER['HTTP_HOST'] !== 'www.speich.net') {	// for some unknown reason this calls eregi() on my
 	register_shutdown_function('handleShutdown');
 }
 
