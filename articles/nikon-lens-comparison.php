@@ -65,14 +65,13 @@ entsprechenden Nikon Objektive sind. Für das Gewicht eines Nikon 500mm bekommt 
 <p><a href="/articles/2011/12/05/canon-vs-nikon-teleobjektive-wenn-das-gewicht-eine-hauptrolle-spielt/">Kommentar hinzufügen</a></p>
 <div id="chartRatio" class="chart"></div>
 <div id="chartWeight" class="chart"></div>
-<div id="grid"></div>
 <div id="chartDiameter" class="chart"></div>
 <div id="chartLength" class="chart"></div>
-
+<div id="grid"></div>
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: 'http://ajax.googleapis.com/ajax/libs/dojo/1.7.0/',
+	baseUrl: 'http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/',
 	packages: [
 		{ name: 'dojo', location: 'dojo' },
 		{ name: 'dijit', location: 'dijit' },
@@ -85,7 +84,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',

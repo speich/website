@@ -5,8 +5,7 @@
 <title><?php echo $web->getWindowTitle(); ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="../layout/reset.css" rel="stylesheet" type="text/css">
-<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/claro/claro.css" rel="stylesheet"
-		type="text/css">
+<link href="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -64,14 +63,13 @@
 <p><a href="http://www.speich.net/articles/2011/12/05/canon-vs-nikon-telephoto-lenses-if-weight-plays-a-major-role/">leave a comment</a></p>
 <div id="chartRatio" class="chart"></div>
 <div id="chartWeight" class="chart"></div>
-<div id="grid"></div>
 <div id="chartDiameter" class="chart"></div>
 <div id="chartLength" class="chart"></div>
-
+<div id="grid"></div>
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: 'http://ajax.googleapis.com/ajax/libs/dojo/1.7.0/',
+	baseUrl: 'http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/',
 	packages: [
 		{ name: 'dojo', location: 'dojo' },
 		{ name: 'dijit', location: 'dijit' },
@@ -84,7 +82,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',
@@ -112,19 +110,16 @@ require([
 		{ id: 7, f: 4, w: 3.19, d: 146, l: 383, r1: 157, lens: '500mm f/4L IS II USM ', model: 'Canon', fLength: 500, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_500mm_f_4l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef500_4lisu_c2_60x90.gif' },
 		{ id: 8, f: 4, w: 3.92, d: 168, l: 448, r1: 153, lens: '600mm f/4L IS II USM ', model: 'Canon', fLength: 600, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_600mm_f_4l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef600_4lisu_c2_60x90.gif' },
 		{ id: 10, f: 5.6, w: 4.5, d: 162, l: 461, r1: 177, lens: '800mm f/5.6L IS USM ', model: 'Canon', fLength: 800, link: 'http://www.usa.canon.com/cusa/consumer/products/cameras/ef_lens_lineup/ef_800mm_f_5_6l_is_usm', img: 'http://www.usa.canon.com/CUSA/assets/app/images/product/Camera/ef800_56lisu_cl_hr_60x90.gif' }
-	];
-
-	var store = new Memory({
+	],
+	store = new Memory({
 		data: data
-
-	});
-
-	var grid = declare([Grid, ColumnResizer])({
+	}),
+	grid = declare([Grid, ColumnResizer])({
 		columns: [
-			{ label: 'make', field: 'model', renderCell: function(object, data, td, options) {
+			{ label: 'make', field: 'model', renderCell: function(object, data, td) {
 				td.innerHTML = '<span class="'+ object.model.toLowerCase() + '"></span>' + object.model;
 			} },
-			{ label: "lens", field: 'lens', renderCell: function(object, data, td, options) {
+			{ label: "lens", field: 'lens', renderCell: function(object, data, td) {
 				td.innerHTML = '<a href="' + object.link + '"><img class="thumb" src="' + object.img + '">' + object.lens + '</a>';
 			}},
 			{ label: "aperture", field: 'f' },
@@ -133,73 +128,80 @@ require([
 			{ label: "length [mm]", field: 'l' },
 			{ label: "focal length/weight [mm/kg]", field: 'r1' }
 		]
-	}, 'grid');
-	grid.renderArray(data);
-	grid.sort('lens', false);
-
-	var chartWeight = new Chart2D('chartWeight', {
+	}, 'grid'),
+	chartWeight = new Chart2D('chartWeight', {
 		title: 'Lens Weight'
-	});
-	var chartDiameter = new Chart2D('chartDiameter', {
+	}),
+	chartDiameter = new Chart2D('chartDiameter', {
 		title: 'Lens Diameter'
-	});
-	var chartLength = new Chart2D('chartLength', {
+	}),
+	chartLength = new Chart2D('chartLength', {
 		title: 'Lens Length'
-	});
-	var chartRatio = new Chart2D('chartRatio', {
+	}),
+	chartRatio = new Chart2D('chartRatio', {
 		title: 'Ratio of Focal Length to Weight'
-	});
-
-	var dataSeries1 = new StoreSeries(store, {
+	}),
+	dataSeries1 = new StoreSeries(store, {
 		query: {	model: 'Nikon' }
 	}, {
 		y: 'w',
 		x: 'fLength'
-	});
-	var dataSeries2 = new StoreSeries(store, {
+	}),
+	dataSeries2 = new StoreSeries(store, {
 		query: { model: 'Canon' }
 	}, {
 		y: 'w',
 		x: 'fLength'
-	});
-	var dataSeries3 = new StoreSeries(store, {
+	}),
+	dataSeries3 = new StoreSeries(store, {
 		query: {	model: 'Nikon' }
 	}, {
 		y: 'd',
 		x: 'fLength'
-	});
-	var dataSeries4 = new StoreSeries(store, {
+	}),
+	dataSeries4 = new StoreSeries(store, {
 		query: {	model: 'Canon' }
 	}, {
 		y: 'd',
 		x: 'fLength'
-	});
-
-	var dataSeries5 = new StoreSeries(store, {
+	}),
+	dataSeries5 = new StoreSeries(store, {
 		query: {	model: 'Nikon' }
 	}, {
 		y: 'l',
 		x: 'fLength'
-	});
-	var dataSeries6 = new StoreSeries(store, {
+	}),
+	dataSeries6 = new StoreSeries(store, {
 		query: {	model: 'Canon' }
 	}, {
 		y: 'l',
 		x: 'fLength'
-	});
-	var dataSeries7 = new StoreSeries(store, {
+	}),
+	dataSeries7 = new StoreSeries(store, {
 		query: {	model: 'Nikon' }
 	}, {
 		y: 'r1',
 		x: 'fLength'
-	});
-	var dataSeries8 = new StoreSeries(store, {
+	}),
+	dataSeries8 = new StoreSeries(store, {
 		query: {	model: 'Canon' }
 	}, {
 		y: 'r1',
 		x: 'fLength'
-	});
+	}),
+	xAxis = {
+		title: 'Focal length [mm]',
+		titleOrientation: 'away',
+		min: 290,
+		max: 810,
+		majorTicks: true,
+		majorLabels: true,
+		minorLabels: false,
+		minorTicks: false
+	};
 
+	grid.renderArray(data);
+	grid.sort('lens', false);
 	chartWeight.setTheme(snet);
 	chartDiameter.setTheme(snet);
 	chartLength.setTheme(snet);
@@ -221,38 +223,6 @@ require([
 		type: "Lines",
 		markers: true
 	});
-
-	/*
-	chartWeight.addPlot("Grid", {
-		type: "Grid",
-		hAxis: "x",
-		vAxis: "y",
-		hMajorLines: true,
-		hMinorLines: false,
-		vMajorLines: false,
-		vMinorLines: false
-	});
-	chartDiameter.addPlot("Grid", {
-		type: "Grid",
-		hAxis: "x",
-		vAxis: "y",
-		hMajorLines: true,
-		hMinorLines: false,
-		vMajorLines: false,
-		vMinorLines: false
-	});
-	*/
-	var xAxis = {
-		title: 'Focal length [mm]',
-		titleOrientation: 'away',
-		min: 290,
-		max: 810,
-		majorTicks: true,
-		majorLabels: true,
-		minorLabels: false,
-		minorTicks: false
-	};
-
 	chartWeight.addAxis("x", xAxis);
 	chartWeight.addAxis("y", {
 		title: 'Weight [kg]',
@@ -316,7 +286,6 @@ require([
 	chartDiameter.render();
 	chartLength.render();
 	chartRatio.render();
-
 });
 
 </script>
