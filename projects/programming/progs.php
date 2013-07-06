@@ -19,6 +19,8 @@ function openWin(url, title, x, y) {
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Programmierung</h1>
+<h2>06. Juli 2013, <a href="remoteFileExplorer.php" title="eine Windows Explorer ähnliche Webapplikation">remoteFileExplorer</a></h2>
+<p>Eine Windows Explorer ähnliche Webapplikation zur Verwaltung von Dateien und Verzeichnissen direkt im Browser.</p>
 <h2>04. Nov. 2003, <a href="games/blockedup.php" onclick="return openWin('games/blockedup.php', 'BlockedUp', 680, 600); return false;">BlockedUp, noch ein Arkanoid Klon</a></h2>
 <p>Das Resultat meines ersten Ausflugs in die Gilde der Gameprogrammierer. Ein Game, das online mit dem Browser spielbar und in reinem JavaScript geschrieben ist.</p>
 <ul class="main">
