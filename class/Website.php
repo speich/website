@@ -201,9 +201,9 @@ class Website {
 	 * If second argument is an array, the first array is used to add, the second to delete. Otherwise
 	 * second argument is:
 	 * 1 = add (default), 2 = remove
+	 * @param array $arrQuery
+	 * @param integer|array $modifier
 	 * @return string query string
-	 * @param array [$arrQuery]
-	 * @param integer|array [$modifier]
 	 */
 	public function getQuery($arrQuery = null, $modifier = 1) {
 		if (is_null($arrQuery)) {

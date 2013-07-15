@@ -17,7 +17,7 @@ define([
        		position: "center",
 				titleGap: 10,
        		font: "normal normal normal 9px Verdana, Tahoma, Helvetica, Arial, sans-serif",
-				titleFont: "normal normal normal 11px Verdana, Tahoma, Helvetica, Arial, sans-serif",
+				titleFont: "normal normal normal 10px Verdana, Tahoma, Helvetica, Arial, sans-serif",
        		fontColor: "#000"
    		},
 			majorTick:	{

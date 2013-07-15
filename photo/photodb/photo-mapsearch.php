@@ -15,7 +15,7 @@ if ($showMap === false && isset($_GET['lat1']) && isset($_GET['lat2']) && isset(
 	$lng2 = $_GET['lng2'];
 	$sql = "SELECT Id ImgId, ImgFolder, ImgName, ImgTitle, DateAdded, LastChange, ImgTitle, RatingId,
 	 	CASE WHEN imgDateOriginal IS NULL THEN
-			(CASE WHEN imgDate IS NOT NULL THEN DATETIME(STRTOTIME(imgDate), 'unixepoch', 'localtime') END)
+			(CASE WHEN imgDate IS NOT NULL THEN DATETIME(imgDate, 'unixepoch', 'localtime') END)
 		ELSE DATETIME(imgDateOriginal, 'unixepoch', 'localtime') END date
 		FROM Images";
 	if ($lat1 < $lat2) {
@@ -113,7 +113,7 @@ switch ($web->getHost()) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: Bildarchiv Kartensuche</title>
 <?php require_once '../../layout/inc_head.php' ?>

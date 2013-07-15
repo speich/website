@@ -7,7 +7,11 @@ $db->connect();
 $lastPage = $db->getLastPage();	// to check if we need to reset caching of number of records further below
 $db->setLastPage();
 
+$pageTitle = $sideNav->getActive('linkTxt');
+$pageTitle = $pageTitle[count($pageTitle) - 1];
+
 // searching
+// TODO: use google search instead
 if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
 	$query = mb_ereg_replace('/\W/', '', $_GET['q']);
 	// reset pagedNav to first page and rating to 1 if new query
@@ -31,18 +35,14 @@ $numRecPerPage = isset($_GET['numRecPp']) ? $_GET['numRecPp'] : 14;
 $sqlFilter = '';
 if (isset($_GET['theme'])) {
 	$themeId = preg_replace("/\D*/", '', $_GET['theme']);	// sanitize for security reasons
-	$sql = "SELECT Id, Name FROM Themes WHERE Id = :themeId";
-	$db = new PhotoDb();
-	$db->connect();
-	$stmt = $db->db->prepare($sql);
-	$stmt->bindValue(':themeId', $themeId);
-	$stmt->execute();
-	$theme = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$theme = $theme[0]['Name'];
 	$sqlFilter = " WHERE themeId = $themeId AND";
 }
+else if (isset($_GET['country'])) {
+	$countryId = preg_replace("/\D*/", '', $_GET['country']);	// sanitize for security reasons
+	$sqlFilter = " WHERE countryId = $countryId AND";
+}
 else {
-	$theme = null;
+	//$theme = null;
 	$sqlFilter.= " WHERE";
 }
 $qual = isset($_GET['qual']) ? preg_replace("/\D*/", '', $_GET['qual']) : 3;	// sanitize for security reasons
@@ -100,5 +100,3 @@ foreach ($arrVal as $key => $val) {
 		$mQuality->arrItem[$key]->setActive();
 	}
 }
-
-?>

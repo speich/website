@@ -14,23 +14,24 @@ $incPath.= $path.'/library';
 set_include_path($incPath);
 include_once 'Website.php';
 include_once 'PhotoDb.php';
+include_once 'PhotoDbNav.php';
 include_once 'Menu.php';
 include_once 'PagedNav.php';
 
 $web = new Website();
-$web->setLastUpdate('18.12.2012');
+$web->setLastUpdate('06.07.2013');
 $lang = $web->getLang();
 $web->setLang($lang);
 
 if ($lang === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
 	$metaDescription = 'Website von Simon Speich über Fotografie und Webprogrammierung';
-	$metaKeywords = 'Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Foto, Photographie';
+	$metaKeywords = 'Simon Speich, Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Foto, Photographie';
 }
 else {
 	$windowTitle = 'Photography and web programming';
 	$metaDescription = 'Simon Speich\'s website about photography and web programming';
-	$metaKeywords = 'photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
+	$metaKeywords = 'Simon Speich, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
 $web->setWindowTitle('speich.net ::: '.$windowTitle);
 

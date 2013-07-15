@@ -1,22 +1,26 @@
 <?php
-$mainNav = new Menu();
-$mainNav->cssId = 'menuMain';
+/**************************
+ * main navigation on top *
+ *************************/
+$arrNav = array();
+$arrNav['de'] = array(
+	array(1, 'N','Fotografie', $web->getWebRoot().'photo/photodb/photo.php'),
+	array(2, 'N','Artikel', $web->getWebRoot().'articles/index.php'),
+	array(3, 'N','Projekte', $web->getWebRoot().'projects/programming/progs.php'),
+	array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()),
+	array(6, 'N','Kontakt', $web->getWebRoot().'contact/contact.php'.$web->getQuery())
+);
+
+$arrNav['en'] = array(
+	array(1, 'N','Photography', $web->getWebRoot().'photo/photodb/photo.php'),
+	array(2, 'N','Articles', $web->getWebRoot().'articles/index.php'),
+	array(3, 'N','Projects', $web->getWebRoot().'projects/programming/progs.php'),
+	array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()),
+	array(6, 'N','Contact', $web->getWebRoot().'contact/contact.php'.$web->getQuery())
+);
+
+$mainNav = new Menu('menuMain', null, $arrNav[$web->getLang()]);
 $mainNav->autoActive = true;
-if ($web->getLang() == 'de') {
-	$mainNav->add(array(1, 'N','Fotografie', $web->getWebRoot().'photo/photodb/photo.php'));
-	$mainNav->add(array(2, 'N','Artikel', $web->getWebRoot().'articles/index.php'));
-	$mainNav->add(array(3, 'N','Projekte', $web->getWebRoot().'projects/programming/progs.php'));
-//$mainNav->add(array(4, 'N','Sonstiges', $web->getWebRoot().'other'.$web->getQuery()));
-	$mainNav->add(array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()));
-	$mainNav->add(array(6, 'N','Kontakt', $web->getWebRoot().'contact/contact.php'.$web->getQuery()));
-}
-else {
-	$mainNav->add(array(1, 'N','Photography', $web->getWebRoot().'photo/photodb/photo.php'));
-	$mainNav->add(array(2, 'N','Articles', $web->getWebRoot().'articles/index.php'));
-	$mainNav->add(array(3, 'N','Projects', $web->getWebRoot().'projects/programming/progs.php'));
-	$mainNav->add(array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()));
-	$mainNav->add(array(6, 'N','Contact', $web->getWebRoot().'contact/contact.php'.$web->getQuery()));
-}
 
 // set main menu active according to first (top) directory
 foreach ($mainNav->arrItem as $item) {
@@ -38,90 +42,114 @@ foreach ($mainNav->arrItem as $item) {
 }
 $mainNav->setActive();
 
+
+/******************************
+ * sub navigation to the left *
+ *****************************/
+$path = $web->getWebRoot().'photo/photodb';
+$arrPhotoNav['de'] = array(
+	array(1, 'f', 'Bildarchiv', $path.'/photo.php'),
+	array(2, 1, 'Alle Fotos', $path.'/photo.php'.$web->getQuery(array('theme', 'country', 'pgNav'), 2)),
+	array(3, 'f', 'Bildsuche', $path.'/photo-search.php'.$web->getQuery(array('qt' => 'full'))),
+	array(4, 3, 'Volltext-Suche', $path.'/photo-search.php'.$web->getQuery(array('qt' => 'full'))),
+	array(5, 3, 'Geografische Suche', $path.'/photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))),
+	array(9, 'f', 'Ausrüstung', '/photo/ausruestung.php'.$web->getQuery(array('theme', 'gNav'), 2))
+);
+$arrPhotoNav['en'] = array(
+	array(1, 'f', 'Picture Library', $path.'/photo.php'),
+	array(2, 1, 'All Photos', $path.'/photo.php'.$web->getQuery(array('theme', 'country', 'pgNav'), 2)),
+	array(3, 'f', 'Photo Search', $path.'/photo-search.php'.$web->getQuery(array('qt' => 'full'))),
+	array(4, 3, 'Fulltext Search', $path.'/photo-search.php'.$web->getQuery(array('qt' => 'full'))),
+	array(5, 3, 'Search on Map', $path.'/photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))),
+	array(9, 'f', 'Equipment', '/photo/ausruestung.php'.$web->getQuery(array('theme', 'gNav'), 2))
+);
+
+$path = $web->getWebRoot().'articles';
+$arrArticleNav['de'] = array(
+	array(1, 'f', 'Alle Artikel', $path.'/')
+);
+$arrArticleNav['en'] = array(
+	array(1, 'f', 'All Articles', $path.'/')
+);
+
+$path = $web->getWebRoot().'projects';
+$arrProjectNav['de'] = array(
+	array(1, 'f', 'Programmierung', $path.'/programming/progs.php'.$web->getQuery()),
+	array(2, 'f', 'Musik', $path.'/music/music.php'.$web->getQuery())
+);
+$arrProjectNav['en'] = array(
+	array(1, 'f', 'Programming', $path.'/programming/progs.php'.$web->getQuery()),
+	array(2, 'f', 'Music', $path.'/music/music.php'.$web->getQuery())
+);
+
+$path = $web->getWebRoot().'about';
+$arrPersonNav['de'] = array(
+	array(1, 'f', 'Lebenslauf', $path.'/cv.php'.$web->getQuery()),
+	array(5, 'f', 'Diplomarbeit', $path.'/diplomarbeit.php'.$web->getQuery())
+);
+$arrPersonNav['en'] = array(
+	array(1, 'f', 'Curriculum Vitae', $path.'/cv.php'.$web->getQuery()),
+	array(5, 'f', 'Diploma Thesis', $path.'/diplomarbeit.php'.$web->getQuery())
+);
+
+
 $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
+$photoNav = new PhotoDbNav();
+$photoNav->connect();
+
 switch($mainNav->getActive()) {
 	case 1:
-		createMenuPhoto($sideNav);
+		$photoNav->createMenu($sideNav, $arrPhotoNav[$web->getLang()]);
 		break;
 	case 2:
-		$sideNav->autoActive = false;
-		$sideNav->add(array(1, 'f', 'alle Artikel', $web->getWebRoot().'articles/'));
+		createMenuArticles($web, $sideNav, $arrArticleNav[$web->getLang()]);
+		break;
+	case 3:
+		foreach ($arrProjectNav[$web->getLang()] as $item) {
+			$sideNav->add($item);
+		}
+		break;
+	case 5:
+		foreach ($arrPersonNav[$web->getLang()] as $item) {
+			$sideNav->add($item);
+		}
+		break;
+}
+
+
+/**
+ * Create sub navigation for main menu articles.
+ * @param Website $web
+ * @param Menu $sideNav
+ * @param array $arrArticleNav
+ */
+function createMenuArticles($web, $sideNav, $arrArticleNav) {
+	$sideNav->autoActive = false;
+	$path = $web->getWebRoot().'articles';
+	foreach ($arrArticleNav as $item) {
+		$sideNav->add($item);
+	}
 		$count = 2;
 		if (function_exists('get_categories')) {
 			$categories = get_categories('orderby=name');
 			foreach ($categories as $cat) {
-				$sideNav->add(array($count, 'f', $cat->cat_name, $web->getWebRoot().'articles/?cat='.$cat->cat_ID));
+				$sideNav->add(array($count, 'f', $cat->cat_name, $path.'/?cat='.$cat->cat_ID));
 				$count++;
 			}
 			if (isset($_GET['p'])) {
 				$postId = $_GET['p'];
 				$categories = get_the_category($postId);
 				foreach ($categories as $cat) {
-					$sideNav->setActive($web->getWebRoot().'articles/?cat='.$cat->cat_ID);
+					$sideNav->setActive($path.'/?cat='.$cat->cat_ID);
 				}
 			}
 			else if (isset($_GET['cat'])) {
-				$sideNav->setActive($web->getWebRoot().'articles/?cat='.$_GET['cat']);
+				$sideNav->setActive($path.'/?cat='.$_GET['cat']);
 			}
 			else {
-				$sideNav->setActive($web->getWebRoot().'articles/');
+				$sideNav->setActive($path.'/');
 			}
 		}
-		break;
-	case 3:
-		$sideNav->add(array(1, 'f', 'Programmierung', $web->getWebRoot().'projects/programming/progs.php'.$web->getQuery()));
-		$sideNav->add(array(2, 'f', 'Musik', $web->getWebRoot().'projects/music/music.php'.$web->getQuery()));
-		break;
-	case 5:
-		$sideNav->add(array(1, 'f', 'Lebenslauf', $web->getWebRoot().'about/cv.php'.$web->getQuery()));
-		$sideNav->add(array(5, 'f', 'Diplomarbeit', $web->getWebRoot().'about/diplomarbeit.php'.$web->getQuery()));		break;
 }
-
-/**
- * Creates the sidemenu for the main menu 'Fotografie'
- * @param Menu $sideNav
- */
-function createMenuPhoto($sideNav) {
-	$db = new PhotoDb();
-	$db->connect();
-	$sideNav->autoActive = false;
-	// note: theme id' are used as menu ids
-	$sideNav->add(array(1, 'f', 'Bildarchiv', $db->getWebRoot().'photo/photodb/photo.php'));
-	$sideNav->add(array(2, 1,'Alle Fotos', $db->getWebRoot().'photo/photodb/photo.php'.$db->getQuery(array('theme', 'pgNav'), 2)));
-	$sideNav->add(array(3, 'f', 'Bildsuche', $db->getWebRoot().'photo/photodb/photo-search.php'.$db->getQuery(array('qt' => 'full'))));
-		$sideNav->Add(array(4, 3, 'Volltext-Suche', $db->getWebRoot().'photo/photodb/photo-search.php'.$db->getQuery(array('qt' => 'full'))));
-		$sideNav->Add(array(5, 3, 'Geografische Suche', $db->getWebRoot().'photo/photodb/photo-mapsearch.php'.$db->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))));
-//		$sideNav->Add(array(6, 3, 'Wissenschaftliche Namen', $db->getWebRoot().'photo/photodb/photo-suche.php'.$db->getQuery(array('qt' => 'sci'))));
-//	$sideNav->add(array(7, 'f', 'Bildrechte', $db->getWebRoot().'photo/bildrechte.php'.$db->getQuery(array('theme', 'PgNav'), 2)));
-//	$sideNav->add(array(8, 'f', 'Gallerie', $db->getWebRoot().'photo/photodb/gallerie.php'.$db->getQuery(array('theme', 'PgNav'), 2)));
-	$sideNav->add(array(9, 'f', 'Ausrüstung', $db->getWebRoot().'photo/ausruestung.php'.$db->getQuery(array('theme', 'gNav'), 2)));
-
-	$sql = "SELECT s.Id SubjectAreaId, s.Name SubjectArea, t.Id ThemeId, t.Name Theme FROM SubjectAreas s
-	 INNER JOIN Themes t ON t.SubjectAreaId = s.Id
-	 INNER JOIN Images_Themes It ON t.Id = It.ThemeId
-	 ORDER BY s.Name ASC, t.Name ASC";
-	$rst = $db->db->query($sql);
-	$arrDel = array('pgNav', 'numRec');
-	$lastSubjectArea = null;
-	while ($row = $rst->fetch(PDO::FETCH_ASSOC)) {
-		if ($row['SubjectArea'] != $lastSubjectArea) {
-			$arrAdd = array('theme' => $row['ThemeId']);
-			$link = $db->getWebRoot().'photo/photodb/photo.php'.$db->getQuery($arrAdd, $arrDel);
-			$sideNav->add(array('s'.$row['SubjectAreaId'], 1, htmlspecialchars($row['SubjectArea']), $link));
-		}
-		$arrAdd = array('theme' => $row['ThemeId']);
-		$link = $db->getWebRoot().'photo/photodb/photo.php'.$db->getQuery($arrAdd, $arrDel);
-		$sideNav->add(array('t'.$row['ThemeId'], 's'.$row['SubjectAreaId'], htmlspecialchars($row['Theme']), $link));
-		$lastSubjectArea = $row['SubjectArea'];
-	}
-	$sideNav->setActive();
-	if (isset($_GET['theme'])) {
-		// unset item ('Alle Fotos'), otherwise it would always be active
-		$sideNav->arrItem[2]->setActive(null); // 
-	}
-}
-
-
-?>

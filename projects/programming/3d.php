@@ -3,7 +3,7 @@ require_once '../../library/inc_script.php';
 $sideNav->arrItem[1]->setActive();
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: 3D(HTML) cube in pure JavaScript</title>
 <?php require_once '../../layout/inc_head.php' ?>

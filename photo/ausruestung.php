@@ -1,6 +1,6 @@
 <?php require_once '../library/inc_script.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: Ausrüstung</title>
 <?php require_once '../layout/inc_head.php' ?>
@@ -35,13 +35,17 @@
 <h2>Zubehör</h2>
 <ul class="main">
 <li>Statikopf Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-30-LR&type=3&eq=&desc=BH-30-LR%3a-Compact-ballhead-with-LR&key=it">BH-30-LR Really Right Stuff</a> (23.06.2012)</li>
+<li>Stativkopf Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-55-LR&type=3&eq=&desc=BH-55-LR%3a-Full-sized-ballhead-with-LR&key=it">BH-55 LR Really Right Stuff</a> (21.06.2008)</li>
 <li>Stativkopf von <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>
+<li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT3541LS</a> (10.11.2008)</li>
+<li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT4552TS</a> (22.10.2012)</li>
+<li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT5541LS</a> (22.07.2008)</li>
+<li>Telekonverter TC-14E II (20.10.2008)</li>
 <li><a href="http://www.dawntech.hk/">Dawntec di-GPS Pro</a> (17.06.2011)</li>
 <li>GPS <a href="http://www.solmeta.com/">Solmeta Geotagger N2</a> (23.05.2009 - 2011)</li>
-<li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT3541LS</a> (10.11.2008)</li>
-<li>Telekonverter TC-14E II (20.10.2008)</li>
-<li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT5541LS</a> (22.07.2008)</li>
-<li>Stativkopf Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-55-LR&type=3&eq=&desc=BH-55-LR%3a-Full-sized-ballhead-with-LR&key=it">BH-55 LR Really Right Stuff</a> (21.06.2008)</li>
+<li>Solarpanel <a href="http://www.sistech.com/products-9171-0/default.asp">CHEPRE 18V/18Wp</a> von SIStech (18.08.2012)</li>
+<li>Kameratasche von Tenba <a href="http://www.tenba.com/Products/Vector-Top-Load-2-Krypton-Green.aspx">Vector Topload 2</a> (29.10.2012)</li>
+<li>Peli <a href="http://www.peli.com/fr/cases/im2875-storm-case">Storm Case iM2875</a> (14.09.2012)</li>
 <li>Dia-/Filmscanner <a href="http://www.nikon.ch/de_CH/product/discontinued/film-scanners/2009/super-coolscan-5000">Nikon Super Coolscan 5000ED</a> (28.05.2004)</li>
 <li>Diaeinzug SF- 210</li>
 </ul>

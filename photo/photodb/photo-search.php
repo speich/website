@@ -2,11 +2,12 @@
 require_once 'photoinc.php';
 
 if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
+	$lang = ucfirst($web->getLang());
 	/* For each column in each table create separate UNION and repeat for each search word.
 	This way for each hit in a column we get one scorecount and for each search word */
 	$sql = "SELECT score, t1.imgId imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgTitle imgTitle, I.imgDesc imgDesc,
 		CASE WHEN I.imgDateOriginal IS NULL THEN
-			(CASE WHEN I.imgDate IS NOT NULL THEN DATETIME(STRTOTIME(I.imgDate), 'unixepoch', 'localtime') END)
+			(CASE WHEN I.imgDate IS NOT NULL THEN DATETIME(I.imgDate, 'unixepoch', 'localtime') END)
 		ELSE DATETIME(I.imgDateOriginal, 'unixepoch', 'localtime') END date,
 		keywords, locations, themes
 		FROM (
@@ -30,7 +31,7 @@ if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
 	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT L.Name) locations FROM Images_Locations IL
 		INNER JOIN Locations L ON IL.locationId = L.id
 		GROUP BY imgId) t3 ON t1.imgId = t3.imgId
-	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT T.name) themes FROM Images_Themes IT
+	LEFT JOIN (SELECT	imgId, GROUP_CONCAT(DISTINCT T.Name".$lang.") themes FROM Images_Themes IT
 		INNER JOIN Themes T ON IT.themeId = T.id
 		GROUP BY imgId) t4 ON t1.imgId = t4.imgId
 	LEFT JOIN Exif E ON t1.imgId = E.imgId
@@ -128,7 +129,7 @@ function renderDataList($search, $arrData) {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->getWindowTitle(); ?>: Bildarchiv Fotos Suche</title>
 <?php require_once '../../layout/inc_head.php' ?>

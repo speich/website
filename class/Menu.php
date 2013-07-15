@@ -159,10 +159,10 @@ class Menu extends MenuItem {
 	/**
 	 * Constructs the menu.
 	 * You can provide a 2-dim array with all menu items 
-	 * or use the add method for each item singedly.
-	 * @param string [$cssId] HTMLIdAttribute
-	 * @param string [$cssClass] HTMLClassAttibute
-	 * @param array [$arrItem] array with menu items
+	 * or use the add method for each item singly.
+	 * @param string $cssId HTMLIdAttribute
+	 * @param string $cssClass HTMLClassAttribute
+	 * @param array $arrItem array with menu items
 	 */
 	public function __construct($cssId = null, $cssClass = null, $arrItem = null) {
 		if (!is_null($arrItem)) {
@@ -179,7 +179,7 @@ class Menu extends MenuItem {
 	}
 	
 	/**
-	 * Add a new menu item.	 * 
+	 * Add a new menu item.
 	 * Array has to be in the form of:
 	 * array(id, parentId, linkTxt, optional linkUrl, optional event handler);
 	 * You can add new items to menu as long as you haven't called the render method.
@@ -257,7 +257,8 @@ class Menu extends MenuItem {
 	 * 
 	 * If item's active property is set to null it is not considered in active check.
 	 * 
-	 * @param object $item MenuItem
+	 * @param MenuItem $item
+	 * @param int $pattern
 	 * @return bool|int
 	 */
 	public function checkActive($item, $pattern = null) {
@@ -330,14 +331,15 @@ class Menu extends MenuItem {
 	
 	/**
 	 * Returns id of active menu items.
-	 * Returns an array if there there is more than one item active.  
-	 * @return mixed|false
+	 * Returns an array if there there is more than one item active.
+	 * @param string $property
+	 * @return mixed|bool
 	 */
-	public function getActive() {
+	public function getActive($property = 'id') {
 		$arrActive = array();
 		foreach ($this->arrItem as $item) {
 			if ($item->getActive()) {
-				$arrActive[] = $item->id;
+				$arrActive[] = ($property == 'id' ? $item->id : $item->linkTxt);
 			}
 		}
 		$num = count($arrActive); 

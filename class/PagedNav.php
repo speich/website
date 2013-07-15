@@ -11,7 +11,16 @@ class PagedNav extends Website {
 	private $varNamePgNav = 'pgNav';	// name of variable in querystring to set page number
 	private $varNameNumRecPP = 'numRecPp';	// name of variable in querystringnumber to set # records per page
 	private $formMethod = 'GET';			// default method is GET, e.g use querystring
-		/**	 * Constructs the paged navigation.	 * 	 * Total number of records with given query, e.g. with WHERE clause included.	 * 	 * @param integer $curPageNum Current page to display.	 * @param integer $numRec Total number of records	 * @param integer $numRecPerPage Number of records per page	 */
+	
+	/**
+	 * Constructs the paged navigation.
+	 * 
+	 * Total number of records with given query, e.g. with WHERE clause included.
+	 * 
+	 * @param integer $curPageNum Current page to display.
+	 * @param integer $numRec Total number of records
+	 * @param integer $numRecPerPage Number of records per page
+	 */
 	public function __construct($curPageNum, $numRec, $numRecPerPage) {
 		parent::__construct();
 		$this->curPageNum = $curPageNum;
@@ -23,17 +32,28 @@ class PagedNav extends Website {
 	/**
 	 * Set post method for paged navigation.
 	 * Links can either be GET or POST
-	 * @param string $Method
+	 * @param string $method
 	 */
 	public function setMethod($method) {
 		$this->formMethod = $method;
 	}
-		/**	 * Set the number of links to directly accessible pages.	 * This number has to be even.	 * @param integer $range number of links	 */
+	
+	/**
+	 * Set the number of links to directly accessible pages.
+	 * This number has to be even.
+	 * @param integer $range number of links
+	 */
 	public function setRange($range) { 
 		// TODO: check if even number
 		$this->range = $range;
 	}
-		/**	 * Set how many pages can be skipped.	 *	 * @param integer $stepSmall	 * @param integer $stepBig	 */
+	
+	/**
+	 * Set how many pages can be skipped.
+	 *
+	 * @param integer $stepSmall
+	 * @param integer $stepBig
+	 */
 	public function setStep($stepSmall, $stepBig) {
 		// TODO: check if even number
 		$this->stepSmall = $stepSmall;
@@ -41,7 +61,10 @@ class PagedNav extends Website {
 	}
 	
 	public function setLan($lan) { $this->lan = $lan; }
-		/**	 * Outputs HTML paged data navigation.	 */
+	
+	/**
+	 * Outputs HTML paged data navigation.
+	 */
 	public function printNav() {
 		// prints paged navigation
 		// if form uses POST to submit request then javascript is used to resubmit the form on every page (which is not perfect for usabilty)

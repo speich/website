@@ -5,20 +5,29 @@ require_once 'photoinc.php';
 // join only with theme when we can filter by theme, otherwise we have multiple records per theme (group by imgid is to time expensive)
 // We have to alias all fields since depending on PHP SQLite version short column names is on/off and can't be set.
 $sql = "SELECT * FROM (
-	SELECT I.id imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgTitle imgTitle, dateAdded, lastChange, imgTitle,
-	R.id ratingId, I.imgDateOriginal date ";
+	SELECT DISTINCT i.id imgId, i.imgFolder imgFolder, i.imgName imgName, i.imgTitle imgTitle, dateAdded, lastChange, imgTitle,
+	R.id ratingId, i.imgDateOriginal date ";
 if (isset($_GET['theme'])) {
 	$sql.= ", T.themeId themeId";
 }
-$sql.= ", CASE WHEN I.imgDateOriginal IS NULL THEN
-		(CASE WHEN I.imgDate IS NOT NULL THEN DATETIME(STRTOTIME(I.imgDate), 'unixepoch', 'localtime') END)
-	ELSE DATETIME(I.imgDateOriginal, 'unixepoch', 'localtime') END date
-	FROM Images I";
-if (isset($_GET['theme'])) {
-	$sql.= "	INNER JOIN Images_Themes T ON I.id = T.imgId";
+else if (isset($_GET['country'])) {
+	$sql.= ", lc.countryId countryId";
 }
-$sql.= "	LEFT JOIN rating R ON I.ratingId = R.id
+$sql.= ", CASE WHEN i.imgDateOriginal IS NULL THEN
+		(CASE WHEN i.imgDate IS NOT NULL THEN DATETIME(i.imgDate, 'unixepoch', 'localtime') END)
+	ELSE DATETIME(i.imgDateOriginal, 'unixepoch', 'localtime') END date
+	FROM Images i";
+if (isset($_GET['theme'])) {
+	$sql.= "	INNER JOIN Images_Themes T ON i.id = T.imgId";
+}
+else if (isset($_GET['country'])) {
+	$sql.= "	INNER JOIN Images_Locations il ON i.id = il.imgId
+		INNER JOIN Locations_Countries lc ON il.LocationId = lc.LocationId
+	";
+}
+$sql.= "	LEFT JOIN rating R ON i.ratingId = R.id
 	)";
+
 $stmt = $db->db->prepare($sql.$sqlFilter.$sqlSort." LIMIT :limit OFFSET :offset");
 $stmt->bindValue(':limit', $numRecPerPage);
 $stmt->bindValue(':offset', ($pgNav-1) * $numRecPerPage);
@@ -28,6 +37,11 @@ $numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage
 $pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage);
 $pagedNav->setStep(10, 50);
 
+/**
+ * @param PhotoDb $db
+ * @param array $arrData
+ * @return bool
+ */
 function renderData($db, $arrData) {
 	if (count($arrData) == 0) {
 		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
@@ -71,9 +85,9 @@ function renderData($db, $arrData) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>speich.net Bildarchiv: Fotos<?php echo $theme != '' ? ' '.$theme : ''; ?></title>
+<title>speich.net Bildarchiv: Fotos <?php echo $pageTitle; ?></title>
 <?php require_once '../../layout/inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css" media="screen"/>
@@ -93,7 +107,7 @@ function renderData($db, $arrData) {
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php echo $pagedNav->printNav(); ?>
+<?php $pagedNav->printNav(); ?>
 </div>
 <div class="optionBar">
 <div class="barTxt">Sortierung</div>
@@ -120,7 +134,7 @@ function renderData($db, $arrData) {
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php echo $pagedNav->printNav(); ?>
+<?php $pagedNav->printNav(); ?>
 </div>
 </div>
 <?php require_once 'inc_body_end.php'; ?>
