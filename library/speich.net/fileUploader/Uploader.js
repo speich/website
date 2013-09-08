@@ -487,13 +487,11 @@ define([
 			var dfd = new Deferred();
 			var fileName = file.name || file.fileName;
 			dfd.resolve(self.rememberConfirmDelete);
-			dfd = dfd.then(
-			function(remember) {
+			dfd = dfd.then(function(remember) {
 				if (remember === false) {
 					return self.confirmDelete(fileName);
 				}
-			}).then(
-			function(remember) {
+			}).then(function(remember) {
 				self.rememberConfirmDelete = remember;
 				return self.deleteFile(fileName, bar);
 			}).then(function() {
