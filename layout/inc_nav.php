@@ -61,7 +61,7 @@ $arrPhotoNav['en'] = array(
 	array(3, 'f', 'Photo Search', $path.'/photo-search.php'.$web->getQuery(array('qt' => 'full'))),
 	array(4, 3, 'Fulltext Search', $path.'/photo-search.php'.$web->getQuery(array('qt' => 'full'))),
 	array(5, 3, 'Search on Map', $path.'/photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))),
-	array(9, 'f', 'Equipment', '/photo/ausruestung.php'.$web->getQuery(array('theme', 'gNav'), 2))
+	array(9, 'f', 'Equipment', '/photo/ausruestung-en.php'.$web->getQuery(array('theme', 'gNav'), 2))
 );
 
 $path = $web->getWebRoot().'articles';
