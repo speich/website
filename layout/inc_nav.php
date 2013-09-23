@@ -16,7 +16,7 @@ $arrNav['en'] = array(
 	array(2, 'N','Articles', $web->getWebRoot().'articles/index.php'),
 	array(3, 'N','Projects', $web->getWebRoot().'projects/programming/progs.php'),
 	array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()),
-	array(6, 'N','Contact', $web->getWebRoot().'contact/contact.php'.$web->getQuery())
+	array(6, 'N','Contact', $web->getWebRoot().'contact/contact-en.php'.$web->getQuery())
 );
 
 $mainNav = new Menu('menuMain', null, $arrNav[$web->getLang()]);
