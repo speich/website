@@ -9,10 +9,11 @@
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Contact</h1>
+<p>
 <script type="text/javascript">
-document.write('<p>You can reach me by my e-Mail address <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a>.</p>');
+document.write('You can reach me by my e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> or<br>');
 </script>
-<p>GitHub: <a href="https://github.com/speich" target="_blank">https://github.com/speich</a></p>
+on GitHub: <a href="https://github.com/speich" target="_blank">https://github.com/speich</a></p>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
 </html>
