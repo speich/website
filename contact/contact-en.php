@@ -11,7 +11,7 @@
 <h1>Contact</h1>
 <p>
 <script type="text/javascript">
-document.write('You can reach me by my e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> or<br>');
+document.write('You can reach me by e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> or<br>');
 </script>
 on GitHub: <a href="https://github.com/speich" target="_blank">https://github.com/speich</a></p>
 <?php require_once 'inc_body_end.php'; ?>
