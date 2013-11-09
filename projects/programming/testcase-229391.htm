@@ -1,0 +1,791 @@
+<!DOCTYPE HTML>
+<html lang="en-us">
+<head>
+<title>speich.net +++ Test case for Mozilla bug 229391</title>
+<meta charset="utf-8">
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+h1 { font-size: 12px }
+a {
+	color: #2E7300;
+	cursor: pointer;
+}
+.labelLeft { float: left; width: 100px; }
+fieldset {
+	margin: 8px 0;
+	border-radius: 8px;
+	width: 386px;
+}
+
+input[type="number"] { width: 40px; }
+input:disabled {
+	padding: 2px;
+	border: 1px solid #dddddd;
+	background-color: #eeeeee;
+}
+#log .label { width: 120px; float: left; }
+#viewArea {
+	position: relative;
+	border: 1px solid grey;
+	color: #000000;
+	width: 400px; height: 400px;
+}
+#log {
+	position: absolute;
+	left: 420px;
+}
+#settings { margin-bottom: 10px; }
+#progress { margin-left: 24px; }
+#buttStart {margin-top: 8px; }
+</style>
+</head>
+
+<body>
+<h1>Mozilla Testcase 3D(html) Cube</h1>
+<p>This is the revised (2013) test case for bug <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=229391" target="_blank">229391</a>.<br>
+The <a href="3d.htm">original test case</a> (2004-2008) is also still available.</p>
+<form id="settings">
+<label for="cubeSize" class="labelLeft">size of cube:</label>
+<select id="cubeSize">
+<option value="20">small (369 divs)</option>
+<option value="40" selected="selected">medium (729 divs)</option>
+<option value="80">large (1449 divs)</option>
+</select><br>
+<fieldset>
+<legend>limit by:</legend>
+<label for="limitTime" class="labelLeft">time (seconds)</label>
+<input type="radio" name="limit" id="limitTime" value="time" checked="checked">
+<input type="number" id="numSeconds" placeholder="30" value="30"><br>
+
+<label for="limitIterations" class="labelLeft">iterations (#)</label>
+<input type="radio" name="limit" id="limitIterations" value="iterations">
+<input type="number" id="numIterations" placeholder="50" value="50" disabled="disabled"><br>
+</fieldset>
+<label for="useTimeout">use setTimout():</label>
+<input type="checkbox" id="useTimeout" value="use">
+<input type="number" id="duration" placeholder="0" value="0" disabled="disabled"><br>
+<button id="buttStart">start</button>
+<span id="progress"></span>
+</form>
+<div id="log"><a href="#" id="aClear">clear log</a>
+<div id="msg"></div>
+</div>
+<div id="viewArea"></div>
+<a href="/">www.speich.net</a>
+<script type="text/javascript">
+/********************************************
+ *  Created by Simon Speich, www.speich.net *
+ *  v2.0, 05.10.2013                        *
+ *                                          *
+ *  You can use/change this freely as long  *
+ *  as you keep this note.                  *
+ ********************************************/
+var test = {
+	Q: {	// cube
+		lastPx: 0,
+		numPix: 0,
+		Normal: [],
+		line: []	// holds the lines (edges) connecting the points (vertices)
+	},
+	MTrans: [],	// transformation matrix
+	MCube: [],	// holds position information of cube
+	QEdge: [],	// holds edges
+	I: [],		// identity matrix
+	origin: {
+		V: null	// vector pointing to start drawing
+	},
+	testing: {	// holds test statistics
+		loopCount: 0,
+		loopMax: 50,
+		duration: null,
+		numTotal: 0,
+		startTime: null,
+		timeMax: 0,
+		timeAvg: 0,
+		timeMin: 0,
+		timeTemp: 0,
+		timeInLoop: 0,
+		init: false
+	},
+	loopTimerId: null,	// reference to timer
+	isIE: document.all ? true: false,
+
+	/**
+	 * Draw a line on the canvas between two points.
+	 * @param {Object} from point
+	 * @param {Object} to point
+	 */
+	drawLine: function(from, to) {
+		var x1 = from.V[0],
+		x2 = to.V[0],
+		y1 = from.V[1],
+		y2 = to.V[1],
+		dx = Math.abs(x2 - x1),
+		dy = Math.abs(y2 - y1),
+		x = x1, y = y1,
+		incX1, incY1, incX2, incY2,
+		den, num, numAdd, numPix,
+		el = document.getElementById('viewArea').getElementsByTagName('div'),
+		i = this.Q.lastPx;
+
+		if (x2 >= x1) {
+			incX1 = 1;
+			incX2 = 1;
+		}
+		else {
+			incX1 = -1;
+			incX2 = -1;
+		}
+		if (y2 >= y1) {
+			incY1 = 1;
+			incY2 = 1;
+		}
+		else {
+			incY1 = -1;
+			incY2 = -1;
+		}
+		if (dx >= dy) {
+			incX1 = 0;
+			incY2 = 0;
+			den = dx;
+			num = dx / 2;
+			numAdd = dy;
+			numPix = dx;
+		}
+		else {
+			incX2 = 0;
+			incY1 = 0;
+			den = dy;
+			num = dy / 2;
+			numAdd = dx;
+			numPix = dy;
+		}
+
+		numPix = Math.round(this.Q.lastPx + numPix);
+
+		for (i; i < numPix; i++) {
+			el[i].style.top = y + 'px';
+			el[i].style.left = x + 'px';
+			num += numAdd;
+			if (num >= den) {
+				num -= den;
+				x += incX1;
+				y += incY1;
+			}
+			x += incX2;
+			y += incY2;
+		}
+		this.Q.lastPx = numPix;
+	},
+
+	/**
+	 * Calculate the cross product.
+	 * @param {Array} v0 vector
+	 * @param {Array} v1 vector
+	 * @return {Array} cross product
+	 */
+	calcCross: function(v0, v1) {
+		var cross = [];
+
+		cross[0] = v0[1] * v1[2] - v0[2] * v1[1];
+		cross[1] = v0[2] * v1[0] - v0[0] * v1[2];
+		cross[2] = v0[0] * v1[1] - v0[1] * v1[0];
+
+		return cross;
+	},
+
+	/**
+	 * Calculate the normal.
+	 * @param {Array} v0
+	 * @param {Array} v1
+	 * @param {Array} v2
+	 * @return {Array}
+	 */
+	calcNormal: function(v0, v1, v2) {
+		var A = [], B = [], i, length;
+
+		for (i = 0; i < 3; i++) {
+			A[i] = v0[i] - v1[i];
+			B[i] = v2[i] - v1[i];
+		}
+		A = this.calcCross(A, B);
+
+		// normalize
+		length = Math.sqrt(A[0] * A[0] + A[1] * A[1] + A[2] * A[2]);
+		for (i = 0; i < 3; i++) {
+			A[i] = A[i] / length;
+		}
+		A[3] = 1;
+		return A;
+	},
+
+	/**
+	 * Draw a pixel on the canvas.
+	 * Creates and positions a HTMLDivElement to serve as a pixel.
+	 * Also sets the internal vector to point to the current point.
+	 * @param {Number} x x-coordinate
+	 * @param {Number} y y-coordinate
+	 * @param {Number} z z-coordinate
+	 * @return {Object} vector vector to point
+	 */
+	drawPixel: function(x, y, z) {
+		var el = document.createElement('DIV');
+
+		// this could be simplified by by just setting/having a class, but that would change the behavior of this testcase significantly
+		el.style.top = y + 'px';
+		el.style.left = x + 'px';
+		el.style.visibility = 'visible';
+		el.style.height = '1px';
+		el.style.width = '1px';
+		el.style.margin = '0px';
+		el.style.padding = '0px';
+		el.style.position = 'absolute';
+		el.style.border = '0px';
+		el.style.backgroundColor = '#000000';
+		if (this.isIE) {
+			// needed for ie div size 1px
+			el.style.overflow = 'hidden';
+		}
+		document.getElementById('viewArea').appendChild(el);
+
+		return {
+			V: [x, y, z, 1]
+		}
+	},
+
+	/**
+	 * Multiply two matrices
+	 * @param {Array} M1 matrix
+	 * @param {Array} M2 matrix
+	 * @return {Array}
+	 */
+	MMulti: function(M1, M2) {
+		var M = [
+			[],
+			[],
+			[],
+			[]
+		], i, j;
+
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				M[i][j] = M1[i][0] * M2[0][j] + M1[i][1] * M2[1][j] + M1[i][2] * M2[2][j] + M1[i][3] * M2[3][j];
+			}
+		}
+		return M;
+	},
+
+	/**
+	 * Multiply matrix with vector.
+	 * @param {Array} M matrix
+	 * @param {Array} V vector
+	 * @return {Array}
+	 */
+	VMulti: function(M, V) {
+		var vector = [], i;
+
+		for (i = 0; i < 4; i++) {
+			vector[i] = M[i][0] * V[0] + M[i][1] * V[1] + M[i][2] * V[2] + M[i][3] * V[3];
+		}
+		return vector;
+	},
+
+	/**
+	 * Multiply matrix with vector.
+	 * @param {Array} M matrix
+	 * @param {Array} V vector
+	 * @return {Array}
+	 */
+	VMulti2: function(M, V) {
+		var vector = [];
+		var i = 0;
+		for (; i < 3; i++) {
+			vector[i] = M[i][0] * V[0] + M[i][1] * V[1] + M[i][2] * V[2];
+		}
+		return vector;
+	},
+
+	/**
+	 * Add two matrices.
+	 * @param M1
+	 * @param M2
+	 * @return {Array}
+	 */
+	MAdd: function(M1, M2) {
+		var M = [[], [], [], []],
+			i, j;
+
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				M[i][j] = M1[i][j] + M2[i][j];
+			}
+		}
+		return M;
+	},
+
+	/**
+	 * Translate matrix.
+	 * @param M matrix
+	 * @param dx delta x
+	 * @param dy delta y
+	 * @param dz delta z
+	 * @return {Array}
+	 */
+	translate: function(M, dx, dy, dz) {
+		var T = [
+			[1, 0, 0, dx],
+			[0, 1, 0, dy],
+			[0, 0, 1, dz],
+			[0, 0, 0, 1]
+		];
+		return this.MMulti(T, M);
+	},
+
+	/**
+	 * Rotate matrix on x axis.
+	 * @param M matrix
+	 * @param phi angle
+	 * @return {Array}
+	 */
+	rotateX: function(M, phi) {
+		var a = phi, cos, sin, R;
+
+		a *= Math.PI / 180;
+		cos = Math.cos(a);
+		sin = Math.sin(a);
+		R = [
+			[1, 0, 0, 0],
+			[0, cos, -sin, 0],
+			[0, sin, cos, 0],
+			[0, 0, 0, 1]
+		];
+		return this.MMulti(R, M);
+	},
+
+	/**
+	 * Rotate matrix on y axis
+	 * @param M matrix
+	 * @param phi angle
+	 * @return {Array}
+	 */
+	rotateY: function(M, phi) {
+		var a = phi, cos, sin, R;
+
+		a *= Math.PI / 180;
+		cos = Math.cos(a);
+		sin = Math.sin(a);
+		R = [
+			[cos, 0, sin, 0],
+			[0, 1, 0, 0],
+			[-sin, 0, cos, 0],
+			[0, 0, 0, 1]
+		];
+		return this.MMulti(R, M);
+	},
+
+	/**
+	 * Rotate matrix on z axis
+	 * @param M matrix
+	 * @param phi angle
+	 * @return {Array}
+	 */
+	rotateZ: function(M, phi) {
+		var a = phi, cos, sin, R;
+
+		a *= Math.PI / 180;
+		cos = Math.cos(a);
+		sin = Math.sin(a);
+		R = [
+			[cos, -sin, 0, 0],
+			[sin, cos, 0, 0],
+			[0, 0, 1, 0],
+			[0, 0, 0, 1]
+		];
+		return this.MMulti(R, M);
+	},
+
+	/**
+	 * Draw the cube.
+	 */
+	drawCube: function() {
+		// calc current normals
+		var i, curN = [];
+
+		this.Q.lastPx = 0;
+		for (i = 5; i > -1; i--) {
+			curN[i] = this.VMulti2(this.MCube, this.Q.Normal[i]);
+		}
+		if (curN[0][2] < 0) {
+			if (!this.Q.line[0]) {
+				this.drawLine(this.Q[0], this.Q[1]);
+				this.Q.line[0] = true;
+			}
+			if (!this.Q.line[1]) {
+				this.drawLine(this.Q[1], this.Q[2]);
+				this.Q.line[1] = true;
+			}
+			if (!this.Q.line[2]) {
+				this.drawLine(this.Q[2], this.Q[3]);
+				this.Q.line[2] = true;
+			}
+			if (!this.Q.line[3]) {
+				this.drawLine(this.Q[3], this.Q[0]);
+				this.Q.line[3] = true;
+			}
+		}
+		if (curN[1][2] < 0) {
+			if (!this.Q.line[2]) {
+				this.drawLine(this.Q[3], this.Q[2]);
+				this.Q.line[2] = true;
+			}
+			if (!this.Q.line[9]) {
+				this.drawLine(this.Q[2], this.Q[6]);
+				this.Q.line[9] = true;
+			}
+			if (!this.Q.line[6]) {
+				this.drawLine(this.Q[6], this.Q[7]);
+				this.Q.line[6] = true;
+			}
+			if (!this.Q.line[10]) {
+				this.drawLine(this.Q[7], this.Q[3]);
+				this.Q.line[10] = true;
+			}
+		}
+		if (curN[2][2] < 0) {
+			if (!this.Q.line[4]) {
+				this.drawLine(this.Q[4], this.Q[5]);
+				this.Q.line[4] = true;
+			}
+			if (!this.Q.line[5]) {
+				this.drawLine(this.Q[5], this.Q[6]);
+				this.Q.line[5] = true;
+			}
+			if (!this.Q.line[6]) {
+				this.drawLine(this.Q[6], this.Q[7]);
+				this.Q.line[6] = true;
+			}
+			if (!this.Q.line[7]) {
+				this.drawLine(this.Q[7], this.Q[4]);
+				this.Q.line[7] = true;
+			}
+		}
+		if (curN[3][2] < 0) {
+			if (!this.Q.line[4]) {
+				this.drawLine(this.Q[4], this.Q[5]);
+				this.Q.line[4] = true;
+			}
+			if (!this.Q.line[8]) {
+				this.drawLine(this.Q[5], this.Q[1]);
+				this.Q.line[8] = true;
+			}
+			if (!this.Q.line[0]) {
+				this.drawLine(this.Q[1], this.Q[0]);
+				this.Q.line[0] = true;
+			}
+			if (!this.Q.line[11]) {
+				this.drawLine(this.Q[0], this.Q[4]);
+				this.Q.line[11] = true;
+			}
+		}
+		if (curN[4][2] < 0) {
+			if (!this.Q.line[11]) {
+				this.drawLine(this.Q[4], this.Q[0]);
+				this.Q.line[11] = true;
+			}
+			if (!this.Q.line[3]) {
+				this.drawLine(this.Q[0], this.Q[3]);
+				this.Q.line[3] = true;
+			}
+			if (!this.Q.line[10]) {
+				this.drawLine(this.Q[3], this.Q[7]);
+				this.Q.line[10] = true;
+			}
+			if (!this.Q.line[7]) {
+				this.drawLine(this.Q[7], this.Q[4]);
+				this.Q.line[7] = true;
+			}
+		}
+		if (curN[5][2] < 0) {
+			if (!this.Q.line[8]) {
+				this.drawLine(this.Q[1], this.Q[5]);
+				this.Q.line[8] = true;
+			}
+			if (!this.Q.line[5]) {
+				this.drawLine(this.Q[5], this.Q[6]);
+				this.Q.line[5] = true;
+			}
+			if (!this.Q.line[9]) {
+				this.drawLine(this.Q[6], this.Q[2]);
+				this.Q.line[9] = true;
+			}
+			if (!this.Q.line[1]) {
+				this.drawLine(this.Q[2], this.Q[1]);
+				this.Q.line[1] = true;
+			}
+		}
+		this.Q.line = [false, false, false, false, false, false, false, false, false, false, false, false];
+		this.Q.lastPx = 0;
+	},
+
+	/**
+	 * Animation loop.
+	 * @param {Object} props property bag
+	 */
+	loop: function(props) {
+		var startLoopTime = new Date();
+
+		if (props.checkTermination(props)) {
+			window.clearTimeout(this.loopTimerId);
+			this.testing.duration = new Date() - this.testing.startTime;
+			this.displayResults(props);
+			return;
+		}
+
+		var testing = this.testing,
+			el = document.getElementById('progress'),
+			testingStr;
+
+		this.draw();
+
+		testing.timeTemp = new Date() - startLoopTime;
+		if (testing.timeMin == 0) {	// timeMin is initially set to 0
+			testing.timeMin = testing.timeTemp;
+		}
+		if (testing.timeTemp > testing.timeMax) {
+			testing.timeMax = testing.timeTemp;
+		}
+		if (testing.timeTemp < testing.timeMin) {
+			testing.timeMin = testing.timeTemp;
+		}
+		testing.timeInLoop += testing.timeTemp;
+		testing.loopCount++;
+		if (props.useTimeout) {
+			el.innerHTML = 'Testing ' + (testing.loopCount - 1) + (props.method === 'iterations' ? ' : ' + testing.numTotal : '');
+			this.loopTimerId = window.setTimeout(function() {
+				test.loop(props);
+			}, props.duration);
+		}
+		else {
+			test.loop(props);
+		}
+	},
+
+	/**
+	 * Draw the cube
+	 */
+	draw: function() {
+		var el, i;
+
+		this.MTrans = this.translate(this.I, -this.Q[8].V[0], -this.Q[8].V[1], -this.Q[8].V[2]);
+		this.MTrans = this.rotateX(this.MTrans, 1);
+		this.MTrans = this.rotateY(this.MTrans, 3);
+		this.MTrans = this.rotateZ(this.MTrans, 5);
+		this.MTrans = this.translate(this.MTrans, this.Q[8].V[0], this.Q[8].V[1], this.Q[8].V[2]);
+		this.MCube = this.MMulti(this.MTrans, this.MCube);
+
+		el = document.getElementById('viewArea').getElementsByTagName('DIV');
+		for (i = 8; i > -1; i--) {
+			this.Q[i].V = this.VMulti(this.MTrans, this.Q[i].V);
+			el[i].style.left = Math.round(this.Q[i].V[0]) + 'px';
+			el[i].style.top = Math.round(this.Q[i].V[1]) + 'px';
+		}
+		this.drawCube();
+	},
+
+	/**
+	 * Check if it is time to stop the animation.
+	 */
+	checkTime: function(props) {
+		return new Date() - this.testing.startTime > props.numMilliseconds;
+	},
+
+	 /**
+	  * Check if the animation should be stopped.
+	  */
+	checkIterations: function(props) {
+		return this.testing.loopCount > props.numIterations;
+	},
+
+	/**
+	 * Initialize the test
+	 * @param {Object} props property bag
+	 */
+	init: function(props) {
+		var el, i,
+			frm = document.forms.settings;
+
+		// remove previous elements
+		el = document.getElementById('viewArea').getElementsByTagName('DIV');
+		el.innerHTML = '';
+
+		// transformation matrix
+		this.MTrans = [
+			[1, 0, 0, 0],
+			[0, 1, 0, 0],
+			[0, 0, 1, 0],
+			[0, 0, 0, 1]
+		];
+
+		// position information of cube
+		this.MCube = [
+			[1, 0, 0, 0],
+			[0, 1, 0, 0],
+			[0, 0, 1, 0],
+			[0, 0, 0, 1]
+		];
+
+		// entity matrix
+		this.I = [
+			[1, 0, 0, 0],
+			[0, 1, 0, 0],
+			[0, 0, 1, 0],
+			[0, 0, 0, 1]
+		];
+
+		// create cube corner points
+		this.Q[0] = this.drawPixel(-props.cubeSize, -props.cubeSize, props.cubeSize);
+		this.Q[1] = this.drawPixel(-props.cubeSize, props.cubeSize, props.cubeSize);
+		this.Q[2] = this.drawPixel(props.cubeSize, props.cubeSize, props.cubeSize);
+		this.Q[3] = this.drawPixel(props.cubeSize, -props.cubeSize, props.cubeSize);
+		this.Q[4] = this.drawPixel(-props.cubeSize, -props.cubeSize, -props.cubeSize);
+		this.Q[5] = this.drawPixel(-props.cubeSize, props.cubeSize, -props.cubeSize);
+		this.Q[6] = this.drawPixel(props.cubeSize, props.cubeSize, -props.cubeSize);
+		this.Q[7] = this.drawPixel(props.cubeSize, -props.cubeSize, -props.cubeSize);
+
+		// center of gravity
+		this.Q[8] = this.drawPixel(0, 0, 0);
+
+		// anti-clockwise edge check
+		this.Q.edge = [
+			[0, 1, 2],
+			[3, 2, 6],
+			[7, 6, 5],
+			[4, 5, 1],
+			[4, 0, 3],
+			[1, 5, 6]
+		];
+
+		// calculate quad normals
+		this.Q.Normal = [];
+		for (i = 0; i < this.Q.edge.length; i++) {
+			this.Q.Normal[i] = this.calcNormal(this.Q[this.Q.edge[i][0]].V, this.Q[this.Q.edge[i][1]].V, this.Q[this.Q.edge[i][2]].V);
+		}
+
+		// line drawn ?
+		this.Q.line = [false, false, false, false, false, false, false, false, false, false, false, false];
+
+		// create pixels to draw lines between corner points
+		this.Q.numPx = 9 * 2 * props.cubeSize;
+		for (i = 0; i < this.Q.numPx; i++) {
+			this.drawPixel(0, 0, 0);
+		}
+
+		this.origin.V = props.origin;
+		this.MTrans = this.translate(this.MTrans, this.origin.V[0], this.origin.V[1], this.origin.V[2]);
+		this.MCube = this.MMulti(this.MTrans, this.MCube);
+
+		el = document.getElementById('viewArea').getElementsByTagName('DIV');
+		for (i = 0; i < 9; i++) {
+			this.Q[i].V = this.VMulti(this.MTrans, this.Q[i].V);
+			el[i].style.left = Math.round(this.Q[i].V[0]) + 'px';
+			el[i].style.top = Math.round(this.Q[i].V[1]) + 'px';
+		}
+		this.drawCube();
+
+		// init/reset vars
+		for (var prop in this.testing) {
+			if (this.testing.hasOwnProperty(prop)) {
+				this.testing[prop] = 0;
+			}
+		}
+
+		this.testing.numTotal = frm.numSeconds.disabled ? frm.numIterations.value: frm.numSeconds.value * 1000;
+		this.testing.method = frm.limitTime.checked ? frm.limitTime.value: frm.limitIterations.value;
+		this.testing.size = frm.cubeSize[frm.cubeSize.selectedIndex].text;
+		this.testing.init = true;
+		this.testing.startTime = new Date();
+		this.loop(props);
+	},
+
+	/**
+	 * Display the test results.
+	 * @param {Object} props property bag
+	 */
+	displayResults: function(props) {
+		var t = this.testing;
+
+		t.timeAvg = Math.round(t.timeInLoop / (t.loopCount - 1));
+
+		this.log('<p><span class="label">' + 'test method:</span>' + t.method + (props.useTimeout ? ', using timeout of ' + props.duration : '') + '<br>' +
+			'<span class="label">cube size:</span>' + t.size + '<br>' +
+			'<span class="label">elapsed time:</span>' + t.duration + ' ms<br>' +
+			'<span class="label">time in Loop:</span>' + t.timeInLoop + ' ms<br>' +
+			'<span class="label">average per loop:</span>' + t.timeAvg + ' ms<br>' +
+			'<span class="label">fastest loop:</span>' + t.timeMin + ' ms<br>' +
+			'<span class="label">slowest loop:</span>' + t.timeMax + ' ms<br>' +
+			'<span class="label"># of loops:</span>' + --t.loopCount + '</p>');
+		t.init = false;
+	},
+
+	/**
+	 * Log message.
+	 * @param {String} str
+	 * @param {Boolean} [replace]
+	 */
+	log: function(str, replace) {
+		var msg = document.getElementById('msg');
+
+		if (replace && msg.firstChild) {
+			msg.firstChild.nodeValue = str;
+		}
+		else {
+			msg.innerHTML = str + (replace ? '' : msg.innerHTML);
+		}
+	}
+};
+
+window.onload = function() {
+	var d = document,
+		frm = d.forms.settings;
+
+	frm.limitTime.onclick = function() {
+		frm.numSeconds.disabled = false;
+		frm.numIterations.disabled = true;
+	};
+	frm.limitIterations.onclick = function() {
+		frm.numIterations.disabled = false;
+		frm.numSeconds.disabled = true;
+	};
+	frm.useTimeout.onclick = function() {
+		frm.duration.disabled = !this.checked;
+	};
+	d.getElementById('aClear').onclick = function() {
+		d.getElementById('msg').innerHTML = '';
+	};
+
+	frm.buttStart.addEventListener('click', function(evt) {
+		var props;
+
+		evt.preventDefault();
+		evt.stopPropagation();
+
+		props = {
+			cubeSize: frm.cubeSize.value,
+			origin: [200, 200, 20, 1],
+			useTimeout: frm.useTimeout.checked,
+			numMilliseconds: frm.numSeconds.value * 1000,
+			numIterations: frm.numIterations.value,
+			duration: frm.duration.value,
+			checkTermination: frm.numSeconds.disabled ? function() { return test.checkIterations.call(test, props); } : function() { return test.checkTime.call(test, props); }
+		};
+		test.init(props);
+	});
+}
+</script>
+</body>
+</html>
