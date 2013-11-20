@@ -22,6 +22,7 @@
 <body class="claro rfe">
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>remoteFileExplorer - a Windows Explorer like web application</h1>
+<p>This is a running demo. You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
 <div id="remoteFileExplorer"></div>
 <script type="text/javascript">
 var dojoConfig = {
