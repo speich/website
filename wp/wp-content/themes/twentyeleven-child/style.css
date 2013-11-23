@@ -69,6 +69,7 @@ h1 a, h1 a:visited {
 }
 
 .post {
+	padding-bottom: 8px;
 	border-bottom: 1px solid #cccccc;
 }
 
