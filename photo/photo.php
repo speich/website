@@ -1,0 +1,1 @@
+<?php header('Location: http://www.speich.net/photo/photodb/photo.php');

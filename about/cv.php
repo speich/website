@@ -20,7 +20,7 @@
 }
 
 .tdCvHead {
-	font-size: 1.3em;
+	font-size: 14px;
 	font-weight: normal;
 	color: #2E7300;
 }

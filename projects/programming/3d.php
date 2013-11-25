@@ -97,10 +97,10 @@ function DrawLine(From, To) {
   	NumPix = dy;
 	}
 
-	NumPix = Math.round(Q.LastPx + NumPix);
+	NumPix = Math.round(Q.lastPx + NumPix);
 //	CurPix = Math.round(CurPix);
 	var El = document.getElementById("viewArea").getElementsByTagName("DIV")
-	var i = Q.LastPx;
+	var i = Q.lastPx;
 	for (; i < NumPix; i++) {
 		El[i].style.top = y + "px";
 		El[i].style.left = x + "px";
@@ -113,15 +113,15 @@ function DrawLine(From, To) {
   	x += IncX2;
   	y += IncY2;
 	}
-	Q.LastPx = NumPix;
+	Q.lastPx = NumPix;
 }
 
 function RemoveLinePx() {
 // not working correcly yet
-	var i = Q.LastPx;
+	var i = Q.lastPx;
 	var El = document.getElementById("viewArea").getElementsByTagName("DIV");
 	var i = El.length-1;
-	for (; i >= Q.LastPx; i--) El[i].style.visibility = "hidden";
+	for (; i >= Q.lastPx; i--) El[i].style.visibility = "hidden";
 }
 
 function CalcCross(V0, V1) {
@@ -257,7 +257,7 @@ function DrawQube() {
 	// calc current normals
 	var CurN = new Array();
 	var i = 5;
-	Q.LastPx = 0;
+	Q.lastPx = 0;
 	for (; i > -1; i--) CurN[i] = VMulti2(MQube, Q.Normal[i]);
 
 	if (CurN[0][2] < 0) {
@@ -297,7 +297,7 @@ function DrawQube() {
 		if (!Q.Line[1]) { DrawLine(Q[2], Q[1]); Q.Line[1] = true; };
 	}
 	Q.Line = [false,false,false,false,false,false,false,false,false,false,false,false];
-	Q.LastPx = 0;
+	Q.lastPx = 0;
 }
 
 function GetMousePos(e) {	

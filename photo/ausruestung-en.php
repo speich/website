@@ -37,7 +37,7 @@
 <ul class="main">
 <li>Tripod Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-30-LR&type=3&eq=&desc=BH-30-LR%3a-Compact-ballhead-with-LR&key=it">BH-30-LR Really Right Stuff</a> (23.06.2012)</li>
 <li>Tripod Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-55-LR&type=3&eq=&desc=BH-55-LR%3a-Full-sized-ballhead-with-LR&key=it">BH-55 LR Really Right Stuff</a> (21.06.2008)</li>
-<li>Tripod  by <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>
+<li>Tripod head by <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>
 <li>Tripod <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT3541LS</a> (10.11.2008)</li>
 <li>Tripod <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT4552TS</a> (22.10.2012)</li>
 <li>Tripod <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT5541LS</a> (22.07.2008)</li>

@@ -3,7 +3,6 @@
 <div id="layoutFooterCont">
 <div id="layoutFooter">
 <?php
-
 if ($web->getLang() === 'de') {
 	echo '<p>© 2003-2013 speich.net, Konzept und Programmierung Simon Speich';
 	echo '<span style="float: right;">Letzte Aktualisierung '.$web->getLastUpdate().'</span><p>';
