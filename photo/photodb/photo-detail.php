@@ -253,7 +253,7 @@ function getColor($img) {
 		}
 	}
 }
-$pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitle'] ?></title>
+$pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitle'];
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
