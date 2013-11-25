@@ -258,7 +258,7 @@ $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitl
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><? echo $pageTitle.' - '.$web->getWindowTitle(); ?></title>
+<title><? echo $pageTitle.' | '.$web->getWindowTitle(); ?></title>
 <?php require_once '../../layout/inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
