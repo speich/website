@@ -34,8 +34,5 @@ else {
 	$metaKeywords = 'Simon Speich, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
 $web->setWindowTitle('speich.net ::: '.$windowTitle);
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 include_once 'inc_nav.php';

@@ -82,12 +82,12 @@ function renderData($db, $arrData) {
 	}
 	return true;
 }
-
+$pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>speich.net Bildarchiv: Fotos <?php echo $pageTitle; ?></title>
+<title><? echo $pageTitle ?> ::: speich.net</title>
 <?php require_once '../../layout/inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css" media="screen"/>

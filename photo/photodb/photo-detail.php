@@ -232,33 +232,33 @@ function getColor($img) {
 	// loop through all the pixels and get rgb and luminance
 	for ($i = 0; $i < $imgWidth; $i++) {
 		for ($j = 0; $j < $imgHeight; $j++) {
-			$rgb = imagecolorat($img, $i, $j); 
+			$rgb = imagecolorat($img, $i, $j);
 			$cols = imagecolorsforindex($img, $rgb);
 			$red = $cols['red'];
 			$green = $cols['green'];
 			$blue = $cols['blue'];
 			$luminace = round(0.3 * $red + 0.59 * $green + 0.11 * $blue);
-	
+
 			// calculate the indexes (rounding to the nearest (lowest) 5)
 			$iLuminance = ($luminance - $luminance % 3) / 3;
 			$iRed = ($red - $red % 3) / 3;
 			$iGreen = ($green - $green % 3) / 3;
 			$iBlue = ($blue - $blue % 3) / 3;
-			
-      $arrHist[$iLuminance] += $luminance / $megapixel;    
+
+			$arrHist[$iLuminance] += $luminance / $megapixel;
 			$arrHistR[$iRed] += $red / $megapixel;
-	    $arrHistG[$iGreen] += $green / $megapixel;
-	    $arrHistB[$iBue] += $blue / $megapixel;
+			$arrHistG[$iGreen] += $green / $megapixel;
+			$arrHistB[$iBue] += $blue / $megapixel;
 			print_r($arrHistB);
-	   }
+		}
 	}
 }
-
+$pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitle'] ?></title>
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>speich.net Bildarchiv: Foto <?php echo $photo[0]['imgTitle'] ?></title>
+<title><? echo $pageTitle ?> ::: speich.net</title>
 <?php require_once '../../layout/inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
