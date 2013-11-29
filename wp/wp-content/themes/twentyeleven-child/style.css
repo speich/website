@@ -180,9 +180,9 @@ ol.commentlist {
 .commentlist > li.comment {
     background: none repeat scroll 0 0 #F6F6F6;
     border: 1px solid #DDDDDD;
-    border-radius: 3px;
+    border-radius: 5px;
     margin: 0 0 1.625em;
-    padding: 1.625em;
+    padding: 0.8em;
     position: relative;
 }
 
@@ -204,8 +204,8 @@ ol.commentlist {
 .commentlist .children li.comment {
     background: none repeat scroll 0 0 #FFFFFF;
     border-left: 1px solid #DDDDDD;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 5px 5px 0;
     margin: 1.625em 0 0;
-    padding: 1.625em;
+    padding: 0.8em;
     position: relative;
 }
