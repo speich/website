@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?></title>
+<title>Programmierung | <?php echo $web->getWindowTitle(); ?></title>
 <?php require_once '../../layout/inc_head.php' ?>
 <script type="text/javascript">
 var remote = null;

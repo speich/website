@@ -33,5 +33,6 @@ else {
 	$metaDescription = 'Simon Speich\'s website about photography and web programming';
 	$metaKeywords = 'Simon Speich, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
-$web->setWindowTitle('speich.net ::: '.$windowTitle);
+$web->setWindowTitle('speich.net - '.$windowTitle);
+
 include_once 'inc_nav.php';
