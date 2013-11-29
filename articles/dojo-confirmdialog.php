@@ -5,7 +5,7 @@
 <title><?php echo $web->getWindowTitle(); ?>: dojo confirm dialog</title>
 <meta charset="utf-8">
 <link href="../layout/reset.css" rel="stylesheet" type="text/css">
-<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .dijitDialog {
@@ -24,7 +24,7 @@
 <h1>Confirm dialog with dojo</h1>
 <p>The demo on this page simulates the blocking behavior of JavaScript's native
 <a href="https://developer.mozilla.org/en/DOM/window.confirm">window.confirm()</a> method by using a
-<a href="http://dojotoolkit.org/api/1.6/dojo/Deferred">dojo.Deferred()</a>.</p>
+<a href="http://dojotoolkit.org/reference-guide/1.9/dojo/Deferred.html">dojo.Deferred()</a>.</p>
 <p>The DialogConfirm.show() method is called 6 times in a loop. You can either cancel the loop, press 'OK' on each
 dialog or tick the checkbox and the remaining dialogs will be skipped.</p>
 <p id="startLink">Wait for dojo to load...</p>
@@ -38,15 +38,15 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/array',
 	'dojo/_base/Deferred',
 	'dojo/dom',
 	'dojo/dom-construct',
-	'snet/DialogConfirm'
-], function(array, Deferred, dom, construct, DialogConfirm) {
+	'snet/DialogConfirm/DialogConfirm'
+], function(array, Deferred, dom, domConstruct, DialogConfirm) {
 
 	function startDemo() {
 		var dfds = [];
@@ -58,7 +58,7 @@ require([
 		array.forEach(arr, function(value, i) {
 			dfds[i + 1] = dfds[i].then(function(remember) {
 				if (!remember) {
-					var dialog = new snet.DialogConfirm({
+					var dialog = new DialogConfirm({
 						title: 'Confirm dialog #' + i,
 						duration: 500,
 						content: '<p>I love dojo. I love dojo. I love dojo.</p>'
@@ -76,7 +76,7 @@ require([
 	}
 
 	dom.byId('startLink').innerHTML = '';
-	construct.create('button', {
+	domConstruct.create('button', {
 		'class':'button',
 		innerHTML: '<span>start dialog demo</span>',
 		'onclick': function() {
