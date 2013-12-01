@@ -5,7 +5,7 @@
 $arrNav = array();
 $arrNav['de'] = array(
 	array(1, 'N','Fotografie', $web->getWebRoot().'photo/photodb/photo.php'),
-	array(2, 'N','Artikel', $web->getWebRoot().'articles/index.php'),
+	array(2, 'N','Artikel', $web->getWebRoot().'articles/de/'),
 	array(3, 'N','Projekte', $web->getWebRoot().'projects/programming/progs.php'),
 	array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()),
 	array(6, 'N','Kontakt', $web->getWebRoot().'contact/contact.php'.$web->getQuery())
@@ -13,7 +13,7 @@ $arrNav['de'] = array(
 
 $arrNav['en'] = array(
 	array(1, 'N','Photography', $web->getWebRoot().'photo/photodb/photo.php'),
-	array(2, 'N','Articles', $web->getWebRoot().'articles/index.php'),
+	array(2, 'N','Articles', $web->getWebRoot().'articles/en/'),
 	array(3, 'N','Projects', $web->getWebRoot().'projects/programming/progs.php'),
 	array(5, 'N','Person', $web->getWebRoot().'about/cv.php'.$web->getQuery()),
 	array(6, 'N','Contact', $web->getWebRoot().'contact/contact-en.php'.$web->getQuery())
