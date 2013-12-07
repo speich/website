@@ -166,7 +166,7 @@ class Website {
 	}
 
 	/**
-	 * Returns the current web directory.
+	 * Returns the current web directory without trailing slash.
 	 * @return string
 	 */
 	public function getDir() {
@@ -357,6 +357,10 @@ class Website {
 		return $arr;
 	}
 
+	/**
+	 * Return language string extracted from HTTP header.
+	 * @return bool|string
+	 */
 	public function getLangFromHeader() {
 		$arr = $this->getLangHeader();
 
@@ -370,6 +374,10 @@ class Website {
 		return false;
 	}
 
+	/**
+	 * Return array with languages.
+	 * @return array
+	 */
 	public function getArrLang() {
 		return self::$arrLang;
 	}
@@ -387,35 +395,49 @@ class Website {
 	}
 
 	/**
+	 * Modify $page for language.
+	 * @param string $page
+	 * @param string $lang
+	 * @return string
+	 */
+	public function createLangPage($page, $lang) {
+		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
+		$defaultPage = $page;
+		if (strpos($this->getDir(), '/articles') !== false) {
+			$page = '';
+		}
+		else if ($page === '' || $page === 'default.php') {
+			$page = 'default.php';
+		}
+		else if ($lang !== 'de') {
+			$page = str_replace('.php', '-'.$lang.'.php', $page);
+			if (!file_exists($this->getDocRoot().'/'.$this->getDir().'/'.$page)) {
+				$page = $defaultPage;
+			}
+		}
+		return $page;
+	}
+
+	/**
 	 * Returns a HTML string with links to select the language.
 	 * @return string Html
 	 */
 	public function renderLangNav() {
-		if (strpos($this->getDir(), '/articles') !== false) {
-			return '';
-		}
+		$page = $this->getPage();
 		$str = '';
-		$str .= '<ul id="navLang" class="nav">';
-
+		$str.= '<ul id="navLang" class="nav">';
 		foreach (self::$arrLang as $lang) {
-			$page = $this->getPage();
-			if ($page === '' || $page === 'default.php') {
-				$url = 'default.php';
-			}
-			else {
-				$langDir = str_replace('/'.$this->getLang().'/', '/'.$lang.'/', $this->getDir().'/');
-				$url = $langDir.$this->getPage();
-			}
-			$url = $url.$this->getQuery(array('lang' => $lang));
-
-			$str .= '<li';
+			$page = $this->createLangPage($page, $lang);
+			$url = $this->getDir().'/'.$page.$this->getQuery(array('lang' => $lang));
+			$str.= '<li';
 			if ($lang == $this->getLang()) {
-				$str .= ' class="navActive"';
+				$str.= ' class="navActive"';
 			}
-			$str .= '><a href="'.$url.'" title="'.self::$arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
-			$str .= '</li>';
+			$str.= '><a href="'.$url.'" title="'.self::$arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
+			$str.= '</li>';
 		}
-		$str .= '</ul>';
+		$str.= '</ul>';
+
 		return $str;
 	}
 
