@@ -16,8 +16,8 @@
 <script type="text/javascript">
 document.write('You can reach me by e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a>,<br>');
 </script>
-on <a href="https://github.com/speich" target="_blank">GitHub</a> or on
-<a href="https://plus.google.com/106123818725835286537?rel=author"target="_blank">Google+</a>.</p>
+on <a href="https://github.com/speich" target="_blank">GitHub</a> or
+	<a href="https://plus.google.com/106123818725835286537?rel=author" target="_blank">Google+</a>.</p>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
 </html>

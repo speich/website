@@ -17,7 +17,7 @@
 document.write('Ich bin über die E-Mail Adresse <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> kontaktierbar, <br>');
 </script>
 oder auf <a href="https://github.com/speich" target="_blank">GitHub</a> und
-<a href="https://plus.google.com/106123818725835286537?rel=author"target="_blank">Google+</a> zu finden.</p>
+<a href="https://plus.google.com/106123818725835286537?rel=author" target="_blank">Google+</a> zu finden.</p>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
 </html>
