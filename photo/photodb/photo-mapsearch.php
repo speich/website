@@ -549,7 +549,6 @@ var app = {
 				}
 			});
 			if (markers.length > 0) {
-				console.debug('adding markers', markers)
 				this.manager.addMarkers(markers);
 			}
 		}
