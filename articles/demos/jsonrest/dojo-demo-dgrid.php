@@ -66,7 +66,6 @@ require([
 	'dojo/store/Observable',
 	'dojo/store/Cache',
 	'dojo/store/JsonRest',
-	'dojo/store/util/SimpleQueryEngine',
 	'dgrid/OnDemandGrid',
 	'dgrid/extensions/ColumnResizer',
 	'dojo/_base/declare',
@@ -76,11 +75,11 @@ require([
 	'dojo/dom-style',
 	'dojo/date/locale',
 	'dijit/registry',
-	'speich.net/DialogConfirm',
+	'speich.net/DialogConfirm/DialogConfirm',
 	'xstyle/has-class',
 	'xstyle/css',
 	'put-selector/put'
-], function(when, Memory, Observable, Cache, JsonRest, SimpleQueryEngine, Grid, ColumnResizer, declare, lang, on, dom, domStyle, locale, registry, DialogConfirm) {
+], function(when, Memory, Observable, Cache, JsonRest, Grid, ColumnResizer, declare, lang, on, dom, domStyle, locale, registry, DialogConfirm) {
 
 	var demo = {
 		store: null,
