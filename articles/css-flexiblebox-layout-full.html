@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSS3 Application Layout</title>
+<style type="text/css">
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	height: 75px;
+	min-height: 75px;
+}
+
+footer {
+	height: 25px;
+	min-height: 25px;
+}
+
+main {
+	display: flex;
+	flex-direction: row;
+	flex: auto;
+	border: solid grey;
+	border-width: 1px 0;
+	overflow: hidden;
+}
+
+nav {
+	width: 150px;
+	min-width: 150px;
+}
+
+article {
+	border: solid grey;
+	border-width: 0 0 0 1px;
+	flex: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+aside {
+	width: 50px;
+	min-width: 50px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.splitter {
+	border-left: 1px solid grey;
+	width: 4px;
+	min-width: 4px;
+	cursor: col-resize;
+}
+</style>
+</head>
+
+<body>
+<header>header</header>
+<main>
+	<nav>nav</nav>
+	<article>article</article>
+	<div class="splitter"></div>
+	<aside>aside
+	</aside>
+</main>
+<footer>footer</footer>
+<script type="text/javascript">
+var w = window, d = document, splitter;
+
+splitter = {
+	lastX: 0,
+	leftEl: null,
+	rightEl: null,
+
+	init: function(handler, leftEl, rightEl) {
+		var self = this;
+
+		this.leftEl = leftEl;
+		this.rightEl = rightEl;
+
+		handler.addEventListener('mousedown', function(evt) {
+			evt.preventDefault();	/* prevent text selection */
+
+			self.lastX = evt.clientX;
+
+			w.addEventListener('mousemove', self.drag);
+			w.addEventListener('mouseup', self.endDrag);
+		});
+	},
+
+	drag: function(evt) {
+		var wL, wR, wDiff = evt.clientX - splitter.lastX;
+
+		wL = d.defaultView.getComputedStyle(splitter.leftEl, '').getPropertyValue('width');
+		wR = d.defaultView.getComputedStyle(splitter.rightEl, '').getPropertyValue('width');
+		wL = parseInt(wL, 10) + wDiff;
+		wR = parseInt(wR, 10) - wDiff;
+		splitter.leftEl.style.width = wL + 'px';
+		splitter.rightEl.style.width = wR + 'px';
+
+		splitter.lastX = evt.clientX;
+	},
+
+	endDrag: function() {
+		w.removeEventListener('mousemove', splitter.drag);
+		w.removeEventListener('mouseup', splitter.endDrag);
+	}
+};
+
+splitter.init(d.getElementsByClassName('splitter')[0], d.getElementsByTagName('article')[0], d.getElementsByTagName('aside')[0]);
+</script>
+</body>
+</html>

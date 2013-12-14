@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<title>CSS3 Application Layout</title>
+<style type="text/css">
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+    font-size: 12px;
+}
+
+body {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	height: 75px;
+	min-height: 75px;
+}
+
+footer {
+	height: 25px;
+	min-height: 25px;
+}
+
+main {
+	display: flex;
+	flex-direction: row;
+	flex: auto;
+	border: solid grey;
+	border-width: 1px 0;
+	overflow: hidden;
+}
+
+nav {
+	width: 150px;
+	min-width: 150px;
+}
+
+article {
+	border: solid grey;
+	border-width: 0 0 0 1px;
+	flex: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+aside {
+	width: 50px;
+	min-width: 50px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+</style>
+</head>
+
+<body>
+<header>header</header>
+<main>
+	<nav>
+
+        About Mozilla
+        Mission
+        Forums
+        Governance
+        History
+
+    Our Products
+
+    Software and other innovations designed to advance our mission.
+    Learn More »
+    Get Involved
+
+    Become a volunteer contributor in a number of different areas.
+    Learn More »
+		    articulate a vision for the Internet that Mozilla participants want the Mozilla Foundation to pursue;
+		    speak to people whether or not they have a technical background;
+		    make Mozilla contributors proud of what we're doing and motivate us to continue; and
+		    provide a framework for other people to advance this vision of the Internet.</nav>
+	<article>The Internet is becoming an increasingly important part of our lives.
+	The Mozilla project is a global community of people who believe that openness, innovation, and opportunity are key to the continued health of the Internet. We have worked together since 1998 to ensure that the Internet is developed in a way that benefits everyone. We are best known for creating the Mozilla Firefox web browser.
+	The Mozilla project uses a community-based approach to create world-class open source software and to develop new types of collaborative activities. We create communities of people involved in making the Internet experience better for all of us.
+	As a result of these efforts, we have distilled a set of principles that we believe are critical for the Internet to continue to benefit the public good as well as commercial aspects of life. We set out these principles below.
+	The goals for the Manifesto are to:
+	    articulate a vision for the Internet that Mozilla participants want the Mozilla Foundation to pursue;
+	    speak to people whether or not they have a technical background;
+	    make Mozilla contributors proud of what we're doing and motivate us to continue; and
+	    provide a framework for other people to advance this vision of the Internet.
+	These principles will not come to life on their own. People are needed to make the Internet open and participatory - people acting as individuals, working together in groups, and leading others. The Mozilla Foundation is committed to advancing the principles set out in the Mozilla Manifesto. We invite others to join us and make the Internet an ever better place for everyone. </article>
+	<aside>		    articulate a vision for the Internet that Mozilla participants want the Mozilla Foundation to pursue;
+			    speak to people whether or not they have a technical background;
+			    make Mozilla contributors proud of what we're doing and motivate us to continue; and
+			    provide a framework for other people to advance this vision of the Internet.</aside>
+</main>
+<footer>footer</footer>
+</body>
+</html>
