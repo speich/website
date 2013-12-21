@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
+<title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../layout/reset.css" rel="stylesheet" type="text/css">
 <link href="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">

@@ -3,11 +3,10 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<title><?php echo $web->getWindowTitle(); ?>Remote File Explorer (rfe)</title>
+<title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
 <link rel="stylesheet" type="text/css" href="/library/dojo/1.9.1/dijit/themes/claro/document.css">
 <link rel="stylesheet" type="text/css" href="/library/dojo/1.9.1/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">
-<link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <style type="text/css">
 #remoteFileExplorer {

@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?>: REST with dojo and PHP: Demo</title>
+<title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
 <meta charset="utf-8">
-<link href="../../../layout/reset.css" rel="stylesheet" type="text/css">
 <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/claro/claro.css" rel="stylesheet"
 		type="text/css">
 <link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">

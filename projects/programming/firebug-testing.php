@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?></title>
+<title><?php echo $web->pageTitle; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../../layout/reset.css" rel="stylesheet" type="text/css">
 <link href="../../layout/layout.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var d = document;

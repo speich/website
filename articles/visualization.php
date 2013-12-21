@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?></title>
+<title><?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>
 <meta name="keywords" content="visualization, jsviz, javascript, svg">
 

@@ -70,9 +70,8 @@ else {
    "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?>: REST with Dojo and PHP</title>
+<title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../layout/reset.css" rel="stylesheet" type="text/css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="../library/prettify/prettify.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../library/prettify/prettify.js"></script>
