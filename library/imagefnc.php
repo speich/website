@@ -1,5 +1,7 @@
 <?php
 
+use PhotoDb\PhotoDb;
+
 include '../library/inc_script.php';
 
 if (!isset($_GET['fnc'])) {
@@ -8,7 +10,7 @@ if (!isset($_GET['fnc'])) {
 
 switch($_GET['fnc']) {
 	case 'randDbImg':
-		DisplRandomDbImg($Db);
+		displRandomDbImg($Db, $web->getWebRoot());
 		break;
 	case 'randImg':
 		DisplRandomImg($_SERVER['DOCUMENT_ROOT'].'/layout/images/randhome/');
@@ -18,23 +20,23 @@ switch($_GET['fnc']) {
 
 /**
  * Displays a randomly chosen image from the database.
- * @param photodb $db
+ * @param Photodb $db
+ * @param string $webroot
  */
-function DisplRandomDbImg($db) {
+function displRandomDbImg($db, $webroot) {
 	$sql = "SELECT ImgFolder, ImgName	FROM Images
 		WHERE RatingId = 3
 		ORDER BY RANDOM() LIMIT 1";
-	$stmt = $Db->db->prepare($sql);
+	$stmt = $db->db->prepare($sql);
 	$stmt->execute();
 	$photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$photo = $db->GetWebRoot().$Db->GetPath('Img').$photo[0]['ImgFolder'].'/'.$photo[0]['ImgName'];
+	$photo = $webroot.$db->getPath('img').$photo[0]['ImgFolder'].'/'.$photo[0]['ImgName'];
 	$photo = $_SERVER['DOCUMENT_ROOT'].$photo;
 	$mimeType = exif_imagetype($photo);
 	switch($mimeType) {
 		case 1: $Img = imagecreatefromgif($photo); break;
 		case 2: $Img = imagecreatefromjpeg($photo); break;
 		case 3: $Img = imagecreatefrompng($photo); break;
-		default: return false;
 	}
 	$mimeType = image_type_to_mime_type($mimeType);
 	ob_start();
@@ -47,33 +49,37 @@ function DisplRandomDbImg($db) {
  * Display a random image from a directory.
  * Directory should only contain images. Function
  * does not check for mimetype
- * @param string $Dir directory to sample
+ * @param string $dir directory to sample
  */
-function displRandomImg($Dir) {
-	$Dh = opendir($Dir);
-	while (false !== ($File = readdir($Dh))) {
-    if ($File != '.' && $File != '..') {
-			$Images[] = $File;
+function displRandomImg($dir) {
+	$images = array();
+	$dh = opendir($dir);
+	while (false !== ($file = readdir($dh))) {
+    if ($file != '.' && $file != '..') {
+			$images[] = $file;
 		}
 	}
-	$i = mt_rand(0, count($Images)-1);
-	$photo = $Images[$i];
-	$photo = $Dir.$photo;
-	$MimeType = exif_imagetype($photo);
-	switch($MimeType) {
+	$i = mt_rand(0, count($images)-1);
+	$photo = $images[$i];
+	$photo = $dir.$photo;
+	$mimeType = exif_imagetype($photo);
+	switch($mimeType) {
 		case 1: $Img = imagecreatefromgif($photo); break;
 		case 2: $Img = imagecreatefromjpeg($photo); break;
 		case 3: $Img = imagecreatefrompng($photo); break;
-		default: return false;
 	}
-	$MimeType = image_type_to_mime_type($MimeType);
+	$mimeType = image_type_to_mime_type($mimeType);
 	ob_start();
-	header("Content-Type: ".$MimeType);
+	header("Content-Type: ".$mimeType);
 	readfile($photo);
 	ob_end_flush();	
 }
 
-function DisplPalette($file) {
+/**
+ * @param string $file
+ * @return array|bool
+ */
+function displPalette($file) {
 	$file_img = getImageSize($file);
 	
 	switch ($file_img[2]) {
@@ -136,7 +142,7 @@ $Stmt = $Db->db->prepare($Sql);
 $Stmt->bindValue(':ImgId', $ImgId);
 $Stmt->execute();
 $photo = $Stmt->fetchAll(PDO::FETCH_ASSOC);
-$ImgFile = $Db->GetWebRoot().$Db->GetPath('Img').$photo[0]['ImgFolder'].'/'.$photo[0]['ImgName'];
+$ImgFile = $Db->getWebRoot().$Db->GetPath('Img').$photo[0]['ImgFolder'].'/'.$photo[0]['ImgName'];
 
 
 //start the output buffer

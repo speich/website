@@ -1,4 +1,8 @@
 <?php
+use PhotoDb\PhotoDb;
+use WebsiteTemplate\PagedNav;
+use WebsiteTemplate\Website;
+
 require_once 'photoinc.php';
 
 if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
@@ -54,7 +58,7 @@ if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
 		$stmt->execute();
 		$arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$sql = "SELECT * FROM (".$sql.$sqlFilter." GROUP BY t1.imgId)";
-		$numRec = $db->getNumRec($sql, 'imgId', $arrBind, $lastPage);
+		$numRec = $db->getNumRec($sql, 'imgId', $arrBind, $lastPage, $web);
 	}
 	else {
 		$arrData = array();
@@ -85,17 +89,23 @@ else {
 }
 $sideNav->setActive();
 
-$pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage);
-$pagedNav->setStep(5, 10);
-function renderDataList($search, $arrData) {
+$pagedNav = new PagedNav($numRec, $numRecPerPage);
+
+/**
+ * @param PhotoDb $search
+ * @param $arrData
+ * @param Website $web
+ * @return bool
+ */
+function renderDataList($search, $arrData, $web) {
 	if (count($arrData) == 0) {
 		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
 		return false;
 	}
 	foreach ($arrData as $i) {
 		// image dimensions
-		$imgFile = $search->getWebRoot().$search->getPath('img').'thumbs/'.$i['imgFolder'].'/'.$i['imgName'];
-		$imgSize = getimagesize($search->getDocRoot().$search->getPath('img').$i['imgFolder'].'/'.$i['imgName']);
+		$imgFile = $web->getWebRoot().$search->getPath('img').'thumbs/'.$i['imgFolder'].'/'.$i['imgName'];
+		$imgSize = getimagesize($web->getDocRoot().$search->getPath('img').$i['imgFolder'].'/'.$i['imgName']);
 		if ($imgSize[0] > $imgSize[1]) {
 			$css = 'slideHorizontal';
 			$cssImg = 'slideImgHorizontal';
@@ -121,7 +131,7 @@ function renderDataList($search, $arrData) {
 		echo '<p><span class="PhotoTxtLabel">Themen:</span> '.$i['themes'].'</p>';
 		echo '<p><span class="PhotoTxtLabel">Stichwörter:</span> '.$i['keywords'].'</p>';
 		echo '<p><span class="PhotoTxtLabel">Orte:</span> '.$i['locations'].'</p>';
-		echo '<p class="small"><a href="photo-detail.php'.$search->getQuery(array('imgId' => $i['imgId'])).'">Details</a></p>';
+		echo '<p class="small"><a href="photo-detail.php'.$web->getQuery(array('imgId' => $i['imgId'])).'">Details</a></p>';
 		echo '</div>';
 		echo '</div>';
 	}
@@ -131,8 +141,8 @@ function renderDataList($search, $arrData) {
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?>: Bildarchiv Fotos Suche</title>
-<?php require_once '../../layout/inc_head.php' ?>
+<title><?php echo $web->pageTitle; ?>: Bildarchiv Fotos Suche</title>
+<?php require_once 'inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/tundra/tundra.css"/>
 </head>
@@ -146,7 +156,7 @@ function renderDataList($search, $arrData) {
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php echo $pagedNav->printNav(); ?>
+<?php $pagedNav->printNav($pgNav, $web); ?>
 </div>
 <div class="optionBar">
 <div class="barTxt">Sortierung</div>
@@ -165,7 +175,7 @@ function renderDataList($search, $arrData) {
 </form>
 </div>
 </div>
-<p><?php !is_null($arrData) ? renderDataList($db, $arrData) : 0; ?></p>
+<p><?php !is_null($arrData) ? renderDataList($db, $arrData, $web) : 0; ?></p>
 <div class="toolbar">
 <div class="pagingBar">
 <div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
@@ -173,7 +183,7 @@ function renderDataList($search, $arrData) {
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php echo $pagedNav->printNav(); ?>
+<?php $pagedNav->printNav($pgNav, $web); ?>
 </div>
 </div>
 <?php require_once 'inc_body_end.php'; ?>

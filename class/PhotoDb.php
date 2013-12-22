@@ -1,11 +1,20 @@
 <?php
+namespace PhotoDb;
+
+use DOMDocument;
+use PDO;
+use PDOException;
+use WebsiteTemplate\Website;
+
+require_once 'Website.php';
+
 /**
  * Class to work with SQLite databases.
  * 
  * Creates the photo DB.
  *
  */
-class PhotoDb extends Website {
+class PhotoDb {
 	/** @var PDO|null */
 	public $db = null;
 	// paths are always appended to webroot ('/' or a subfolder) and start therefore with a foldername
@@ -15,13 +24,14 @@ class PhotoDb extends Website {
 	private $pathDb = 'photo/photodb/dbfiles/';
 	private $pathImg = 'photo/photodb/images/';
 	private $execTime = 300;
+	public $webroot;
 	protected $hasActiveTransaction = false;	// keep track of open transactions
 	
 	/**
 	 * @constructor
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct($webroot) {
+		$this->webroot = $webroot;
 		set_time_limit($this->execTime);
 	}
 	
@@ -30,10 +40,9 @@ class PhotoDb extends Website {
 	 * 
 	 * If you set the argument $UseNativeDriver to true the native SQLite driver
 	 * is used instead of PDO.
-	 * @param bool $useNativeDriver
 	 */
-	public function connect($useNativeDriver = false) {
-		$path = $_SERVER['DOCUMENT_ROOT'].$this->getWebRoot().$this->pathDb;
+	public function connect() {
+		$path = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/'.$this->webroot.$this->pathDb;
 		if (is_null($this->db)) {	// check if not already connected to db
 			try {
 				$this->db = new PDO('sqlite:'.$path.'/'.$this->dbName);
@@ -97,7 +106,7 @@ class PhotoDb extends Website {
 	 */
 	public function getPath($name) {
 		switch($name) {
-			case 'webRoot': $path = $this->getWebRoot(); break;	// redudant, but for convenience
+			case 'webroot': $path = $this->webroot; break;	// redudant, but for convenience
 			case 'db': $path = $this->pathDb; break;
 			case 'img': $path = $this->pathImg; break;
 			default: $path = '/';
@@ -113,7 +122,7 @@ class PhotoDb extends Website {
 	 * @return string XML file
 	 */
 	public function insert($Img) {
-		$ImgFolder = str_replace($this->getWebRoot().$this->getPath('Img'), '', $Img);	// remove web images folder path part
+		$ImgFolder = str_replace($this->webroot.'/'.$this->getPath('img'), '', $Img);	// remove web images folder path part
 		$ImgName = substr($ImgFolder, strrpos($ImgFolder, '/') + 1);
 		$ImgFolder = trim(str_replace($ImgName, '', $ImgFolder), '/');
 		$Sql = "INSERT INTO Images (Id, ImgFolder, ImgName, DateAdded, LastChange)
@@ -492,11 +501,11 @@ class PhotoDb extends Website {
 			$Stmt->bindParam(':ImgId', $ImgId);
 			$Stmt->execute();
 			$Row = $Stmt->fetch(PDO::FETCH_ASSOC);
-			$Img = $this->getWebRoot().$this->getPath('Img').$Row['ImgFolder'].'/'.$Row['ImgName'];
+			$Img = $this->webroot.'/'.$this->getPath('img').$Row['ImgFolder'].'/'.$Row['ImgName'];
 		}
 		// Scanned slides have a lot of empty exif data
 		$Exif = new ExifData();
-		$Path = $this->getWebRoot().$this->getPath('Img');
+		$Path = $this->webroot.$this->getPath('Img');
 		$arrExif = $Exif->ReadArray($Img, $Path, FOTODB_EXIF_READ_ORIGINAL);
 		if (count($arrExif) > 0) {
 			$this->beginTransaction();
@@ -608,9 +617,10 @@ class PhotoDb extends Website {
 	 * @param string $colName name of db column to count
 	 * @param array $arrBind array of bind variables
 	 * @param string $lastPage [optional] url of last page
+	 * @param Website $web
 	 * @return integer number of records
 	 */
-	public function getNumRec($sql, $colName, $arrBind, $lastPage = null) {
+	public function getNumRec($sql, $colName, $arrBind, $lastPage = null, $web) {
 		$colName = preg_replace('/[^a-zA-Z0-9_\.]/', '', $colName);	// sanitize
 		$expr = "/&?pgNav=[0-9]*|&?sort=[0-9]*|&?numRecPp=[0-9]*/";	// these query vars can change without having to reset numRec
 		$queryLast = parse_url($lastPage);
@@ -620,14 +630,14 @@ class PhotoDb extends Website {
 		else {
 			$queryLast = '';
 		}
-		$queryCurr = parse_url($this->getUrl());
+		$queryCurr = parse_url($_SERVER['REQUEST_URI']);
 		if (array_key_exists('query', $queryCurr)) {
 			$queryCurr = preg_replace($expr, '', $queryCurr['query']);
 		}
 		else {
 			$queryCurr = '';
 		}
-		if (!isset($_SESSION[$this->getNamespace()]['numRec']) || $queryLast != $queryCurr) {
+		if (!isset($_SESSION[$web->namespace]['numRec']) || $queryLast != $queryCurr) {
 			$pattern = '/^SELECT (.|\s)*? FROM/';
 			$sql = preg_replace($pattern, 'SELECT COUNT('.$colName.') numRec FROM', $sql);
 			$stmt = $this->db->prepare($sql);
@@ -637,13 +647,13 @@ class PhotoDb extends Website {
 			$stmt->execute();			
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 			if ($row) {
-				$_SESSION[$this->getNamespace()]['numRec'] = $row['numRec'];
+				$_SESSION[$web->namespace]['numRec'] = $row['numRec'];
 			}
 			else {
-				$_SESSION[$this->getNamespace()]['numRec'] = 0;
+				$_SESSION[$web->namespace]['numRec'] = 0;
 			}
 		}
-		return $_SESSION[$this->getNamespace()]['numRec'];
+		return $_SESSION[$web->namespace]['numRec'];
 	}
 
 	/**
@@ -655,10 +665,10 @@ class PhotoDb extends Website {
 	 */
 	public function savePref($Name, $Value, $UserId) {
 		if ($this->DbType == 'private') {
-			$Path = $this->getWebRoot().$this->PathDb;
+			$Path = $this->webroot.$this->PathDb;
 		}
 		else {
-			$Path = $this->getWebRoot().$this->PathDbPubl;
+			$Path = $this->webroot.$this->PathDbPubl;
 		}
 		$Path = $_SERVER['DOCUMENT_ROOT'].$Path;
 		try {
@@ -702,10 +712,10 @@ class PhotoDb extends Website {
 	 */
 	public function loadPref($Name, $UserId) {
 		if ($this->DbType == 'private') {
-			$Path = $this->getWebRoot().$this->PathDb;
+			$Path = $this->webroot.$this->PathDb;
 		}
 		else {
-			$Path = $this->getWebRoot().$this->PathDbPubl;
+			$Path = $this->webroot.$this->PathDbPubl;
 		}
 		$Path = $_SERVER['DOCUMENT_ROOT'].$Path;
 		try {

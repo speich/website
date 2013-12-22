@@ -1,22 +1,25 @@
-<?php 
-require_once '../../library/inc_script.php';
+<?php
+use PhotoDb\PhotoDb;
+use WebsiteTemplate\Website;
+
+require_once __DIR__.'/../../library/inc_script.php';
 
 $imgId = isset($_GET['imgId']) ? $_GET['imgId'] : $imgId = 1;
-$db = new PhotoDb();
+$db = new PhotoDb($web->getWebRoot());
 $db->connect();
 
 // this page is accessed from different pages in the menu tree. Set correct menu item to active.
-if (strpos($db->getLastPage(), 'photo-search.php') !== false) {
+if (strpos($web->getLastPage(), 'photo-search.php') !== false) {
 	$sideNav->arrItem[4]->setActive();
 }
-else if (strpos($db->getLastPage(), 'photo-mapsearch.php') !== false) {
+else if (strpos($web->getLastPage(), 'photo-mapsearch.php') !== false) {
 	$sideNav->arrItem[5]->setActive();
 }
 else if (isset($_GET['theme'])) {
 	$themeId = $_GET['theme'];
 	$sideNav->arrItem['t'.$themeId]->setActive();
 }
-else if (strpos($db->getLastPage(), 'photo.php') !== false) {
+else if (strpos($web->getLastPage(), 'photo.php') !== false) {
 	$sideNav->arrItem[2]->setActive();
 }
 $sideNav->setActive();
@@ -61,19 +64,25 @@ $stmt->execute();
 $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Set the right key for Google$gMapKeys API
-switch ($web->getHost()) {
+switch ($web->host) {
 	case 'speich': $gMapKey = 'ABQIAAAA6MsurN7eJBRBQSZMfJtPDRRxMHeuOuyeMMjj_aTZeqIoqzy0_hRIjJTsHI-W0kFc320Tnzs-TmsQYw'; break;
 	case 'www.speich.net': $gMapKey = "ABQIAAAA6MsurN7eJBRBQSZMfJtPDRSLb_wSuHY1Noj7kltgsY8WwZ7CtxQycVmx1PtS5TJKIuhuXgxPt9a-3g"; break;
 	case 'speich.net': $gMapKey = "ABQIAAAA6MsurN7eJBRBQSZMfJtPDRSLb_wSuHY1Noj7kltgsY8WwZ7CtxQycVmx1PtS5TJKIuhuXgxPt9a-3g"; break;
 }
 
-function renderPhoto($data, $db) {
-	$backPage = is_null($db->getLastPage()) ? 'photo.php' : $db->getLastPage();
-	if (strpos($db->getLastPage(), 'photo-mapsearch.php') !== false) {
+/**
+ * Print HTML to display photo detail.
+ * @param $data
+ * @param PhotoDb $db
+ * @param Website $web
+ */
+function renderPhoto($data, $db, $web) {
+	$backPage = is_null($web->getLastPage()) ? 'photo.php' : $web->getLastPage();
+	if (strpos($backPage, 'photo-mapsearch.php') !== false) {
 		$backPage = 'photo-mapsearch.php?'.$_SERVER['QUERY_STRING'];	// when coming from map via js lastPage was not set with latest query vars, use current
 	}
-	$imgFile = $db->getWebRoot().$db->getPath('img').$data['imgFolder'].'/'.$data['imgName'];
-	$imgSize = getimagesize($db->getDocRoot().$db->getPath('img').$data['imgFolder'].'/'.$data['imgName']);
+	$imgFile = $db->webroot.$db->getPath('img').$data['imgFolder'].'/'.$data['imgName'];
+	$imgSize = getimagesize($web->getDocRoot().$db->getPath('img').$data['imgFolder'].'/'.$data['imgName']);
 
 	$star = '';
 	$str = '<img id="RatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
@@ -158,6 +167,10 @@ function renderPhoto($data, $db) {
 	echo '<p style="clear: both"><a href="'.$backPage.'">zurück</a></p>';
 }
 
+/**
+ * @param $file
+ * @return array|bool
+ */
 function displPalette($file) {
 	//$file = $_SERVER['DOCUMENT_ROOT'].$file;
 	$steps = 3;
@@ -198,6 +211,9 @@ function displPalette($file) {
 	return $color_set;	
 }
 
+/**
+ * @param $img
+ */
 function getColor($img) {
 	/*
 	 * Code adapted from CristianoBetta.com
@@ -258,8 +274,8 @@ $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitl
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><? echo $pageTitle.' | '.$web->getWindowTitle(); ?></title>
-<?php require_once '../../layout/inc_head.php' ?>
+<title><? echo $pageTitle.' | '.$web->pageTitle; ?></title>
+<?php require_once 'inc_head.php'; ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .colLeft {
@@ -311,7 +327,7 @@ $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitl
 <body>
 <?php
 require_once 'inc_body_begin.php';
-renderPhoto($photo[0], $db);
+renderPhoto($photo[0], $db, $web);
 require_once 'inc_body_end.php';
 ?>
 

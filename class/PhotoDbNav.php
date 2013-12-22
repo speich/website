@@ -1,6 +1,18 @@
 <?php
+namespace PhotoDb;
+
+
+use WebsiteTemplate\Menu;
+use WebsiteTemplate\Language;
+use PDO;
+use PDOStatement;
+
+
 require_once 'PhotoDb.php';
 
+/**
+ * Class PhotoDbNav
+ */
 class PhotoDbNav extends PhotoDb {
 
 	/**
@@ -34,27 +46,28 @@ class PhotoDbNav extends PhotoDb {
 	 * Creates the side menu photography for the main menu.
 	 * @param Menu $sideNav
 	 * @param array $items menu items to add
+	 * @param Language $web
 	 */
-	public function createMenu($sideNav, $items) {
+	public function createMenu($sideNav, $items, $web) {
 		$sideNav->autoActive = false;
 		foreach($items as $item) {
 			$sideNav->add($item);
 		}
 
-		$lang = ucfirst($this->getLang());
+		$lang = ucfirst($web->getLang());
 		$themes = $this->get($lang);
 		$arrQueryDel = array('country', 'theme', 'pgNav', 'numRec', 'lang');
-		$path = $this->getWebRoot().'photo/photodb/photo.php';
+		$path = $web->getWebRoot().'photo/photodb/photo.php';
 		$lastMenuId = null;
 		while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {
 			$arrQueryAdd = array($row['queryField'] => $row['queryValue']);
 			// subject areas
 			if ($row['menuId'] != $lastMenuId) {
-				$link = $path.$this->getQuery($arrQueryAdd, $arrQueryDel);
+				$link = $path.$web->getQuery($arrQueryAdd, $arrQueryDel);
 				$sideNav->add(array($row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link));
 			}
 			$arrQueryAdd = array($row['queryField'] => $row['queryValue']);
-			$link = $path.$this->getQuery($arrQueryAdd, $arrQueryDel);
+			$link = $path.$web->getQuery($arrQueryAdd, $arrQueryDel);
 			$sideNav->add(array($row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link));
 
 			$lastMenuId = $row['menuId'];

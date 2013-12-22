@@ -1,4 +1,6 @@
 <?php
+use Website\PagedNav;
+
 require_once 'photoinc.php';
 
 if (isset($_GET['showMap']) && $_GET['showMap'] === '0') {
@@ -42,7 +44,7 @@ if ($showMap === false && isset($_GET['lat1']) && isset($_GET['lat2']) && isset(
 	$stmt->execute();
 	$arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$sqlWrapper = "SELECT * FROM (".$sql.$sqlFilter.")"; // needed for getNumRec to work
-	$numRec = $db->getNumRec($sqlWrapper, 'ImgId', $arrBind, $lastPage);
+	$numRec = $db->getNumRec($sqlWrapper, 'ImgId', $arrBind, $lastPage, $web);
 }
 else {
 	$query = null;
@@ -53,7 +55,7 @@ else {
 $sideNav->arrItem[5]->setActive();
 $sideNav->setActive();
 
-$pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage);
+$pagedNav = new PagedNav($web, $pgNav, $numRec, $numRecPerPage);
 $pagedNav->setStep(5, 10);
 
 function renderData($db, $arrData) {
@@ -65,8 +67,8 @@ function renderData($db, $arrData) {
 	$num = count($arrData) - 1;
 	foreach ($arrData as $i) {
 		// image dimensions
-		$imgFile = $db->getWebRoot().$db->getPath('img').'thumbs/'.$i['ImgFolder'].'/'.$i['ImgName'];
-		$imgSize = getimagesize($db->getDocRoot().$db->getPath('img').$i['ImgFolder'].'/'.$i['ImgName']);
+		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$i['ImgFolder'].'/'.$i['ImgName'];
+		$imgSize = getimagesize($_SERVER['DOCUMENT_ROOT'].$db->getPath('img').$i['ImgFolder'].'/'.$i['ImgName']);
 		$imgTitleShort = $imgTitle = $i['ImgTitle'];
 		if (strlen($imgTitle) > 20) {
 			$imgTitleShort = substr($imgTitle, 0, 20)."...";
@@ -99,7 +101,7 @@ function renderData($db, $arrData) {
 }
 
 // Set the right key for Google$gMapKeys API
-switch ($web->getHost()) {
+switch ($web->host) {
 	case 'speich':
 		$gMapKey = 'ABQIAAAA6MsurN7eJBRBQSZMfJtPDRRxMHeuOuyeMMjj_aTZeqIoqzy0_hRIjJTsHI-W0kFc320Tnzs-TmsQYw';
 		break;
@@ -115,8 +117,8 @@ switch ($web->getHost()) {
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->getWindowTitle(); ?>: Bildarchiv Kartensuche</title>
-<?php require_once '../../layout/inc_head.php' ?>
+<title><?php echo $web->pageTitle; ?>: Bildarchiv Kartensuche</title>
+<?php require_once 'inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dijit/themes/tundra/tundra.css"/>
 <style type="text/css">

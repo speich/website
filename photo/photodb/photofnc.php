@@ -1,8 +1,8 @@
 <?php
-require_once '../../library/inc_script.php';
+require_once __DIR__.'/../../library/inc_script.php';
 require_once 'Search.php';
 
-$search = new Search();
+$search = new Search($web->webroot);
 $search->connect();
 
 if (isset($_GET['fnc'])) {
@@ -22,5 +22,3 @@ else {
 	echo 'query fnc is missing';
 	exit;
 }
-
-?>

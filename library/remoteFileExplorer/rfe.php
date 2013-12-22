@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="/dojo/1.9.1/dijit/themes/claro/document.css">
 <link rel="stylesheet" type="text/css" href="/dojo/1.9.1/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/dgrid/css/skins/claro.css">
-<link rel="stylesheet" href="/js/resources/reset.css">
 <link rel="stylesheet" href="/js/resources/rfe.css">
 </head>
 

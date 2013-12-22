@@ -1,11 +1,14 @@
 <?php
-require_once '../../library/inc_script.php';
+use PhotoDb\PhotoDb;
+use WebsiteTemplate\Menu;
+
+require_once __DIR__.'/../../library/inc_script.php';
 require_once 'PhotoDb.php';
 
-$db = new PhotoDb();
+$db = new PhotoDb($web->getWebRoot());
 $db->connect();
-$lastPage = $db->getLastPage();	// to check if we need to reset caching of number of records further below
-$db->setLastPage();
+$lastPage = $web->getLastPage();	// to check if we need to reset caching of number of records further below
+$web->setLastPage();
 
 $pageTitle = $sideNav->getActive('linkTxt');
 $pageTitle = $pageTitle[count($pageTitle) - 1];
@@ -73,7 +76,7 @@ $arrVal = array(7, 14, 21, 28, 56);
 $mRecPp = new Menu(null, 'ulMenu1 mRecPp');
 $mRecPp->add(array('a', 'b', $numRecPerPage));
 foreach ($arrVal as $key => $val) {
-	$url = $db->getPage().$db->getQuery(array('numRecPp' => $val), $arrDel);
+	$url = $web->page.$web->getQuery(array('numRecPp' => $val), $arrDel);
 	$mRecPp->add(array($key, 'a', $val, $url));
 	if ($numRecPerPage == $val) {
 		$mRecPp->arrItem[$key]->setActive();
@@ -83,18 +86,18 @@ $arrVal = array(4 => 'Titel', 1 => 'hinzugefügt', 2 => 'erstellt', 3 => 'zuletz
 $mSort = new Menu(null, 'ulMenu1 mSort');
 $mSort->add(array('a', 'b', $arrVal[$sort]));
 foreach ($arrVal as $key => $val) {
-	$url = $db->getPage().$db->getQuery(array('sort' => $key), $arrDel);
+	$url = $web->page.$web->getQuery(array('sort' => $key), $arrDel);
 	$mSort->add(array($key, 'a', $val, $url));
 	if ($sort == $key) {
 		$mSort->arrItem[$key]->setActive();
 	}
 }
-$star = '<img class="imgRatingStar" src="'.$db->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image"/>';
+$star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image"/>';
 $arrVal = array(3 => $star.$star.$star, 2 => $star.$star, 1 => $star);
 $mQuality = new Menu(null, 'ulMenu1 mQuality');
 $mQuality->add(array('a', 'b', $arrVal[$qual], null, null, 'rating '.$qual));
 foreach ($arrVal as $key => $val) {
-	$url = $db->getPage().$db->getQuery(array('qual' => $key), $arrDel);
+	$url = $web->page.$web->getQuery(array('qual' => $key), $arrDel);
 	$mQuality->add(array($key, 'a', $val, $url, null, 'rating '.$key));
 	if ($qual == $key) {
 		$mQuality->arrItem[$key]->setActive();

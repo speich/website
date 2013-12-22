@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>Temporal and Spatial Pattern of Nocturnal Bird Migration | <?php echo $web->getWindowTitle(); ?></title>
+<title>Temporal and Spatial Pattern of Nocturnal Bird Migration | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>
 <style type="text/css">
 h2 { margin-bottom: 20px; }

@@ -1,8 +1,10 @@
 <?php
-require_once ('PhotoDb.php');
+use PhotoDb\PhotoDb;
+
+require_once 'PhotoDb.php';
 
 /**
- * Provides full text search capabilites to photodb.
+ * Provides full text search capabilities to photodb.
  */
 class Search extends PhotoDb {
 	private $sql = '';	// store sql used for searching and getting number of records
@@ -11,8 +13,8 @@ class Search extends PhotoDb {
 	/**
 	 * Constructs the Search object.
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct($webroot) {
+		parent::__construct($webroot);
 	}
 	
 	/**
@@ -45,5 +47,3 @@ class Search extends PhotoDb {
 		return $arrData;
 	}
 }
-
-?>

@@ -1,27 +1,30 @@
 <?php
+use WebsiteTemplate\Language;
+
 session_start();
 set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');
-ini_set('default_charset', 'utf-8');
 
-$webroot = '';
+$webroot = '/';
 
 // make include paths available to pages independent on subdir they reside in
-$path = $_SERVER['DOCUMENT_ROOT'].$webroot;
+$path = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).$webroot;
 $incPath = $path.'/class'.PATH_SEPARATOR;
 $incPath.= $path.'/layout'.PATH_SEPARATOR;
 $incPath.= $path.'/library';
 set_include_path($incPath);
-include_once 'Website.php';
+include_once 'Language.php';
 include_once 'PhotoDb.php';
 include_once 'PhotoDbNav.php';
 include_once 'Menu.php';
 include_once 'PagedNav.php';
 
-$web = new Website();
-$web->setLastUpdate('07.12.2013');
+$web = new Language();
+$web->lastUpdate = '07.12.2013';
 $lang = $web->getLang();
 $web->setLang($lang);
+
+ini_set('default_charset', $web->charset);
 
 if ($lang === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
@@ -33,6 +36,6 @@ else {
 	$metaDescription = 'Simon Speich\'s website about photography and web programming';
 	$metaKeywords = 'Simon Speich, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
-$web->setWindowTitle('speich.net - '.$windowTitle);
+$web->pageTitle = 'speich.net - '.$windowTitle;
 
 include_once 'inc_nav.php';

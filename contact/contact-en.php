@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>Contact | <?php echo $web->getWindowTitle(); ?></title>
+<title>Contact | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>
 </head>
 

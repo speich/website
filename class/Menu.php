@@ -2,66 +2,75 @@
 /**
  * This file contains two classes to create a navigation menu.
  * @author Simon Speich
- * @package Main
  */
+namespace WebsiteTemplate;
 
 /**
  * Simple recursive php menu with unlimited levels which creates an unordered list
  * based on an array.
  * 
- * Each item can have its own js event handler. 
- * To increase performance only open menus are used in recursion unless you set
- * the whole menu to be open by setting the property AutoOpen = true;
- * 
- * @package Main
+ * Notes:
+ * 	To increase performance only open menus are used in recursion unless you set
+ * 	the whole menu to be open by setting the property AutoOpen = true;
+ *
+ * 	A menu can be open without being active, when $allChildrenToBeRendered is set to true.
+ */
+
+
+
+
+/**
+ * Class to create menu items.
  */
 class MenuItem {
+
+	/**  @var null|string id */
 	public $id = null;
+
+	/** @var null|string parent id */
 	public $parentId = null;
+
+	/** @var string text of link */
 	public $linkTxt = '';
+
+	/** @var string url of link  */
 	public $linkUrl = '';
-	public $eventHandler = null;	// hold the event listener for an item
-	public $linkTitle = '';
 
+	/** @var null|string CSS class name */
 	private $cssClass = null;
-
-	/**
-	 * Render this items children.
-	 * @var bool $RenderChild
-	 */
-	private $childrenToBeRendered = false;
-	private $active = false;	 
-
 	
+	/** @var bool render children */
+	private $childToBeRendered = false;
+
+	/** @var bool is item active */
+	private $active = false;
+
+	/** @var bool has item an active child */
+	private $hasActiveChild = false;
+
 	/**
 	 * Constructs the menu item.
-	 * If $title argument is true (default), then the $linkTxt will be used as the attribute value. If it is a string
-	 * then that string will be used. If it is null, title attribute will not be set on link element.
-	 * @param array arr
+	 * @param integer|string $id unique id
+	 * @param integer|string $parentId id of parent item
+	 * @param string $linkTxt link text
+	 * @param string [$linkUrl] link url
 	 */
-	public function __construct($arr) {
-		$this->id = $arr[0];
-		$this->parentId = $arr[1];
-		$this->linkTxt = $arr[2];
-		$this->linkUrl = isset($arr[3]) ? $arr[3] : '';
-		$this->eventHandler = isset($arr[4]) ? $arr[4] : null;
-		if (isset($arr[5]) && is_string($arr[5])) {
-			$this->linkTitle = $arr[5];
-		}
-		else if (!isset($arr[5])) {
-			$this->linkTitle = $this->linkTxt;
-		}
+	public function __construct($id, $parentId, $linkTxt, $linkUrl = null) {
+		$this->id = $id;
+		$this->parentId = $parentId;
+		$this->linkTxt = $linkTxt;
+		$this->linkUrl = $linkUrl;
 	}
 	
 	/** Get item property if children will be rendered */
-	public function getchildrenToBeRendered() { return $this->childrenToBeRendered; }
+	public function getChildToBeRendered() { return $this->childToBeRendered; }
 	
 	/**
 	 * Set item property if children will be rendered.
 	 * @param bool [$ChildToBeRendered]
 	 */
-	public function setchildrenToBeRendered($childrenToBeRendered = true) {
-		$this->childrenToBeRendered = $childrenToBeRendered;
+	public function setChildToBeRendered($childrenToBeRendered = true) {
+		$this->childToBeRendered = $childrenToBeRendered;
 	}
 	
 	/**
@@ -78,6 +87,20 @@ class MenuItem {
 	 */
 	public function getActive() {
 		return $this->active;
+	}
+
+	/**
+	 * @param boolean $hasActiveChild
+	 */
+	public function setHasActiveChild($hasActiveChild) {
+		$this->hasActiveChild = $hasActiveChild;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getHasActiveChild() {
+		return $this->hasActiveChild;
 	}
 	
 	/**
@@ -99,34 +122,28 @@ class MenuItem {
 	public function getCssClass() {
 		return $this->cssClass;
 	}
-	
 }
 
+
 /**
- * Creates menu items.
- * A menu is made of menu items.
- * @package NAFIDAS
+ * Creates the menu.
  */
 class Menu extends MenuItem {
 	/**
 	 * Holds array of menu items.
-	 * @var array menu items
+	 * @var MenuItem[] menu items
 	 */	 
 	public $arrItem = array();
 	
-	/** 
-	 * Holds html string of created menu.
-	 * @var string menu string
-	 */
+	/** @var string HTML menu string */
 	private $strMenu = '';
 	
-	/** All child menus are rendered by default
-	 * @var bool render children
-	 */
+	/** @var bool render all children */
 	public $allChildrenToBeRendered = false;
 	
-	/** Automatically mark item and all its parents as active if its url is same as url of current page.
-	 * @var bool
+	/**
+	 * Automatically set item and all its parents active, if url is same as of current page.
+	 * @var bool set item active
 	 */ 
 	public $autoActive = true;
 	
@@ -137,37 +154,46 @@ class Menu extends MenuItem {
 	 */
 	private $autoActiveMatching = 1;
 	
-	/** Flag to mark first ul tag in recursive method */
+	/**
+	 * Flag to mark first ul tag in recursion when rendering HTML.
+	 * @var bool is first HTMLULElement
+	 */
 	private $firstUl = true;
+
+	/**  @var null|string prefix for item id attribute */
+	public $itemIdPrefix = null;
 	
-	/** Menu CSS class name */
+	/** @var null|string CSS class name of menu */
 	public $cssClass = null;
 	
-	/** Menu CSS id name */
+	/** @var null|string CSS id of menu */
 	public $cssId = null;
 	
-	/** Active item CSS class name */
-	public $cssItemHasChildren = 'menuHasChildren';
+	/** @var string CSS class name, when item has at least one child */
+	public $cssItemHasChildren = 'menuHasChild';
 	
-	/** Active item CSS class name */
-	public $cssItemActive = 'menuIsActive';
-	
-	/** Open item CSS class name */
-	public $cssItemOpen = 'menuIsOpen';
-	
+	/** @var string CSS class name, when item is active */
+	public $cssItemActive = 'menuActive';
+
+	/** @var string CSS class name, when menu is open.  */
+	public $cssItemOpen = 'menuOpen';
+
+	/** @var string CSS class name, when item hast at least one active child */
+	public $cssItemActiveChild = 'menuHasActiveChild';
+
 	
 	/**
 	 * Constructs the menu.
 	 * You can provide a 2-dim array with all menu items 
-	 * or use the add method for each item singly.
+	 * or use the add method for each item singedly.
 	 * @param string $cssId HTMLIdAttribute
-	 * @param string $cssClass HTMLClassAttribute
+	 * @param string $cssClass HTMLClassAttibute
 	 * @param array $arrItem array with menu items
 	 */
 	public function __construct($cssId = null, $cssClass = null, $arrItem = null) {
 		if (!is_null($arrItem)) {
 			foreach ($arrItem as $item) {
-				$this->arrItem[$item[0]] = new MenuItem($item);
+				$this->arrItem[$item[0]] = new MenuItem($item[0], $item[1], $item[2], (array_key_exists(3, $item) ? $item[3] : null), (array_key_exists(4, $item) ? $item[4] : null));
 			}
 		}
 		if (!is_null($cssClass)) {
@@ -181,12 +207,12 @@ class Menu extends MenuItem {
 	/**
 	 * Add a new menu item.
 	 * Array has to be in the form of:
-	 * array(id, parentId, linkTxt, optional linkUrl, optional event handler);
+	 * array(id, parentId, linkTxt, optional linkUrl);
 	 * You can add new items to menu as long as you haven't called the render method.
 	 * @param array $arr menu item
 	 */
 	public function add($arr) {
-		$this->arrItem[$arr[0]] = new MenuItem($arr);
+		$this->arrItem[$arr[0]] = new MenuItem($arr[0], $arr[1], $arr[2], (array_key_exists(3, $arr) ? $arr[3] : null));
 	}
 	
 	/**
@@ -196,22 +222,22 @@ class Menu extends MenuItem {
 	 */
 	private function checkChildExists($id) {
 		$found = false;
-		foreach ($this->arrItem as $val) {
-			if ($val->parentId === $id) {
+		foreach ($this->arrItem as $item) {
+			if ($item->parentId === $id) {
 				$found = true;
 				break;
 			}
 		}
 		return $found;
 	}
-	
+
 	/**
 	 * Sets the url matching pattern of $autoActive property.
 	 * 1 = item url matches path only (default)
-	 * 2 = item url patches path + query, 
-	 * 3 item url matches any part of path + query 
-	 * @param object $type
-	 * @return 
+	 * 2 = item url matches path + all query variables,
+	 * 3 = item url matches any part of path + query
+	 * 4 = item url matches match path + item query
+	 * @param int $type
 	 */
 	public function setAutoActiveMatching($type) {
 		$this->autoActiveMatching = $type;
@@ -224,22 +250,7 @@ class Menu extends MenuItem {
 	public function getAutoActiveMatching() {
 		return $this->autoActiveMatching;
 	}
-	
-	/**
-	 * Add an javascript event handler to a menu item.
-	 * 
-	 * Sets a js event 
-	 * @param integer|string $id menu id
-	 * @param string $EventHandler js event handler
-	 */
-	public function setEventHandler($id, $eventHandler) {
-		foreach ($this->arrItem as $item) {
-			if ($item->id === $id) {
-				$item->eventHandler = $eventHandler;
-			}
-		}
-	}
-	
+
 	/**
 	 * Checks if an menu item should be set to active if its url matches the set pattern.
 	 * Pattern can also be set globally through Menu::setAutoActiveMatching();
@@ -248,8 +259,7 @@ class Menu extends MenuItem {
 	 * 1 items url matches full path
 	 * 2 items url matches full path + exact query string
 	 * 3 items url matches full path + part of query string
-	 * 4 match deepest containing folder + part of query string
-	 * 
+	 *
 	 * Returns boolean (match no match) or the number of matched directories.
 	 * This function may return Boolean TRUE OR FALSE, but may also return a non-Boolean value 
 	 * which evaluates to FALSE, such as 0 or 1 to TRUE. Use the === operator for testing 
@@ -258,15 +268,15 @@ class Menu extends MenuItem {
 	 * If item's active property is set to null it is not considered in active check.
 	 * 
 	 * @param MenuItem $item
-	 * @param int $pattern
-	 * @return bool|int
+	 * @param integer $pattern
+	 * @return bool
 	 */
 	public function checkActive($item, $pattern = null) {
 		if (is_null($item->getActive())) {
 			return false;	// item explicitly set to null = skip
 		}
 		else if ($item->getActive()) {
-			return true; // item excplicitply set to active
+			return true; // item explicitly set to active
 		}
 		$url = $_SERVER['REQUEST_URI'];
 		$arrUrlPage = parse_url($url);
@@ -306,40 +316,22 @@ class Menu extends MenuItem {
 					return false;
 				}
 				break;
-			case 4:
-				$numMatched = 0;
-				$arrDirMenu = explode('/', $arrUrlMenu['path']);
-				$arrDirPage = explode('/', $arrUrlPage['path']);
-				for ($i = 0; $i < count($arrDirMenu); $i++) {
-					if (array_key_exists($i, $arrDirPage)) {
-						if ($arrDirPage[$i] == $arrDirMenu[$i]) {
-							$numMatched++;
-						}
-					}
-				}
-				if ($numMatched > 0) {
-					return $numMatched;
-				}
-				else {
-					return false;
-				}
-				break;
 			default;
 				return false;
 		}
+		return false;
 	}
 	
 	/**
-	 * Returns id of active menu items.
-	 * Returns an array if there there is more than one item active.
-	 * @param string $property
-	 * @return mixed|bool
+	 * Returns id of every item that is active.
+	 * Returns a string if only one item is active, an array if there are several items active or false if none is active.
+	 * @return mixed id
 	 */
-	public function getActive($property = 'id') {
+	public function getActive() {
 		$arrActive = array();
 		foreach ($this->arrItem as $item) {
 			if ($item->getActive()) {
-				$arrActive[] = ($property == 'id' ? $item->id : $item->linkTxt);
+				$arrActive[] = $item->id;
 			}
 		}
 		$num = count($arrActive); 
@@ -355,7 +347,8 @@ class Menu extends MenuItem {
 	}
 	
 	/**
-	 * Creates the menu Html string.
+	 * Creates the menu Html string recursively.
+	 * @return string
 	 * @param string|integer $parentId seed
 	 */
 	private function createHtml($parentId) {
@@ -369,41 +362,50 @@ class Menu extends MenuItem {
 			}
 			$this->firstUl = false;
 		}
-		$this->strMenu.= ">\n";
+		$this->strMenu.= '>';
+
 		foreach ($this->arrItem as $item) {
 			if ($item->parentId === $parentId) {
-				if ($this->checkChildExists($item->id)) {
-					$item->addCssClass($this->cssItemHasChildren);
-					if (($this->allChildrenToBeRendered || $item->getChildrenToBeRendered())) {
-						$item->addCssClass($this->cssItemOpen);
-					}
-				}				
-				else if ($item->getActive()) {
-					$item->addCssClass($this->cssItemActive);
-				}				
-				$this->strMenu.= '<li'.(is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"').'>';
+				$this->setItemCssClass($item);
+				$itemIdPrefix = is_null($this->itemIdPrefix) ? '' : ' id="'.$this->itemIdPrefix.$item->id.'"';
+				$cssClass = is_null($item->getCssClass()) ? '' : ' class="'.$item->getCssClass().'"';
+				$this->strMenu.= '<li'.$itemIdPrefix.$cssClass.'>';
 				if ($item->linkUrl != '') {
-					$this->strMenu.= '<a href="'.$item->linkUrl.'"'.(is_null($item->eventHandler) ? '' : ' '.$item->eventHandler);
-
+					$this->strMenu.= '<a href="'.$item->linkUrl.'">';
 				}
 				else {
-					$this->strMenu.= '<a'.(is_null($item->eventHandler) ? '' : ' '.$item->eventHandler);	// for css we have the same structure, with or without a link
+					$this->strMenu.= '<a>';	// for css we have the same structure, with or without a link
 				}
-				if ($item->linkTitle !== false) {
-					// title attribute on link element is important for search engines
-					$this->strMenu.= ' title="'.$item->linkTitle.'"';
-				}
-				$this->strMenu.= '>';
 				$this->strMenu.= $item->linkTxt;
 				$this->strMenu.= '</a>';
-				if ($this->checkChildExists($item->id)) {
-					if (($this->allChildrenToBeRendered || $item->getChildrenToBeRendered())) {
-						$this->createHtml($item->id);
-						$this->strMenu.= "</ul>\n";
-					}
+				if ($this->checkChildExists($item->id) && ($item->getActive() || $this->allChildrenToBeRendered)) {
+					$this->createHtml($item->id);
+					$this->strMenu.= '</ul>';
 				}
-				$this->strMenu.= "</li>\n";
+				$this->strMenu.= '</li>';
 			}
+		}
+		return $this->strMenu;
+	}
+
+	/**
+	 * Sets the CSS class string of the item depending on it's status
+	 * @param $item
+	 */
+	protected function setItemCssClass($item) {
+		$hasChild = $this->checkChildExists($item->id);
+		if ($hasChild) {
+			$item->addCssClass($this->cssItemHasChildren);
+			if ($this->allChildrenToBeRendered || $item->getActive()) {
+				// children can be open even when nothing is active
+				$item->addCssClass($this->cssItemOpen);
+			}
+		}
+		if ($item->getActive()) {
+			$item->addCssClass($this->cssItemActive);
+		}
+		if ($item->getHasActiveChild()) {
+			$item->addCssClass($this->cssItemActiveChild);
 		}
 	}
 	
@@ -416,45 +418,29 @@ class Menu extends MenuItem {
 	 */
 	public function setActive($url = null) {
 		if (is_null($url)) {
-			$itemId = null;	// used for matching pattern 4 = match containing folder with deepest matching
-			$lastNumMatched = 0; 
 			foreach ($this->arrItem as $item) {
-				$numMatched = $this->checkActive($item);
-				if ($numMatched === true) {
+				if ($this->checkActive($item)) {
 					$item->setActive();
 				}
-				if (is_int($numMatched)) {
-					if ($numMatched >= $lastNumMatched) {
-						$itemId = $item->id;	// find item with most folders matched (deepest folder match)
-						$lastNumMatched = $numMatched;
-					}
-					
-				}
-				if ($this->allChildrenToBeRendered || $item->getActive()) {
-					// set also item's parents to active
+
+				// set also the parent items to render
+				if ($this->allChildrenToBeRendered) {
 					$parentId = $item->parentId;
 					while (array_key_exists($parentId, $this->arrItem)) {
-						$this->arrItem[$parentId]->setChildrenToBeRendered();
+						$this->arrItem[$parentId]->setChildToBeRendered();
+						$parentId = $this->arrItem[$parentId]->parentId;
+					}
+				}
+				// set also the parent items to active
+				if ($item->getActive()) {
+					// set also all item's parents
+					$parentId = $item->parentId;
+					while (array_key_exists($parentId, $this->arrItem)) {
 						$this->arrItem[$parentId]->setActive();
 						$parentId = $this->arrItem[$parentId]->parentId;
 					}
-				}				
-			}
-			// only used for matching pattern 4
-			if (!is_null($itemId)) {
-				$this->arrItem[$itemId]->setActive();
-				foreach ($this->arrItem as $item) {
-					if ($this->allChildrenToBeRendered || $item->getActive()) {
-						// set also item's parents to active
-						$parentId = $item->parentId;
-						while (array_key_exists($parentId, $this->arrItem)) {
-							$this->arrItem[$parentId]->setChildrenToBeRendered();
-							$this->arrItem[$parentId]->setActive();
-							$parentId = $this->arrItem[$parentId]->parentId;
-						}
-					}
 				}
-			}	
+			}
 		}
 		// match provided url
 		else {
@@ -465,11 +451,24 @@ class Menu extends MenuItem {
 						// set also item's parents to active
 						$parentId = $item->parentId;
 						while (array_key_exists($parentId, $this->arrItem)) {
-							$this->arrItem[$parentId]->setChildrenToBeRendered();
+							$this->arrItem[$parentId]->setChildToBeRendered();
 							$this->arrItem[$parentId]->setActive();
 							$parentId = $this->arrItem[$parentId]->parentId;
 						}
 					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Set hasActiveChild property for all items if they have at least an active child.
+	 */
+	public function setHasActiveChildren() {
+		foreach ($this->arrItem as $item) {
+			foreach ($this->arrItem as $child) {
+				if ($item->id === $child->parentId && $child->getActive()) {
+					$item->setHasActiveChild(true);
 				}
 			}
 		}
@@ -485,14 +484,12 @@ class Menu extends MenuItem {
 			$this->setActive();
 		}
 		if (count($this->arrItem) > 0) {
-			if ($this->strMenu == '') {
-				$this->createHtml(reset($this->arrItem)->parentId);	// render only once when render() method is called more than once
-			}
-			return $this->strMenu."</ul>\n";
+			$this->setHasActiveChildren();
+			$str = $this->createHtml(reset($this->arrItem)->parentId);
+			return $str.'</ul>';
 		}
 		else {
 			return '';
 		}
 	}
 }
-?>

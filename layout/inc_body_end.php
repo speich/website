@@ -5,7 +5,7 @@
 <?php
 if ($web->getLang() === 'de') {
 	echo '<p>© 2003-2013 speich.net, Konzept und Programmierung Simon Speich';
-	echo '<span style="float: right;">Letzte Aktualisierung '.$web->getLastUpdate().'</span><p>';
+	echo '<span style="float: right;">Letzte Aktualisierung '.$web->lastUpdate.'</span><p>';
 	if (strpos($web->getDir(), '/photo') !== false) { ?>
 		<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de"><img alt="Creative Commons Lizenzvertrag" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
 	 	Alle Fotos stehen unter der <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de">Creative Commons Lizenz</a> zur Verfügung,
@@ -18,7 +18,7 @@ if ($web->getLang() === 'de') {
 }
 else {
 	echo '<p>© 2003-2013 speich.net, concept und programming Simon Speich';
-	echo '<span style="float: right;">last update '.$web->getLastUpdate().'</span><p>';
+	echo '<span style="float: right;">last update '.$web->lastUpdate.'</span><p>';
 	if (strpos($web->getDir(), '/photo') !== false) { ?>
 			<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons licence" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
 		 	All photos on this website are licenced under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution 3.0 Unported License</a>:<br>

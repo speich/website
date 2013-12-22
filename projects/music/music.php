@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>Songs | <?php echo $web->getWindowTitle(); ?></title>
+<title>Songs | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../../layout/inc_head.php' ?>
 </head>
 

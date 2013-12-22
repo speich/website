@@ -1,4 +1,8 @@
 <?php
+use PhotoDb\PhotoDb;
+use WebsiteTemplate\PagedNav;
+use WebsiteTemplate\Website;
+
 require_once 'photoinc.php';
 
 // This $Sql is also used to calculate number of records for paged nav below
@@ -33,16 +37,16 @@ $stmt->bindValue(':limit', $numRecPerPage);
 $stmt->bindValue(':offset', ($pgNav-1) * $numRecPerPage);
 $stmt->execute();
 $arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage);
-$pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage);
-$pagedNav->setStep(10, 50);
+$numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage, $web);
+$pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage, $web);
 
 /**
  * @param PhotoDb $db
  * @param array $arrData
+ * @param Website $web
  * @return bool
  */
-function renderData($db, $arrData) {
+function renderData($db, $arrData, $web) {
 	if (count($arrData) == 0) {
 		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
 		return false;
@@ -51,10 +55,11 @@ function renderData($db, $arrData) {
 	$num = count($arrData) - 1;
 	foreach ($arrData as $row) {
 		// image dimensions
-		$imgFile = $db->getWebRoot().$db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
-		$imgSize = getimagesize($db->getDocRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
+		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
+		$imgSize = getimagesize($web->getDocRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
 		$imgTitle = $row['imgTitle'];
-		$detailLink = 'photo-detail.php'.$db->getQuery(array('imgId' => $row['imgId']));
+		$link = str_replace('thumbs/', '', $imgFile);
+		$detailLink = 'photo-detail.php'.$web->getQuery(array('imgId' => $row['imgId']));
 
 		if ($imgSize[0] > $imgSize[1]) {
 			$css = 'slideHorizontal';
@@ -71,11 +76,9 @@ function renderData($db, $arrData) {
 		}
 		echo '<div class="slide">';
 		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'" style="background-image: url('.$imgFile.')">';
-		echo '<a href="'.$detailLink.'" title="'.$imgTitle.'" onclick="slide.showFull(arguments[0] || window.event, this.firstChild, '.$imgSize[0].', '.$imgSize[1].');">';
-		echo '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="Foto" title="Thumbnail of '.$imgTitle.'"/>';
-		echo '</a>';
-		echo '</div>';	// end slideCanvas
-		echo '<div class="slideText"><a title="Foto \''.$imgTitle.'\' anzeigen" href="#'.$imgTitle.'" onclick="slide.showFull(arguments[0] || window.event, this.parentNode.parentNode.getElementsByTagName(\'img\')[0], '.$imgSize[0].', '.$imgSize[1].');">Zoom</a> | ';
+		echo '<a href="'.$link.'" title="'.$imgTitle.'"><img class="'.$cssImg.'" src="'.$imgFile.'" alt="Foto" title="Thumbnail of '.$imgTitle.'"></a>';
+		echo '</div>';
+		echo '<div class="slideText"><a title="Foto \''.$imgTitle.'\' anzeigen" href="'.$link.'">Zoom</a> | ';
 		echo '<a title="Details zu Foto \''.$imgTitle.'\' anzeigen" href="'.$detailLink.'">Details</a></div>';
 		echo '</div>';	// end slide
 		$c++;
@@ -87,8 +90,8 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><? echo $pageTitle.' | '.$web->getWindowTitle(); ?></title>
-<?php require_once '../../layout/inc_head.php' ?>
+<title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
+<?php require_once __DIR__.'/../../layout/inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css" media="screen"/>
 <style type="text/css">
@@ -107,7 +110,7 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php $pagedNav->printNav(); ?>
+<?php $pagedNav->printNav($pgNav, $web); ?>
 </div>
 <div class="optionBar">
 <div class="barTxt">Sortierung</div>
@@ -126,7 +129,7 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 </form>
 </div>
 </div>
-<div class="clearFix"><?php renderData($db, $arrData); ?></div>
+<div class="clearFix"><?php renderData($db, $arrData, $web); ?></div>
 <div class="toolbar">
 <div class="pagingBar">
 <div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
@@ -134,74 +137,86 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php $pagedNav->printNav(); ?>
+<?php $pagedNav->printNav($pgNav, $web); ?>
 </div>
 </div>
+<div id="slideFullScreenCont"><div><div><span>left</span><span id="slideFullScreen">
+<br>
+<span class="slideFullScreenAuthor">Foto Simon Speich, www.speich.net</span>
+</span><span>right</span></div></div></div>
 <?php require_once 'inc_body_end.php'; ?>
 <script type="text/javascript">
-var djConfig = {
-	parseOnLoad: false,
-	isDebug: false,
-	locale: '<?php echo $locale = $web->getLang(); ?>',
-	useCommentedJson: true
+var dojoConfig = {
+	async: true,
+	locale: '<?php echo $locale = $web->getLang(); ?>'
 };
 </script>
-<!-- <script type="text/javascript" src="../../library/dojo/dojo/dojo.js"></script> -->
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/dojo.xd.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../library/dojo/1.9.1/dojo/dojo.js"></script>
 <script type="text/javascript">
-dojo.require("dijit.form.Button");
+require(['dojo/query', 'dojo/on', 'dojo/dom-style', 'dojo/dom-geometry', 'dojo/_base/fx', 'dojo/domReady!'],
+function(query, on, domStyle, domGeometry, fx) {
 
-var slide = {
-	/**
-	 * Show slide in full size centered on screen.
-	 * The centering and filling the screen with black is done through css
-	 * by imitating a table row with one cell in it.
-	 * @param {object} thumbnail HTMLImgElement
-	 * @param {number} width width of image
-	 * @param {number} height height of image
-	 */
-	showFull: function(evt, thumbnail) {
-		var src, scrollY, el, img;
-		dojo.stopEvent(evt);
-		//img = new Image();
-		src = thumbnail.src.replace('thumbs/', '');
-		scrollY = dojo.position('layoutTop01').y;
-		//scrollY = scrollY.y;
-		el = dojo.create('div', null, dojo.body());
-		dojo.create('div', {
-			innerHTML: '<div><img src="' + src + '" alt="Foto"><br/><span class="SlideFullScreenAuthor">Foto Simon Speich, www.speich.net</span></div>'
-		}, el, 'first');
-		dojo.addClass(el, 'slideFullScreen');
-		dojo.style(el, {
-			opacity: 0,
-			top: dojo.style(el, 'top') + (scrollY * -1) + 'px'
-		});
-		dojo.fadeIn({
-			node: el
+	var d = document,
+
+	slide = {
+		fullScreenCont: d.getElementById('slideFullScreenCont'),
+		fullScreen: d.getElementById('slideFullScreen'),
+		inserted: false,
+
+		/**
+		 * Show image in full size centered on screen.
+		 * The centering and filling the screen with background is done through css
+		 * by imitating a table row with one cell in it.
+		 * @param {Event} evt
+		 */
+		showFull: function(evt) {
+			var scrollY = domGeometry.position('layoutTop01', false).y,
+				img = new Image(),
+				src = evt.target.href;
+
+			// remove previous image
+			if (slide.inserted) {
+				slide.fullScreen.removeChild(slide.fullScreen.firstChild);
+			}
+
+			domStyle.set(slide.fullScreenCont, {
+				display: 'block',
+				top: scrollY * -1 + 'px'
+			});
+
+			// set before setting src
+			on(img, 'load', function() {
+				fx.fadeIn({
+					node: slide.fullScreenCont
+				}).play();
+			});
+
+			img.src = src;
+			img.alt = 'photo';
+
+			slide.fullScreen.insertBefore(img, slide.fullScreen.firstChild);
+			slide.inserted = true;
+		},
+
+		showNext: function() {},
+
+		showPrevious: function() {	}
+	};
+
+	on(slide.fullScreenCont, 'click', function() {
+		fx.fadeOut({
+			node: slide.fullScreenCont,
+			duration: 500,
+			onEnd: function() {
+				domStyle.set(slide.fullScreenCont, 'display', 'none');
+			}
 		}).play();
-		dojo.connect(el, 'onclick', el, function() {
-			var args = {
-				node: el,
-				duration: 400,
-				onEnd: function() {
-					dojo.destroy(el);
-				}
-			};
-			dojo.fadeOut(args).play();
-		});
-	}
-};
-
-dojo.addOnLoad(function() {
-	var button = new dijit.form.Button({
- 		id: 'buttShowMap',
-		iconClass: 'buttShowMap',
-		label: 'Kartensuche',
-		onClick: function() {
-			window.location.href = 'photo-mapsearch.php'
-		}
 	});
-	dojo.byId('showMap').appendChild(button.domNode);
+
+	query('.slideCanvas a:first-child, .slideText a:first-child', d.getElementById('layoutMain')).on('click', function(evt) {
+		evt.preventDefault();
+		slide.showFull(evt);
+	});
 });
 </script>
 </body>

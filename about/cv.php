@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>Curriculum Vitae | <?php echo $web->getWindowTitle(); ?></title>
+<title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>
 <style type="text/css">
 .tblCv { margin-top: 30px; }
