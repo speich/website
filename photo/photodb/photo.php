@@ -1,7 +1,5 @@
 <?php
-use PhotoDb\PhotoDb;
 use WebsiteTemplate\PagedNav;
-use WebsiteTemplate\Website;
 
 require_once 'photoinc.php';
 
@@ -39,52 +37,6 @@ $stmt->execute();
 $arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage, $web);
 $pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage, $web);
-
-/**
- * @param PhotoDb $db
- * @param array $arrData
- * @param Website $web
- * @return bool
- */
-function renderData($db, $arrData, $web) {
-	if (count($arrData) == 0) {
-		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
-		return false;
-	}	
-	$c = 0;
-	$num = count($arrData) - 1;
-	foreach ($arrData as $row) {
-		// image dimensions
-		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
-		$imgSize = getimagesize($web->getDocRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
-		$imgTitle = $row['imgTitle'];
-		$link = str_replace('thumbs/', '', $imgFile);
-		$detailLink = 'photo-detail.php'.$web->getQuery(array('imgId' => $row['imgId']));
-
-		if ($imgSize[0] > $imgSize[1]) {
-			$css = 'slideHorizontal';
-			$cssImg = 'slideImgHorizontal';
-			
-		}
-		else if ($imgSize[0] < $imgSize[1]) {
-			$css = 'slideVertical';
-			$cssImg = 'slideImgVertical';
-		}
-		else {
-			$css = 'slideQuadratic';
-			$cssImg = 'slideImgQuadratic';
-		}
-		echo '<div class="slide">';
-		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'" style="background-image: url('.$imgFile.')">';
-		echo '<a href="'.$link.'" title="'.$imgTitle.'"><img class="'.$cssImg.'" src="'.$imgFile.'" alt="Foto" title="Thumbnail of '.$imgTitle.'"></a>';
-		echo '</div>';
-		echo '<div class="slideText"><a title="Foto \''.$imgTitle.'\' anzeigen" href="'.$link.'">Zoom</a> | ';
-		echo '<a title="Details zu Foto \''.$imgTitle.'\' anzeigen" href="'.$detailLink.'">Details</a></div>';
-		echo '</div>';	// end slide
-		$c++;
-	}
-	return true;
-}
 $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 ?>
 <!DOCTYPE html>
@@ -94,11 +46,6 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <?php require_once __DIR__.'/../../layout/inc_head.php' ?>
 <link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css" media="screen"/>
-<style type="text/css">
-#layoutMiddle, #layoutFooterCont {
-	max-width: none;
-}
-</style>
 </head>
 
 <body class="tundra">
@@ -112,25 +59,32 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <div class="barVertSeparator"></div>
 <?php $pagedNav->printNav($pgNav, $web); ?>
 </div>
+<div class="search"><script>
+  (function() {
+    var cx = '000284793056488053930:zkcmsdcpu2k',
+    	gcse = document.createElement('script'),
+	 	s = document.getElementsByTagName('script')[0];
+
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search></div>
 <div class="optionBar">
-<div class="barTxt">Sortierung</div>
+<div class="barTxt">Sortierung
 <?php echo $mSort->render(); ?>
+</div>
 <div class="barVertSeparator"></div>
-<div class="barTxt">Filter</div>
-<?php echo $mQuality->render(); ?>
+<div class="barTxt">Filter <?php echo $mQuality->render(); ?></div>
 <div class="barVertSeparator"></div>
 <div id="showMap"></div>
-<div class="barVertSeparator"></div>
-<form action="photo-search.php" method="GET">
-<p><input type="text" id="q" name="q"/><input type="submit" value="suchen"/>
-<input type="hidden" value="1" name="qual">
-<input type="hidden" value="<?php echo $sort ?>" name="sort">
-<input type="hidden" value="<?php echo $numRecPerPage ?>" name="numRecPp"></p>
-</form>
 </div>
 </div>
-<div class="clearFix"><?php renderData($db, $arrData, $web); ?></div>
-<div class="toolbar">
+
+<div><ul><?php renderData($db, $arrData, $web); ?></ul></div>
+
 <div class="pagingBar">
 <div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
 <div class="barVertSeparator"></div>
@@ -139,11 +93,18 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <div class="barVertSeparator"></div>
 <?php $pagedNav->printNav($pgNav, $web); ?>
 </div>
-</div>
-<div id="slideFullScreenCont"><div><div><span>left</span><span id="slideFullScreen">
-<br>
+
+<div id="slideFullScreenCont">
+<div class="slideFullScreen">
 <span class="slideFullScreenAuthor">Foto Simon Speich, www.speich.net</span>
-</span><span>right</span></div></div></div>
+</div>
+<!-- not implemented yet
+<div class="slideNavClose">close</div>
+<div class="slideNavPrev">previous</div>
+<div class="slideNavNext">next</div>
+-->
+</div>
+
 <?php require_once 'inc_body_end.php'; ?>
 <script type="text/javascript">
 var dojoConfig = {
@@ -153,32 +114,58 @@ var dojoConfig = {
 </script>
 <script type="text/javascript" src="../../library/dojo/1.9.1/dojo/dojo.js"></script>
 <script type="text/javascript">
-require(['dojo/query', 'dojo/on', 'dojo/dom-style', 'dojo/dom-geometry', 'dojo/_base/fx', 'dojo/domReady!'],
-function(query, on, domStyle, domGeometry, fx) {
+require([
+	'dojo/_base/fx',
+	'dojo/_base/window',
+	'dojo/query',
+	'dojo/io-query',
+	'dojo/on',
+	'dojo/dom-style',
+	'dojo/dom-geometry',
+	'dojo/domReady!'],
+function(fx, win, query, ioQuery, on, domStyle, domGeometry) {
 
 	var d = document,
+		cont = d.getElementById('slideFullScreenCont'),
 
 	slide = {
-		fullScreenCont: d.getElementById('slideFullScreenCont'),
-		fullScreen: d.getElementById('slideFullScreen'),
+		fullScreenCont: cont,
+		fullScreen: query('.slideFullScreen', cont)[0],
+		navClose: query('.slideNavClose', cont)[0],
+		navPrev: query('.slideNavPrev', cont)[0],
+		navNext: query('.slideNavNext', cont)[0],
 		inserted: false,
+		imgMap: {},
 
 		/**
 		 * Show image in full size centered on screen.
 		 * The centering and filling the screen with background is done through css
 		 * by imitating a table row with one cell in it.
-		 * @param {Event} evt
+		 * @param {string} src image source
+		 * @param {number} w image width
+		 * @param {number} h image height
 		 */
-		showFull: function(evt) {
+		showFull: function(src, w, h) {
 			var scrollY = domGeometry.position('layoutTop01', false).y,
-				img = new Image(),
-				src = evt.target.href;
+				img = new Image();
+
+			// create image map
+			if (!slide.inserted) {
+				query('.slideCanvas img').forEach(function() {
+
+				})
+			}
 
 			// remove previous image
 			if (slide.inserted) {
 				slide.fullScreen.removeChild(slide.fullScreen.firstChild);
 			}
 
+			domStyle.set(win.body(), 'overflow', 'hidden');
+			domStyle.set(slide.fullScreen, {
+				width: w + 'px',
+				height: h + 'px'
+			});
 			domStyle.set(slide.fullScreenCont, {
 				display: 'block',
 				top: scrollY * -1 + 'px'
@@ -198,24 +185,39 @@ function(query, on, domStyle, domGeometry, fx) {
 			slide.inserted = true;
 		},
 
-		showNext: function() {},
+		showNext: function() {
+
+						fx.fadeOut({
+							node: slide.fullScreen,
+							onEnd: function() {
+
+							}
+						}).play();
+		},
 
 		showPrevious: function() {	}
 	};
 
-	on(slide.fullScreenCont, 'click', function() {
+	//query('.slideFullScreen, .slideNavClose', cont).on('click', function() {
+	on(cont, 'click', function() {
 		fx.fadeOut({
 			node: slide.fullScreenCont,
 			duration: 500,
 			onEnd: function() {
+				domStyle.set(win.body(), 'overflow', 'auto');
 				domStyle.set(slide.fullScreenCont, 'display', 'none');
 			}
 		}).play();
 	});
 
+	//query('.slideFullScreenNext', cont).on('click', slide.showNext);
+
 	query('.slideCanvas a:first-child, .slideText a:first-child', d.getElementById('layoutMain')).on('click', function(evt) {
+		var src = evt.target.href,
+			q = ioQuery.queryToObject(src.slice(src.lastIndexOf('?') + 1));
+
 		evt.preventDefault();
-		slide.showFull(evt);
+		slide.showFull(src, q.w, q.h);
 	});
 });
 </script>

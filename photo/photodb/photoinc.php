@@ -1,6 +1,8 @@
 <?php
 use PhotoDb\PhotoDb;
 use WebsiteTemplate\Menu;
+use WebsiteTemplate\Website;
+
 
 require_once __DIR__.'/../../library/inc_script.php';
 require_once 'PhotoDb.php';
@@ -12,23 +14,6 @@ $web->setLastPage();
 
 $pageTitle = $sideNav->getActive('linkTxt');
 $pageTitle = $pageTitle[count($pageTitle) - 1];
-
-// searching
-// TODO: use google search instead
-if (isset($_GET['q']) && strlen($_GET['q']) > 2) {
-	$query = mb_ereg_replace('/\W/', '', $_GET['q']);
-	// reset pagedNav to first page and rating to 1 if new query
-	$lastQuery = parse_url($lastPage);
-	$lastQuery = array_key_exists('query', $lastQuery) ? $lastQuery['query'] : '';
-	parse_str($lastQuery, $arrQuery);
-	if (array_key_exists('q', $arrQuery) && $arrQuery['q'] != $query) {
-		$_GET['pgNav'] = 1;
-		$_GET['qual'] = 1;
-	}
-	$query = preg_replace('/(^\s+)|(\s+$)/', '', $query);
-	$arrQuery = preg_split('/\s+/', $query);
-	array_splice($arrQuery, 5);
-}
 
 // paged nav
 $pgNav = isset($_GET['pgNav']) ? $_GET['pgNav'] : $pgNav = 1;
@@ -102,4 +87,50 @@ foreach ($arrVal as $key => $val) {
 	if ($qual == $key) {
 		$mQuality->arrItem[$key]->setActive();
 	}
+}
+
+/**
+ * @param PhotoDb $db
+ * @param array $arrData
+ * @param Website $web
+ * @return bool
+ */
+function renderData($db, $arrData, $web) {
+	if (count($arrData) == 0) {
+		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
+		return false;
+	}
+	$c = 0;
+	$num = count($arrData) - 1;
+	foreach ($arrData as $row) {
+		// image dimensions
+		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
+		$imgSize = getimagesize($web->getDocRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
+		$imgTitle = $row['imgTitle'];
+		$link = str_replace('thumbs/', '', $imgFile).'?w='.$imgSize[0].'&h='.$imgSize[1];
+		$detailLink = 'photo-detail.php'.$web->getQuery(array('imgId' => $row['imgId']));
+
+		if ($imgSize[0] > $imgSize[1]) {
+			$css = 'slideHorizontal';
+			$cssImg = 'slideImgHorizontal';
+
+		}
+		else if ($imgSize[0] < $imgSize[1]) {
+			$css = 'slideVertical';
+			$cssImg = 'slideImgVertical';
+		}
+		else {
+			$css = 'slideQuadratic';
+			$cssImg = 'slideImgQuadratic';
+		}
+		echo '<li class="slide">';
+		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'" style="background-image: url('.$imgFile.')">';
+		echo '<a href="'.$link.'" title="'.$imgTitle.'"><img class="'.$cssImg.'" src="'.$imgFile.'" alt="Foto" title="Thumbnail of '.$imgTitle.'"></a>';
+		echo '</div>';
+		echo '<div class="slideText"><a title="Foto \''.$imgTitle.'\' anzeigen" href="'.$link.'">Zoom</a> | ';
+		echo '<a title="Details zu Foto \''.$imgTitle.'\' anzeigen" href="'.$detailLink.'">Details</a></div>';
+		echo '</li>';	// end slide
+		$c++;
+	}
+	return true;
 }
