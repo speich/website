@@ -16,7 +16,7 @@ $pageTitle = $sideNav->getActive('linkTxt');
 $pageTitle = $pageTitle[count($pageTitle) - 1];
 
 // paged nav
-$pgNav = isset($_GET['pgNav']) ? $_GET['pgNav'] : $pgNav = 1;
+$pg = isset($_GET['pg']) ? $_GET['pg'] : $pg = 1;
 $numRecPerPage = isset($_GET['numRecPp']) ? $_GET['numRecPp'] : 14;
 
 // filtering
@@ -56,7 +56,7 @@ switch($sort) {
 $numRec = !isset($numRec) ? 0 : $numRec;
 
 // generate filter and sorting menus
-$arrDel = array('pgNav');
+$arrDel = array('pg');
 $arrVal = array(7, 14, 21, 28, 56);
 $mRecPp = new Menu(null, 'ulMenu1 mRecPp');
 $mRecPp->add(array('a', 'b', $numRecPerPage));
@@ -77,7 +77,7 @@ foreach ($arrVal as $key => $val) {
 		$mSort->arrItem[$key]->setActive();
 	}
 }
-$star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image"/>';
+$star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image">';
 $arrVal = array(3 => $star.$star.$star, 2 => $star.$star, 1 => $star);
 $mQuality = new Menu(null, 'ulMenu1 mQuality');
 $mQuality->add(array('a', 'b', $arrVal[$qual], null, null, 'rating '.$qual));
@@ -124,7 +124,7 @@ function renderData($db, $arrData, $web) {
 			$cssImg = 'slideImgQuadratic';
 		}
 		echo '<li class="slide">';
-		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'" style="background-image: url('.$imgFile.')">';
+		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'">';
 		echo '<a href="'.$link.'" title="'.$imgTitle.'"><img class="'.$cssImg.'" src="'.$imgFile.'" alt="Foto" title="Thumbnail of '.$imgTitle.'"></a>';
 		echo '</div>';
 		echo '<div class="slideText"><a title="Foto \''.$imgTitle.'\' anzeigen" href="'.$link.'">Zoom</a> | ';

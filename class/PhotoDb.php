@@ -612,7 +612,7 @@ class PhotoDb {
 	/**
 	 * Query the number of records with given sql.
 	 * If you provide the optional parameter lastPage, then this query is cached in a session variable as long as the
-	 * query variables with the exception of: pgNav, sort, numRecPp
+	 * query variables with the exception of: pg, sort, numRecPp
 	 * @param string $sql sql query
 	 * @param string $colName name of db column to count
 	 * @param array $arrBind array of bind variables
@@ -622,7 +622,7 @@ class PhotoDb {
 	 */
 	public function getNumRec($sql, $colName, $arrBind, $lastPage = null, $web) {
 		$colName = preg_replace('/[^a-zA-Z0-9_\.]/', '', $colName);	// sanitize
-		$expr = "/&?pgNav=[0-9]*|&?sort=[0-9]*|&?numRecPp=[0-9]*/";	// these query vars can change without having to reset numRec
+		$expr = "/&?pg=[0-9]*|&?sort=[0-9]*|&?numRecPp=[0-9]*/";	// these query vars can change without having to reset numRec
 		$queryLast = parse_url($lastPage);
 		if (array_key_exists('query', $queryLast)) {
 			$queryLast = preg_replace($expr, '', $queryLast['query']);

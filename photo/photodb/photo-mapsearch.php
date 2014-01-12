@@ -40,7 +40,7 @@ if ($showMap === false && isset($_GET['lat1']) && isset($_GET['lat2']) && isset(
 	$stmt->bindValue(':query2', $lng1);
 	$stmt->bindValue(':query3', $lng2);
 	$stmt->bindValue(':limit', $numRecPerPage);
-	$stmt->bindValue(':offset', ($pgNav - 1) * $numRecPerPage);
+	$stmt->bindValue(':offset', ($pg - 1) * $numRecPerPage);
 	$stmt->execute();
 	$arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$sqlWrapper = "SELECT * FROM (".$sql.$sqlFilter.")"; // needed for getNumRec to work
@@ -55,7 +55,7 @@ else {
 $sideNav->arrItem[5]->setActive();
 $sideNav->setActive();
 
-$pagedNav = new PagedNav($web, $pgNav, $numRec, $numRecPerPage);
+$pagedNav = new PagedNav($web, $pg, $numRec, $numRecPerPage);
 $pagedNav->setStep(5, 10);
 
 function renderData($db, $arrData) {
@@ -195,7 +195,7 @@ img[id^=mtgt_unnamed] {
 <?php } else { ?>
 <div id="map"></div>
 <?php } if (!$showMap) { ?>
-<div class="clearFix"><?php !is_null($arrData) ? renderData($db, $arrData) : 0; ?></div>
+<div><?php !is_null($arrData) ? renderData($db, $arrData) : 0; ?></div>
 <div class="toolbar">
 <div class="pagingBar">
 <div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>

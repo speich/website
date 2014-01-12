@@ -20,7 +20,7 @@ else if (isset($_GET['theme'])) {
 	$sideNav->arrItem['t'.$themeId]->setActive();
 }
 else if (strpos($web->getLastPage(), 'photo.php') !== false) {
-	$sideNav->arrItem[2]->setActive();
+	$mainNav->arrItem[1]->setActive();
 }
 $sideNav->setActive();
 
@@ -167,116 +167,14 @@ function renderPhoto($data, $db, $web) {
 	echo '<p style="clear: both"><a href="'.$backPage.'">zurück</a></p>';
 }
 
-/**
- * @param $file
- * @return array|bool
- */
-function displPalette($file) {
-	//$file = $_SERVER['DOCUMENT_ROOT'].$file;
-	$steps = 3;
-	$file_img = getImageSize($file);
-	switch ($file_img[2]) {
-		case 1: //GIF
-			$srcImage = imagecreatefromgif($file);
-			break;
-		case 2: //JPEG
-			$srcImage = imagecreatefromjpeg($file);
-			break;
-		case 3: //PNG
-			$srcImage = imagecreatefrompng($file);
-			break;
-		default:
-			return false;
-	}
-	$xloop = ceil( ( $file_img[0] - 60 ) / ($steps - 1) );
-	$yloop = ceil( ( $file_img[1] - 60 ) / ($steps - 1) );
-	for ($y=10; $y<$file_img[1]; $y+=$yloop) {
-		for ($x=10; $x<$file_img[0]; $x+=$xloop) {
-			$rgbNow	  = imagecolorat($srcImage, $x, $y);
-			$colorrgb = imagecolorsforindex($srcImage,$rgbNow);
-			foreach($colorrgb as $k => $v) {
-				$t[$k] = dechex($v);
-				if( strlen($t[$k]) == 1 ) {
-					if( is_int($t[$k]) ) {
-						$t[$k] = $t[$k] . "0";
-					} else {
-						$t[$k] = "0" . $t[$k];
-					}
-				}
-			}
-			$rgb2 = strtoupper($t['red'] . $t['green'] . $t['blue']);
-			$color_set[] = $rgb2;
-		}
-	}
-	return $color_set;	
-}
-
-/**
- * @param $img
- */
-function getColor($img) {
-	/*
-	 * Code adapted from CristianoBetta.com
-	 * (c) 2008 Cristiano Betta <code@cristianobetta.com>
-	 *
-	 * This code has been licensed under the GPL2.0 License
-	 * http://creativecommons.org/licenses/GPL/2.0/
-	 */
-	$img = $_SERVER['DOCUMENT_ROOT'].$img;
-	$mime = exif_imagetype($img);
-	switch($mime) {
-		case 1: $img = imagecreatefromgif($img); break;
-		case 2: $img = imagecreatefromjpeg($img); break;
-		case 3: $img = imagecreatefrompng($img); break;
-	}
-	$imgWidth = imagesx($img);
-	$imgHeight = imagesy($img);
-	$megaPixel = $imgWidth * $imgHeight;
-	$arrHist = array();
-	$arrHistR = array();
-	$arrHistG = array();
-	$arrHistB = array();
-	
-	// init arrays with zeros
-	for ($i = 0; $i < 86; $i++) {
-		$arrHist[$i] = 0;
-		$arrHistR[$i] = 0;
-		$arrHistG[$i] = 0;
-		$arrHistB[$i] = 0;
-	}
-	
-	// loop through all the pixels and get rgb and luminance
-	for ($i = 0; $i < $imgWidth; $i++) {
-		for ($j = 0; $j < $imgHeight; $j++) {
-			$rgb = imagecolorat($img, $i, $j);
-			$cols = imagecolorsforindex($img, $rgb);
-			$red = $cols['red'];
-			$green = $cols['green'];
-			$blue = $cols['blue'];
-			$luminace = round(0.3 * $red + 0.59 * $green + 0.11 * $blue);
-
-			// calculate the indexes (rounding to the nearest (lowest) 5)
-			$iLuminance = ($luminance - $luminance % 3) / 3;
-			$iRed = ($red - $red % 3) / 3;
-			$iGreen = ($green - $green % 3) / 3;
-			$iBlue = ($blue - $blue % 3) / 3;
-
-			$arrHist[$iLuminance] += $luminance / $megapixel;
-			$arrHistR[$iRed] += $red / $megapixel;
-			$arrHistG[$iGreen] += $green / $megapixel;
-			$arrHistB[$iBue] += $blue / $megapixel;
-			print_r($arrHistB);
-		}
-	}
-}
 $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitle'];
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><? echo $pageTitle.' | '.$web->pageTitle; ?></title>
-<?php require_once 'inc_head.php'; ?>
-<link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
+<title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
+<?php require_once 'inc_head.php' ?>
+<link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .colLeft {
 	float: left;
@@ -299,14 +197,14 @@ $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitl
 	max-width: 740px;
 }
 
-#RatingStar {
+#ratingStar {
 	margin-right: 2px;
 	vertical-align: text-bottom;
 }
 
 #map, #mapNote {
 	/* clear: both; */
-	width: 373x; height: 200px;
+	width: 373px; height: 200px;
 
 }
 #map {

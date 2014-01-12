@@ -33,12 +33,9 @@ $mainNav->autoActive = true;
 // set main menu active according to first (top) directory
 foreach ($mainNav->arrItem as $item) {
 	// to find top (first) folder we need to remove webroot folder (if in web subdir) first
-	$arrUrl = parse_url($_SERVER["REQUEST_URI"]);
+	$arrUrl = parse_url($_SERVER['REQUEST_URI']);
 	$arrPath = pathinfo($arrUrl['path']);
 	$dir = $web->getDir();
-	if ($web->getWebRoot() != '/') {
-		$dir = str_replace($web->getWebRoot(), '', $dir);
-	}
 	$dir = ltrim($dir, '/');
 	$arrDir = explode('/', $dir);
 	$dir = $arrDir[0];
@@ -57,18 +54,18 @@ $mainNav->setActive();
 $path = $web->getWebRoot().'photo/photodb/';
 $arrPhotoNav['de'] = array(
 	array(1, 'f', 'Bildarchiv', $path.'photo.php'),
-	array(2, 1, 'Alle Fotos', $path.'photo.php'.$web->getQuery(array('theme', 'country', 'pgNav'), 2)),
+	array(2, 1, 'Alle Fotos', $path.'photo.php'.$web->getQuery(array('theme', 'country', 'pg'), 2)),
 	array(3, 'f', 'Bildsuche', $path.'photo-search.php'.$web->getQuery(array('qt' => 'full'))),
 	array(4, 3, 'Volltext-Suche', $path.'photo-search.php'.$web->getQuery(array('qt' => 'full'))),
-	array(5, 3, 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))),
+	array(5, 3, 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pg'))),
 	array(9, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery(array('theme', 'gNav'), 2))
 );
 $arrPhotoNav['en'] = array(
 	array(1, 'f', 'Picture Library', $path.'photo.php'),
-	array(2, 1, 'All Photos', $path.'photo.php'.$web->getQuery(array('theme', 'country', 'pgNav'), 2)),
+	array(2, 1, 'All Photos', $path.'photo.php'.$web->getQuery(array('theme', 'country', 'pg'), 2)),
 	array(3, 'f', 'Photo Search', $path.'photo-search.php'.$web->getQuery(array('qt' => 'full'))),
 	array(4, 3, 'Fulltext Search', $path.'photo-search.php'.$web->getQuery(array('qt' => 'full'))),
-	array(5, 3, 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pgNav'))),
+	array(5, 3, 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pg'))),
 	array(9, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery(array('theme', 'gNav'), 2))
 );
 
@@ -103,7 +100,7 @@ $arrPersonNav['en'] = array(
 
 $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
-$sideNav->setAutoActiveMatching(3);
+//$sideNav->setAutoActiveMatching(3);
 $photoNav = new PhotoDbNav($web->getWebRoot());
 $photoNav->connect();
 
@@ -139,25 +136,25 @@ function createMenuArticles($web, $sideNav, $arrArticleNav) {
 	foreach ($arrArticleNav as $item) {
 		$sideNav->add($item);
 	}
-		$count = 2;
-		if (function_exists('get_categories')) {
-			$categories = get_categories('orderby=name');
+	$count = 2;
+	if (function_exists('get_categories')) {
+		$categories = get_categories('orderby=name');
+		foreach ($categories as $cat) {
+			$sideNav->add(array($count, 'f', $cat->cat_name, $path.'?cat='.$cat->cat_ID));
+			$count++;
+		}
+		if (isset($_GET['p'])) {
+			$postId = $_GET['p'];
+			$categories = get_the_category($postId);
 			foreach ($categories as $cat) {
-				$sideNav->add(array($count, 'f', $cat->cat_name, $path.'?cat='.$cat->cat_ID));
-				$count++;
-			}
-			if (isset($_GET['p'])) {
-				$postId = $_GET['p'];
-				$categories = get_the_category($postId);
-				foreach ($categories as $cat) {
-					$sideNav->setActive($path.'?cat='.$cat->cat_ID);
-				}
-			}
-			else if (isset($_GET['cat'])) {
-				$sideNav->setActive($path.'?cat='.$_GET['cat']);
-			}
-			else {
-				$sideNav->setActive($path);
+				$sideNav->setActive($path.'?cat='.$cat->cat_ID);
 			}
 		}
+		else if (isset($_GET['cat'])) {
+			$sideNav->setActive($path.'?cat='.$_GET['cat']);
+		}
+		else {
+			$sideNav->setActive($path);
+		}
+	}
 }

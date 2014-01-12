@@ -56,7 +56,7 @@ class PhotoDbNav extends PhotoDb {
 
 		$lang = ucfirst($web->getLang());
 		$themes = $this->get($lang);
-		$arrQueryDel = array('country', 'theme', 'pgNav', 'numRec', 'lang');
+		$arrQueryDel = array('country', 'theme', 'pg', 'numRec', 'lang');
 		$path = $web->getWebRoot().'photo/photodb/photo.php';
 		$lastMenuId = null;
 		while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {

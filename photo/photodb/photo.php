@@ -1,16 +1,17 @@
 <?php
 use WebsiteTemplate\PagedNav;
 
+require_once __DIR__.'/../../library/inc_script.php';
 require_once 'photoinc.php';
 
-// This $Sql is also used to calculate number of records for paged nav below
+// This $dql is also used to calculate number of records for paged nav below
 // join only with theme when we can filter by theme, otherwise we have multiple records per theme (group by imgid is to time expensive)
 // We have to alias all fields since depending on PHP SQLite version short column names is on/off and can't be set.
 $sql = "SELECT * FROM (
 	SELECT DISTINCT i.id imgId, i.imgFolder imgFolder, i.imgName imgName, i.imgTitle imgTitle, dateAdded, lastChange, imgTitle,
-	R.id ratingId, i.imgDateOriginal date ";
+	r.id ratingId, i.imgDateOriginal date ";
 if (isset($_GET['theme'])) {
-	$sql.= ", T.themeId themeId";
+	$sql.= ", it.themeId themeId";
 }
 else if (isset($_GET['country'])) {
 	$sql.= ", lc.countryId countryId";
@@ -20,32 +21,33 @@ $sql.= ", CASE WHEN i.imgDateOriginal IS NULL THEN
 	ELSE DATETIME(i.imgDateOriginal, 'unixepoch', 'localtime') END date
 	FROM Images i";
 if (isset($_GET['theme'])) {
-	$sql.= "	INNER JOIN Images_Themes T ON i.id = T.imgId";
+	$sql.= "	INNER JOIN Images_Themes it ON i.id = it.imgId";
 }
 else if (isset($_GET['country'])) {
 	$sql.= "	INNER JOIN Images_Locations il ON i.id = il.imgId
 		INNER JOIN Locations_Countries lc ON il.LocationId = lc.LocationId
 	";
 }
-$sql.= "	LEFT JOIN rating R ON i.ratingId = R.id
-	)";
+$sql.= "	LEFT JOIN rating r ON i.ratingId = r.id)";
 
 $stmt = $db->db->prepare($sql.$sqlFilter.$sqlSort." LIMIT :limit OFFSET :offset");
 $stmt->bindValue(':limit', $numRecPerPage);
-$stmt->bindValue(':offset', ($pgNav-1) * $numRecPerPage);
+$stmt->bindValue(':offset', ($pg-1) * $numRecPerPage);
 $stmt->execute();
 $arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage, $web);
-$pagedNav = new PagedNav($pgNav, $numRec, $numRecPerPage, $web);
+$pagedNav = new PagedNav($numRec, 10);
+$pagedNav->renderText = false;
+
 $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
-<?php require_once __DIR__.'/../../layout/inc_head.php' ?>
-<link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css" media="screen"/>
+<?php require_once 'inc_head.php' ?>
+<link href="photodb.css" rel="stylesheet" type="text/css">
+<!-- <link rel="stylesheet" href="../../library/dojo/1.9.2/dijit/themes/tundra/tundra.css" media="screen"> -->
 </head>
 
 <body class="tundra">
@@ -57,7 +59,7 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php $pagedNav->printNav($pgNav, $web); ?>
+<?php $pagedNav->printNav($pg, $web); ?>
 </div>
 <div class="search"><script>
   (function() {
@@ -91,7 +93,7 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php $pagedNav->printNav($pgNav, $web); ?>
+<?php $pagedNav->printNav($pg, $web); ?>
 </div>
 
 <div id="slideFullScreenCont">
@@ -112,7 +114,7 @@ var dojoConfig = {
 	locale: '<?php echo $locale = $web->getLang(); ?>'
 };
 </script>
-<script type="text/javascript" src="../../library/dojo/1.9.1/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../library/dojo/1.9.2/dojo/dojo.js"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/fx',
@@ -147,7 +149,7 @@ function(fx, win, query, ioQuery, on, domStyle, domGeometry) {
 		 */
 		showFull: function(src, w, h) {
 			var scrollY = domGeometry.position('layoutTop01', false).y,
-				img = new Image();
+			img = new Image();
 
 			// create image map
 			if (!slide.inserted) {
@@ -187,15 +189,16 @@ function(fx, win, query, ioQuery, on, domStyle, domGeometry) {
 
 		showNext: function() {
 
-						fx.fadeOut({
-							node: slide.fullScreen,
-							onEnd: function() {
+			fx.fadeOut({
+				node: slide.fullScreen,
+				onEnd: function() {
 
-							}
-						}).play();
+				}
+			}).play();
 		},
 
-		showPrevious: function() {	}
+		showPrevious: function() {
+		}
 	};
 
 	//query('.slideFullScreen, .slideNavClose', cont).on('click', function() {
@@ -214,7 +217,7 @@ function(fx, win, query, ioQuery, on, domStyle, domGeometry) {
 
 	query('.slideCanvas a:first-child, .slideText a:first-child', d.getElementById('layoutMain')).on('click', function(evt) {
 		var src = evt.target.href,
-			q = ioQuery.queryToObject(src.slice(src.lastIndexOf('?') + 1));
+		q = ioQuery.queryToObject(src.slice(src.lastIndexOf('?') + 1));
 
 		evt.preventDefault();
 		slide.showFull(src, q.w, q.h);
