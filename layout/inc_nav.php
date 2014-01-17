@@ -28,7 +28,6 @@ $arrNav['en'] = array(
 );
 
 $mainNav = new Menu('menuMain', null, $arrNav[$web->getLang()]);
-$mainNav->autoActive = true;
 
 // set main menu active according to first (top) directory
 foreach ($mainNav->arrItem as $item) {
@@ -39,9 +38,7 @@ foreach ($mainNav->arrItem as $item) {
 	$dir = ltrim($dir, '/');
 	$arrDir = explode('/', $dir);
 	$dir = $arrDir[0];
-	$firstDir = substr($dir, 0, stripos($dir, '/'));	// unused?
-	// special cases
-	if (strpos($item->linkUrl, $web->getWebRoot().$dir) !== false) {
+	if ($dir !== '' && strpos($item->linkUrl, $web->getWebRoot().$dir) !== false) {
 		$item->setActive();
 	}
 }
@@ -100,9 +97,10 @@ $arrPersonNav['en'] = array(
 
 $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
-//$sideNav->setAutoActiveMatching(3);
+$sideNav->setAutoActiveMatching(3);
 $photoNav = new PhotoDbNav($web->getWebRoot());
 $photoNav->connect();
+
 
 switch($mainNav->getActive()) {
 	case 1:
