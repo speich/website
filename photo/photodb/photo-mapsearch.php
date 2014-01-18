@@ -1,5 +1,5 @@
 <?php
-use Website\PagedNav;
+use WebsiteTemplate\PagedNav;
 
 require_once 'photoinc.php';
 
@@ -180,7 +180,7 @@ img[id^=mtgt_unnamed] {
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php echo $pagedNav->printNav(); ?>
+<?php echo $pagedNav->render(); ?>
 </div>
 <div class="optionBar">
 <div class="barTxt">Sortierung</div>
@@ -203,7 +203,7 @@ img[id^=mtgt_unnamed] {
 <?php echo $mRecPp->render(); ?>
 <div class="barTxt">pro Seite</div>
 <div class="barVertSeparator"></div>
-<?php echo $pagedNav->printNav(); ?>
+<?php echo $pagedNav->render(); ?>
 </div>
 </div>
 <?php } ?>

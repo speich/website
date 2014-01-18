@@ -1,12 +1,10 @@
 <?php
 namespace PhotoDb;
 
-
 use WebsiteTemplate\Menu;
 use WebsiteTemplate\Language;
 use PDO;
 use PDOStatement;
-
 
 require_once 'PhotoDb.php';
 
