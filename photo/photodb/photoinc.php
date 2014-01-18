@@ -1,11 +1,38 @@
 <?php
 use PhotoDb\PhotoDb;
+use WebsiteTemplate\Language;
 use WebsiteTemplate\Menu;
-use WebsiteTemplate\Website;
-
 
 require_once __DIR__.'/../../library/inc_script.php';
 require_once 'PhotoDb.php';
+
+$i180n = array(
+	'de' => array(
+		'photo' => 'Foto',
+		'photos' => 'Fotos',
+		'per page' => 'pro Seite',
+		'sorting' => 'Sortierung',
+		'rating' => 'Bewertung',
+		'title' => 'Titel',
+		'added' => 'hinzugefügt',
+		'created' => 'erstellt',
+		'last changed' => 'zuletzt geändert',
+		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.'
+	),
+	'en' => array(
+		'photo' => 'photo',
+		'photos' => 'photos',
+		'per page' => 'per page',
+		'sorting' => 'sorting',
+		'rating' => 'rating',
+		'by title' => 'by title',
+		'date added' => 'date added',
+		'date created' => 'date created',
+		'last changed' => 'last changed',
+		'not found' => 'No records found with these settings.'
+	)
+);
+
 
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
@@ -67,7 +94,12 @@ foreach ($arrVal as $key => $val) {
 		$mRecPp->arrItem[$key]->setActive();
 	}
 }
-$arrVal = array(4 => 'Titel', 1 => 'hinzugefügt', 2 => 'erstellt', 3 => 'zuletzt geändert');
+$arrVal = array(
+	4 => $i180n[$web->getLang()]['by title'],
+	1 => $i180n[$web->getLang()]['date added'],
+	2 => $i180n[$web->getLang()]['date created'],
+	3 => $i180n[$web->getLang()]['last changed']
+);
 $mSort = new Menu(null, 'ulMenu1 mSort');
 $mSort->add(array('a', 'b', $arrVal[$sort]));
 foreach ($arrVal as $key => $val) {
@@ -92,12 +124,13 @@ foreach ($arrVal as $key => $val) {
 /**
  * @param PhotoDb $db
  * @param array $arrData
- * @param Website $web
+ * @param Language $web
+ * @param array $i18n
  * @return bool
  */
-function renderData($db, $arrData, $web) {
+function renderData($db, $arrData, $web, $i18n) {
 	if (count($arrData) == 0) {
-		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
+		echo '<p>'.$i18n[$web->getLang()]['not found'].'</p>';
 		return false;
 	}
 	$c = 0;

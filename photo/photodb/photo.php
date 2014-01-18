@@ -36,10 +36,20 @@ $stmt->bindValue(':offset', ($pg-1) * $numRecPerPage);
 $stmt->execute();
 $arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage, $web);
-$pagedNav = new PagedNav($numRec, 10);
+$pagedNav = new PagedNav($numRec, $numRecPerPage);
 $pagedNav->renderText = false;
 
 $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
+
+$word = 'photo'.($numRec > 1 ? 's' : '');
+$pagingBar = '<div class="pagingBar">'.
+	'<div class="barTxt">'.$numRec.' '.$i180n[$web->getLang()][$word].'</div>'.
+	'<div class="barVertSeparator"></div>'.
+	$mRecPp->render().
+	'<div class="barTxt">'.$i180n[$web->getLang()]['per page'].'</div>'.
+	'<div class="barVertSeparator"></div>'.
+	$pagedNav->render($pg, $web).
+	'</div>';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
@@ -47,20 +57,12 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 <title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
-<!-- <link rel="stylesheet" href="../../library/dojo/1.9.2/dijit/themes/tundra/tundra.css" media="screen"> -->
 </head>
 
 <body class="tundra">
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
-<div class="pagingBar">
-<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
-<div class="barVertSeparator"></div>
-<?php echo $mRecPp->render(); ?>
-<div class="barTxt">pro Seite</div>
-<div class="barVertSeparator"></div>
-<?php $pagedNav->printNav($pg, $web); ?>
-</div>
+<?php echo $pagingBar ?>
 <div class="search"><script>
   (function() {
     var cx = '000284793056488053930:zkcmsdcpu2k',
@@ -75,30 +77,27 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 </script>
 <gcse:search></gcse:search></div>
 <div class="optionBar">
-<div class="barTxt">Sortierung
-<?php echo $mSort->render(); ?>
+<div class="barTxt"><?php
+	echo $i180n[$web->getLang()]['sorting'];
+	echo $mSort->render(); ?>
 </div>
 <div class="barVertSeparator"></div>
-<div class="barTxt">Filter <?php echo $mQuality->render(); ?></div>
+<div class="barTxt"><?php
+	echo $i180n[$web->getLang()]['rating'];
+	echo $mQuality->render();
+?></div>
 <div class="barVertSeparator"></div>
 <div id="showMap"></div>
 </div>
 </div>
 
-<div><ul><?php renderData($db, $arrData, $web); ?></ul></div>
+<div><ul><?php renderData($db, $arrData, $web, $i180n); ?></ul></div>
 
-<div class="pagingBar">
-<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
-<div class="barVertSeparator"></div>
-<?php echo $mRecPp->render(); ?>
-<div class="barTxt">pro Seite</div>
-<div class="barVertSeparator"></div>
-<?php $pagedNav->printNav($pg, $web); ?>
-</div>
+<?php echo $pagingBar ?>
 
 <div id="slideFullScreenCont">
 <div class="slideFullScreen">
-<span class="slideFullScreenAuthor">Foto Simon Speich, www.speich.net</span>
+<span class="slideFullScreenAuthor"><?php echo $i180n[$web->getLang()]['photo']; ?> Simon Speich, www.speich.net</span>
 </div>
 <!-- not implemented yet
 <div class="slideNavClose">close</div>
