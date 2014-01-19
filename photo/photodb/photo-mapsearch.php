@@ -245,54 +245,98 @@ require([
 	'dojo/domReady!'
 ], function(win, domStyle, domGeometry, ioQuery) {
 
-	function setMapDimension() {
-		var winDim = win.getBox(),
-			cont = domGeometry.position(byId('layoutMain')),
-			footer  = domGeometry.position(byId('layoutFooterCont'));
-
-		// set map dimensions
-		domStyle.set(byId('map-canvas'), {
-			width: winDim.w  - cont.x - 15 + 'px',
-			height: winDim.h  - cont.y - footer.h - 15 + 'px'
-		});
-	}
-
 	var byId = function(el) {
-			return document.getElementById(el);
+		return document.getElementById(el);
+	},
+	mapApp = {
+
+		queryObj: ioQuery.queryToObject(window.location.search.replace('?', '')),
+		map: null,
+		mapOptions: {},
+		mapLat: 46.8189,	// initial map coordinates
+		mapLng: 8.2246,
+		mapZoom: 3,
+		mapDiv: byId('map-canvas'),
+		gmaps: google.maps,
+		bounds: null,
+		manager: {
+			maxZoom: 13,
+			gridSize: 40,
+			markers: {},
+			bounds: {}
 		},
-		queryObj = ioQuery.queryToObject(window.location.search.replace('?', '')),
-		map,
-		mapOptions,
-		mapLat = 46.8189,	// initial map coordinates
-		mapZoom = 3,
-		mapLng = 8.2246,
-		mapDiv = byId('map-canvas'),
-		mc;
+
+		/**
+		 * Fit map to window size.
+		 */
+		setMapDimension: function() {
+			var winDim = win.getBox(),
+			cont = domGeometry.position(byId('layoutMain')),
+			footer = domGeometry.position(byId('layoutFooterCont'));
+
+			// set map dimensions
+			domStyle.set(byId('map-canvas'), {
+				width: winDim.w - cont.x - 15 + 'px',
+				height: winDim.h - cont.y - footer.h - 15 + 'px'
+			});
+		},
+
+		initClusterer: function() {
+			var self = this;
+			var clusterOpt = {
+				maxZoom: this.managerMaxZoom,
+				gridSize: this.managerGridSize
+			};
+			this.manager = new MarkerClusterer(this.map, null, clusterOpt);
+			this.manager.markerHash = {};				// remember which markers were already added to the map
+			this.manager.loadedBounds = {};			// remember which markers were already loaded from sqlite
+			this.manager.zoomLevel = this.map.getZoom();	// remember zoom level when loading marker data
+			this.loadMarkerData();
+			// load marker data on every drag or on zoom
+			// e.g. fired when the change of the map view ends.
+			GEvent.addListener(this.map, 'dragend', function() {
+				if (self.checkCaching() === false) {
+					self.loadMarkerData();
+				}
+			});
+			// set manager zoomlevel for caching check
+			GEvent.addListener(this.map, 'zoomend', function(oldLevel, newLevel) {
+				if (this.getZoom() < self.manager.zoomLevel) {	// always reload on zoom out
+					self.loadMarkerData();
+				}
+				self.manager.zoomLevel = newLevel;
+			});
+			// load map data when rating is changed
+			dojo.subscribe('ratingSelected', this, function() {
+				this.manager.clearMarkers();	// this is not enougth, manager has to complete be reset. Is this a bug?
+				this.manager = new MarkerClusterer(this.map, null, clusterOpt);
+				this.manager.markerHash = {};
+				this.manager.loadedBounds = [];
+				this.loadMarkerData();
+			})
+		}
+
+	};
+
 
 	window.onresize = setMapDimension;
 	setMapDimension();
 
+
 	mapOptions = {
-		center: new google.maps.LatLng(mapLat, mapLng),
+		center: new gmaps.LatLng(mapLat, mapLng),
 		zoom: mapZoom
 	};
-	map = new google.maps.Map(mapDiv, mapOptions);
+	map = new gmaps.Map(mapDiv, mapOptions);
+
+	// center map  to coords from query string
+	if (queryObj.lat1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
+		bounds = new gmaps.LatLngBounds(new gmap.LatLng(queryObj.lat1, queryObj.lng1), new gmaps.LatLng(queryObj.lat2, queryObj.lng2));
+		map.fitBounds(bounds);
+	}
+
 	mc = new MarkerClusterer(map);
-
-
-	// center map either with coords from querstring or center to Switzerland as default
-
-			if (queryObj.lt1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
-				var bounds = new GLatLngBounds(new GLatLng(queryObj.lat1, queryObj.lng1), new GLatLng(queryObj.lat2, queryObj.lng2));
-				var zLevel = this.map.getBoundsZoomLevel(bounds);
-				this.map.setCenter(bounds.getCenter(), zLevel);
-			}
-			// default: center to switzerland
-			else {
-				var coord = new GLatLng(this.mapLat, this.mapLng);
-				this.map.setCenter(coord, this.mapZoomLevel);
-			}
-
+}
 
 });
 
