@@ -13,9 +13,9 @@ $i180n = array(
 		'per page' => 'pro Seite',
 		'sorting' => 'Sortierung',
 		'rating' => 'Bewertung',
-		'title' => 'Titel',
-		'added' => 'hinzugefügt',
-		'created' => 'erstellt',
+		'by title' => 'Titel',
+		'date added' => 'hinzugefügt',
+		'date created' => 'erstellt',
 		'last changed' => 'zuletzt geändert',
 		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.'
 	),
@@ -94,6 +94,7 @@ foreach ($arrVal as $key => $val) {
 		$mRecPp->arrItem[$key]->setActive();
 	}
 }
+
 $arrVal = array(
 	4 => $i180n[$web->getLang()]['by title'],
 	1 => $i180n[$web->getLang()]['date added'],

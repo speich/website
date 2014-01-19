@@ -41,6 +41,7 @@ $pagedNav->renderText = false;
 
 $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
 
+
 $word = 'photo'.($numRec > 1 ? 's' : '');
 $pagingBar = '<div class="pagingBar">'.
 	'<div class="barTxt">'.$numRec.' '.$i180n[$web->getLang()][$word].'</div>'.
