@@ -52,13 +52,10 @@ else {
 	$numRec = 0;
 }
 
-$sideNav->arrItem[5]->setActive();
-$sideNav->setActive();
+$pagedNav = new PagedNav($numRec, $numRecPerPage);
 
-$pagedNav = new PagedNav($web, $pg, $numRec, $numRecPerPage);
-$pagedNav->setStep(5, 10);
 
-function renderData($db, $arrData) {
+function renderDataMap($db, $arrData) {
 	if (count($arrData) == 0) {
 		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
 		return false;
@@ -119,9 +116,18 @@ switch ($web->host) {
 <head>
 <title><?php echo $web->pageTitle; ?>: Bildarchiv Kartensuche</title>
 <?php require_once 'inc_head.php' ?>
-<link href="../../layout/photodb.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dijit/themes/tundra/tundra.css"/>
+<link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
+#layoutMiddle {
+	bottom: 100px;
+}
+
+#map-canvas {
+	/* dimension overwritten by js */
+	height: 100%;
+	width: 100%;
+}
+
 #layoutMiddle, #layoutFooterCont {
 	max-width: none;
 }
@@ -172,450 +178,124 @@ img[id^=mtgt_unnamed] {
 
 <body class="tundra">
 <?php require_once 'inc_body_begin.php'; ?>
-<?php if (!$showMap) { ?>
-<div class="toolbar">
-<div class="pagingBar">
-<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
-<div class="barVertSeparator"></div>
-<?php echo $mRecPp->render(); ?>
-<div class="barTxt">pro Seite</div>
-<div class="barVertSeparator"></div>
-<?php echo $pagedNav->render(); ?>
-</div>
-<div class="optionBar">
-<div class="barTxt">Sortierung</div>
-<?php echo $mSort->render(); ?>
-<div class="barVertSeparator"></div>
-<div class="barTxt">Filter</div>
-<?php echo $mQuality->render(); ?>
-<div class="barVertSeparator"></div>
-<div id="showMap"></div>
-</div>
-</div>
-<?php } else { ?>
-<div id="map"></div>
-<?php } if (!$showMap) { ?>
-<div><?php !is_null($arrData) ? renderData($db, $arrData) : 0; ?></div>
-<div class="toolbar">
-<div class="pagingBar">
-<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
-<div class="barVertSeparator"></div>
-<?php echo $mRecPp->render(); ?>
-<div class="barTxt">pro Seite</div>
-<div class="barVertSeparator"></div>
-<?php echo $pagedNav->render(); ?>
-</div>
-</div>
+<?php
+
+if (!$showMap) {
+	?>
+	<div class="toolbar">
+	<div class="pagingBar">
+	<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
+	<div class="barVertSeparator"></div>
+	<?php echo $mRecPp->render(); ?>
+	<div class="barTxt">pro Seite</div>
+	<div class="barVertSeparator"></div>
+	<?php echo $pagedNav->render(); ?>
+	</div>
+	<div class="optionBar">
+	<div class="barTxt">Sortierung</div>
+	<?php echo $mSort->render(); ?>
+	<div class="barVertSeparator"></div>
+	<div class="barTxt">Filter</div>
+	<?php echo $mQuality->render(); ?>
+	<div class="barVertSeparator"></div>
+	<div id="showMap"></div>
+	</div>
+	</div>
+
+<?php }
+else { ?>
+
+
+	<div id="map-canvas"></div>
+
+<?php }
+if (!$showMap) { ?>
+	<div><?php !is_null($arrData) ? renderData($db, $arrData) : 0; ?></div>
+	<div class="toolbar">
+	<div class="pagingBar">
+	<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
+	<div class="barVertSeparator"></div>
+	<?php echo $mRecPp->render(); ?>
+	<div class="barTxt">pro Seite</div>
+	<div class="barVertSeparator"></div>
+	<?php echo $pagedNav->render(); ?>
+	</div>
+	</div>
 <?php } ?>
+
 <?php require_once 'inc_body_end.php'; ?>
 <script type="text/javascript">
-var djConfig = {
-	parseOnLoad: true,
-	isDebug: false,
+var dojoConfig = {
+	async: true,
 	locale: '<?php echo $locale = $web->getLang(); ?>',
-	useCommentedJson: true
+	packages: [
+		{name: 'gmap', location: './../../../gmap'}
+	]
 };
 </script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../library/dojo/1.9.2/dojo/dojo.js"></script>
 <script type="text/javascript">
-dojo.require('dojo.io.script');
-dojo.require("dijit.form.Button");
-dojo.require("dijit.Menu");
+require([
+	'dojo/window',
+	'dojo/dom-style',
+	'dojo/dom-geometry',
+	'dojo/io-query',
+	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&key=AIzaSyBSisbdkhszQj2OvSyWWjE-Vmi8sV34oeA&language=' + dojoConfig.locale,
+	'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
+	'dojo/domReady!'
+], function(win, domStyle, domGeometry, ioQuery) {
 
-var slide = {
-	/**
-	 * Show slide in full size centered on screen.
-	 * The centering and filling the screen with black is done through css
-	 * by imitating a table row with one cell in it.
-	 * @param {object} thumbnail HTMLImgElement
-	 * @param {integer} width width of image
-	 * @param {integer} height height of image
-	 */
-	showFull: function(thumbnail, width, height) {
-		var el = dojo.create('div', null, dojo.body());
-		var Tbl = dojo.create('div', {
-			innerHTML: '<div><img src="' + thumbnail.src + '" alt="Foto"><br/><span class="SlideFullScreenAuthor">Foto Simon Speich, www.speich.net</span></div>'
-		}, el, 'first');
-		dojo.style(el, 'opacity', 0);
-		dojo.addClass(el, 'slideFullScreen');
-		dojo.fadeIn({
-			node: el
-		}).play();
-		dojo.connect(el, 'onclick', el, function() {
-			var args = {
-				node: el,
-				duration: 400,
-				onEnd: function() {
-					dojo.destroy(el);
-				}
-			};
-			dojo.fadeOut(args).play();
-		}, false);
+	function setMapDimension() {
+		var winDim = win.getBox(),
+			cont = domGeometry.position(byId('layoutMain')),
+			footer  = domGeometry.position(byId('layoutFooterCont'));
+
+		// set map dimensions
+		domStyle.set(byId('map-canvas'), {
+			width: winDim.w  - cont.x - 15 + 'px',
+			height: winDim.h  - cont.y - footer.h - 15 + 'px'
+		});
 	}
-};
 
-var app = {
-	map: null,
-	mapKey: "<?php echo $gMapKey; ?>",
-	mapLat: 46.8189,	// initial map coordinates
-	mapLng: 8.2246,
-	mapZoomLevel: 2,	// initial zoom level of map
+	var byId = function(el) {
+			return document.getElementById(el);
+		},
+		queryObj = ioQuery.queryToObject(window.location.search.replace('?', '')),
+		map,
+		mapOptions,
+		mapLat = 46.8189,	// initial map coordinates
+		mapZoom = 3,
+		mapLng = 8.2246,
+		mapDiv = byId('map-canvas'),
+		mc;
 
-	manager: null,
-	managerMaxZoom: 13,
-	managerGridSize: 40,
+	window.onresize = setMapDimension;
+	setMapDimension();
 
-	qual: 3,
+	mapOptions = {
+		center: new google.maps.LatLng(mapLat, mapLng),
+		zoom: mapZoom
+	};
+	map = new google.maps.Map(mapDiv, mapOptions);
+	mc = new MarkerClusterer(map);
 
-	/**
-	 * Load the google maps api dynamically
-	 */
-	loadMapJs: function(mapKey) {
-		google.load("maps", "2.0", {
-			"callback": dojo.hitch(this, this.initMap)
-		});
-	},
 
-	loadClustererJs: function() {
-			// load and init markercluster
-		// note: google maps has to be loaded before loading MarkerManager
-		return dojo.io.script.get({
-			url: '../../library/gmaps/markerclusterer/src/markerclusterer.js',
-			checkString: 'MarkerClusterer',
-			load: dojo.hitch(this, this.initClusterer),
-			error: function(err) {
-				alert(err);
+	// center map either with coords from querstring or center to Switzerland as default
+
+			if (queryObj.lt1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
+				var bounds = new GLatLngBounds(new GLatLng(queryObj.lat1, queryObj.lng1), new GLatLng(queryObj.lat2, queryObj.lng2));
+				var zLevel = this.map.getBoundsZoomLevel(bounds);
+				this.map.setCenter(bounds.getCenter(), zLevel);
 			}
-		});
-	},
-
-	// Define rating list to add to map
-	initRatingList: function(align, posX, posY) {
-		var RatingList = function() {};
-
-		RatingList.prototype = new GControl();
-
-		RatingList.prototype.initialize = function(map) {
-			var menu = new dijit.Menu({
-	       style: "display: none;"
-	    });
-	    var mItem1 = new dijit.MenuItem({
-	    	iconClass: "mItemIconStar1",
-	      onClick: function() {
-					app.qual = 1;
-					button.attr('iconClass', this.iconClass);
-					dojo.style(dojo.byId('ratingButton_label'), 'width', '32px');
-					dojo.publish('ratingSelected');
-				}
-	    });
-	    var mItem2 = new dijit.MenuItem({
-				iconClass: "mItemIconStar2",
-	      onClick: function() {
-					app.qual = 2;
-	      	button.attr('iconClass', this.iconClass);
-					dojo.style(dojo.byId('ratingButton_label'), 'width', '16px');
-					dojo.publish('ratingSelected');
-	    	}
-	    });
-			var mItem3 = new dijit.MenuItem({
-				iconClass: "mItemIconStar3",
-	     	onClick: function() {
-					app.qual = 3;
-	     		button.attr('iconClass', this.iconClass);
-					dojo.style(dojo.byId('ratingButton_label'), 'width', '0px');
-					dojo.publish('ratingSelected');
-	    	}
-	    });
-		  var button = new dijit.form.DropDownButton({
-	      name: 'ratingButton',
-				iconClass: 'mItemIconStar' + app.qual,
-	      dropDown: menu,
-	      id: 'ratingButton'
-	    });
-			var w = (app.qual == 3 ? 0 : (app.qual == 2 ? 16 : 32));
-			menu.addChild(mItem1);
-			menu.addChild(mItem2);
-			menu.addChild(mItem3);
-		  map.getContainer().appendChild(button.domNode);
-			dojo.style(dojo.byId('ratingButton_label'), 'width', w + 'px');
-		  return button.domNode;
-		};
-
-		RatingList.prototype.getDefaultPosition = function() {
-	  	return new GControlPosition(align, new GSize(posX, posY));
-		};
-		return new RatingList();
-	},
-
-	initClusterer: function() {
-		var self = this;
-		var clusterOpt = {
-			maxZoom: this.managerMaxZoom,
-			gridSize: this.managerGridSize
-		};
-		this.manager = new MarkerClusterer(this.map, null, clusterOpt);
-		this.manager.markerHash = {};				// remember which markers were already added to the map
-		this.manager.loadedBounds = {};			// remember which markers were already loaded from sqlite
-		this.manager.zoomLevel = this.map.getZoom();	// remember zoom level when loading marker data
-		this.loadMarkerData();
-		// load marker data on every drag or on zoom
-		// e.g. fired when the change of the map view ends.
-		GEvent.addListener(this.map, 'dragend', function() {
-			if (self.checkCaching() === false) {
-				self.loadMarkerData();
+			// default: center to switzerland
+			else {
+				var coord = new GLatLng(this.mapLat, this.mapLng);
+				this.map.setCenter(coord, this.mapZoomLevel);
 			}
-		});
-		// set manager zoomlevel for caching check
-		GEvent.addListener(this.map, 'zoomend', function(oldLevel, newLevel) {
-			if (this.getZoom() < self.manager.zoomLevel) {	// always reload on zoom out
-				self.loadMarkerData();
-			}
-			self.manager.zoomLevel = newLevel;
-		});
-		// load map data when rating is changed
-		dojo.subscribe('ratingSelected', this, function() {
-			this.manager.clearMarkers();	// this is not enougth, manager has to complete be reset. Is this a bug?
-			this.manager = new MarkerClusterer(this.map, null, clusterOpt);
-			this.manager.markerHash = {};
-			this.manager.loadedBounds = [];
-			this.loadMarkerData();
-		})
-	},
 
-	initResultButton: function(align, posX, posY) {
-			// Define button show photos to add to map
-		var ResultButton = function ResultButton() {};
 
-		ResultButton.prototype = new GControl();
-
-		ResultButton.prototype.initialize = function(map) {
-			var button = new dijit.form.Button({
-	      name: 'showResult',
-				id: 'showResult',
-				iconClass: 'buttShowResult',
-				label: 'Fotos anzeigen',
-				onClick: dojo.hitch(map, function() {
-					var bounds = map.getBounds();
-					var point = bounds.getSouthWest();
-					var lat1 = point.lat().toFixed(6);
-					var lng1 = point.lng().toFixed(6);
-					point = bounds.getNorthEast();
-					var lat2 = point.lat().toFixed(6);
-					var lng2 = point.lng().toFixed(6);
-					var q = {};
-					q.lat1 = lat1;
-					q.lat2 = lat2;
-					q.lng1 = lng1;
-					q.lng2 = lng2;
-					q.showMap = 0;
-					q.qual = app.qual;
-					q = dojo.objectToQuery(q);
-					window.location.href = 'photo-mapsearch.php' + '?' + q;
-				})
-			});
-			map.getContainer().appendChild(button.domNode);
-			return button.domNode;
-		};
-
-		ResultButton.prototype.getDefaultPosition = function() {
-			return new GControlPosition(align, new GSize(posX, posY));
-		};
-
-		return new ResultButton();
-	},
-
-	/**
-	 * Inits the map as a callback from the loader.
-	 */
-	initMap: function() {
-		var el = dojo.byId('map');
-		this.map = new GMap2(el, {
-			draggableCursor: 'pointer',
-			draggingCursor: 'move'
-		});
-		var ratingList = this.initRatingList(G_ANCHOR_TOP_LEFT, 120, 7);
-		var resultButton = this.initResultButton(G_ANCHOR_TOP_LEFT, 208, 7);
-		this.map.addControl(new GMapTypeControl());
-		this.map.addControl(new GSmallMapControl());
-		this.map.addControl(ratingList);
-		this.map.addControl(resultButton);
-		this.map.enableScrollWheelZoom();
-		this.map.enableContinuousZoom();
-		this.map.setMapType(G_SATELLITE_MAP);
-
-		this.loadClustererJs();
-
-		// center map with posted coords
-		var q = dojo.queryToObject(window.location.search.replace('?', ''));
-		if (q.lat1 && q.lat2 && q.lng1 && q.lng2) {
-			var bounds = new GLatLngBounds(new GLatLng(q.lat1, q.lng1), new GLatLng(q.lat2, q.lng2));
-			var zLevel = this.map.getBoundsZoomLevel(bounds);
-			this.map.setCenter(bounds.getCenter(), zLevel);
-		}
-		// default: center to switzerland
-		else {
-			var coord = new GLatLng(this.mapLat, this.mapLng);
-			this.map.setCenter(coord, this.mapZoomLevel);
-		}
-		dojo.style(el, 'visibility', 'visible');
-	},
-
-	/**
-	 * load data either when current center of viewport is outside last viewport
-		 or zoomlevel is smaller than last zoomlevel
-	 * @param {Object} map
-	 * @param {Object} manager
-	 */
-	checkCaching: function() {
-		// check if data already previously loaded
-			var center = this.map.getCenter();
-			var b = this.manager.loadedBounds;
-			return dojo.some(b, function(bounds) {
-				if (bounds.containsLatLng(center)) {
-					return true;
-				}
-			});
-
-	},
-
-	/**
-	 * Returns the number of items in the hash.
-	 * @param {object} hash
-	 * @return integer
-	 */
-	getNumItem: function(hash) {
-		var i = 0;
-		for (var key in hash) {
-			i++;
-		}
-		return i;
-	},
-
-	/**
-	 * Load points (images) for marker manager
-	 * @return true|deferred
-	 */
-	loadMarkerData: function() {
-		var bounds = this.map.getBounds();
-		this.manager.loadedBounds[this.manager.loadedBounds.length] = bounds;	// cache load
-		var point = bounds.getSouthWest();
-		var lat1 = point.lat().toFixed(6);
-		var lng1 = point.lng().toFixed(6);
-		point = bounds.getNorthEast();
-		var lat2 = point.lat().toFixed(6);
-		var lng2 = point.lng().toFixed(6);
-		var q = {};
-		q.lat1 = lat1;
-		q.lat2 = lat2;
-		q.lng1 = lng1;
-		q.lng2 = lng2;
-		q.qual = this.qual;
-		q = dojo.objectToQuery(q);
-		var args = {
-			url: 'photofnc.php?fnc=loadGMapsData&' + q,
-			handleAs: 'json',
-			load: dojo.hitch(this, this.createMarkers),
-			error: function(response) {
-				console.debug(response);
-			}
-		};
-		dojo.xhrGet(args);
-	},
-
-	/**
-	 * Add markers to the marker manager.
-	 * @param {Object} response
-	 */
-	createMarkers: function(response) {
-		var self = this;
-		if (response.markers.length > 0) {
-			var markers = [];
-			dojo.forEach(response.markers, function(item) {
-				if (!self.manager.markerHash[item.id]) {
-					var point = new GLatLng(item.lat, item.lng);
-					var icon = new GIcon();
-					icon.image = 'images/thumbs/' + item.img;
-					icon.iconSize = new GSize(40, 40);
-					icon.iconAnchor = new GPoint(21, 21);
-					icon.infoWindowAnchor = new GPoint(21, 21);
-					var marker = new GMarker(point, {
-						icon: icon,
-						draggable: true,
-						bouncy: false
-					});
-					GEvent.addListener(marker, "click", function() {
-						self.showThumb(marker, item);
-					});
-					markers.push(marker);
-					self.manager.markerHash[item.id] = item;
-				}
-			});
-			if (markers.length > 0) {
-				this.manager.addMarkers(markers);
-			}
-		}
-		return response;
-	},
-
-	/**
-	 * Show thumbnail on map.
-	 * @param {GMap2} map
-	 * @param {GMarker} marker
-	 * @param {Object} item
-	 */
-	showThumb: function(marker, item) {
-		var bounds = this.map.getBounds();
-		var point = bounds.getSouthWest();
-		var lat1 = point.lat().toFixed(6);
-		var lng1 = point.lng().toFixed(6);
-		point = bounds.getNorthEast();
-		var lat2 = point.lat().toFixed(6);
-		var lng2 = point.lng().toFixed(6);
-		var q = {};
-		q.lat1 = lat1;
-		q.lat2 = lat2;
-		q.lng1 = lng1;
-		q.lng2 = lng2;
-		q.imgId = item.id;
-		q.qual = this.qual;
-		q.showMap = 1;	// required for back page on detail page
-		q = dojo.objectToQuery(q);
-		var div = dojo.create('div', {
-			innerHTML: '<img src="' + marker.getIcon().image + '"/><br/><a href="photo-detail.php?' + q + '">Details</a>'
-		});
-		marker.openInfoWindow(div);
-	}
-};
-
-dojo.addOnLoad(function()	{
-	var q = dojo.queryToObject(window.location.search.replace('?', ''));
-	if (q.qual) {
-		app.qual = q.qual;
-	}
-	if (!q.showMap) {
-		q.showMap = '1';
-	}
-	if (q.showMap === '1') {
-		dojo.style('map', 'display', 'block');
-		var script = document.createElement("script");
-		script.src = 'http://www.google.com/jsapi?key=' + app.mapKey + '&callback=app.loadMapJs';
-		script.type = "text/javascript";
-		document.getElementsByTagName("head")[0].appendChild(script);
-	}
-	else {
-		var button = new dijit.form.Button({
-	 		id: 'buttShowMap',
-			iconClass: 'buttShowMap',
-			label: 'Karte anzeigen',
-			onClick: function() {
-				q.showMap = '1';
-				q = dojo.objectToQuery(q);
-				window.location.href = 'photo-mapsearch.php' + '?' + q;
-			}
-		});
-		dojo.byId('showMap').appendChild(button.domNode);
-	}
 });
+
 
 </script>
 </body>
