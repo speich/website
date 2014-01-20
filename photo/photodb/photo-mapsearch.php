@@ -245,11 +245,13 @@ require([
 	'dojo/domReady!'
 ], function(win, domStyle, domGeometry, ioQuery) {
 
-	var byId = function(el) {
+	var mapApp,
+		byId = function(el) {
 		return document.getElementById(el);
 	},
-	mapApp = {
+		gmaps = google.maps;
 
+	mapApp = {
 		queryObj: ioQuery.queryToObject(window.location.search.replace('?', '')),
 		map: null,
 		mapOptions: {},
@@ -257,7 +259,6 @@ require([
 		mapLng: 8.2246,
 		mapZoom: 3,
 		mapDiv: byId('map-canvas'),
-		gmaps: google.maps,
 		bounds: null,
 		manager: {
 			maxZoom: 13,
@@ -314,33 +315,40 @@ require([
 				this.manager.loadedBounds = [];
 				this.loadMarkerData();
 			})
+		},
+
+		initMap: function () {
+			var mapOptions;
+
+			window.onresize = this.setMapDimension;
+			this.setMapDimension();
+
+			mapOptions = {
+				center: new gmaps.LatLng(this.mapLat, this.mapLng),
+				zoom: this.mapZoom
+			};
+			this.map = new gmaps.Map(this.mapDiv, mapOptions);
+
+			// center map  to coords from query string
+			if (queryObj.lat1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
+				this.bounds = new gmaps.LatLngBounds(new gmap.LatLng(queryObj.lat1, queryObj.lng1), new gmaps.LatLng(queryObj.lat2, queryObj.lng2));
+				map.fitBounds(bounds);
+			}
+		},
+
+		initMarkerClusterer: function () {
+			this.manager.clusterer = new MarkerClusterer(this.map);
+		},
+
+		init: function() {
+			this.initMap();
+			this.initMarkerClusterer();
 		}
-
 	};
 
-
-	window.onresize = setMapDimension;
-	setMapDimension();
-
-
-	mapOptions = {
-		center: new gmaps.LatLng(mapLat, mapLng),
-		zoom: mapZoom
-	};
-	map = new gmaps.Map(mapDiv, mapOptions);
-
-	// center map  to coords from query string
-	if (queryObj.lat1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
-		bounds = new gmaps.LatLngBounds(new gmap.LatLng(queryObj.lat1, queryObj.lng1), new gmaps.LatLng(queryObj.lat2, queryObj.lng2));
-		map.fitBounds(bounds);
-	}
-
-	mc = new MarkerClusterer(map);
-}
+	mapApp.init();
 
 });
-
-
 </script>
 </body>
 </html>
