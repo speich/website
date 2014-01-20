@@ -139,7 +139,7 @@ function renderData($db, $arrData, $web, $i18n) {
 	foreach ($arrData as $row) {
 		// image dimensions
 		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
-		$imgSize = getimagesize($web->getDocRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
+		$imgSize = getimagesize(__DIR__.'/../..'.$web->getWebRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
 		$imgTitle = $row['imgTitle'];
 		$link = str_replace('thumbs/', '', $imgFile).'?w='.$imgSize[0].'&h='.$imgSize[1];
 		$detailLink = 'photo-detail.php'.$web->getQuery(array('imgId' => $row['imgId']));

@@ -42,10 +42,10 @@ class PhotoDb {
 	 * is used instead of PDO.
 	 */
 	public function connect() {
-		$path = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).'/'.$this->webroot.$this->pathDb;
+		$path = __DIR__.'/../'.$this->pathDb;
 		if (is_null($this->db)) {	// check if not already connected to db
 			try {
-				$this->db = new PDO('sqlite:'.$path.'/'.$this->dbName);
+				$this->db = new PDO('sqlite:'.$path.$this->dbName);
 				// Do every time you connect since they are only valid during connection (not permanent)
 				$this->db->exec('PRAGMA full_column_names = 0');
 				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
@@ -106,7 +106,7 @@ class PhotoDb {
 	 */
 	public function getPath($name) {
 		switch($name) {
-			case 'webroot': $path = $this->webroot; break;	// redudant, but for convenience
+			case 'webroot': $path = $this->webroot; break;	// redundant, but for convenience
 			case 'db': $path = $this->pathDb; break;
 			case 'img': $path = $this->pathImg; break;
 			default: $path = '/';
@@ -118,32 +118,32 @@ class PhotoDb {
 	 * Insert new image data from form and from exif data.
 	 * 
 	 * This method is only called once, when the image is selected by the user for the first time.
-	 * @param string $Img image file including web root path
+	 * @param string $img image file including web root path
 	 * @return string XML file
 	 */
-	public function insert($Img) {
-		$ImgFolder = str_replace($this->webroot.'/'.$this->getPath('img'), '', $Img);	// remove web images folder path part
-		$ImgName = substr($ImgFolder, strrpos($ImgFolder, '/') + 1);
-		$ImgFolder = trim(str_replace($ImgName, '', $ImgFolder), '/');
-		$Sql = "INSERT INTO Images (Id, ImgFolder, ImgName, DateAdded, LastChange)
+	public function insert($img) {
+		$imgFolder = str_replace($this->webroot.'/'.$this->getPath('img'), '', $img);	// remove web images folder path part
+		$imgName = substr($imgFolder, strrpos($imgFolder, '/') + 1);
+		$imgFolder = trim(str_replace($imgName, '', $imgFolder), '/');
+		$sql = "INSERT INTO Images (Id, ImgFolder, ImgName, DateAdded, LastChange)
 			VALUES (NULL, :ImgFolder, :ImgName,".time().",".time().")
 		";
 		$this->beginTransaction();
-		$stmt = $this->db->prepare($Sql);
-		$stmt->bindParam(':ImgName', $ImgName);
-		$stmt->bindParam(':ImgFolder', $ImgFolder);
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':ImgName', $imgName);
+		$stmt->bindParam(':ImgFolder', $imgFolder);
 		$stmt->execute();
-		$ImgId = $this->db->lastInsertId();
+		$imgId = $this->db->lastInsertId();
 		// insert exif data
-		if (!$this->InsertExif($ImgId, $Img)) {
+		if (!$this->InsertExif($imgId, $img)) {
 			echo 'failed';
 			return false;
 		}
-		$Sql = "SELECT Id, ImgFolder, ImgName, ImgDate,	ImgTechInfo, FilmTypeId, RatingId,
+		$sql = "SELECT Id, ImgFolder, ImgName, ImgDate,	ImgTechInfo, FilmTypeId, RatingId,
 			DateAdded, LastChange, ImgDesc,	ImgTitle, Public, DatePublished, ImgDateOriginal, ImgLat, ImgLng
 			FROM Images WHERE Id = :ImgId";
-		$stmt = $this->db->prepare($Sql);
-		$stmt->bindParam(':ImgId', $ImgId);
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':ImgId', $imgId);
 		$stmt->execute();
 		$strXml = '<?xml version="1.0" encoding="UTF-8"?>';
 		$strXml .= '<HtmlFormData xml:lang="de-CH">';

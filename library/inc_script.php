@@ -5,13 +5,13 @@ session_start();
 set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');
 
-$webroot = '/';
+$webroot = '/';	// no trailing slash except if root
 
 // make include paths available to pages independent on subdir they reside in
-$path = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR).$webroot;
-$incPath = $path.'/class'.PATH_SEPARATOR;
-$incPath.= $path.'/layout'.PATH_SEPARATOR;
-$incPath.= $path.'/library';
+$path = $_SERVER['DOCUMENT_ROOT'].($webroot === '/' ? '' : $webroot);
+$incPath = $path.'class'.PATH_SEPARATOR;
+$incPath.= $path.'layout'.PATH_SEPARATOR;
+$incPath.= $path.'library';
 set_include_path($incPath);
 include_once 'Language.php';
 include_once 'PhotoDb.php';
