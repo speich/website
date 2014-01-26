@@ -39,7 +39,7 @@ $numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage
 $pagedNav = new PagedNav($numRec, $numRecPerPage);
 $pagedNav->renderText = false;
 
-$pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bilddatenbank';
+$pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bildarchiv';
 
 
 $word = 'photo'.($numRec > 1 ? 's' : '');
@@ -85,7 +85,7 @@ $pagingBar = '<div class="pagingBar">'.
 <div class="barVertSeparator"></div>
 <div class="barTxt"><?php
 	echo $i180n[$web->getLang()]['rating'];
-	echo $mQuality->render();
+	echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
 <div id="showMap"></div>

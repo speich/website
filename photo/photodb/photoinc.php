@@ -112,13 +112,13 @@ foreach ($arrVal as $key => $val) {
 }
 $star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image">';
 $arrVal = array(3 => $star.$star.$star, 2 => $star.$star, 1 => $star);
-$mQuality = new Menu(null, 'ulMenu1 mQuality');
-$mQuality->add(array('a', 'b', $arrVal[$qual], null, null, 'rating '.$qual));
+$mRating = new Menu('mRating', 'ulMenu1 mRating');
+$mRating->add(array('a', 'b', $arrVal[$qual], null, null, 'rating '.$qual));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('qual' => $key), $arrDel);
-	$mQuality->add(array($key, 'a', $val, $url, null, 'rating '.$key));
+	$mRating->add(array($key, 'a', $val, $url, null, 'rating '.$key));
 	if ($qual == $key) {
-		$mQuality->arrItem[$key]->setActive();
+		$mRating->arrItem[$key]->setActive();
 	}
 }
 

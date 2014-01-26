@@ -1,4 +1,5 @@
 <?php
+use PhotoDb\PhotoDb;
 use WebsiteTemplate\PagedNav;
 
 require_once 'photoinc.php';
@@ -54,7 +55,11 @@ else {
 
 $pagedNav = new PagedNav($numRec, $numRecPerPage);
 
-
+/**
+ * @param PhotoDb $db
+ * @param array $arrData
+ * @return bool
+ */
 function renderDataMap($db, $arrData) {
 	if (count($arrData) == 0) {
 		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
@@ -97,30 +102,16 @@ function renderDataMap($db, $arrData) {
 	}
 }
 
-// Set the right key for Google$gMapKeys API
-switch ($web->host) {
-	case 'speich':
-		$gMapKey = 'ABQIAAAA6MsurN7eJBRBQSZMfJtPDRRxMHeuOuyeMMjj_aTZeqIoqzy0_hRIjJTsHI-W0kFc320Tnzs-TmsQYw';
-		break;
-	case 'www.speich.net':
-		$gMapKey = "ABQIAAAA6MsurN7eJBRBQSZMfJtPDRSLb_wSuHY1Noj7kltgsY8WwZ7CtxQycVmx1PtS5TJKIuhuXgxPt9a-3g";
-		break;
-	case 'speich.net':
-		$gMapKey = "ABQIAAAA6MsurN7eJBRBQSZMfJtPDRSLb_wSuHY1Noj7kltgsY8WwZ7CtxQycVmx1PtS5TJKIuhuXgxPt9a-3g";
-		break;
-}
-
+$pageTitle = $web->getLang() == 'en' ? 'Photo Database Mapsearch' : 'Bildarchiv Kartensuche';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $web->pageTitle; ?>: Bildarchiv Kartensuche</title>
+<title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
-<link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-#layoutMiddle {
-	bottom: 100px;
-}
+.relativeContainer { position: relative; }
+#layoutMiddle { bottom: 100px; }
 
 #map-canvas {
 	/* dimension overwritten by js */
@@ -178,50 +169,11 @@ img[id^=mtgt_unnamed] {
 
 <body class="tundra">
 <?php require_once 'inc_body_begin.php'; ?>
-<?php
+<div class="relativeContainer">
+<?php echo $mRating->render(); ?>
+<div id="map-canvas"></div>
 
-if (!$showMap) {
-	?>
-	<div class="toolbar">
-	<div class="pagingBar">
-	<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
-	<div class="barVertSeparator"></div>
-	<?php echo $mRecPp->render(); ?>
-	<div class="barTxt">pro Seite</div>
-	<div class="barVertSeparator"></div>
-	<?php echo $pagedNav->render(); ?>
-	</div>
-	<div class="optionBar">
-	<div class="barTxt">Sortierung</div>
-	<?php echo $mSort->render(); ?>
-	<div class="barVertSeparator"></div>
-	<div class="barTxt">Filter</div>
-	<?php echo $mQuality->render(); ?>
-	<div class="barVertSeparator"></div>
-	<div id="showMap"></div>
-	</div>
-	</div>
-
-<?php }
-else { ?>
-
-
-	<div id="map-canvas"></div>
-
-<?php }
-if (!$showMap) { ?>
-	<div><?php !is_null($arrData) ? renderData($db, $arrData) : 0; ?></div>
-	<div class="toolbar">
-	<div class="pagingBar">
-	<div class="barTxt"><?php echo $numRec.' Foto'.($numRec > 1 ? 's' : ''); ?></div>
-	<div class="barVertSeparator"></div>
-	<?php echo $mRecPp->render(); ?>
-	<div class="barTxt">pro Seite</div>
-	<div class="barVertSeparator"></div>
-	<?php echo $pagedNav->render(); ?>
-	</div>
-	</div>
-<?php } ?>
+</div>
 
 <?php require_once 'inc_body_end.php'; ?>
 <script type="text/javascript">
@@ -236,14 +188,17 @@ var dojoConfig = {
 <script type="text/javascript" src="../../library/dojo/1.9.2/dojo/dojo.js"></script>
 <script type="text/javascript">
 require([
+	'dojo/_base/lang',
+	'dojo/_base/array',
 	'dojo/window',
+	'dojo/request/xhr',
 	'dojo/dom-style',
 	'dojo/dom-geometry',
 	'dojo/io-query',
 	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&key=AIzaSyBSisbdkhszQj2OvSyWWjE-Vmi8sV34oeA&language=' + dojoConfig.locale,
 	'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
 	'dojo/domReady!'
-], function(win, domStyle, domGeometry, ioQuery) {
+], function(lang, array, win, xhr, domStyle, domGeometry, ioQuery) {
 
 	var mapApp,
 		byId = function(el) {
@@ -255,8 +210,8 @@ require([
 		queryObj: ioQuery.queryToObject(window.location.search.replace('?', '')),
 		map: null,
 		mapOptions: {},
-		mapLat: 46.8189,	// initial map coordinates
-		mapLng: 8.2246,
+		mapLat: 28,	// initial map coordinates
+		mapLng: 12,
 		mapZoom: 3,
 		mapDiv: byId('map-canvas'),
 		bounds: null,
@@ -264,8 +219,10 @@ require([
 			maxZoom: 13,
 			gridSize: 40,
 			markers: {},
-			bounds: {}
+			bounds: {},
+			IMAGE_PATH: '/library/gmap/markerclusterer/images/m'
 		},
+		url: 'controller.php',
 
 		/**
 		 * Fit map to window size.
@@ -282,43 +239,66 @@ require([
 			});
 		},
 
-		initClusterer: function() {
+		loadMarkerData: function() {
+			var q = this.queryObj.qual ? '?qual=' + this.queryObj.qual : 3;
+
+			return xhr.get(this.url + '/marker/' + q, {
+				handleAs: 'json'
+			});
+		},
+
+		/**
+		 * Add markers to the marker manager.
+		 * @param {Object} response
+		 */
+		createMarkers: function(response) {
 			var self = this;
-			var clusterOpt = {
-				maxZoom: this.managerMaxZoom,
-				gridSize: this.managerGridSize
-			};
-			this.manager = new MarkerClusterer(this.map, null, clusterOpt);
-			this.manager.markerHash = {};				// remember which markers were already added to the map
-			this.manager.loadedBounds = {};			// remember which markers were already loaded from sqlite
-			this.manager.zoomLevel = this.map.getZoom();	// remember zoom level when loading marker data
-			this.loadMarkerData();
-			// load marker data on every drag or on zoom
-			// e.g. fired when the change of the map view ends.
-			GEvent.addListener(this.map, 'dragend', function() {
-				if (self.checkCaching() === false) {
-					self.loadMarkerData();
+			if (response.markers.length > 0) {
+				var markers = [];
+				dojo.forEach(response.markers, function(item) {
+					if (!self.manager.markerHash[item.id]) {
+						var point = new GLatLng(item.lat, item.lng);
+						var icon = new GIcon();
+						icon.image = 'images/thumbs/' + item.img;
+						icon.iconSize = new GSize(40, 40);
+						icon.iconAnchor = new GPoint(21, 21);
+						icon.infoWindowAnchor = new GPoint(21, 21);
+						var marker = new GMarker(point, {
+							icon: icon,
+							draggable: true,
+							bouncy: false
+						});
+						GEvent.addListener(marker, "click", function() {
+							self.showThumb(marker, item);
+						});
+						markers.push(marker);
+						self.manager.markerHash[item.id] = item;
+					}
+				});
+				if (markers.length > 0) {
+					this.manager.addMarkers(markers);
 				}
+			}
+			return response;
+		},
+
+		createMarker: function(data) {
+			var marker,
+				latLng = new gmaps.LatLng(data.lat, data.lng),
+				image = {
+					anchor: new gmaps.Point(21, 21),
+					scaledSize: new gmaps.Size(40, 40),
+					url: 'images/' + data.img
+				};
+			marker = new gmaps.Marker({
+				icon: image,
+				position: latLng
 			});
-			// set manager zoomlevel for caching check
-			GEvent.addListener(this.map, 'zoomend', function(oldLevel, newLevel) {
-				if (this.getZoom() < self.manager.zoomLevel) {	// always reload on zoom out
-					self.loadMarkerData();
-				}
-				self.manager.zoomLevel = newLevel;
-			});
-			// load map data when rating is changed
-			dojo.subscribe('ratingSelected', this, function() {
-				this.manager.clearMarkers();	// this is not enougth, manager has to complete be reset. Is this a bug?
-				this.manager = new MarkerClusterer(this.map, null, clusterOpt);
-				this.manager.markerHash = {};
-				this.manager.loadedBounds = [];
-				this.loadMarkerData();
-			})
+			return marker;
 		},
 
 		initMap: function () {
-			var mapOptions;
+			var mapOptions, queryObj = this.queryObj;
 
 			window.onresize = this.setMapDimension;
 			this.setMapDimension();
@@ -332,12 +312,30 @@ require([
 			// center map  to coords from query string
 			if (queryObj.lat1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
 				this.bounds = new gmaps.LatLngBounds(new gmap.LatLng(queryObj.lat1, queryObj.lng1), new gmaps.LatLng(queryObj.lat2, queryObj.lng2));
-				map.fitBounds(bounds);
+				this.map.fitBounds(bounds);
 			}
+
+			// add rating control
+			this.map.controls[gmaps.ControlPosition.TOP_RIGHT].push(byId('mRating'));
 		},
 
 		initMarkerClusterer: function () {
-			this.manager.clusterer = new MarkerClusterer(this.map);
+			var mc = new MarkerClusterer(this.map, null, {
+				imagePath: this.manager.IMAGE_PATH
+			});
+
+			this.loadMarkerData().then(lang.hitch(this, function(data) {
+				var markers = [];
+
+				array.forEach(data, function(item) {
+					var marker = this.createMarker(item);
+		  			markers.push(marker);
+				}, this);
+
+				mc.addMarkers(markers);
+			}));
+
+			this.manager.clusterer = mc;
 		},
 
 		init: function() {
