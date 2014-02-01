@@ -58,13 +58,7 @@ $pagingBar = '<div class="pagingBar">'.
 <title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
-</head>
-
-<body class="tundra">
-<?php require_once 'inc_body_begin.php'; ?>
-<div class="toolbar">
-<?php echo $pagingBar ?>
-<div class="search"><script>
+<script>
   (function() {
     var cx = '000284793056488053930:zkcmsdcpu2k',
     	gcse = document.createElement('script'),
@@ -76,7 +70,13 @@ $pagingBar = '<div class="pagingBar">'.
     s.parentNode.insertBefore(gcse, s);
   })();
 </script>
-<gcse:search></gcse:search></div>
+</head>
+
+<body class="tundra">
+<?php require_once 'inc_body_begin.php'; ?>
+<div class="toolbar">
+<?php echo $pagingBar ?>
+<div class="search"><gcse:search enableAutoComplete="true"></gcse:search></div>
 <div class="optionBar">
 <div class="barTxt"><?php
 	echo $i180n[$web->getLang()]['sorting'];
@@ -88,7 +88,7 @@ $pagingBar = '<div class="pagingBar">'.
 	echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
-<div id="showMap"></div>
+<div id="showMap" class="button buttShowMap"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i180n[$web->getLang()]['search on map']; ?><img src="../../layout/images/icon_map.gif"></a></div>
 </div>
 </div>
 
@@ -108,6 +108,7 @@ $pagingBar = '<div class="pagingBar">'.
 </div>
 
 <?php require_once 'inc_body_end.php'; ?>
+
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,

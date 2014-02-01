@@ -109,6 +109,7 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database Mapsearch' : 'Bildarchiv 
 <head>
 <title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
+<link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .relativeContainer { position: relative; }
 #layoutMiddle { bottom: 100px; }
@@ -136,32 +137,8 @@ img[id^=mtgt_unnamed] {
 	border: 1px solid white !important;
 }
 
-.buttShowResult {
-	background-image: url(../../layout/images/icon_photolist.gif);
-	background-repeat: no-repeat;
-	width: 16px;
-	height: 16px;
-}
-
-.mItemIconStar1 {
-	background-image: url(../../layout/images/ratingstar.gif);
-	background-repeat: no-repeat;
-	width: 16px;
-	height: 16px;
-}
-
-.mItemIconStar2 {
-	background-image: url(../../layout/images/ratingstar.gif);
-	background-repeat: repeat-x;
-	width: 32px !important;
-	height: 16px;
-}
-
-.mItemIconStar3 {
-	background-image: url(../../layout/images/ratingstar.gif);
-	background-repeat: repeat-x;
-	width: 48px !important;
-	height: 16px;
+#mRating li:hover > ul {
+	top: 25px;
 }
 
 </style>
@@ -172,7 +149,6 @@ img[id^=mtgt_unnamed] {
 <div class="relativeContainer">
 <?php echo $mRating->render(); ?>
 <div id="map-canvas"></div>
-
 </div>
 
 <?php require_once 'inc_body_end.php'; ?>
@@ -202,8 +178,8 @@ require([
 
 	var mapApp,
 		byId = function(el) {
-		return document.getElementById(el);
-	},
+			return document.getElementById(el);
+		},
 		gmaps = google.maps;
 
 	mapApp = {
@@ -215,13 +191,11 @@ require([
 		mapZoom: 3,
 		mapDiv: byId('map-canvas'),
 		bounds: null,
-		manager: {
-			maxZoom: 13,
-			gridSize: 40,
-			markers: {},
-			bounds: {},
-			IMAGE_PATH: '/library/gmap/markerclusterer/images/m'
+		mcOptions: {
+			maxZoom: 12,
+			imagePath: '/library/gmap/markerclusterer/images/m'
 		},
+		clusterer: null,
 		url: 'controller.php',
 
 		/**
@@ -239,8 +213,12 @@ require([
 			});
 		},
 
+		/**
+		 * Requests marker data from server.
+		 * @return {dojo/promise}
+		 */
 		loadMarkerData: function() {
-			var q = this.queryObj.qual ? '?qual=' + this.queryObj.qual : 3;
+			var q = '?qual=' + (this.queryObj.qual ? this.queryObj.qual : 3);
 
 			return xhr.get(this.url + '/marker/' + q, {
 				handleAs: 'json'
@@ -248,53 +226,86 @@ require([
 		},
 
 		/**
-		 * Add markers to the marker manager.
-		 * @param {Object} response
+		 * Creates and returns an image marker.
+		 * @param {google.maps.Map} map
+		 * @param {String} data json
+		 * @return {google.maps.Marker}
 		 */
-		createMarkers: function(response) {
-			var self = this;
-			if (response.markers.length > 0) {
-				var markers = [];
-				dojo.forEach(response.markers, function(item) {
-					if (!self.manager.markerHash[item.id]) {
-						var point = new GLatLng(item.lat, item.lng);
-						var icon = new GIcon();
-						icon.image = 'images/thumbs/' + item.img;
-						icon.iconSize = new GSize(40, 40);
-						icon.iconAnchor = new GPoint(21, 21);
-						icon.infoWindowAnchor = new GPoint(21, 21);
-						var marker = new GMarker(point, {
-							icon: icon,
-							draggable: true,
-							bouncy: false
-						});
-						GEvent.addListener(marker, "click", function() {
-							self.showThumb(marker, item);
-						});
-						markers.push(marker);
-						self.manager.markerHash[item.id] = item;
-					}
-				});
-				if (markers.length > 0) {
-					this.manager.addMarkers(markers);
-				}
-			}
-			return response;
-		},
-
-		createMarker: function(data) {
+		createMarker: function(map, data) {
 			var marker,
 				latLng = new gmaps.LatLng(data.lat, data.lng),
+				imgUrl = 'images/' + data.img,
 				image = {
 					anchor: new gmaps.Point(21, 21),
 					scaledSize: new gmaps.Size(40, 40),
-					url: 'images/' + data.img
+					url: imgUrl
 				};
 			marker = new gmaps.Marker({
 				icon: image,
 				position: latLng
 			});
+
+			gmaps.event.addListener(marker, 'click', lang.hitch(this, function() {
+				this.createInfoWindow(map, marker, data);
+			}));
+
 			return marker;
+		},
+
+		/**
+		 * Creates and returns an image marker.
+		 * @param {google.maps.Map} map
+		 * @param {google.maps.Marker} marker
+		 * @param {String} data json
+		 * @return {google.maps.InfoWindow}
+		 */
+		createInfoWindow: function(map, marker, data) {
+			var infoWindow, img = new Image();
+
+			img.src = 'images/' + data.img;
+
+			this.queryObj.imgId = data.id;
+			infoWindow = new gmaps.InfoWindow();
+
+			img.onload = lang.hitch(this, function() {
+				var html, dim = this.resizeImage(img, 600);
+
+				html = '<img src="' + img.src + '" alt="photo" width="' + dim.w + '" height="' + dim.h + '"><br><a href="photo-detail.php?' + ioQuery.objectToQuery(this.queryObj) + '">Details</a>'
+				infoWindow.setOptions({
+					content: html,
+					maxWidth: dim.w + 20
+				});
+				infoWindow.open(map, marker);
+			});
+
+			return infoWindow;
+		},
+
+		/**
+		 *
+		 * @param {HTMLImageElement} img
+		 * @param {Number} max maximum width or height
+		 */
+		resizeImage: function(img, max) {
+			var w = img.width, h = img.height,
+				r = h / w;
+
+			if (w > h) {
+				w = max;
+				h = h * r
+			}
+			else if (w < h) {
+				w = w * r;
+				h = max;
+			}
+			else {
+				w = h = max;
+			}
+
+			return {
+				w: w,
+				h: h
+			}
 		},
 
 		initMap: function () {
@@ -320,22 +331,20 @@ require([
 		},
 
 		initMarkerClusterer: function () {
-			var mc = new MarkerClusterer(this.map, null, {
-				imagePath: this.manager.IMAGE_PATH
-			});
+			var mc = new MarkerClusterer(this.map, null, this.mcOptions);
 
 			this.loadMarkerData().then(lang.hitch(this, function(data) {
 				var markers = [];
 
 				array.forEach(data, function(item) {
-					var marker = this.createMarker(item);
+					var marker = this.createMarker(this.map, item);
 		  			markers.push(marker);
 				}, this);
 
 				mc.addMarkers(markers);
 			}));
 
-			this.manager.clusterer = mc;
+			this.clusterer = mc;
 		},
 
 		init: function() {

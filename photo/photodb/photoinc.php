@@ -17,7 +17,8 @@ $i180n = array(
 		'date added' => 'hinzugefügt',
 		'date created' => 'erstellt',
 		'last changed' => 'zuletzt geändert',
-		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.'
+		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.',
+		'search on map' => 'Kartensuche'
 	),
 	'en' => array(
 		'photo' => 'photo',
@@ -29,7 +30,8 @@ $i180n = array(
 		'date added' => 'date added',
 		'date created' => 'date created',
 		'last changed' => 'last changed',
-		'not found' => 'No records found with these settings.'
+		'not found' => 'No records found with these settings.',
+		'search on map' => 'search on map'
 	)
 );
 
@@ -85,7 +87,7 @@ $numRec = !isset($numRec) ? 0 : $numRec;
 // generate filter and sorting menus
 $arrDel = array('pg');
 $arrVal = array(7, 14, 21, 28, 56);
-$mRecPp = new Menu(null, 'ulMenu1 mRecPp');
+$mRecPp = new Menu(null, 'menu menu2 mRecPp');
 $mRecPp->add(array('a', 'b', $numRecPerPage));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('numRecPp' => $val), $arrDel);
@@ -101,7 +103,7 @@ $arrVal = array(
 	2 => $i180n[$web->getLang()]['date created'],
 	3 => $i180n[$web->getLang()]['last changed']
 );
-$mSort = new Menu(null, 'ulMenu1 mSort');
+$mSort = new Menu(null, 'menu menu2 mSort');
 $mSort->add(array('a', 'b', $arrVal[$sort]));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('sort' => $key), $arrDel);
@@ -112,7 +114,7 @@ foreach ($arrVal as $key => $val) {
 }
 $star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image">';
 $arrVal = array(3 => $star.$star.$star, 2 => $star.$star, 1 => $star);
-$mRating = new Menu('mRating', 'ulMenu1 mRating');
+$mRating = new Menu('mRating', 'menu menu2 mRating');
 $mRating->add(array('a', 'b', $arrVal[$qual], null, null, 'rating '.$qual));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('qual' => $key), $arrDel);

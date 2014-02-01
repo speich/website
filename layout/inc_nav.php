@@ -50,16 +50,16 @@ $mainNav->setActive();
  *****************************/
 $path = $web->getWebRoot().'photo/photodb/';
 $arrPhotoNav['de'] = array(
-	array(1, 'f', 'Bildarchiv', $path.'photo.php'),
-	array(2, 1, 'Alle Fotos', $path.'photo.php'.$web->getQuery(array('theme', 'country', 'pg'), 2)),
-	array(3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pg'))),
-	array(4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery(array('theme', 'gNav'), 2))
+	array(1, 'f', 'Bildarchiv', $path.'photo.php'.$web->getQuery().$web->getQuery()),
+	array(2, 1, 'Alle Fotos', $path.'photo.php'),
+	array(3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery()),
+	array(4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery())
 );
 $arrPhotoNav['en'] = array(
-	array(1, 'f', 'Photo Database', $path.'photo.php'),
-	array(2, 1, 'All Photos', $path.'photo.php'.$web->getQuery(array('theme', 'country', 'pg'), 2)),
-	array(3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery(array('qt' => 'geo', 'showMap' => 1), array('q', 'pg'))),
-	array(4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery(array('theme', 'gNav'), 2))
+	array(1, 'f', 'Photo Database', $path.'photo.php'.$web->getQuery()),
+	array(2, 1, 'All Photos', $path.'photo.php'),
+	array(3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery()),
+	array(4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery())
 );
 
 $path = $web->getWebRoot().'articles/';
