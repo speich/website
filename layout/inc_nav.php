@@ -94,6 +94,7 @@ $arrPersonNav['en'] = array(
 $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
+//$sideNav->allChildrenToBeRendered = true;
 $photoNav = new PhotoDbNav($web->getWebRoot());
 $photoNav->connect();
 

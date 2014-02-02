@@ -6,7 +6,7 @@ use WebsiteTemplate\Menu;
 require_once __DIR__.'/../../library/inc_script.php';
 require_once 'PhotoDb.php';
 
-$i180n = array(
+$i18n = array(
 	'de' => array(
 		'photo' => 'Foto',
 		'photos' => 'Fotos',
@@ -18,7 +18,8 @@ $i180n = array(
 		'date created' => 'erstellt',
 		'last changed' => 'zuletzt geändert',
 		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.',
-		'search on map' => 'Kartensuche'
+		'search on map' => 'Kartensuche',
+		'back' => 'zurück'
 	),
 	'en' => array(
 		'photo' => 'photo',
@@ -31,7 +32,8 @@ $i180n = array(
 		'date created' => 'date created',
 		'last changed' => 'last changed',
 		'not found' => 'No records found with these settings.',
-		'search on map' => 'search on map'
+		'search on map' => 'search on map',
+		'back' => 'back'
 	)
 );
 
@@ -39,7 +41,6 @@ $i180n = array(
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
 $lastPage = $web->getLastPage();	// to check if we need to reset caching of number of records further below
-$web->setLastPage();
 
 $pageTitle = $sideNav->getActive('linkTxt');
 $pageTitle = $pageTitle[count($pageTitle) - 1];
@@ -98,10 +99,10 @@ foreach ($arrVal as $key => $val) {
 }
 
 $arrVal = array(
-	4 => $i180n[$web->getLang()]['by title'],
-	1 => $i180n[$web->getLang()]['date added'],
-	2 => $i180n[$web->getLang()]['date created'],
-	3 => $i180n[$web->getLang()]['last changed']
+	4 => $i18n[$web->getLang()]['by title'],
+	1 => $i18n[$web->getLang()]['date added'],
+	2 => $i18n[$web->getLang()]['date created'],
+	3 => $i18n[$web->getLang()]['last changed']
 );
 $mSort = new Menu(null, 'menu menu2 mSort');
 $mSort->add(array('a', 'b', $arrVal[$sort]));

@@ -3,12 +3,20 @@ use PhotoDb\PhotoDb;
 use WebsiteTemplate\Website;
 
 require_once __DIR__.'/../../library/inc_script.php';
+require_once 'photoinc.php';
 
 $imgId = isset($_GET['imgId']) ? $_GET['imgId'] : $imgId = 1;
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
 
 // this page is accessed from different pages in the menu tree. Set correct menu item to active.
+if (strpos($web->getLastPage(), 'photo-mapsearch.php') !== false) {
+	$sideNav->arrItem[1]->setActive(null);
+	$sideNav->arrItem[3]->setActive();
+}
+//echo $web->getLastPage();
+//$sideNav->setActive($web->getLastPage());
+/*
 if (strpos($web->getLastPage(), 'photo-search.php') !== false) {
 	$sideNav->arrItem[4]->setActive();
 }
@@ -22,7 +30,8 @@ else if (isset($_GET['theme'])) {
 else if (strpos($web->getLastPage(), 'photo.php') !== false) {
 	$mainNav->arrItem[1]->setActive();
 }
-$sideNav->setActive();
+*/
+//$sideNav->setActive();
 
 $lang = ucfirst($web->getLang());
 $sql = "SELECT I.id imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgDate imgDate, I.imgTechInfo imgTechInfo,
@@ -63,20 +72,16 @@ $stmt->bindValue(':imgId', $imgId);
 $stmt->execute();
 $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Set the right key for Google$gMapKeys API
-switch ($web->host) {
-	case 'speich': $gMapKey = 'ABQIAAAA6MsurN7eJBRBQSZMfJtPDRRxMHeuOuyeMMjj_aTZeqIoqzy0_hRIjJTsHI-W0kFc320Tnzs-TmsQYw'; break;
-	case 'www.speich.net': $gMapKey = "ABQIAAAA6MsurN7eJBRBQSZMfJtPDRSLb_wSuHY1Noj7kltgsY8WwZ7CtxQycVmx1PtS5TJKIuhuXgxPt9a-3g"; break;
-	case 'speich.net': $gMapKey = "ABQIAAAA6MsurN7eJBRBQSZMfJtPDRSLb_wSuHY1Noj7kltgsY8WwZ7CtxQycVmx1PtS5TJKIuhuXgxPt9a-3g"; break;
-}
+
 
 /**
  * Print HTML to display photo detail.
  * @param $data
  * @param PhotoDb $db
  * @param Website $web
+ * @param Array $i18n internationalization
  */
-function renderPhoto($data, $db, $web) {
+function renderPhoto($data, $db, $web, $i18n) {
 	$backPage = is_null($web->getLastPage()) ? 'photo.php' : $web->getLastPage();
 	if (strpos($backPage, 'photo-mapsearch.php') !== false) {
 		$backPage = 'photo-mapsearch.php?'.$_SERVER['QUERY_STRING'];	// when coming from map via js lastPage was not set with latest query vars, use current
@@ -97,7 +102,7 @@ function renderPhoto($data, $db, $web) {
 	}
 	echo '<h1>'.$data['imgTitle']."</h1>\n";
 	echo '<p>'.$data['imgDesc'].'</p>';
-	echo '<div class="colLeft">';
+	echo '<div class="col colLeft">';
 	
 	echo '<p><span class="PhotoTxtLabel">Stichwörter:</span> '.($data['categories'] != '' ? $data['categories'].'<br/>' : '').'</p>';
 	echo '<p><span class="PhotoTxtLabel">wissenschaftlicher Name:</span> <i>'.$data['wissNameLa'].'</i><br/>';
@@ -109,7 +114,7 @@ function renderPhoto($data, $db, $web) {
 	echo '<p><span class="PhotoTxtLabel">Dateiname:</span> '.$data['imgName'].'<p>';
 	echo '</div>';
 	
-	echo '<div class="colRight">';
+	echo '<div class="col colRight">';
 	echo '<div id="map">';
 	if ($data['showLoc'] === '0') {
 		echo '<div id="mapNote">Aus Gründen des Naturschutzes/Geheimhaltung werden keine Koordinaten angezeigt.</div>';
@@ -118,15 +123,16 @@ function renderPhoto($data, $db, $web) {
 	echo '<p><span class="PhotoTxtLabel">Ort:</span> '.$data['locations'].'</p>';
 	echo '<p><span class="PhotoTxtLabel">Land:</span> '.$data['countries'].'</p>';
 	echo '</div>';
-	echo '<p style="clear: right"><a href="'.$backPage.'">zurück</a></p>';
+	echo '<p><a href="'.$backPage.'">'.$i18n[$web->getLang()]['back'].'</a></p>';
 	
 	echo '<div id="contPhoto">';
 	echo '<p><a title="Foto \''.$data['imgTitle'].'\' anzeigen" href="'.$imgFile.'">';
 	echo '<img src="'.$imgFile.'" id="photo" alt="'.$data['imgTitle'].'"/></a><br>';
 	echo 'Foto Simon Speich, www.speich.net';
 	echo '</p>';
-	echo '</div>';	
-	echo '<div class="colLeft">';
+	echo '</div>';
+
+	echo '<div id="exifInfo"><div class="col">';
 	echo '<p><strong>Technische Informationen (Exif)</strong></p>';
 	echo '<p><span class="PhotoTxtLabel">Model: </span>'.$data['model'].', '.$data['make']."</p>\n";
 	echo '<p><span class="PhotoTxtLabel">Original-Grösse:</span> '.$data['imageWidth'].' x '.$data['imageHeight'].'px @ ';
@@ -139,7 +145,7 @@ function renderPhoto($data, $db, $web) {
 	echo "</p>\n";
 	echo '<p><span class="PhotoTxtLabel">Original-Datei:</span> '.$data['fileType']." (".$data['fileSize'].")</p>\n";
 	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
-		echo '<p><span class="PhotoTxtLabel">Scanndatum: </span>'.date("d.m.Y H:i:s", $data['E.createDate'])."</p>\n";
+		echo '<p><span class="PhotoTxtLabel">Scanndatum: </span>'.date("d.m.Y H:i:s", $data['createDate'])."</p>\n";
 		echo '<p class="PhotoTxtSeparator"><span class="PhotoTxtLabel">Filmtyp:</span> '.$data['film'].'</p>';
 	}
 	else {
@@ -153,7 +159,7 @@ function renderPhoto($data, $db, $web) {
 	}
 	echo '</div>';
 	
-	echo '<div class="colRight">';
+	echo '<div class="col">';
 	echo '<p><span class="PhotoTxtLabel">Position (GPS):</span> ';
 	if ($data['showLoc'] === '1') {
 		echo $data['gpsLatitude'].' / '.$data['gpsLongitude'];
@@ -163,8 +169,8 @@ function renderPhoto($data, $db, $web) {
 	echo '<p><span class="PhotoTxtLabel">hinzugefügt:</span> '.(!empty($data['dateAdded']) ? date("d.m.Y H:i:s", $data['dateAdded']) : '').'</p>';
 	echo '<p><span class="PhotoTxtLabel">geändert:</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s", $data['lastChange']) : '').'</p>';
 	echo '<p class="PhotoTxtSeparator"><span class="PhotoTxtLabel">publiziert:</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s", $data['datePublished']) : '').'</p>';
-	echo '</div>';
-	echo '<p style="clear: both"><a href="'.$backPage.'">zurück</a></p>';
+	echo '</div></div>';
+	echo '<p><a href="'.$backPage.'">'.$i18n[$web->getLang()]['back'].'</a></p>';
 }
 
 $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitle'];
@@ -176,25 +182,25 @@ $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitl
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-.colLeft {
-	float: left;
+#layoutMiddle {width: 955px;}
+.col {
+	display: inline-block;
 	width: 365px;
+	vertical-align: top;
 }
 
-.colRight {
-	margin-left: 375px;
-	width: 365px;
-}
-	
-#contPhoto {
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #DFE8D9;
+#contPhoto, #exifInfo {
+	margin-bottom: 20px;
+	border-bottom: 6px solid #DFE8D9;
 }
 
 #photo {
 	border: 1px solid black;
 	max-width: 740px;
+}
+
+#exifInfo {
+	font-size: 11px;
 }
 
 #ratingStar {
@@ -225,13 +231,11 @@ $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitl
 <body>
 <?php
 require_once 'inc_body_begin.php';
-renderPhoto($photo[0], $db, $web);
+renderPhoto($photo[0], $db, $web, $i18n);
 require_once 'inc_body_end.php';
 ?>
 
 <script type="text/javascript">
-
-<?php echo 'var key = "'.$gMapKey.'";'; ?>
 /**
  * Load the google maps api dynamically by inserting script tag.
  */

@@ -4,6 +4,8 @@ use WebsiteTemplate\PagedNav;
 require_once __DIR__.'/../../library/inc_script.php';
 require_once 'photoinc.php';
 
+$web->setLastPage();
+
 // This $dql is also used to calculate number of records for paged nav below
 // join only with theme when we can filter by theme, otherwise we have multiple records per theme (group by imgid is to time expensive)
 // We have to alias all fields since depending on PHP SQLite version short column names is on/off and can't be set.
@@ -44,13 +46,14 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bildarchiv';
 
 $word = 'photo'.($numRec > 1 ? 's' : '');
 $pagingBar = '<div class="pagingBar">'.
-	'<div class="barTxt">'.$numRec.' '.$i180n[$web->getLang()][$word].'</div>'.
+	'<div class="barTxt">'.$numRec.' '.$i18n[$web->getLang()][$word].'</div>'.
 	'<div class="barVertSeparator"></div>'.
 	$mRecPp->render().
-	'<div class="barTxt">'.$i180n[$web->getLang()]['per page'].'</div>'.
+	'<div class="barTxt">'.$i18n[$web->getLang()]['per page'].'</div>'.
 	'<div class="barVertSeparator"></div>'.
 	$pagedNav->render($pg, $web).
 	'</div>';
+
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
@@ -79,26 +82,26 @@ $pagingBar = '<div class="pagingBar">'.
 <div class="search"><gcse:search enableAutoComplete="true"></gcse:search></div>
 <div class="optionBar">
 <div class="barTxt"><?php
-	echo $i180n[$web->getLang()]['sorting'];
+	echo $i18n[$web->getLang()]['sorting'];
 	echo $mSort->render(); ?>
 </div>
 <div class="barVertSeparator"></div>
 <div class="barTxt"><?php
-	echo $i180n[$web->getLang()]['rating'];
+	echo $i18n[$web->getLang()]['rating'];
 	echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
-<div id="showMap" class="button buttShowMap"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i180n[$web->getLang()]['search on map']; ?><img src="../../layout/images/icon_map.gif"></a></div>
+<div id="showMap" class="button buttShowMap"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n[$web->getLang()]['search on map']; ?><img src="../../layout/images/icon_map.gif"></a></div>
 </div>
 </div>
 
-<div><ul><?php renderData($db, $arrData, $web, $i180n); ?></ul></div>
+<div><ul><?php renderData($db, $arrData, $web, $i18n); ?></ul></div>
 
 <?php echo $pagingBar ?>
 
 <div id="slideFullScreenCont">
 <div class="slideFullScreen">
-<span class="slideFullScreenAuthor"><?php echo $i180n[$web->getLang()]['photo']; ?> Simon Speich, www.speich.net</span>
+<span class="slideFullScreenAuthor"><?php echo $i18n[$web->getLang()]['photo']; ?> Simon Speich, www.speich.net</span>
 </div>
 <!-- not implemented yet
 <div class="slideNavClose">close</div>

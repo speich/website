@@ -47,14 +47,14 @@ class PhotoDbNav extends PhotoDb {
 	 * @param Language $web
 	 */
 	public function createMenu($sideNav, $items, $web) {
-		$sideNav->autoActive = false;
 		foreach($items as $item) {
 			$sideNav->add($item);
 		}
 
 		$lang = ucfirst($web->getLang());
 		$themes = $this->get($lang);
-		$arrQueryDel = array('country', 'theme', 'pg', 'numRec', 'lang');
+		// side menu links should start fresh with only ?theme={id} as query string (or non photo related query variables)
+		$arrQueryDel = array('pg', 'numRec', 'country', 'qual', 'lang', 'imgId');
 		$path = $web->getWebRoot().'photo/photodb/photo.php';
 		$lastMenuId = null;
 		while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {
@@ -71,10 +71,25 @@ class PhotoDbNav extends PhotoDb {
 			$lastMenuId = $row['menuId'];
 		}
 
-		$sideNav->setActive();
-		if (isset($_GET['theme']) ||isset($_GET['country'])) {
+		$sideNav->setActive($path.$web->getQuery($arrQueryDel, 2));
+
+		if (isset($_GET['theme']) || isset($_GET['country'])) {
 			// unset item ('Alle Fotos'), otherwise it would always be active
 			$sideNav->arrItem[2]->setActive(null); //
 		}
+		else if (strpos($web->getLastPage(), 'photo-mapsearch.php') !== false) {
+			// for photo-details.php
+			$sideNav->arrItem[1]->setActive(null);
+			$sideNav->arrItem[3]->setActive();
+		}
+
+		if ($web->page == 'ausruestung.php') {
+			$sideNav->arrItem[1]->setActive(null);
+		}
+		else if ($web->page == 'photo-mapsearch.php') {
+			$sideNav->arrItem[1]->setActive(null);
+			$sideNav->arrItem[3]->setActive();
+		}
+
 	}
 }

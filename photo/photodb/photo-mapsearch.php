@@ -4,6 +4,9 @@ use WebsiteTemplate\PagedNav;
 
 require_once 'photoinc.php';
 
+$web->setLastPage();
+$sideNav->arrItem[1]->setActive(null);
+
 if (isset($_GET['showMap']) && $_GET['showMap'] === '0') {
 	$showMap = false;
 }
@@ -246,6 +249,7 @@ require([
 			});
 
 			gmaps.event.addListener(marker, 'click', lang.hitch(this, function() {
+				alert('TODO: prevent creating more than once on top of each other on each click');
 				this.createInfoWindow(map, marker, data);
 			}));
 
@@ -268,8 +272,15 @@ require([
 			infoWindow = new gmaps.InfoWindow();
 
 			img.onload = lang.hitch(this, function() {
-				var html, dim = this.resizeImage(img, 600);
+				var html, dim = this.resizeImage(img, 60);
 
+				// now that we now, we also set correct aspect of thumbnail
+				marker.setIcon({
+					anchor: new gmaps.Point(21, 21),
+					scaledSize: new gmaps.Size(dim.w, dim.h),
+					url: img.src
+				});
+				dim = this.resizeImage(img, 600);
 				html = '<img src="' + img.src + '" alt="photo" width="' + dim.w + '" height="' + dim.h + '"><br><a href="photo-detail.php?' + ioQuery.objectToQuery(this.queryObj) + '">Details</a>'
 				infoWindow.setOptions({
 					content: html,
@@ -292,10 +303,10 @@ require([
 
 			if (w > h) {
 				w = max;
-				h = h * r
+				h = max * r
 			}
 			else if (w < h) {
-				w = w * r;
+				w = max * r;
 				h = max;
 			}
 			else {
