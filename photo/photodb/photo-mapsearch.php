@@ -236,6 +236,7 @@ require([
 		 */
 		createMarker: function(map, data) {
 			var marker,
+				infoWindow = null,
 				latLng = new gmaps.LatLng(data.lat, data.lng),
 				imgUrl = 'images/' + data.img,
 				image = {
@@ -249,8 +250,12 @@ require([
 			});
 
 			gmaps.event.addListener(marker, 'click', lang.hitch(this, function() {
-				alert('TODO: prevent creating more than once on top of each other on each click');
-				this.createInfoWindow(map, marker, data);
+				if (!infoWindow) {
+					infoWindow = this.createInfoWindow(map, marker, data);
+				}
+				else {
+					infoWindow.open(map, marker);
+				}
 			}));
 
 			return marker;
