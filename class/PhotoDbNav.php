@@ -75,20 +75,21 @@ class PhotoDbNav extends PhotoDb {
 
 		if (isset($_GET['theme']) || isset($_GET['country'])) {
 			// unset item ('Alle Fotos'), otherwise it would always be active
-			$sideNav->arrItem[2]->setActive(null); //
+			$sideNav->arrItem[2]->setActive(false); //
 		}
-		else if (strpos($web->getLastPage(), 'photo-mapsearch.php') !== false) {
+		else if (strpos($web->getLastPage(), $web->createLangPage('photo-mapsearch.php')) !== false) {
 			// for photo-details.php
-			$sideNav->arrItem[1]->setActive(null);
+			$sideNav->arrItem[1]->setActive(false);
 			$sideNav->arrItem[3]->setActive();
 		}
 
-		if ($web->page == 'ausruestung.php') {
-			$sideNav->arrItem[1]->setActive(null);
+		if ($web->page == $web->createLangPage('ausruestung.php')) {
+			$sideNav->arrItem[1]->setActive(false);
+			$sideNav->arrItem[2]->setActive(false);
 		}
-		else if ($web->page == 'photo-mapsearch.php') {
-			$sideNav->arrItem[1]->setActive(null);
-			$sideNav->arrItem[3]->setActive();
+		else if ($web->page == $web->createLangPage('photo-mapsearch.php')) {
+			$sideNav->arrItem[1]->setActive(false);
+			$sideNav->arrItem[2]->setActive(false);
 		}
 
 	}
