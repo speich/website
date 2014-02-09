@@ -48,7 +48,7 @@ function loadMarkerData($db, $rating = null) {
 
 
 if ($controller == 'marker') {
-	$rating = $data->qual ? $data->qual : 3;
+	$rating = $data && $data->qual ? $data->qual : 3;
 	$db = new PhotoDb($web->getWebRoot());
 	$response = loadMarkerData($db, $rating);
 }
