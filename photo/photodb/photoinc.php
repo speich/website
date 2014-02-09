@@ -48,41 +48,6 @@ $pageTitle = $pageTitle[count($pageTitle) - 1];
 // paged nav
 $pg = isset($_GET['pg']) ? $_GET['pg'] : $pg = 1;
 $numRecPerPage = isset($_GET['numRecPp']) ? $_GET['numRecPp'] : 14;
-
-// filtering
-$sqlFilter = '';
-if (isset($_GET['theme'])) {
-	$themeId = preg_replace("/\D*/", '', $_GET['theme']);	// sanitize for security reasons
-	$sqlFilter = " WHERE themeId = $themeId AND";
-}
-else if (isset($_GET['country'])) {
-	$countryId = preg_replace("/\D*/", '', $_GET['country']);	// sanitize for security reasons
-	$sqlFilter = " WHERE countryId = $countryId AND";
-}
-else {
-	//$theme = null;
-	$sqlFilter.= " WHERE";
-}
-$qual = isset($_GET['qual']) ? preg_replace("/\D*/", '', $_GET['qual']) : 3;	// sanitize for security reasons
-$sqlFilter.= " ratingId > ".($qual - 1);
-
-// sorting
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
-switch($sort) {
-	case 1:
-		$sqlSort = ' ORDER BY dateAdded DESC';
-		break;
-	case 2:
-		$sqlSort = ' ORDER BY date DESC';
-		break;
-	case 3:
-		$sqlSort = ' ORDER BY lastChange DESC';
-		break;
-	case 4:
-		$sqlSort = ' ORDER BY imgTitle ASC';
-		break;
-}
-
 $numRec = !isset($numRec) ? 0 : $numRec;
 
 // generate filter and sorting menus
@@ -98,6 +63,7 @@ foreach ($arrVal as $key => $val) {
 	}
 }
 
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
 $arrVal = array(
 	4 => $i18n[$web->getLang()]['by title'],
 	1 => $i18n[$web->getLang()]['date added'],
@@ -113,6 +79,8 @@ foreach ($arrVal as $key => $val) {
 		$mSort->arrItem[$key]->setActive();
 	}
 }
+
+$qual = isset($_GET['qual']) ? preg_replace("/\D*/", '', $_GET['qual']) : 3;	// sanitize for security reasons
 $star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image">';
 $arrVal = array(3 => $star.$star.$star, 2 => $star.$star, 1 => $star);
 $mRating = new Menu('mRating', 'menu menu2 mRating');
@@ -124,6 +92,8 @@ foreach ($arrVal as $key => $val) {
 		$mRating->arrItem[$key]->setActive();
 	}
 }
+
+
 
 /**
  * @param PhotoDb $db

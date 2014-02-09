@@ -1,110 +1,6 @@
 <?php
-use PhotoDb\PhotoDb;
-use WebsiteTemplate\PagedNav;
-
 require_once 'photoinc.php';
-
 $web->setLastPage();
-$sideNav->arrItem[1]->setActive(null);
-
-if (isset($_GET['showMap']) && $_GET['showMap'] === '0') {
-	$showMap = false;
-}
-else {
-	$showMap = true;
-}
-
-if ($showMap === false && isset($_GET['lat1']) && isset($_GET['lat2']) && isset($_GET['lng1']) && isset($_GET['lng2'])) {
-	$lat1 = $_GET['lat1'];
-	$lat2 = $_GET['lat2'];
-	$lng1 = $_GET['lng1'];
-	$lng2 = $_GET['lng2'];
-	$sql = "SELECT Id ImgId, ImgFolder, ImgName, ImgTitle, DateAdded, LastChange, ImgTitle, RatingId,
-	 	CASE WHEN imgDateOriginal IS NULL THEN
-			(CASE WHEN imgDate IS NOT NULL THEN DATETIME(imgDate, 'unixepoch', 'localtime') END)
-		ELSE DATETIME(imgDateOriginal, 'unixepoch', 'localtime') END date
-		FROM Images";
-	if ($lat1 < $lat2) {
-		$sql .= " WHERE imgLat > :query0 AND imgLat < :query1
-		AND imgLng > :query2 AND imgLng < :query3";
-	}
-	else { // bounding box contains international date line
-		$sql .= " WHERE imgLat > :query0 AND imgLat < :query1
-		AND (imgLng > :query2 OR imgLng < :query3)";
-	}
-	$sqlFilter = str_replace(' WHERE', ' AND', $sqlFilter);
-	$stmt = $db->db->prepare($sql.$sqlFilter.$sqlSort." LIMIT :limit OFFSET :offset");
-	$arrBind = array();
-	$arrBind['query0'] = $lat1;
-	$arrBind['query1'] = $lat2;
-	$arrBind['query2'] = $lng1;
-	$arrBind['query3'] = $lng2;
-	$stmt->bindValue(':query0', $lat1);
-	$stmt->bindValue(':query1', $lat2);
-	$stmt->bindValue(':query2', $lng1);
-	$stmt->bindValue(':query3', $lng2);
-	$stmt->bindValue(':limit', $numRecPerPage);
-	$stmt->bindValue(':offset', ($pg - 1) * $numRecPerPage);
-	$stmt->execute();
-	$arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$sqlWrapper = "SELECT * FROM (".$sql.$sqlFilter.")"; // needed for getNumRec to work
-	$numRec = $db->getNumRec($sqlWrapper, 'ImgId', $arrBind, $lastPage, $web);
-}
-else {
-	$query = null;
-	$arrData = null;
-	$numRec = 0;
-}
-
-$pagedNav = new PagedNav($numRec, $numRecPerPage);
-
-/**
- * @param PhotoDb $db
- * @param array $arrData
- * @return bool
- */
-function renderDataMap($db, $arrData) {
-	if (count($arrData) == 0) {
-		echo '<p>Mit diesen Einstellungen wurden keine Datensätze gefunden.</p>';
-		return false;
-	}
-	$c = 0;
-	$num = count($arrData) - 1;
-	foreach ($arrData as $i) {
-		// image dimensions
-		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$i['ImgFolder'].'/'.$i['ImgName'];
-		$imgSize = getimagesize($_SERVER['DOCUMENT_ROOT'].$db->getPath('img').$i['ImgFolder'].'/'.$i['ImgName']);
-		$imgTitleShort = $imgTitle = $i['ImgTitle'];
-		if (strlen($imgTitle) > 20) {
-			$imgTitleShort = substr($imgTitle, 0, 20)."...";
-		}
-		if ($imgSize[0] > $imgSize[1]) {
-			$css = 'slideHorizontal';
-			$cssImg = 'slideImgHorizontal';
-		}
-		else {
-			if ($imgSize[0] < $imgSize[1]) {
-				$css = 'slideVertical';
-				$cssImg = 'slideImgVertical';
-			}
-			else {
-				$css = 'slideQuadratic';
-				$cssImg = 'slideImgQuadratic';
-			}
-		}
-		echo '<div class="slide">';
-		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'" style="background-image: url('.$imgFile.');">';
-		echo '<a href="#" onclick="return slide.showFull(arguments[0] || window.event, this.firstChild, '.$imgSize[0].', '.$imgSize[1].');">';
-		echo '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="Thumbnail"/>';
-		echo '</a>';
-		echo '</div>'; // end slideCanvas
-		echo '<div class="slideText"><a href="#" onclick="return slide.showFull(arguments[0] || window.event, this.parentNode.parentNode.getElementsByTagName(\'img\')[0], '.$imgSize[0].', '.$imgSize[1].');">Zoom</a> | ';
-		echo '<a href="photo-detail.php'.$db->getQuery(array('imgId' => $i['ImgId'])).'">Details</a></div>';
-		echo '</div>'; // end slide
-		$c++;
-	}
-}
-
 $pageTitle = $web->getLang() == 'en' ? 'Photo Database Mapsearch' : 'Bildarchiv Kartensuche';
 ?>
 <!DOCTYPE html>
@@ -158,6 +54,9 @@ img[id^=mtgt_unnamed] {
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
+	has: {
+		'dojo-debug-messages': false
+	},
 	locale: '<?php echo $locale = $web->getLang(); ?>',
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
@@ -221,7 +120,7 @@ require([
 		 * @return {dojo/promise}
 		 */
 		loadMarkerData: function() {
-			var q = '?qual=' + (this.queryObj.qual ? this.queryObj.qual : 3);
+			var q = ioQuery.objectToQuery(this.queryObj);
 
 			return xhr.get(this.url + '/marker/' + q, {
 				handleAs: 'json'

@@ -6,31 +6,66 @@ require_once 'photoinc.php';
 
 $web->setLastPage();
 
-// This $dql is also used to calculate number of records for paged nav below
 // join only with theme when we can filter by theme, otherwise we have multiple records per theme (group by imgid is to time expensive)
 // We have to alias all fields since depending on PHP SQLite version short column names is on/off and can't be set.
 $sql = "SELECT * FROM (
-	SELECT DISTINCT i.id imgId, i.imgFolder imgFolder, i.imgName imgName, i.imgTitle imgTitle, dateAdded, lastChange, imgTitle,
-	r.id ratingId, i.imgDateOriginal date ";
+	SELECT DISTINCT i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.ImgTitle imgTitle,
+	i.DateAdded dateAdded, i.LastChange lastChange, i.ImgTitle imgTitle,
+	r.Id ratingId, i.ImgDateOriginal date ";
 if (isset($_GET['theme'])) {
-	$sql.= ", it.themeId themeId";
+	$sql.= ", it.ThemeId themeId";
 }
 else if (isset($_GET['country'])) {
-	$sql.= ", lc.countryId countryId";
+	$sql.= ", lc.CountryId countryId";
 }
-$sql.= ", CASE WHEN i.imgDateOriginal IS NULL THEN
-		(CASE WHEN i.imgDate IS NOT NULL THEN DATETIME(i.imgDate, 'unixepoch', 'localtime') END)
-	ELSE DATETIME(i.imgDateOriginal, 'unixepoch', 'localtime') END date
+$sql.= ", CASE WHEN i.ImgDateOriginal IS NULL THEN
+		(CASE WHEN i.ImgDate IS NOT NULL THEN DATETIME(i.ImgDate, 'unixepoch', 'localtime') END)
+	ELSE DATETIME(i.ImgDateOriginal, 'unixepoch', 'localtime') END date
 	FROM Images i";
 if (isset($_GET['theme'])) {
-	$sql.= "	INNER JOIN Images_Themes it ON i.id = it.imgId";
+	$sql.= "	INNER JOIN Images_Themes it ON i.Id = it.ImgId";
 }
 else if (isset($_GET['country'])) {
-	$sql.= "	INNER JOIN Images_Locations il ON i.id = il.imgId
+	$sql.= "	INNER JOIN Images_Locations il ON i.Id = il.ImgId
 		INNER JOIN Locations_Countries lc ON il.LocationId = lc.LocationId
 	";
 }
-$sql.= "	LEFT JOIN rating r ON i.ratingId = r.id)";
+$sql.= "	LEFT JOIN Rating r ON i.RatingId = r.Id)";
+
+
+// filtering
+$sqlFilter = '';
+if (isset($_GET['theme'])) {
+	$themeId = preg_replace("/\D*/", '', $_GET['theme']);	// sanitize for security reasons
+	$sqlFilter = " WHERE themeId = $themeId AND";
+}
+else if (isset($_GET['country'])) {
+	$countryId = preg_replace("/\D*/", '', $_GET['country']);	// sanitize for security reasons
+	$sqlFilter = " WHERE countryId = $countryId AND";
+}
+else {
+	//$theme = null;
+	$sqlFilter.= " WHERE";
+}
+$qual = isset($_GET['qual']) ? preg_replace("/\D*/", '', $_GET['qual']) : 3;	// sanitize for security reasons
+$sqlFilter.= " ratingId > ".($qual - 1);
+
+// sorting
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
+switch($sort) {
+	case 1:
+		$sqlSort = ' ORDER BY dateAdded DESC';
+		break;
+	case 2:
+		$sqlSort = ' ORDER BY date DESC';
+		break;
+	case 3:
+		$sqlSort = ' ORDER BY lastChange DESC';
+		break;
+	case 4:
+		$sqlSort = ' ORDER BY imgTitle ASC';
+		break;
+}
 
 $stmt = $db->db->prepare($sql.$sqlFilter.$sqlSort." LIMIT :limit OFFSET :offset");
 $stmt->bindValue(':limit', $numRecPerPage);
