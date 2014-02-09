@@ -117,7 +117,10 @@ class Language extends Website {
 	 * @param string $lang
 	 * @return string
 	 */
-	public function createLangPage($page, $lang) {
+	public function createLangPage($page, $lang = null) {
+		if (is_null($lang)) {
+			$lang = $this->getLang();
+		}
 		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
 		$defaultPage = $page;
 		if (strpos($this->getDir(), '/articles') !== false) {
