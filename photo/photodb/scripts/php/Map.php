@@ -50,17 +50,18 @@ class Map extends PhotoDb {
 		$params = $this->createObjectFromPost($data);
 
 		// normal case
-		if ($params->lng2 < $params->lng1) {
-			$sqlLatLng = " WHERE imgLat > :query0 AND imgLat < :query1
-			AND imgLng > :query2 AND imgLng < :query3";
+		if (!is_null($params->lat1) && !is_null($params->lng1) && !is_null($params->lat2) && !is_null($params->lng2)) {
+			if ($params->lng2 < $params->lng1) {
+				$sqlLatLng = " (i.ImgLat >= :lat2 AND i.ImgLng >= :lng2) AND (i.ImgLat <= :lat1 AND i.ImgLng <= :lng1)";	// parentheses are just for readability
+			}
+			// special case lng2|lng1 <-> 180|-180
+			else {
+				$sqlLatLng = " ((i.ImgLat >= :lng2 AND i.ImgLng >= :lng2) OR (i.ImgLat <= :lat1 AND i.ImgLng <= :lng1))";
+			}
 		}
-		// special case lng2|lng1 <-> 180|-180
 		else {
-			$sqlLatLng = " WHERE imgLat > :query0 AND imgLat < :query1
-			AND (imgLng > :query2 OR imgLng < :query3)";
+			$sqlLatLng = '';
 		}
-
-
 
 		// Currently we just load all markers
 		$sql = "SELECT i.Id id, i.ImgFolder||'/'||i.ImgName img, ROUND(i.ImgLat, 6) lat, ROUND(i.ImgLng, 6) lng FROM Images i";
@@ -73,7 +74,8 @@ class Map extends PhotoDb {
 		}
 		$sql.= " WHERE i.RatingId > :rating
 			AND (i.ImgLat NOT NULL OR i.ImgLng NOT NULL) -- exclude images that don't have any gps info
-			AND i.ImgLat != '' AND i.ImgLng != ''";
+			AND i.ImgLat != '' AND i.ImgLng != ''
+			-- AND ".$sqlLatLng;
 			if (!is_null($params->theme)) {
 				$sql.= " AND it.ThemeId = :theme";
 			}
@@ -81,15 +83,14 @@ class Map extends PhotoDb {
 				$sql.= " AND lc.CountryId = :country";
 			}
 
-
-		$stmt->bindValue(':query0', $lat1);
-		$stmt->bindValue(':query1', $lat2);
-		$stmt->bindValue(':query2', $lng1);
-		$stmt->bindValue(':query3', $lng2);
-
-
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(':rating', $params->qual);
+		if (!is_null($params->lat1) && !is_null($params->lng1) && !is_null($params->lat2) && !is_null($params->lng2)) {
+			$stmt->bindValue(':lat1', $params->lat1);
+			$stmt->bindValue(':lng1', $params->lng1);
+			$stmt->bindValue(':lat2', $params->lat2);
+			$stmt->bindValue(':lng2', $params->lat2);
+		}
 		if (!is_null($params->theme)) {
 			$stmt->bindValue(':theme', $params->theme);
 		}

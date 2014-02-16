@@ -132,7 +132,8 @@ require([
 		loadMarkerData: function() {
 			var q = ioQuery.objectToQuery(this.queryObj);
 
-			return xhr.get(this.target + '/marker/?' + q, {
+			q += q !== '' ? '?' : '';
+			return xhr.get(this.target + '/marker/' + q, {
 				handleAs: 'json'
 			});
 		},
@@ -288,6 +289,7 @@ require([
 			var self = this;
 			gmaps.event.addDomListener(map, 'idle', function() {
 				self.updateQueryBounds(map);
+				self.initMarkerClusterer();
 			});
 		},
 
@@ -307,12 +309,14 @@ require([
 			q.lat2 = sw.lat();
 			q.lng2 = sw.lng();
 
+			this.queryObj = q;
+
 			if (hist) {
 				hist.pushState({}, 'map extent', window.location.pathname + '?' + ioQuery.objectToQuery(q));
 			}
 		},
 
-		initMarkerClusterer: function () {
+		initMarkerClusterer: function() {
 			var mc = new MarkerClusterer(this.map, null, this.mcOptions);
 
 			this.loadMarkerData().then(lang.hitch(this, function(data) {
@@ -331,7 +335,7 @@ require([
 
 		init: function() {
 			this.initMap();
-			this.initMarkerClusterer();
+			//this.initMarkerClusterer();
 		}
 	};
 
