@@ -9,13 +9,17 @@ date_default_timezone_set('Europe/Zurich');
 $path = __DIR__.'/../';
 $incPath = $path.'class'.PATH_SEPARATOR;
 $incPath.= $path.'layout'.PATH_SEPARATOR;
+$incPath.= $path.'photo/photodb/scripts/php'.PATH_SEPARATOR;
 $incPath.= $path.'library';
 set_include_path($incPath);
 include_once 'Language.php';
-include_once 'PhotoDb.php';
-include_once 'PhotoDbNav.php';
 include_once 'Menu.php';
 include_once 'PagedNav.php';
+
+// photodb
+include_once 'PhotoDb.php';
+include_once 'PhotoDbNav.php';
+
 
 $web = new Language();
 $web->lastUpdate = '09.02.2014';
