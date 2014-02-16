@@ -11,7 +11,16 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database Mapsearch' : 'Bildarchiv 
 <link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .relativeContainer { position: relative; }
-#layoutMiddle { bottom: 100px; }
+
+/* adjust layout for map */
+#layoutMiddle { bottom: 100px; margin: 0}
+#layoutMain { margin-left: 0; }
+#layoutMiddle, #layoutFooterCont {
+	max-width: none;
+}
+#layoutFooterCont {
+	padding: 0;
+}
 
 #map-canvas {
 	/* dimension overwritten by js */
@@ -19,15 +28,9 @@ $pageTitle = $web->getLang() == 'en' ? 'Photo Database Mapsearch' : 'Bildarchiv 
 	width: 100%;
 }
 
-#layoutMiddle, #layoutFooterCont {
-	max-width: none;
-}
-
 #map {
-	margin-right: 20px;
 	height: 520px;
 	border: 1px solid black;
-	margin-bottom: 10px;
 	display: none;
 	visibility: hidden;
 }
@@ -36,10 +39,13 @@ img[id^=mtgt_unnamed] {
 	border: 1px solid white !important;
 }
 
+#mRating, #showPhotos {
+	margin: 6px;
+}
+
 #mRating li:hover > ul {
 	top: 25px;
 }
-
 </style>
 </head>
 
@@ -47,6 +53,7 @@ img[id^=mtgt_unnamed] {
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="relativeContainer">
 <?php echo $mRating->render(); ?>
+<div id="showPhotos" class="button buttShowPhotos" title="<?php echo $i18n[$web->getLang()]['show photos']; ?>"><a href="photo.php<?php echo $web->getQuery(); ?>	"><img src="../../layout/images/icon_photolist.gif" alt="icon to display list of photos"></a></div>
 <div id="map-canvas"></div>
 </div>
 
@@ -79,8 +86,12 @@ require([
 ], function(lang, array, win, xhr, domStyle, domGeometry, ioQuery) {
 
 	var mapApp,
-		byId = function(el) {
-			return document.getElementById(el);
+		/**
+		 * Shortcut for document.getElementById
+		 * @param {String} id
+		 */
+		byId = function(id) {
+			return document.getElementById(id);
 		},
 		gmaps = google.maps;
 
@@ -92,13 +103,12 @@ require([
 		mapLng: 12,
 		mapZoom: 3,
 		mapDiv: byId('map-canvas'),
-		bounds: null,
 		mcOptions: {
-			maxZoom: 12,
+			maxZoom: 10,
 			imagePath: '/library/gmap/markerclusterer/images/m'
 		},
 		clusterer: null,
-		url: 'controller.php',
+		target: 'controller.php',
 
 		/**
 		 * Fit map to window size.
@@ -110,8 +120,8 @@ require([
 
 			// set map dimensions
 			domStyle.set(byId('map-canvas'), {
-				width: winDim.w - cont.x - 15 + 'px',
-				height: winDim.h - cont.y - footer.h - 15 + 'px'
+				width: winDim.w - cont.x + 'px',
+				height: winDim.h - cont.y - footer.h + 'px'
 			});
 		},
 
@@ -122,7 +132,7 @@ require([
 		loadMarkerData: function() {
 			var q = ioQuery.objectToQuery(this.queryObj);
 
-			return xhr.get(this.url + '/marker/' + q, {
+			return xhr.get(this.target + '/marker/?' + q, {
 				handleAs: 'json'
 			});
 		},
@@ -224,25 +234,82 @@ require([
 		},
 
 		initMap: function () {
-			var mapOptions, queryObj = this.queryObj;
+			var map = this.map,
+				bounds, ne, sw,
+				mapOptions,
+				queryObj = this.queryObj;
 
 			window.onresize = this.setMapDimension;
 			this.setMapDimension();
 
 			mapOptions = {
 				center: new gmaps.LatLng(this.mapLat, this.mapLng),
-				zoom: this.mapZoom
+				zoom: this.mapZoom,
+				mapTypeId: gmaps.MapTypeId.SATELLITE
 			};
-			this.map = new gmaps.Map(this.mapDiv, mapOptions);
+			map = this.map = new gmaps.Map(this.mapDiv, mapOptions);
 
-			// center map  to coords from query string
+			this.initMapEvents(map);
+
+			// center map  to coords from query string, has precedence over country
 			if (queryObj.lat1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
-				this.bounds = new gmaps.LatLngBounds(new gmap.LatLng(queryObj.lat1, queryObj.lng1), new gmaps.LatLng(queryObj.lat2, queryObj.lng2));
-				this.map.fitBounds(bounds);
+				ne = new gmaps.LatLng(queryObj.lat1, queryObj.lng1);
+				sw = new gmaps.LatLng(queryObj.lat2, queryObj.lng2);
+				bounds = new gmaps.LatLngBounds(sw, ne);
+				map.fitBounds(bounds);
+			}
+
+			// zoom to passed country
+			else if (queryObj.country) {
+				xhr.get(this.target + '/country/' + queryObj.country, { handleAs: 'json' }).then(function(results) {
+					var geocoder = new gmaps.Geocoder();
+					geocoder.geocode({
+						address: results[0].NameEn
+					}, function(results, status) {
+						if (status == gmaps.GeocoderStatus.OK) {
+			      		map.setCenter(results[0].geometry.location);
+							map.fitBounds(results[0].geometry.viewport);
+						}
+					});
+				});
 			}
 
 			// add rating control
-			this.map.controls[gmaps.ControlPosition.TOP_RIGHT].push(byId('mRating'));
+			map.controls[gmaps.ControlPosition.TOP_RIGHT].push(byId('mRating'));
+			// add control to list photos
+			map.controls[gmaps.ControlPosition.TOP_RIGHT].push(byId('showPhotos'));
+		},
+
+		/**
+		 * Initialize map events
+		 * @param {google.maps.Map} map
+		 */
+		initMapEvents: function(map) {
+			var self = this;
+			gmaps.event.addDomListener(map, 'idle', function() {
+				self.updateQueryBounds(map);
+			});
+		},
+
+		/**
+		 * Update query string to represent current map extent (bounds)
+		 * @param {google.maps.Map} map
+		 */
+		updateQueryBounds: function(map) {
+			var q = this.queryObj,
+				hist = window.history,
+				b = map.getBounds(),
+				ne = b.getNorthEast(),
+				sw = b.getSouthWest();
+
+			q.lat1 = ne.lat();
+			q.lng1 = ne.lng();
+			q.lat2 = sw.lat();
+			q.lng2 = sw.lng();
+
+			if (hist) {
+				hist.pushState({}, 'map extent', window.location.pathname + '?' + ioQuery.objectToQuery(q));
+			}
 		},
 
 		initMarkerClusterer: function () {

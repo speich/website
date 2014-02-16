@@ -28,7 +28,7 @@ class PhotoDb {
 	protected $hasActiveTransaction = false;	// keep track of open transactions
 	
 	/**
-	 * @constructor
+	 * @param string $webroot path to root folder
 	 */
 	public function __construct($webroot) {
 		$this->webroot = $webroot;
@@ -42,7 +42,7 @@ class PhotoDb {
 	 * is used instead of PDO.
 	 */
 	public function connect() {
-		$path = __DIR__.'/../'.$this->pathDb;
+		$path = __DIR__.'/../../../../'.$this->pathDb;
 		if (is_null($this->db)) {	// check if not already connected to db
 			try {
 				$this->db = new PDO('sqlite:'.$path.$this->dbName);

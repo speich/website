@@ -1,11 +1,11 @@
 <?php
-use PhotoDb\PhotoDb;
+use PhotoDb\Map;
 use WebsiteTemplate\Controller;
 use WebsiteTemplate\Error;
 use WebsiteTemplate\Header;
 
 require_once '../../library/inc_script.php';
-require_once 'PhotoDb.php';
+require_once 'Map.php';
 require_once 'Controller.php';
 require_once 'Error.php';
 require_once 'Header.php';
@@ -22,44 +22,14 @@ $response = false;
 $header = false;
 
 
-/**
- * @param null $rating
- * @param PhotoDb $db
- * @param Object $data
- * @return mixed
- */
-function loadMarkerData($db, $data) {
-	if (is_null($db->db)) {
-		$db->connect();
-	}
-	// Currently we just load all markers
-	$sql = "SELECT i.Id id, i.ImgFolder||'/'||i.ImgName img, ROUND(i.ImgLat, 6) lat, ROUND(i.ImgLng, 6) lng FROM Images i";
-
-	if (property_exists($data, 'theme')) {
-		$sql.= "	INNER JOIN Images_Themes it ON i.Id = it.ImgId";
-	}
-	else if (property_exists($data, 'country')) {
-		$sql.= "INNER JOIN Images_Locations il ON i.Id = il.ImgId
-			INNER JOIN Locations_Countries lc ON il.LocationId = lc.LocationId";
-	}
-	$sql.= " WHERE i.RatingId > :rating
-		AND (i.ImgLat NOT NULL OR i.ImgLng NOT NULL)
-		AND i.ImgLat != '' AND i.ImgLng != ''";
-	$stmt = $db->db->prepare($sql);
-
-	// Currently we just load all markers
-	$stmt->bindValue(':rating', $data->qual - 1);
-	$stmt->execute();
-	$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	return json_encode($res, JSON_NUMERIC_CHECK);
-}
-
-
 if ($controller == 'marker') {
-	$db = new PhotoDb($web->getWebRoot());
-	$response = loadMarkerData($db, $data);
+	$db = new Map($web->getWebRoot());
+	$response = $db->loadMarkerData($data);
 }
-
+else if ($controller == 'country') {
+	$db = new Map($web->getWebRoot());
+	$response = $db->loadCountry($resources[0]);
+}
 
 // resource found and processed
 if ($response) {

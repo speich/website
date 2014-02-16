@@ -126,7 +126,7 @@ $pagingBar = '<div class="pagingBar">'.
 	echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
-<div id="showMap" class="button buttShowMap"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n[$web->getLang()]['search on map']; ?><img src="../../layout/images/icon_map.gif"></a></div>
+<div id="showMap" class="button buttShowMap" title="<?php echo $i18n[$web->getLang()]['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n[$web->getLang()]['map']; ?><img src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
 </div>
 </div>
 

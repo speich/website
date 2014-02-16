@@ -18,7 +18,9 @@ $i18n = array(
 		'date created' => 'erstellt',
 		'last changed' => 'zuletzt geändert',
 		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.',
-		'search on map' => 'Kartensuche',
+		'map' => 'Karte',
+		'show photos' => 'Fotos zeigen',
+		'show on map' => 'Fotos auf Karte anzeigen',
 		'back' => 'zurück'
 	),
 	'en' => array(
@@ -32,7 +34,9 @@ $i18n = array(
 		'date created' => 'date created',
 		'last changed' => 'last changed',
 		'not found' => 'No records found with these settings.',
-		'search on map' => 'search on map',
+		'map' => 'map',
+		'show photos' => 'show photos',
+		'show on map' => 'display photos on a map',
 		'back' => 'back'
 	)
 );

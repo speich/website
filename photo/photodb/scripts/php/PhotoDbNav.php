@@ -25,7 +25,8 @@ class PhotoDbNav extends PhotoDb {
 				FROM SubjectAreas s
 				INNER JOIN Themes t ON t.SubjectAreaId = s.Id
 				INNER JOIN Images_Themes It ON t.Id = It.ThemeId
-				UNION -- add country
+				-- add countries
+				UNION
 				SELECT * FROM (
 					SELECT 's' || s.Id menuId, s.Name".$lang." menuLabel,
 					'c' || c.Id submenuId, c.Name".$lang." submenuLabel, c.Id queryValue, 'country' queryField
@@ -34,7 +35,7 @@ class PhotoDbNav extends PhotoDb {
 						SELECT DISTINCT Id, Name".$lang." FROM Countries c
 						INNER JOIN Locations_Countries lc ON c.Id = lc.CountryId
 					) c
-					WHERE s.Id = 7	-- id of country in SubjectArea
+					WHERE s.Id = 7	-- id of country in SubjectArea table
 				) t
 				ORDER BY menuLabel ASC, submenuLabel ASC";
 		return $this->db->query($sql);
@@ -47,6 +48,11 @@ class PhotoDbNav extends PhotoDb {
 	 * @param Language $web
 	 */
 	public function createMenu($sideNav, $items, $web) {
+		if ($web->page == $web->createLangPage('photo-mapsearch.php')) {
+			// do not render side navigation on map page
+			return;
+		}
+
 		foreach($items as $item) {
 			$sideNav->add($item);
 		}
@@ -54,16 +60,19 @@ class PhotoDbNav extends PhotoDb {
 		$lang = ucfirst($web->getLang());
 		$themes = $this->get($lang);
 		// side menu links should start fresh with only ?theme={id} as query string (or non photo related query variables)
-		$arrQueryDel = array('pg', 'numRec', 'country', 'qual', 'lang', 'imgId');
+		// treat country as a theme, do not allow country and theme vars in the query string at the same time
+		// note: country and theme will be added back in loop
+		$arrQueryDel = array('pg', 'numRec', 'country', 'qual', 'lang', 'imgId', 'theme');
 		$path = $web->getWebRoot().'photo/photodb/photo.php';
 		$lastMenuId = null;
 		while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {
 			$arrQueryAdd = array($row['queryField'] => $row['queryValue']);
-			// subject areas
+			// main subject areas (parent menu)
 			if ($row['menuId'] != $lastMenuId) {
 				$link = $path.$web->getQuery($arrQueryAdd, $arrQueryDel);
 				$sideNav->add(array($row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link));
 			}
+			// sub menu
 			$arrQueryAdd = array($row['queryField'] => $row['queryValue']);
 			$link = $path.$web->getQuery($arrQueryAdd, $arrQueryDel);
 			$sideNav->add(array($row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link));
@@ -87,10 +96,5 @@ class PhotoDbNav extends PhotoDb {
 			$sideNav->arrItem[1]->setActive(false);
 			$sideNav->arrItem[2]->setActive(false);
 		}
-		else if ($web->page == $web->createLangPage('photo-mapsearch.php')) {
-			$sideNav->arrItem[1]->setActive(false);
-			$sideNav->arrItem[2]->setActive(false);
-		}
-
 	}
 }
