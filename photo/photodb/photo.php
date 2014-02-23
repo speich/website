@@ -6,94 +6,26 @@ require_once 'photoinc.php';
 
 $web->setLastPage();
 
-// join only with theme when we can filter by theme, otherwise we have multiple records per theme (group by imgid is to time expensive)
-// We have to alias all fields since depending on PHP SQLite version short column names is on/off and can't be set.
-$sql = "SELECT * FROM (
-	SELECT DISTINCT i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.ImgTitle imgTitle,
-	i.DateAdded dateAdded, i.LastChange lastChange, i.ImgTitle imgTitle,
-	r.Id ratingId, i.ImgDateOriginal date ";
-if (isset($_GET['theme'])) {
-	$sql.= ", it.ThemeId themeId";
-}
-else if (isset($_GET['country'])) {
-	$sql.= ", lc.CountryId countryId";
-}
-$sql.= ", CASE WHEN i.ImgDateOriginal IS NULL THEN
-		(CASE WHEN i.ImgDate IS NOT NULL THEN DATETIME(i.ImgDate, 'unixepoch', 'localtime') END)
-	ELSE DATETIME(i.ImgDateOriginal, 'unixepoch', 'localtime') END date
-	FROM Images i";
-if (isset($_GET['theme'])) {
-	$sql.= "	INNER JOIN Images_Themes it ON i.Id = it.ImgId";
-}
-else if (isset($_GET['country'])) {
-	$sql.= "	INNER JOIN Images_Locations il ON i.Id = il.ImgId
-		INNER JOIN Locations_Countries lc ON il.LocationId = lc.LocationId
-	";
-}
-$sql.= "	LEFT JOIN Rating r ON i.RatingId = r.Id)";
+$photos = $photo->loadPhotos($params);
+$numRec = $photo->getNumRec($params);
 
-
-// filtering
-$sqlFilter = '';
-if (isset($_GET['theme'])) {
-	$themeId = preg_replace("/\D*/", '', $_GET['theme']);	// sanitize for security reasons
-	$sqlFilter = " WHERE themeId = $themeId AND";
-}
-else if (isset($_GET['country'])) {
-	$countryId = preg_replace("/\D*/", '', $_GET['country']);	// sanitize for security reasons
-	$sqlFilter = " WHERE countryId = $countryId AND";
-}
-else {
-	//$theme = null;
-	$sqlFilter.= " WHERE";
-}
-$qual = isset($_GET['qual']) ? preg_replace("/\D*/", '', $_GET['qual']) : 3;	// sanitize for security reasons
-$sqlFilter.= " ratingId > ".($qual - 1);
-
-// sorting
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
-switch($sort) {
-	case 1:
-		$sqlSort = ' ORDER BY dateAdded DESC';
-		break;
-	case 2:
-		$sqlSort = ' ORDER BY date DESC';
-		break;
-	case 3:
-		$sqlSort = ' ORDER BY lastChange DESC';
-		break;
-	case 4:
-		$sqlSort = ' ORDER BY imgTitle ASC';
-		break;
-}
-
-$stmt = $db->db->prepare($sql.$sqlFilter.$sqlSort." LIMIT :limit OFFSET :offset");
-$stmt->bindValue(':limit', $numRecPerPage);
-$stmt->bindValue(':offset', ($pg-1) * $numRecPerPage);
-$stmt->execute();
-$arrData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$numRec = $db->getNumRec($sql.$sqlFilter, 'imgId', $arrBind = array(), $lastPage, $web);
-$pagedNav = new PagedNav($numRec, $numRecPerPage);
+$pagedNav = new PagedNav($numRec, $params->numRecPerPage);
 $pagedNav->renderText = false;
-
-$pageTitle = $web->getLang() == 'en' ? 'Photo Database' : 'Bildarchiv';
-
 
 $word = 'photo'.($numRec > 1 ? 's' : '');
 $pagingBar = '<div class="pagingBar">'.
-	'<div class="barTxt">'.$numRec.' '.$i18n[$web->getLang()][$word].'</div>'.
+	'<div class="barTxt">'.$numRec.' '.$i18n[$word].'</div>'.
 	'<div class="barVertSeparator"></div>'.
 	$mRecPp->render().
-	'<div class="barTxt">'.$i18n[$web->getLang()]['per page'].'</div>'.
+	'<div class="barTxt">'.$i18n['per page'].'</div>'.
 	'<div class="barVertSeparator"></div>'.
-	$pagedNav->render($pg, $web).
+	$pagedNav->render($params->page + 1, $web).
 	'</div>';
-
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
+<title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
 <script>
@@ -117,26 +49,26 @@ $pagingBar = '<div class="pagingBar">'.
 <div class="search"><gcse:search enableAutoComplete="true"></gcse:search></div>
 <div class="optionBar">
 <div class="barTxt"><?php
-	echo $i18n[$web->getLang()]['sorting'];
+	echo $i18n['sorting'];
 	echo $mSort->render(); ?>
 </div>
 <div class="barVertSeparator"></div>
 <div class="barTxt"><?php
-	echo $i18n[$web->getLang()]['rating'];
+	echo $i18n['rating'];
 	echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
-<div id="showMap" class="button buttShowMap" title="<?php echo $i18n[$web->getLang()]['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n[$web->getLang()]['map']; ?><img src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
+<div id="showMap" class="button buttShowMap" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n['map']; ?><img src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
 </div>
 </div>
 
-<div><ul><?php renderData($db, $arrData, $web, $i18n); ?></ul></div>
+<div><ul><?php echo $photo->renderData($photos, $web, $i18n); ?></ul></div>
 
 <?php echo $pagingBar ?>
 
 <div id="slideFullScreenCont">
 <div class="slideFullScreen">
-<span class="slideFullScreenAuthor"><?php echo $i18n[$web->getLang()]['photo']; ?> Simon Speich, www.speich.net</span>
+<span class="slideFullScreenAuthor"><?php echo $i18n['photo']; ?> Simon Speich, www.speich.net</span>
 </div>
 <!-- not implemented yet
 <div class="slideNavClose">close</div>

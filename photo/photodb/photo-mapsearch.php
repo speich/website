@@ -1,16 +1,31 @@
 <?php
 require_once 'photoinc.php';
+require_once __DIR__.'/nls/'.$web->getLang().'/photo-mapsearch.php';
+
 $web->setLastPage();
-$pageTitle = $web->getLang() == 'en' ? 'Photo Database Mapsearch' : 'Bildarchiv Kartensuche';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title><?php echo $pageTitle.' | '.$web->pageTitle; ?></title>
+<title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-.relativeContainer { position: relative; }
+#mapContainer {
+	position: relative;
+	display: none;
+}
+
+#loading {
+	width: 200px;
+	margin: 150px auto;
+}
+
+#loading img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
 
 /* adjust layout for map */
 #layoutMiddle { bottom: 100px; margin: 0}
@@ -41,6 +56,7 @@ img[id^=mtgt_unnamed] {
 
 #mRating, #showPhotos {
 	margin: 6px;
+	display: none;
 }
 
 #mRating li:hover > ul {
@@ -51,9 +67,10 @@ img[id^=mtgt_unnamed] {
 
 <body class="tundra">
 <?php require_once 'inc_body_begin.php'; ?>
-<div class="relativeContainer">
+<div id="loading"><img src="../../layout/images/icon_loading.gif"><?php echo $i18n['loading map']; ?></div>
+<div id="mapContainer">
 <?php echo $mRating->render(); ?>
-<div id="showPhotos" class="button buttShowPhotos" title="<?php echo $i18n[$web->getLang()]['show photos']; ?>"><a href="photo.php<?php echo $web->getQuery(); ?>	"><img src="../../layout/images/icon_photolist.gif" alt="icon to display list of photos"></a></div>
+<div id="showPhotos" class="button buttShowPhotos" title="<?php echo $i18n['show photos']; ?>"><a href="photo.php" id="linkShowPhotos"><?php echo $i18n['photos']; ?><img src="../../layout/images/icon_photolist.gif" alt="icon to display list of photos"></a></div>
 <div id="map-canvas"></div>
 </div>
 
@@ -80,8 +97,9 @@ require([
 	'dojo/dom-style',
 	'dojo/dom-geometry',
 	'dojo/io-query',
-	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&key=AIzaSyBSisbdkhszQj2OvSyWWjE-Vmi8sV34oeA&language=' + dojoConfig.locale,
-	'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
+	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&language=' + dojoConfig.locale,
+	//'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
+	'/library/markerclustererplus/src/markerclusterer.js',
 	'dojo/domReady!'
 ], function(lang, array, win, xhr, domStyle, domGeometry, ioQuery) {
 
@@ -99,9 +117,11 @@ require([
 		queryObj: ioQuery.queryToObject(window.location.search.replace('?', '')),
 		map: null,
 		mapOptions: {},
-		mapLat: 28,	// initial map coordinates
+		mapLat: 50,	// initial map coordinates
 		mapLng: 12,
-		mapZoom: 3,
+		mapZoom: 4,	// initial map zoom
+		mapLastZoom: null,
+		mapLastEvent: null,
 		mapDiv: byId('map-canvas'),
 		mcOptions: {
 			maxZoom: 10,
@@ -132,7 +152,7 @@ require([
 		loadMarkerData: function() {
 			var q = ioQuery.objectToQuery(this.queryObj);
 
-			q += q !== '' ? '?' : '';
+			q = (q === '' ? '' : '?') + q;
 			return xhr.get(this.target + '/marker/' + q, {
 				handleAs: 'json'
 			});
@@ -155,6 +175,7 @@ require([
 					url: imgUrl
 				};
 			marker = new gmaps.Marker({
+				id: data.id,
 				icon: image,
 				position: latLng
 			});
@@ -249,11 +270,12 @@ require([
 				mapTypeId: gmaps.MapTypeId.SATELLITE
 			};
 			map = this.map = new gmaps.Map(this.mapDiv, mapOptions);
+			this.mapLastZoom = map.zoom;
 
 			this.initMapEvents(map);
 
-			// center map  to coords from query string, has precedence over country
-			if (queryObj.lat1 && queryObj.lat2 && queryObj.lng1 && queryObj.lng2) {
+			// center map to coords from query string, has precedence over country
+			if (queryObj.lat1 && queryObj.lng1 && queryObj.lng2 && queryObj.lng2) {
 				ne = new gmaps.LatLng(queryObj.lat1, queryObj.lng1);
 				sw = new gmaps.LatLng(queryObj.lat2, queryObj.lng2);
 				bounds = new gmaps.LatLngBounds(sw, ne);
@@ -287,15 +309,50 @@ require([
 		 */
 		initMapEvents: function(map) {
 			var self = this;
-			gmaps.event.addDomListener(map, 'idle', function() {
-				self.updateQueryBounds(map);
-				self.initMarkerClusterer();
+
+			gmaps.event.addDomListener(map, 'dragend', function() {
+				self.mapLastEvent = 'dragend';
 			});
+			gmaps.event.addDomListener(map, 'zoom_changed', function() {
+				self.mapLastEvent = 'zoom_changed';
+			});
+			gmaps.event.addDomListener(map, 'tilesloaded', function() {
+				byId('mRating').style.display = 'block';
+				byId('showPhotos').style.display = 'block';
+			});
+			gmaps.event.addDomListener(map, 'idle', function() {
+				var q = self.updateQueryBounds(map);
+
+				self.updateUrl(q);
+
+				if (self.mapLastEvent == 'dragend' || !self.mapLastEvent || map.zoom < self.mapLastZoom) {
+					// update only on zoom out or drag
+					self.updateMarkers();
+				}
+				self.mapLastZoom = map.zoom;
+			});
+		},
+
+		/**
+		 * Update urls of map controls.
+		 * @param {Object} query
+		 */
+		updateUrl: function(query) {
+			var nl, q = ioQuery.objectToQuery(query);
+
+			// also update link of button to display photos
+			byId('linkShowPhotos').href = 'photo.php?' + q;
+
+			nl = byId('mRating').getElementsByTagName('a');
+			for (var i = 0, len = nl.length; i < len; i++) {
+				nl.href = window.location.pathname + '?' + q;
+			}
 		},
 
 		/**
 		 * Update query string to represent current map extent (bounds)
 		 * @param {google.maps.Map} map
+		 * @return {Object} query
 		 */
 		updateQueryBounds: function(map) {
 			var q = this.queryObj,
@@ -314,28 +371,35 @@ require([
 			if (hist) {
 				hist.pushState({}, 'map extent', window.location.pathname + '?' + ioQuery.objectToQuery(q));
 			}
+
+			return q;
+		},
+
+		updateMarkers: function() {
+			this.loadMarkerData().then(lang.hitch(this, this.addMarkers));
+		},
+
+		addMarkers: function(data) {
+			var mc = this.clusterer;
+
+			array.forEach(data, function(item) {
+				var marker = this.createMarker(this.map, item);
+
+				mc.addMarker(marker);
+			}, this);
 		},
 
 		initMarkerClusterer: function() {
-			var mc = new MarkerClusterer(this.map, null, this.mcOptions);
+			this.clusterer = new MarkerClusterer(this.map, null, this.mcOptions);
 
-			this.loadMarkerData().then(lang.hitch(this, function(data) {
-				var markers = [];
-
-				array.forEach(data, function(item) {
-					var marker = this.createMarker(this.map, item);
-		  			markers.push(marker);
-				}, this);
-
-				mc.addMarkers(markers);
-			}));
-
-			this.clusterer = mc;
+			this.loadMarkerData().then(lang.hitch(this, this.addMarkers));
 		},
 
 		init: function() {
+			byId('loading').style.display = 'none';	// otherwise map is not placed and dimensioned correctly
+			byId('mapContainer').style.display = 'block';	// otherwise map is not placed and dimensioned correctly
 			this.initMap();
-			//this.initMarkerClusterer();
+			this.initMarkerClusterer();
 		}
 	};
 

@@ -1,7 +1,6 @@
 <?php
 namespace PhotoDb;
 
-use WebsiteTemplate\Menu;
 use WebsiteTemplate\Language;
 use PDO;
 use PDOStatement;
@@ -9,9 +8,9 @@ use PDOStatement;
 require_once 'PhotoDb.php';
 
 /**
- * Class PhotoDbNav
+ * Class Menu
  */
-class PhotoDbNav extends PhotoDb {
+class Menu extends PhotoDb {
 
 	/**
 	 * Load and create list of menu and sub menu items.
@@ -43,11 +42,11 @@ class PhotoDbNav extends PhotoDb {
 
 	/**
 	 * Creates the side menu photography for the main menu.
-	 * @param Menu $sideNav
+	 * @param \WebsiteTemplate\Menu $sideNav
 	 * @param array $items menu items to add
 	 * @param Language $web
 	 */
-	public function createMenu($sideNav, $items, $web) {
+	public function create($sideNav, $items, $web) {
 		if ($web->page == $web->createLangPage('photo-mapsearch.php')) {
 			// do not render side navigation on map page
 			return;
@@ -62,7 +61,7 @@ class PhotoDbNav extends PhotoDb {
 		// side menu links should start fresh with only ?theme={id} as query string (or non photo related query variables)
 		// treat country as a theme, do not allow country and theme vars in the query string at the same time
 		// note: country and theme will be added back in loop
-		$arrQueryDel = array('pg', 'numRec', 'country', 'qual', 'lang', 'imgId', 'theme');
+		$arrQueryDel = array('pg', 'numRec', 'country', 'qual', 'lang', 'imgId', 'theme', 'lat1', 'lng1', 'lat2', 'lng2');
 		$path = $web->getWebRoot().'photo/photodb/photo.php';
 		$lastMenuId = null;
 		while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {

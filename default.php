@@ -23,6 +23,7 @@
 für die Webprogrammierung interessieren lesen Sie doch einen meiner Artikel über
 	<a href="articles/category/php/">PHP</a> oder <a href="articles/category/javascript/">JavaScript</a>.</p>
 <?php } else { ?>
+<h1>Insights and views</h1>
 <p>This is Simon Speich's Website about photography and web programming.</p>
 <p>If you enjoy looking at beautiful nature photos, especially <a href="photo/photodb/photo.php?theme=1">birds</a>,
 	then my <a href="photo/photodb/photo.php">photo archive</a> is exactly what you are looking for.

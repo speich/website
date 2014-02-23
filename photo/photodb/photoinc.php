@@ -1,147 +1,59 @@
 <?php
-use PhotoDb\PhotoDb;
-use WebsiteTemplate\Language;
+use PhotoDb\Photo\Photo;
 use WebsiteTemplate\Menu;
 
 require_once __DIR__.'/../../library/inc_script.php';
-require_once 'PhotoDb.php';
+require_once __DIR__.'/scripts/php/Photo.php';
+require_once __DIR__.'/nls/'.$web->getLang().'/photo.php';
 
-$i18n = array(
-	'de' => array(
-		'photo' => 'Foto',
-		'photos' => 'Fotos',
-		'per page' => 'pro Seite',
-		'sorting' => 'Sortierung',
-		'rating' => 'Bewertung',
-		'by title' => 'Titel',
-		'date added' => 'hinzugefügt',
-		'date created' => 'erstellt',
-		'last changed' => 'zuletzt geändert',
-		'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.',
-		'map' => 'Karte',
-		'show photos' => 'Fotos zeigen',
-		'show on map' => 'Fotos auf Karte anzeigen',
-		'back' => 'zurück'
-	),
-	'en' => array(
-		'photo' => 'photo',
-		'photos' => 'photos',
-		'per page' => 'per page',
-		'sorting' => 'sorting',
-		'rating' => 'rating',
-		'by title' => 'by title',
-		'date added' => 'date added',
-		'date created' => 'date created',
-		'last changed' => 'last changed',
-		'not found' => 'No records found with these settings.',
-		'map' => 'map',
-		'show photos' => 'show photos',
-		'show on map' => 'display photos on a map',
-		'back' => 'back'
-	)
-);
+$photo = new Photo($web->getWebRoot());
+$params = $photo->createObjectFromPost((object) $_GET);
 
-
-$db = new PhotoDb($web->getWebRoot());
-$db->connect();
 $lastPage = $web->getLastPage();	// to check if we need to reset caching of number of records further below
-
 $pageTitle = $sideNav->getActive('linkTxt');
 $pageTitle = $pageTitle[count($pageTitle) - 1];
-
-// paged nav
-$pg = isset($_GET['pg']) ? $_GET['pg'] : $pg = 1;
-$numRecPerPage = isset($_GET['numRecPp']) ? $_GET['numRecPp'] : 14;
-$numRec = !isset($numRec) ? 0 : $numRec;
 
 // generate filter and sorting menus
 $arrDel = array('pg');
 $arrVal = array(7, 14, 21, 28, 56);
 $mRecPp = new Menu(null, 'menu menu2 mRecPp');
-$mRecPp->add(array('a', 'b', $numRecPerPage));
+$mRecPp->add(array('a', 'b', $params->numRecPerPage));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('numRecPp' => $val), $arrDel);
 	$mRecPp->add(array($key, 'a', $val, $url));
-	if ($numRecPerPage == $val) {
+	if ($params->numRecPerPage == $val) {
 		$mRecPp->arrItem[$key]->setActive();
 	}
 }
 
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
 $arrVal = array(
-	4 => $i18n[$web->getLang()]['by title'],
-	1 => $i18n[$web->getLang()]['date added'],
-	2 => $i18n[$web->getLang()]['date created'],
-	3 => $i18n[$web->getLang()]['last changed']
+	4 => $i18n['by title'],
+	1 => $i18n['date added'],
+	2 => $i18n['date created'],
+	3 => $i18n['last changed']
 );
 $mSort = new Menu(null, 'menu menu2 mSort');
-$mSort->add(array('a', 'b', $arrVal[$sort]));
+$mSort->add(array('a', 'b', $arrVal[$params->sort]));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('sort' => $key), $arrDel);
 	$mSort->add(array($key, 'a', $val, $url));
-	if ($sort == $key) {
+	if ($params->sort == $key) {
 		$mSort->arrItem[$key]->setActive();
 	}
 }
 
-$qual = isset($_GET['qual']) ? preg_replace("/\D*/", '', $_GET['qual']) : 3;	// sanitize for security reasons
-$star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="star icon for rating image">';
-$arrVal = array(3 => $star.$star.$star, 2 => $star.$star, 1 => $star);
+$star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="'.$i18n['star icon'].'">';
+$arrVal = array(
+	2 => $star.$star.$star,
+	1 => $star.$star,
+	0 => $star
+);
 $mRating = new Menu('mRating', 'menu menu2 mRating');
-$mRating->add(array('a', 'b', $arrVal[$qual], null, null, 'rating '.$qual));
+$mRating->add(array('a', 'b', $arrVal[$params->qual], null, null, 'rating '.$params->qual));
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$web->getQuery(array('qual' => $key), $arrDel);
 	$mRating->add(array($key, 'a', $val, $url, null, 'rating '.$key));
-	if ($qual == $key) {
+	if ($params->qual == $key) {
 		$mRating->arrItem[$key]->setActive();
 	}
-}
-
-
-
-/**
- * @param PhotoDb $db
- * @param array $arrData
- * @param Language $web
- * @param array $i18n
- * @return bool
- */
-function renderData($db, $arrData, $web, $i18n) {
-	if (count($arrData) == 0) {
-		echo '<p>'.$i18n[$web->getLang()]['not found'].'</p>';
-		return false;
-	}
-	$c = 0;
-	$num = count($arrData) - 1;
-	foreach ($arrData as $row) {
-		// image dimensions
-		$imgFile = $db->webroot.$db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
-		$imgSize = getimagesize(__DIR__.'/../..'.$web->getWebRoot().$db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
-		$imgTitle = $row['imgTitle'];
-		$link = str_replace('thumbs/', '', $imgFile).'?w='.$imgSize[0].'&h='.$imgSize[1];
-		$detailLink = 'photo-detail.php'.$web->getQuery(array('imgId' => $row['imgId']));
-
-		if ($imgSize[0] > $imgSize[1]) {
-			$css = 'slideHorizontal';
-			$cssImg = 'slideImgHorizontal';
-
-		}
-		else if ($imgSize[0] < $imgSize[1]) {
-			$css = 'slideVertical';
-			$cssImg = 'slideImgVertical';
-		}
-		else {
-			$css = 'slideQuadratic';
-			$cssImg = 'slideImgQuadratic';
-		}
-		echo '<li class="slide">';
-		echo '<div class="slideCanvas'.($c == $num ? ' slideLast' : '').' '.$css.'">';
-		echo '<a href="'.$link.'" title="'.$imgTitle.'"><img class="'.$cssImg.'" src="'.$imgFile.'" alt="Foto" title="Thumbnail of '.$imgTitle.'"></a>';
-		echo '</div>';
-		echo '<div class="slideText"><a title="Foto \''.$imgTitle.'\' anzeigen" href="'.$link.'">Zoom</a> | ';
-		echo '<a title="Details zu Foto \''.$imgTitle.'\' anzeigen" href="'.$detailLink.'">Details</a></div>';
-		echo '</li>';	// end slide
-		$c++;
-	}
-	return true;
 }

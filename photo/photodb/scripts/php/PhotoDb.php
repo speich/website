@@ -1,18 +1,13 @@
 <?php
 namespace PhotoDb;
 
-use DOMDocument;
 use PDO;
 use PDOException;
-use WebsiteTemplate\Website;
 
-require_once 'Website.php';
 
 /**
  * Class to work with SQLite databases.
- * 
- * Creates the photo DB.
- *
+ * Creates the photo database.
  */
 class PhotoDb {
 	/** @var PDO|null */
@@ -113,55 +108,6 @@ class PhotoDb {
 		}
 		return $path;	// pdo functions need full path to work with subfolders on windows
 	}
-
-
-	/**
-	 * Query the number of records with given sql.
-	 * If you provide the optional parameter lastPage, then this query is cached in a session variable as long as the
-	 * query variables with the exception of: pg, sort, numRecPp
-	 * @param string $sql sql query
-	 * @param string $colName name of db column to count
-	 * @param array $arrBind array of bind variables
-	 * @param string $lastPage [optional] url of last page
-	 * @param Website $web
-	 * @return integer number of records
-	 */
-	public function getNumRec($sql, $colName, $arrBind, $lastPage = null, $web) {
-		$colName = preg_replace('/[^a-zA-Z0-9_\.]/', '', $colName);	// sanitize
-		$expr = "/&?pg=[0-9]*|&?sort=[0-9]*|&?numRecPp=[0-9]*/";	// these query vars can change without having to reset numRec
-		$queryLast = parse_url($lastPage);
-		if (array_key_exists('query', $queryLast)) {
-			$queryLast = preg_replace($expr, '', $queryLast['query']);
-		}
-		else {
-			$queryLast = '';
-		}
-		$queryCurr = parse_url($_SERVER['REQUEST_URI']);
-		if (array_key_exists('query', $queryCurr)) {
-			$queryCurr = preg_replace($expr, '', $queryCurr['query']);
-		}
-		else {
-			$queryCurr = '';
-		}
-		if (!isset($_SESSION[$web->namespace]['numRec']) || $queryLast != $queryCurr) {
-			$pattern = '/^SELECT (.|\s)*? FROM/';
-			$sql = preg_replace($pattern, 'SELECT COUNT('.$colName.') numRec FROM', $sql);
-			$stmt = $this->db->prepare($sql);
-			foreach ($arrBind as $key => $val) {
-				$stmt->bindValue(':'.$key, $val);
-			}
-			$stmt->execute();			
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-			if ($row) {
-				$_SESSION[$web->namespace]['numRec'] = $row['numRec'];
-			}
-			else {
-				$_SESSION[$web->namespace]['numRec'] = 0;
-			}
-		}
-		return $_SESSION[$web->namespace]['numRec'];
-	}
-
 
 	/**
 	 * Adds a SQL GROUP_CONCAT function

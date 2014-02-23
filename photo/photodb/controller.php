@@ -1,14 +1,14 @@
 <?php
-use PhotoDb\Map;
+use PhotoDb\Map\Map;
 use WebsiteTemplate\Controller;
 use WebsiteTemplate\Error;
 use WebsiteTemplate\Header;
 
-require_once '../../library/inc_script.php';
-require_once 'Map.php';
+require_once __DIR__.'/../../library/inc_script.php';
 require_once 'Controller.php';
 require_once 'Error.php';
 require_once 'Header.php';
+require_once __DIR__.'/scripts/php/Map.php';
 
 $err = new Error();
 $ctrl = new Controller(new Header(), $err);
@@ -24,7 +24,8 @@ $header = false;
 
 if ($controller == 'marker') {
 	$db = new Map($web->getWebRoot());
-	$response = $db->loadMarkerData($data);
+	$params = $db->createObjectFromPost($data);
+	$response = $db->loadMarkerData($params);
 }
 else if ($controller == 'country') {
 	$db = new Map($web->getWebRoot());

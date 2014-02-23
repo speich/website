@@ -10,7 +10,7 @@ if (!isset($_GET['fnc'])) {
 
 switch($_GET['fnc']) {
 	case 'randDbImg':
-		displRandomDbImg($Db, $web->getWebRoot());
+		displRandomDbImg($photo, $web->getWebRoot());
 		break;
 	case 'randImg':
 		DisplRandomImg($_SERVER['DOCUMENT_ROOT'].'/layout/images/randhome/');

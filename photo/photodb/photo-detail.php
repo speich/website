@@ -72,8 +72,6 @@ $stmt->bindValue(':imgId', $imgId);
 $stmt->execute();
 $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
 /**
  * Print HTML to display photo detail.
  * @param $data
@@ -87,7 +85,6 @@ function renderPhoto($data, $db, $web, $i18n) {
 		$backPage = 'photo-mapsearch.php?'.$_SERVER['QUERY_STRING'];	// when coming from map via js lastPage was not set with latest query vars, use current
 	}
 	$imgFile = $db->webroot.$db->getPath('img').$data['imgFolder'].'/'.$data['imgName'];
-	$imgSize = getimagesize($web->getDocRoot().$db->getPath('img').$data['imgFolder'].'/'.$data['imgName']);
 
 	$star = '';
 	$str = '<img id="RatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
@@ -123,7 +120,7 @@ function renderPhoto($data, $db, $web, $i18n) {
 	echo '<p><span class="PhotoTxtLabel">Ort:</span> '.$data['locations'].'</p>';
 	echo '<p><span class="PhotoTxtLabel">Land:</span> '.$data['countries'].'</p>';
 	echo '</div>';
-	echo '<p><a href="'.$backPage.'">'.$i18n[$web->getLang()]['back'].'</a></p>';
+	echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
 	
 	echo '<div id="contPhoto">';
 	echo '<p><a title="Foto \''.$data['imgTitle'].'\' anzeigen" href="'.$imgFile.'">';
@@ -170,7 +167,7 @@ function renderPhoto($data, $db, $web, $i18n) {
 	echo '<p><span class="PhotoTxtLabel">geändert:</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s", $data['lastChange']) : '').'</p>';
 	echo '<p class="PhotoTxtSeparator"><span class="PhotoTxtLabel">publiziert:</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s", $data['datePublished']) : '').'</p>';
 	echo '</div></div>';
-	echo '<p><a href="'.$backPage.'">'.$i18n[$web->getLang()]['back'].'</a></p>';
+	echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
 }
 
 $pageTitle = ($web->getLang() == 'en' ? 'Photo' : 'Foto').' '.$photo[0]['imgTitle'];
@@ -234,54 +231,49 @@ require_once 'inc_body_begin.php';
 renderPhoto($photo[0], $db, $web, $i18n);
 require_once 'inc_body_end.php';
 ?>
-
 <script type="text/javascript">
-/**
- * Load the google maps api dynamically by inserting script tag.
- */
-function initGMapsLoader(key) {
-  var script = document.createElement("script");
-  script.src = 'http://www.google.com/jsapi?key='+ key + '&callback=initMap';
-  script.type = "text/javascript";
-  document.getElementsByTagName("head")[0].appendChild(script);
-}
+var dojoConfig = {
+	async: true,
+	has: {
+		'dojo-debug-messages': false
+	},
+	locale: '<?php echo $locale = $web->getLang(); ?>',
+	packages: [
+		{name: 'gmap', location: './../../../gmap'}
+	]
+};
+</script>
+<script type="text/javascript" src="../../library/dojo/1.9.2/dojo/dojo.js"></script>
+<script type="text/javascript">
+require([
+	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&language=' + dojoConfig.locale,
+	'dojo/domReady!'
+], function() {
 
-/**
- * Inits the map as a callback from the loader.
- */
-function initMap() {
-	var lat = <?php echo (empty($photo[0]['imgLat']) ? 'null' : $photo[0]['imgLat']) ?>;
-	var lng = <?php echo (empty($photo[0]['imgLng']) ? 'null' : $photo[0]['imgLng']) ?>;
-	if (lat && lng) {
-		google.load("maps", "2.0", {
-			"callback": function(){
-				var El = document.getElementById('map');
-				var map = new GMap2(El, {
-					draggableCursor: 'pointer',
-					draggingCursor: 'move'
-				});
-				map.addControl(new GMapTypeControl());
-				map.addControl(new GSmallMapControl());
-				map.enableScrollWheelZoom();
-				map.enableContinuousZoom();
-				map.setMapType(G_HYBRID_MAP);
-				var Coord = new GLatLng(lat, lng);
-				map.setCenter(Coord, 12);
-				var point = new GLatLng(lat, lng);
-				var icon = new GIcon();
-				icon.image = "../../layout/images/crosshair.gif";
-				icon.iconSize = new GSize(35, 35);
-				icon.iconAnchor = new GPoint(6, 6);
-				var marker = new GMarker(point, icon);
-				map.addOverlay(marker);
-			}
-		});
-	}
-}
+	var initMap = function() {
+		var gmaps = google.maps,
+			map, mapOptions,
+			marker,
+			lat = <?php echo (empty($photo[0]['imgLat']) ? 'null' : $photo[0]['imgLat']) ?>,
+			lng = <?php echo (empty($photo[0]['imgLng']) ? 'null' : $photo[0]['imgLng']) ?>;
 
-window.onload = function() {
-	initGMapsLoader(key);
-}
+		if (lat && lng) {
+			mapOptions = {
+				center: new gmaps.LatLng(lat, lng),
+				zoom: 5,
+				mapTypeId: gmaps.MapTypeId.HYBRID
+			};
+			map = new gmaps.Map(document.getElementById('map'), mapOptions);
+			marker = new gmaps.Marker({
+				map: map,
+				position: new gmaps.LatLng(lat, lng)
+			});
+
+		}
+	};
+
+	initMap();
+});
 </script>
 </body>
 </html>

@@ -1,10 +1,9 @@
 <?php
 use WebsiteTemplate\Menu;
 use WebsiteTemplate\Website;
-use PhotoDb\PhotoDbNav;
 
 require_once 'Website.php';
-require_once 'PhotoDbNav.php';
+require_once __DIR__.'/../photo/photodb/scripts/php/Menu.php';
 
 /**************************
  * main navigation on top *
@@ -49,17 +48,18 @@ $mainNav->setActive();
  * sub navigation to the left *
  *****************************/
 $path = $web->getWebRoot().'photo/photodb/';
+$arrQueryDel = array('lat1', 'lng1', 'lat1', 'lat2', 'lng2');
 $arrPhotoNav['de'] = array(
 	array(1, 'f', 'Bildarchiv', $path.'photo.php'.$web->getQuery()),
 	array(2, 1, 'Alle Fotos', $path.'photo.php'),
-	array(3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery()),
-	array(4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery())
+	array(3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)),
+	array(4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery($arrQueryDel, 2))
 );
 $arrPhotoNav['en'] = array(
 	array(1, 'f', 'Photo Database', $path.'photo.php'.$web->getQuery()),
 	array(2, 1, 'All Photos', $path.'photo.php'),
-	array(3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery()),
-	array(4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery())
+	array(3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)),
+	array(4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2))
 );
 
 $path = $web->getWebRoot().'articles/';
@@ -94,14 +94,13 @@ $arrPersonNav['en'] = array(
 $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
-//$sideNav->allChildrenToBeRendered = true;
-$photoNav = new PhotoDbNav($web->getWebRoot());
+$photoNav = new \PhotoDb\Menu($web->getWebRoot());
 $photoNav->connect();
 
 
 switch($mainNav->getActive()) {
 	case 1:
-		$photoNav->createMenu($sideNav, $arrPhotoNav[$web->getLang()], $web);
+		$photoNav->create($sideNav, $arrPhotoNav[$web->getLang()], $web);
 		break;
 	case 2:
 		createMenuArticles($web, $sideNav, $arrArticleNav[$web->getLang()]);
