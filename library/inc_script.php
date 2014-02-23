@@ -2,6 +2,9 @@
 use WebsiteTemplate\Language;
 
 session_start();
+session_destroy($_SESSION);
+$_SESSION = null;
+
 set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');
 
@@ -11,6 +14,7 @@ $incPath = $path.'class'.PATH_SEPARATOR;
 $incPath.= $path.'layout'.PATH_SEPARATOR;
 $incPath.= $path.'library';
 set_include_path($incPath);
+
 include_once 'Language.php';
 include_once 'Menu.php';
 include_once 'PagedNav.php';

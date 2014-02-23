@@ -99,7 +99,7 @@ require([
 	'dojo/io-query',
 	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&language=' + dojoConfig.locale,
 	//'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
-	'/library/markerclustererplus/src/markerclusterer.js',
+	'/library/gmap/markerclustererplus/src/markerclusterer.js',
 	'dojo/domReady!'
 ], function(lang, array, win, xhr, domStyle, domGeometry, ioQuery) {
 
@@ -125,7 +125,7 @@ require([
 		mapDiv: byId('map-canvas'),
 		mcOptions: {
 			maxZoom: 10,
-			imagePath: '/library/gmap/markerclusterer/images/m'
+			imagePath: '/library/gmap/markerclustererplus/images/m'
 		},
 		clusterer: null,
 		target: 'controller.php',

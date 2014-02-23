@@ -29,7 +29,7 @@ class Website {
 	public $pageTitle = '';
 	
 	/** @var string namespace for session variables */
-	public $namespace = 'web';
+	protected $namespace = 'web';
 
 	/** @var string web root directory on web server */
 	private $webroot = '/';
