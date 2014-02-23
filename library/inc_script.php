@@ -1,9 +1,6 @@
 <?php
 use WebsiteTemplate\Language;
 
-session_start();
-$_SESSION = array();
-
 set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');
 
@@ -38,3 +35,4 @@ else {
 $web->pageTitle = 'speich.net - '.$windowTitle;
 
 include_once 'inc_nav.php';
+

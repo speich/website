@@ -28,7 +28,7 @@ class Website {
 	/** @var string default page title */
 	public $pageTitle = '';
 	
-	/** @var string namespace for session variables */
+	/** @var string namespace for  session variables */
 	protected $namespace = 'web';
 
 	/** @var string web root directory on web server */
