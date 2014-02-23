@@ -9,10 +9,6 @@ require_once __DIR__.'/nls/'.$web->getLang().'/photo.php';
 $photo = new Photo($web->getWebRoot());
 $params = $photo->createObjectFromPost((object) $_GET);
 
-$lastPage = $web->getLastPage();	// to check if we need to reset caching of number of records further below
-$pageTitle = $sideNav->getActive('linkTxt');
-$pageTitle = $pageTitle[count($pageTitle) - 1];
-
 // generate filter and sorting menus
 $arrDel = array('pg');
 $arrVal = array(7, 14, 21, 28, 56);
