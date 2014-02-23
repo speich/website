@@ -2,8 +2,7 @@
 use WebsiteTemplate\Language;
 
 session_start();
-session_destroy($_SESSION);
-$_SESSION = null;
+$_SESSION = array();
 
 set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');

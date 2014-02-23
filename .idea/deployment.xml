@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="speich.net">
+  <component name="PublishConfigData" serverName="ftp.speich.net">
     <serverData>
-      <paths name="speich.net">
+      <paths name="ftp.speich.net">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />

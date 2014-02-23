@@ -80,7 +80,7 @@ $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
  * @param Array $i18n internationalization
  */
 function renderPhoto($data, $db, $web, $i18n) {
-	$backPage = is_null($web->getLastPage()) ? 'photo.php' : $web->getLastPage();
+	$backPage = 'photo.php'.$web->getQuery(array('imgId'), 2);
 	if (strpos($backPage, 'photo-mapsearch.php') !== false) {
 		$backPage = 'photo-mapsearch.php?'.$_SERVER['QUERY_STRING'];	// when coming from map via js lastPage was not set with latest query vars, use current
 	}
