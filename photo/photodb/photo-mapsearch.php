@@ -267,7 +267,7 @@ require([
 			mapOptions = {
 				center: new gmaps.LatLng(this.mapLat, this.mapLng),
 				zoom: this.mapZoom,
-				mapTypeId: gmaps.MapTypeId.SATELLITE
+				mapTypeId: gmaps.MapTypeId.HYBRID
 			};
 			map = this.map = new gmaps.Map(this.mapDiv, mapOptions);
 			this.mapLastZoom = map.zoom;
