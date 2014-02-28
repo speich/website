@@ -67,7 +67,7 @@ img[id^=mtgt_unnamed] {
 
 <body class="tundra">
 <?php require_once 'inc_body_begin.php'; ?>
-<div id="loading"><img src="../../layout/images/icon_loading.gif"><?php echo $i18n['loading map']; ?></div>
+<div id="loading"><img src="../../layout/images/icon_loading.gif"><span id="loadingMsg"><?php echo $i18n['loading map']; ?></span></div>
 <div id="mapContainer">
 <?php echo $mRating->render(); ?>
 <div id="showPhotos" class="button buttShowPhotos" title="<?php echo $i18n['show photos']; ?>"><a href="photo.php" id="linkShowPhotos"><?php echo $i18n['photos']; ?><img src="../../layout/images/icon_photolist.gif" alt="icon to display list of photos"></a></div>
@@ -117,14 +117,14 @@ require([
 		queryObj: ioQuery.queryToObject(window.location.search.replace('?', '')),
 		map: null,
 		mapOptions: {},
-		mapLat: 50,	// initial map coordinates
+		mapLat: 45,	// initial map coordinates
 		mapLng: 12,
-		mapZoom: 4,	// initial map zoom
+		mapZoom: 5,	// initial map zoom
 		mapLastZoom: null,
 		mapLastEvent: null,
 		mapDiv: byId('map-canvas'),
 		mcOptions: {
-			maxZoom: 10,
+			maxZoom: 11,
 			imagePath: '/library/gmap/markerclustererplus/images/m'
 		},
 		clusterer: null,
@@ -391,8 +391,6 @@ require([
 
 		initMarkerClusterer: function() {
 			this.clusterer = new MarkerClusterer(this.map, null, this.mcOptions);
-
-			this.loadMarkerData().then(lang.hitch(this, this.addMarkers));
 		},
 
 		init: function() {
