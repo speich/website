@@ -17,7 +17,6 @@ $resource = $ctrl->getResource();
 $controller = $ctrl->getController();
 $resources = $ctrl->getResources();
 $ctrl->contentType = 'json';
-$ctrl->setAutoCompress(false);	// compressing would increase from 80ms to 5500ms! at least on my local apache
 $response = false;
 $header = false;
 
@@ -26,6 +25,7 @@ if ($controller == 'marker') {
 	$db = new Map($web->getWebRoot());
 	$params = $db->createObjectFromPost($data);
 	$response = $db->loadMarkerData($params);
+	$ctrl->setAutoCompress(true);
 }
 else if ($controller == 'country') {
 	$db = new Map($web->getWebRoot());
