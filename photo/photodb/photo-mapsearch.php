@@ -87,7 +87,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script type="text/javascript" src="../../library/dojo/1.9.2/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../library/dojo/1.9.3/dojo/dojo.js"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/lang',
