@@ -13,6 +13,7 @@
 	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a>.</div>
 <h2>Cameras</h2>
 <ul class="main">
+<li>Sony Cybershot RX100 (06.12.2013)</li>
 <li>Nikon D800 (21.03.2012)</li>
 <li>Nikon D300 (08.01.2009)</li>
 <li>Nikon Coolpix P4 (19.05.2006)</li>
@@ -23,6 +24,7 @@
 </ul>
 <h2>Lenses</h2>
 <ul class="main">
+<li>24mm f/1.4G ED AF-S NIKKOR (26.03.2014)</li>
 <li>80-400mm f/4.5-5.6G ED VR AF-S Nikkor (20.09.2013)</li>
 <li>18-200mm f/3.5-5.6 G ED VR AF-S DX Nikkor (08.01.2009)</li>
 <li>20mm f/2.8 D AF Nikkor (22.03.2012)</li>

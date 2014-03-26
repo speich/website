@@ -49,6 +49,8 @@ h1 a, h1 a:visited {
 
 .entry-header { margin-bottom: 6px; }
 
+.entry-content { margin-bottom: 12px; }
+
 .entry-meta {
 	color: #cccccc;
 	font-size: 11px;
