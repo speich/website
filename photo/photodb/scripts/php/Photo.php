@@ -54,7 +54,7 @@ class Bindings {
  */
 class Photo extends PhotoDb implements PhotoDbQuery {
 	/** @var int default value for photo quality */
-	var $quality = 1;
+	var $quality = 2;
 
 	/** @var int default sort value */
 	var $sort = 1;

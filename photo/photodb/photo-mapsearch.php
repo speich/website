@@ -398,6 +398,7 @@ require([
 			byId('mapContainer').style.display = 'block';	// otherwise map is not placed and dimensioned correctly
 			this.initMap();
 			this.initMarkerClusterer();
+			this.updateMarkers();
 		}
 	};
 

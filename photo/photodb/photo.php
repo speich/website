@@ -35,7 +35,7 @@ $pagingBar = '<div class="pagingBar">'.
 <div class="search">
 <script>
   (function() {
-    var cx = <?php echo ($web->getLang() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>;
+    var cx = '<?php echo ($web->getLang() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>';
     var gcse = document.createElement('script');
     gcse.type = 'text/javascript';
     gcse.async = true;
