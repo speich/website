@@ -26,25 +26,27 @@ $pagingBar = '<div class="pagingBar">'.
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
-<script>
-  (function() {
-    var cx = '000284793056488053930:zkcmsdcpu2k',
-    	gcse = document.createElement('script'),
-	 	s = document.getElementsByTagName('script')[0];
-
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
 </head>
 
 <body class="tundra">
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
-<?php echo $pagingBar ?>
-<div class="search"><gcse:search enableAutoComplete="true"></gcse:search></div>
+<?php echo $pagingBar; ?>
+<div class="search">
+<script>
+  (function() {
+    var cx = <?php echo ($web->getLang() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>;
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+</div>
 <div class="optionBar">
 <div class="barTxt"><?php
 	echo $i18n['sorting'];
