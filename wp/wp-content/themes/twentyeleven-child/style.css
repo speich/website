@@ -171,7 +171,7 @@ ol.commentlist {
 	padding-left: 0;
 }
 
-.comment-form label {
+.comment-form-author label, .comment-form-email label, .comment-form-url label {
 	display: inline-block;
 	width: 70px;
 }
