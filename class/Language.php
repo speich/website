@@ -153,7 +153,7 @@ class Language extends Website {
 			if ($lang == $this->getLang()) {
 				$str.= ' class="navActive"';
 			}
-			$str.= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
+			$str.= '><a href="'.$url.'">'.$this->arrLangLong[$lang].'</a>';
 			$str.= '</li>';
 		}
 		$str.= '</ul>';
