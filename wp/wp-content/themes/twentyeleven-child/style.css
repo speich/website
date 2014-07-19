@@ -157,7 +157,7 @@ h1 a, h1 a:visited {
 	resize: vertical;
 	width: 95%;
 	width: -moz-available;
-	width: available;
+	width: fill-available;
 	padding: 8px;
 	border: 4px solid #EEEEEE;
 }
@@ -210,4 +210,13 @@ ol.commentlist {
     margin: 1.625em 0 0;
     padding: 0.8em;
     position: relative;
+}
+.wp-caption { width: 774px !important; }
+.wp-caption img {
+	height: auto;
+	width: 774px !important;
+	/* not available in chrome and IE yet
+ 	width: -moz-available !important;
+	width: fill-available !important;
+	*/
 }

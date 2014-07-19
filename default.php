@@ -9,6 +9,11 @@
 	width: 740px;
 	margin-left: 16px;
 	border-width: 8px;
+	background-image: url(library/imagefnc.php?fnc=randDbImg);
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
 }
 </style>
 </head>
@@ -31,7 +36,7 @@ für die Webprogrammierung interessieren lesen Sie doch einen meiner Artikel üb
 	<a href="articles/category/php/">PHP</a> and <a href="articles/category/javascript/">JavaScript</a>.</p>
 <?php } ?>
 
-<div class="imgFrame" style="background-image: url(library/imagefnc.php?fnc=randImg)"><img src="library/imagefnc.php?fnc=randImg" title="Photo www.speich.net" alt="random photo" width="740"></div>
+<div class="imgFrame"><img src="library/imagefnc.php?fnc=randDbImg" title="Photo www.speich.net" alt="random photo" width="740"></div>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
 </html>

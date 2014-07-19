@@ -2,7 +2,8 @@
 
 use PhotoDb\PhotoDb;
 
-include '../library/inc_script.php';
+require_once '../library/inc_script.php';
+require_once __DIR__.'/../photo/photodb/scripts/php/PhotoDb.php';
 
 if (!isset($_GET['fnc'])) {
 	exit;
@@ -10,10 +11,11 @@ if (!isset($_GET['fnc'])) {
 
 switch($_GET['fnc']) {
 	case 'randDbImg':
-		displRandomDbImg($photo, $web->getWebRoot());
+		$db = new PhotoDb($web->getWebRoot());
+		displRandomDbImg($db, $web->getWebRoot());
 		break;
 	case 'randImg':
-		DisplRandomImg($_SERVER['DOCUMENT_ROOT'].'/layout/images/randhome/');
+		displRandomImg($_SERVER['DOCUMENT_ROOT'].'/layout/images/randhome/');
 		break;
 }
 
@@ -24,9 +26,10 @@ switch($_GET['fnc']) {
  * @param string $webroot
  */
 function displRandomDbImg($db, $webroot) {
-	$sql = "SELECT ImgFolder, ImgName	FROM Images
+	$sql = "SELECT ImgFolder, ImgName FROM Images
 		WHERE RatingId = 3
 		ORDER BY RANDOM() LIMIT 1";
+	$db->connect();
 	$stmt = $db->db->prepare($sql);
 	$stmt->execute();
 	$photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,9 +37,9 @@ function displRandomDbImg($db, $webroot) {
 	$photo = $_SERVER['DOCUMENT_ROOT'].$photo;
 	$mimeType = exif_imagetype($photo);
 	switch($mimeType) {
-		case 1: $Img = imagecreatefromgif($photo); break;
-		case 2: $Img = imagecreatefromjpeg($photo); break;
-		case 3: $Img = imagecreatefrompng($photo); break;
+		case 1: imagecreatefromgif($photo); break;
+		case 2: imagecreatefromjpeg($photo); break;
+		case 3: imagecreatefrompng($photo); break;
 	}
 	$mimeType = image_type_to_mime_type($mimeType);
 	ob_start();
@@ -64,9 +67,9 @@ function displRandomImg($dir) {
 	$photo = $dir.$photo;
 	$mimeType = exif_imagetype($photo);
 	switch($mimeType) {
-		case 1: $Img = imagecreatefromgif($photo); break;
-		case 2: $Img = imagecreatefromjpeg($photo); break;
-		case 3: $Img = imagecreatefrompng($photo); break;
+		case 1: imagecreatefromgif($photo); break;
+		case 2: imagecreatefromjpeg($photo); break;
+		case 3: imagecreatefrompng($photo); break;
 	}
 	$mimeType = image_type_to_mime_type($mimeType);
 	ob_start();
