@@ -16,10 +16,10 @@
 <li>Sony Cybershot RX100 (06.12.2013)</li>
 <li>Nikon D800 (21.03.2012)</li>
 <li>Nikon D300 (08.01.2009)</li>
-<li>Nikon Coolpix P4 (19.05.2006 - 06.12.2013)</li>
+<li class="formerEquipment">Nikon Coolpix P4 (19.05.2006 - 06.12.2013)</li>
 <li>Nikon F100 (12.06.2004)</li>
-<li>Nikon F90x (1996 - 2004)</li>
-<li>Ricoh Singlex (- 2006)</li>
+<li class="formerEquipment">Nikon F90x (1996 - 2004)</li>
+<li class="formerEquipment">Ricoh Singlex (- 2006)</li>
 <li>Minox 35 GL </li>
 </ul>
 <h2>Lenses</h2>
@@ -31,11 +31,11 @@
 <li>28mm f/2.8 D AF Nikkor (14.06.1996)</li>
 <li>50mm f/1.8 AF Nikkor (11.04.1996)</li>
 <li>70-200mm f/2.8 G AF-S ED VR II (22.12.2011)</li>
-<li>80-400mm f/4.5-5.6D ED VR AF Zoom-Nikkor (27.10.2005 - 20.09.2013)</li>
+<li class="formerEquipment">80-400mm f/4.5-5.6D ED VR AF Zoom-Nikkor (27.10.2005 - 20.09.2013)</li>
 <li>105mm f/2.8 D AF Micro-Nikkor (14.06.1996)</li>
 <li>300mm f/2.8G AF-S Nikkor ED VR II (22.12.2011)</li>
 <li>600mm f/4G ED VR AF-S NIKKOR (27.07.2008)</li>
-<li>600mm f/5.6 MF Nikkor (14.03.1997 - 27.07.2008)</li>
+<li class="formerEquipment">600mm f/5.6 MF Nikkor (14.03.1997 - 27.07.2008)</li>
 </ul>
 <h2>Accessories</h2>
 <ul class="main">
@@ -46,8 +46,9 @@
 <li>Tripod <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT4552TS</a> (22.10.2012)</li>
 <li>Tripod <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT5541LS</a> (22.07.2008)</li>
 <li>Teleconverter TC-14E II (20.10.2008)</li>
-<li><a href="http://www.dawntech.hk/">Dawntec di-GPS Pro</a> (17.06.2011)</li>
-<li>GPS <a href="http://www.solmeta.com/">Solmeta Geotagger N2</a> (23.05.2009 - 2011)</li>
+<li><a href="http://www.dawntech.hk/">Dawntec di-GPS Eco Pro-F M</a> (07.2014 - )</li>
+<li class="formerEquipment"><a href="http://www.dawntech.hk/">Dawntec di-GPS Pro</a> (17.06.2011)</li>
+<li class="formerEquipment">GPS <a href="http://www.solmeta.com/">Solmeta Geotagger N2</a> (23.05.2009 - 2011)</li>
 <li>Solar panel <a href="http://www.sistech.com/products-9171-0/default.asp">CHEPRE 18V/18Wp</a> by SIStech (18.08.2012)</li>
 <li>Camera bag by Tenba <a href="http://www.tenba.com/Products/Vector-Top-Load-2-Krypton-Green.aspx">Vector Topload 2</a> (29.10.2012)</li>
 <li>Peli <a href="http://www.speich.net/articles/2013/05/10/best-way-to-transport-your-photo-equipment-including-the-600mm-vr/">Storm Case iM2875</a> (14.09.2012)</li>
