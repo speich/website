@@ -47,8 +47,8 @@
 <li>Tripod <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT5541LS</a> (22.07.2008)</li>
 <li>Teleconverter TC-14E II (20.10.2008)</li>
 <li><a href="http://www.dawntech.hk/">Dawntec di-GPS Eco Pro-F M</a> (07.2014 - )</li>
-<li class="formerEquipment"><a href="http://www.dawntech.hk/">Dawntec di-GPS Pro</a> (17.06.2011)</li>
-<li class="formerEquipment">GPS <a href="http://www.solmeta.com/">Solmeta Geotagger N2</a> (23.05.2009 - 2011)</li>
+<li class="formerEquipment">Dawntec di-GPS Pro (17.06.2011)</li>
+<li class="formerEquipment">Solmeta Geotagger N2 (23.05.2009 - 2011)</li>
 <li>Solar panel <a href="http://www.sistech.com/products-9171-0/default.asp">CHEPRE 18V/18Wp</a> by SIStech (18.08.2012)</li>
 <li>Camera bag by Tenba <a href="http://www.tenba.com/Products/Vector-Top-Load-2-Krypton-Green.aspx">Vector Topload 2</a> (29.10.2012)</li>
 <li>Peli <a href="http://www.speich.net/articles/2013/05/10/best-way-to-transport-your-photo-equipment-including-the-600mm-vr/">Storm Case iM2875</a> (14.09.2012)</li>
