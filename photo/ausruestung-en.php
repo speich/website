@@ -16,7 +16,7 @@
 <li>Sony Cybershot RX100 (06.12.2013)</li>
 <li>Nikon D800 (21.03.2012)</li>
 <li>Nikon D300 (08.01.2009)</li>
-<li>Nikon Coolpix P4 (19.05.2006)</li>
+<li>Nikon Coolpix P4 (19.05.2006 - 06.12.2013)</li>
 <li>Nikon F100 (12.06.2004)</li>
 <li>Nikon F90x (1996 - 2004)</li>
 <li>Ricoh Singlex (- 2006)</li>

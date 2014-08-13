@@ -16,7 +16,7 @@
 <li>Sony Cybershot RX100 (06.12.2013)</li>
 <li>Nikon D800 (21.03.2012)</li>
 <li>Nikon D300 (08.01.2009)</li>
-<li>Nikon Coolpix P4 (19.05.2006)</li>
+<li>Nikon Coolpix P4 (19.05.2006 - 06.12.2013)</li>
 <li>Nikon F100 (12.06.2004)</li>
 <li>Nikon F90x (1996 - 2004)</li>
 <li>Ricoh Singlex (- 2006)</li>
@@ -46,7 +46,8 @@
 <li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT4552TS</a> (22.10.2012)</li>
 <li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT5541LS</a> (22.07.2008)</li>
 <li>Telekonverter TC-14E II (20.10.2008)</li>
-<li><a href="http://www.dawntech.hk/">Dawntec di-GPS Pro</a> (17.06.2011)</li>
+<li><a href="http://www.dawntech.hk/">Dawntec di-GPS Eco Pro-F M</a> (07.2014 - )</li>
+<li><a href="http://www.dawntech.hk/">Dawntec di-GPS Pro</a> (17.06.2011 - 06.2014)</li>
 <li>GPS <a href="http://www.solmeta.com/">Solmeta Geotagger N2</a> (23.05.2009 - 2011)</li>
 <li>Solarpanel <a href="http://www.sistech.com/products-9171-0/default.asp">CHEPRE 18V/18Wp</a> von SIStech (18.08.2012)</li>
 <li>Kameratasche von Tenba <a href="http://www.tenba.com/Products/Vector-Top-Load-2-Krypton-Green.aspx">Vector Topload 2</a> (29.10.2012)</li>
