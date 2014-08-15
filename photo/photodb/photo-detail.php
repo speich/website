@@ -5,7 +5,12 @@ use WebsiteTemplate\Website;
 require_once __DIR__.'/../../library/inc_script.php';
 require_once 'photoinc.php';
 
-$imgId = isset($_GET['imgId']) ? $_GET['imgId'] : $imgId = 1;
+if (isset($_GET['imgId'])) {
+	$imgId = $_GET['imgId'];
+}
+else {
+	header('Location: http://www.speich.net/photo/photodb/photo.php');
+}
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
 
