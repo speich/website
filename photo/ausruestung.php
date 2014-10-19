@@ -10,7 +10,7 @@
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Foto-Ausrüstung</h1>
 <div class="photoContainer"><img src="guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit 30mm in Aktion"
-	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon beim Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a>.</div>
+	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon beim Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.</div>
 <h2>Kameras</h2>
 <ul class="main">
 <li>Sony Cybershot RX100 (06.12.2013)</li>

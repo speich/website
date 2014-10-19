@@ -10,7 +10,7 @@
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Photo Equipment</h1>
 <div class="photoContainer"><img src="guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with 30mm in Action"
-	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a>.</div>
+	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.</div>
 <h2>Cameras</h2>
 <ul class="main">
 <li>Sony Cybershot RX100 (06.12.2013)</li>
