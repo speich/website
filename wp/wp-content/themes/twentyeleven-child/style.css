@@ -1,16 +1,14 @@
 /*
 Theme Name: Twenty Eleven Mallard
-Theme URI: http://wordpress.org/themes/twentyeleven
-Author: the WordPress team
-Author URI: http://wordpress.org/
+Theme URI: http://www.speich.net/wp/wp-content/themes/twentyeleven-child/
+Author: Simon Speich
+Author URI: http://www.speich.net/
 Template: twentyeleven
-Description: tewentyeleven child theme for www.speich.net/articles
+Description: tewentyeleven child theme for www.speich.net/articles/
 Version: 1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
-
-/* @import url("../twentyeleven/style.css"); */
 
 #layoutMain {
 	margin-left: 0;
@@ -211,12 +209,18 @@ ol.commentlist {
     padding: 0.8em;
     position: relative;
 }
-.wp-caption { width: 774px !important; }
+.wp-caption { max-width: 774px !important; }
 .wp-caption img {
 	height: auto;
-	width: 774px !important;
+	max-width: 774px !important;
 	/* not available in chrome and IE yet
  	width: -moz-available !important;
 	width: fill-available !important;
 	*/
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
