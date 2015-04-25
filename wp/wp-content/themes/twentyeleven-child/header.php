@@ -18,7 +18,6 @@
 <link href="/library/prettify/prettify.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="/library/prettify/prettify.js"></script>
 <script type="text/javascript" src="/library/prettify/lang-css.js"></script>
-<script type="text/javascript" src="/library/prettify/lang-ini.js"></script>
 <script type="text/javascript" src="/library/prettify/lang-sql.js"></script>
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php
