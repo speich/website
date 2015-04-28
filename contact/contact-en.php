@@ -11,7 +11,7 @@
 <h1>Contact</h1>
 <div class="photoContainer"><img src="guyana-simon2.jpg" alt="Photo of Simon Speich" title="Simon with 30mm in Action"
 	class="imgFrame" style="background-image: url(guyana-simon2.jpg)">Simon on a photo expedition to the
-	<a href="../articles/2013/02/01/guyanas-wildlife-along-the-rewa-river/">rainforest of Guyana</a>.</div>
+	<a href="../articles/guyanas-wildlife-along-the-rewa-river/">rainforest of Guyana</a>.</div>
 <p>
 <script type="text/javascript">
 document.write('You can reach me by e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a>,<br>');

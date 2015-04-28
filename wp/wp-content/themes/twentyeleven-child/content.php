@@ -22,7 +22,7 @@
 			<?php if ( 'post' == get_post_type() ) : ?>
 				<?php if (comments_open() && ! post_password_required()) : ?>
 					<span class="comments-link">
-						<?php comments_popup_link( '<span class="leave-reply">' . __( 'Reply', 'twentyeleven' ) . '</span>', _x('<b>%</b> Repl<', 'comments number', 'twentyeleven' ), _x('<b>%</b> Replies', 'comments number', 'twentyeleven' ) ); ?>
+						<?php comments_popup_link( '<span class="leave-reply">' . __( 'Reply', 'twentyeleven' ) . '</span>', _x( '1 Reply', 'comments number', 'twentyeleven' ), _x( '% Replies', 'comments number', 'twentyeleven' ) ); ?>
 					</span>
 				<?php endif; ?>
 				<span class="entry-meta"><?php twentyeleven_posted_on(); ?></span>
