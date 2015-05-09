@@ -17,7 +17,7 @@ if ($web->getLang() === 'de') {
 	}
 }
 else {
-	echo '<p>© 2003-2014 speich.net, concept und programming Simon Speich';
+	echo '<p>© 2003-2015 speich.net, concept und programming Simon Speich';
 	echo '<span style="float: right;">last update '.$web->lastUpdate.'</span><p>';
 	if (strpos($web->getDir(), '/photo') !== false) { ?>
 			<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons licence" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
