@@ -1,7 +1,7 @@
 <?php
 $content_width = 782;
 
-
+add_theme_support( 'title-tag' );
 add_shortcode('wp_caption', 'fixed_img_caption_shortcode');
 add_shortcode('caption', 'fixed_img_caption_shortcode');
 
