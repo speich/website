@@ -87,7 +87,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script type="text/javascript" src="../../library/dojo/1.9.3/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../library/dojo/1.10.4/dojo/dojo.js"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/lang',
@@ -97,7 +97,7 @@ require([
 	'dojo/dom-style',
 	'dojo/dom-geometry',
 	'dojo/io-query',
-	'gmap/gmapLoader!http://maps.google.com/maps/api/js?v=3&sensor=false&language=' + dojoConfig.locale,
+	'gmap/gmapLoader!https://maps.google.com/maps/api/js?v=3.&language=' + dojoConfig.locale,
 	//'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
 	'/library/gmap/markerclustererplus/src/markerclusterer.js',
 	'dojo/domReady!'
