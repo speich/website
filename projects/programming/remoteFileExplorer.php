@@ -14,6 +14,14 @@
 	height: 600px;
 	border: 1px solid #48B100;
 }
+.loading {
+	margin: 2em 3em;
+}
+
+.loading img {
+	vertical-align: middle;
+	margin-right: 0.5em;
+}
 </style>
 <?php require_once 'inc_head.php' ?>
 </head>
@@ -22,7 +30,7 @@
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>remoteFileExplorer - a Windows Explorer like web application</h1>
 <p>This is a running demo. You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
-<div id="remoteFileExplorer"></div>
+<div id="remoteFileExplorer"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
