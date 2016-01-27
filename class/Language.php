@@ -1,6 +1,8 @@
 <?php
 namespace WebsiteTemplate;
 
+use stdClass;
+
 require_once 'Website.php';
 
 /**
@@ -24,10 +26,17 @@ class Language extends Website {
 	 * @return string
 	 */
 	public function getLang() {
+
+		$path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+		$paths = explode('/', $path);
+
+		if ($lang = array_search($this->arrLang, $paths)) {
+			$this->lang = $this->arrLang[$lang];
+		}
 		// explicitly changing lang?
-		if (isset($_GET['lang'])) {
+		else if (isset($_GET['lang'])) {
 			$regExpr = "/[^".implode('', $this->arrLang)."]/";
-			$this->lang = $lang = preg_replace($regExpr, '', $_GET['lang']);
+			$this->lang = preg_replace($regExpr, '', $_GET['lang']);
 		}
 		// session?
 		else if (isset($_SESSION[$this->namespace]['lang'])) {
@@ -113,50 +122,94 @@ class Language extends Website {
 
 	/**
 	 * Modify $page for language.
-	 * @param string $page
-	 * @param string $lang
+	 * Inserts a minus character and the language abbreviation between page name and page extension except
+	 * for the default language, e.g.: mypage.php -> mypage-fr.php
+	 * @param string $page page only
+	 * @param string|null $lang
 	 * @return string
 	 */
 	public function createLangPage($page, $lang = null) {
+		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
+
 		if (is_null($lang)) {
 			$lang = $this->getLang();
 		}
-		$page = preg_replace('/\-[a-z]{2}\.php/', '.php', $page);
-		$defaultPage = $page;
-		if (strpos($this->getDir(), '/articles') !== false) {
-			$page = '';
+
+		if ($lang === '') {
+			$page = $this->indexPage;
 		}
-		else if ($page === '' || $page === 'default.php') {
-			$page = 'default.php';
-		}
-		else if ($lang !== 'de') {
+		else if ($lang !== $this->langDefault) {
 			$page = str_replace('.php', '-'.$lang.'.php', $page);
-			if (!file_exists($this->getDocRoot().$this->getWebRoot().$this->getDir().$page)) {
-				$page = $defaultPage;
-			}
+
 		}
+
 		return $page;
 	}
 
 	/**
-	 * Returns a HTML string with links to select the language.
+	 * Returns a HTML string with links to the current page in all available languages.
+	 * Method checks if the page exist for each language. If it doesn't
+	 * Config object allows to overwrite the following HTML attributes:
+	 * 	$config->ulId 				= 'navLang'
+	 * 	$config->ulClass			= 'nav'
+	 * 	$config->liClassActive	= 'navActive'
+	 * 	$config->delimiter		= ''
+	 * 	$config->redirect			= Website::getWebRoot().Website::indexPage?lang=Website::langDefault;
+	 *
+	 * @param stdClass $config
 	 * @return string Html
 	 */
-	public function renderLangNav() {
+	public function renderLangNav($config = null) {
+		if (is_null($config)) {
+			$config = new stdClass();
+			$config->ulId = 'navLang';
+			$config->ulClass = 'nav';
+			$config->liClassActive = 'navActive';
+			$config->delimiter = '';
+			$config->redirect = $this->getWebRoot().$this->indexPage.'?lang='.$this->langDefault;
+		}
+
 		$page = $this->page;
 		$str = '';
-		$str.= '<ul id="navLang" class="nav">';
+		$str.= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
 		foreach ($this->arrLang as $lang) {
 			$page = $this->createLangPage($page, $lang);
-			$url = $this->getDir().$page.$this->getQuery(array('lang' => $lang));
+			$file = $this->getDir().$page;
+			if (file_exists(__DIR__.'/..'.$file)) {
+				$url = $file.$this->getQuery(array('lang' => $lang));
+			}
+			else {
+				$url = $config->redirect.$this->getQuery(array('lang' => $lang, 'url' => $file));
+			}
 			$str.= '<li';
 			if ($lang == $this->getLang()) {
-				$str.= ' class="navActive"';
+				$str.= ' class="'.$config->liClassActive.'"';
 			}
-			$str.= '><a href="'.$url.'">'.$this->arrLangLong[$lang].'</a>';
+			$str.= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
 			$str.= '</li>';
+			if ($config->delimiter != '' && key($this->arrLang) < count($this->arrLang)) {
+				$str.= '<li>'.$config->delimiter.'</li>';
+			}
 		}
 		$str.= '</ul>';
+
+		return $str;
+	}
+
+	public function renderHrefLang() {
+		$lang = $this->getLang();
+		$page = $this->createLangPage($this->page, $lang);
+		$url = $this->getDir().$page;
+		$str = '';
+
+		foreach ($this->arrLang as $l) {
+			if ($l == $lang) {
+				$str .= '<link rel="alternate" hreflang="x" href="'.$page.'">';
+			}
+			else {
+				$str .= '<link rel="alternate" hreflang="'.$l.'" href="'.$page.'?lang='.$lang.'">';
+			}
+		}
 
 		return $str;
 	}

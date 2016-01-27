@@ -23,7 +23,7 @@ switch($moduleType) {
 	case 'session':
 		// use session to store the user's filesystem
 		// root dir is used for the session's name 
-		require_once('ModuleSession.php');
+		require_once 'ModuleSession.php';
 		$rootDir ='virtFileSystem';
 		$rfe = new ModuleSession($rootDir);
 		break;

@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: dojo confirm dialog</title>
 <meta charset="utf-8">
-<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .dijitDialog {
@@ -37,7 +37,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/array',

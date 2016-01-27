@@ -3,6 +3,8 @@
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?></title>
+<meta name="description" content="<?php echo $metaDescription; ?>">
+<meta name="keywords" content="<?php echo $metaKeywords ?>">
 <?php require_once 'layout/inc_head.php' ?>
 <style type="text/css">
 .imgFrame {

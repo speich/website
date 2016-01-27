@@ -16,9 +16,10 @@ include_once 'Menu.php';
 include_once 'PagedNav.php';
 
 $web = new Language();
-$web->lastUpdate = '21.06.2015';
+$web->lastUpdate = '22.01.2016';
 $lang = $web->getLang();
 $web->setLang($lang);
+$web->setWebroot('/');
 
 ini_set('default_charset', $web->charset);
 
