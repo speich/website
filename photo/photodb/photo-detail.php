@@ -102,7 +102,7 @@ function renderPhoto($data, $db, $web, $i18n) {
 	else {
 		$datum = $data['imgDate'];
 	}
-	echo '<h1>'.$data['imgTitle']."</h1>\n";
+	echo '<h1>Foto: '.$data['imgTitle']."</h1>\n";
 	echo '<p>'.$data['imgDesc'].'</p>';
 	echo '<div class="col colLeft">';
 	
@@ -145,7 +145,7 @@ function renderPhoto($data, $db, $web, $i18n) {
 		echo '8bit';
 	}
 	echo "</p>\n";
-	echo '<p><span class="PhotoTxtLabel">Original-Datei:</span> '.$data['fileType']." (".$data['fileSize'].")</p>\n";
+	echo '<p><span class="PhotoTxtLabel">Dateiformat:</span> '.$data['fileType']." (".$data['fileSize'].")</p>\n";
 	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
 		echo '<p><span class="PhotoTxtLabel">Scanndatum: </span>'.date("d.m.Y H:i:s", $data['createDate'])."</p>\n";
 		echo '<p class="PhotoTxtSeparator"><span class="PhotoTxtLabel">Filmtyp:</span> '.$data['film'].'</p>';
