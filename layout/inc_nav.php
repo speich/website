@@ -9,22 +9,22 @@ require_once __DIR__.'/../photo/photodb/scripts/php/Menu.php';
  * main navigation on top *
  *************************/
 $path = $web->getWebRoot();
-$arrNav = array();
-$arrNav['de'] = array(
-	array(1, 'N','Fotografie', $path.'photo/photodb/photo.php'),
-	array(2, 'N','Artikel', $path.'articles/?lang=de'),
-	array(3, 'N','Projekte', $path.'projects/programming/progs.php'),
-	array(5, 'N','Person', $path.'about/cv.php'.$web->getQuery()),
-	array(6, 'N','Kontakt', $path.'contact/contact.php'.$web->getQuery())
-);
+$arrNav = [];
+$arrNav['de'] = [
+	[1, 'N','Fotografie', $path.'photo/photodb/photo.php'],
+	[2, 'N','Artikel', $path.'articles/?lang=de'],
+	[3, 'N','Projekte', $path.'projects/programming/progs.php'],
+	[5, 'N','Person', $path.'about/cv.php'.$web->getQuery()],
+	[6, 'N','Kontakt', $path.'contact/contact.php'.$web->getQuery()]
+];
 
-$arrNav['en'] = array(
-	array(1, 'N','Photography', $path.'photo/photodb/photo.php'),
-	array(2, 'N','Articles', $path.'articles/?lang=en'),
-	array(3, 'N','Projects', $path.'projects/programming/progs.php'),
-	array(5, 'N','Person', $path.'about/cv.php'.$web->getQuery()),
-	array(6, 'N','Contact', $path.'contact/contact-en.php'.$web->getQuery())
-);
+$arrNav['en'] = [
+	[1, 'N','Photography', $path.'photo/photodb/photo.php'],
+	[2, 'N','Articles', $path.'articles/?lang=en'],
+	[3, 'N','Projects', $path.'projects/programming/progs.php'],
+	[5, 'N','Person', $path.'about/cv.php'.$web->getQuery()],
+	[6, 'N','Contact', $path.'contact/contact-en.php'.$web->getQuery()]
+];
 
 $mainNav = new Menu('menuMain', null, $arrNav[$web->getLang()]);
 
@@ -48,47 +48,47 @@ $mainNav->setActive();
  * sub navigation to the left *
  *****************************/
 $path = $web->getWebRoot().'photo/photodb/';
-$arrQueryDel = array('lat1', 'lng1', 'lat1', 'lat2', 'lng2');
-$arrPhotoNav['de'] = array(
-	array(1, 'f', 'Bildarchiv', $path.'photo.php'.$web->getQuery()),
-	array(2, 1, 'Alle Fotos', $path.'photo.php'),
-	array(3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)),
-	array(4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery($arrQueryDel, 2))
-);
-$arrPhotoNav['en'] = array(
-	array(1, 'f', 'Photo Database', $path.'photo.php'.$web->getQuery()),
-	array(2, 1, 'All Photos', $path.'photo.php'),
-	array(3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)),
-	array(4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2))
-);
+$arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
+$arrPhotoNav['de'] = [
+	[1, 'f', 'Bildarchiv', $path.'photo.php'.$web->getQuery(['lang'])],
+	[2, 1, 'Alle Fotos', $path.'photo.php'],
+	[3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)],
+	[4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery($arrQueryDel, 2)]
+];
+$arrPhotoNav['en'] = [
+	[1, 'f', 'Photo Database', $path.'photo.php'.$web->getQuery()],
+	[2, 1, 'All Photos', $path.'photo.php'],
+	[3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)],
+	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2)]
+];
 
 $path = $web->getWebRoot().'articles/';
-$arrArticleNav['de'] = array(
-	array(1, 'f', 'Alle Artikel', $path)
-);
-$arrArticleNav['en'] = array(
-	array(1, 'f', 'All Articles', $path)
-);
+$arrArticleNav['de'] = [
+	[1, 'f', 'Alle Artikel', $path]
+];
+$arrArticleNav['en'] = [
+	[1, 'f', 'All Articles', $path]
+];
 
 $path = $web->getWebRoot().'projects/';
-$arrProjectNav['de'] = array(
-	array(1, 'f', 'Programmierung', $path.'programming/progs.php'.$web->getQuery()),
-	array(2, 'f', 'Musik', $path.'music/music.php'.$web->getQuery())
-);
-$arrProjectNav['en'] = array(
-	array(1, 'f', 'Programming', $path.'programming/progs.php'.$web->getQuery()),
-	array(2, 'f', 'Music', $path.'music/music.php'.$web->getQuery())
-);
+$arrProjectNav['de'] = [
+	[1, 'f', 'Programmierung', $path.'programming/progs.php'.$web->getQuery()],
+	[2, 'f', 'Musik', $path.'music/music.php'.$web->getQuery()]
+];
+$arrProjectNav['en'] = [
+	[1, 'f', 'Programming', $path.'programming/progs.php'.$web->getQuery()],
+	[2, 'f', 'Music', $path.'music/music.php'.$web->getQuery()]
+];
 
 $path = $web->getWebRoot().'about/';
-$arrPersonNav['de'] = array(
-	array(1, 'f', 'Lebenslauf', $path.'cv.php'.$web->getQuery()),
-	array(5, 'f', 'Diplomarbeit', $path.'diplomarbeit.php'.$web->getQuery())
-);
-$arrPersonNav['en'] = array(
-	array(1, 'f', 'Curriculum Vitae', $path.'cv.php'.$web->getQuery()),
-	array(5, 'f', 'Diploma Thesis', $path.'diplomarbeit.php'.$web->getQuery())
-);
+$arrPersonNav['de'] = [
+	[1, 'f', 'Lebenslauf', $path.'cv.php'.$web->getQuery()],
+	[5, 'f', 'Diplomarbeit', $path.'diplomarbeit.php'.$web->getQuery()]
+];
+$arrPersonNav['en'] = [
+	[1, 'f', 'Curriculum Vitae', $path.'cv.php'.$web->getQuery()],
+	[5, 'f', 'Diploma Thesis', $path.'diplomarbeit.php'.$web->getQuery()]
+];
 
 
 $sideNav = new Menu();
@@ -134,7 +134,7 @@ function createMenuArticles($web, $sideNav, $arrArticleNav) {
 	if (function_exists('get_categories')) {
 		$categories = get_categories('orderby=name');
 		foreach ($categories as $cat) {
-			$sideNav->add(array($count, 'f', $cat->cat_name, $path.'?cat='.$cat->cat_ID));
+			$sideNav->add([$count, 'f', $cat->cat_name, $path.'?cat='.$cat->cat_ID]);
 			$count++;
 		}
 		if (isset($_GET['p'])) {
