@@ -9,7 +9,7 @@
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Foto-Ausrüstung</h1>
-<div class="photoContainer"><img src="guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit 30mm in Aktion"
+<div class="photoContainer"><img src="guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit Nikon 300mm in Aktion"
 	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon beim Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.</div>
 <h2>Kameras</h2>
 <ul class="main">
@@ -25,6 +25,7 @@
 </ul>
 <h2>Objektive</h2>
 <ul class="main">
+<li>600mm f/4 FL ED VR (12.08.2015)</li>
 <li>24mm f/1.4G ED AF-S NIKKOR (26.03.2014)</li>
 <li>80-400mm f/4.5-5.6G ED VR AF-S Nikkor (20.09.2013)</li>
 <li>18-200mm f/3.5-5.6 G ED VR AF-S DX Nikkor (08.01.2009)</li>
@@ -40,7 +41,7 @@
 </ul>
 <h2>Zubehör</h2>
 <ul class="main">
-<li>Statikopf Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-30-LR&type=3&eq=&desc=BH-30-LR%3a-Compact-ballhead-with-LR&key=it">BH-30-LR Really Right Stuff</a> (23.06.2012)</li>
+<li>Stativkopf Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-30-LR&type=3&eq=&desc=BH-30-LR%3a-Compact-ballhead-with-LR&key=it">BH-30-LR Really Right Stuff</a> (23.06.2012)</li>
 <li>Stativkopf Ballhead <a href="http://reallyrightstuff.com/ProductDesc.aspx?code=BH-55-LR&type=3&eq=&desc=BH-55-LR%3a-Full-sized-ballhead-with-LR&key=it">BH-55 LR Really Right Stuff</a> (21.06.2008)</li>
 <li>Stativkopf von <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>
 <li>Stativ <a href="http://www.gitzo.com/photo-tripods-systematic">Gitzo GT3541LS</a> (10.11.2008)</li>
