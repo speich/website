@@ -1,5 +1,5 @@
 <?php
-$i18n = array(
+$i18n = [
 	'page title' => 'Bildarchiv',
 	'photo' => 'Foto',
 	'photos' => 'Fotos',
@@ -19,5 +19,33 @@ $i18n = array(
 	'show details' => 'Bilddetails anzeigen',
 	'thumbnail of' => 'Miniaturbild von',
 	'zoom' => 'Zoom',
-	'star icon' => 'Sternsymbol für Bildqualität'
-);
+	'star icon' => 'Sternsymbol für Bildqualität',
+	'keywords' => 'Stichwörter',
+	'scientific name' => 'Wissenschaftlicher Name',
+	'name' => 'Name',
+	'date' => 'Datum',
+	'original size' => 'Originalgrösse',
+	'order number' => 'Bestellnummer',
+	'file name' => 'Dateiname',
+	'file format' => 'Dateiformat',
+	'pixel' => ' Pixel',
+	'Coordinates are not shown' => 'Aus Gründen des Naturschutzes/Geheimhaltung werden keine Koordinaten angezeigt.',
+	'place' => 'Ort',
+	'country' => 'Land',
+	'technical information' => 'Technische Informationen',
+	'model' => 'Model',
+	'date of scan' => 'Datum der Digitalisierung',
+	'type of film' => 'Filmtyp',
+	'exposure' => 'Belichtung',
+	'program' => 'Programm',
+	'lens' => 'Objektiv',
+	'focal length' => 'Brennweite',
+	'flash' => 'Blitz',
+	'position' => 'Position',
+	'hight' => 'Höhe',
+	'database information' => 'Datenbankinformation',
+	'added' => 'hinzugefügt',
+	'changed' => 'geändert',
+	'published' => 'publiziert',
+	'distance' => 'Distanz'
+];

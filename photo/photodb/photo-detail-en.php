@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $web->getLang(); ?>">
 <head>
-<title>Foto | <?php echo $web->pageTitle; ?></title>
+<title>Photo |<?php echo $web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
 <link href="photo.css" rel="stylesheet" type="text/css">

@@ -1,5 +1,5 @@
 <?php
-$i18n = array(
+$i18n = [
 	'page title' => 'Photo database',
 	'photo' => 'photo',
 	'photos' => 'photos',
@@ -19,5 +19,33 @@ $i18n = array(
 	'show details' => 'show image details',
 	'thumbnail of' => 'thumbnail of',
 	'zoom' => 'zoom',
-	'star icon' => 'star icon for photo quality'
-);
+	'star icon' => 'star icon for photo quality',
+	'keywords' => 'keywords',
+	'scientific name' => 'scientific name',
+	'name' => 'name',
+	'date' => 'date',
+	'original size' => 'original size',
+	'order number' => 'order number',
+	'file name' => 'file name',
+	'file format' => 'file format',
+	'pixel' => 'pixel',
+	'Coordinates are not shown' => 'Coordinates are not shown to protect the site/nature.',
+	'place' => 'place',
+	'country' => 'country',
+	'technical information' => 'technical information',
+	'model' => 'model',
+	'date of scan' => 'date of scan',
+	'type of film' => 'type of film',
+	'exposure' => 'exposure',
+	'program' => 'program',
+	'lens' => 'lens',
+	'focal length' => 'focal length',
+	'flash' => 'flash',
+	'position' => 'position',
+	'hight' => 'hight',
+	'database information' => 'database information',
+	'added' => 'added',
+	'changed' => 'changed',
+	'published' => 'published',
+	'distance' => 'distance'
+];

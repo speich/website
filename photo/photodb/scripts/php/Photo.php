@@ -249,7 +249,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			$imgSize = getimagesize(__DIR__.'/../../../..'.$web->getWebRoot().$this->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
 			$imgTitle = $row['imgTitle'];
 			$link = str_replace('thumbs/', '', $imgFile).'?w='.$imgSize[0].'&h='.$imgSize[1];
-			$detailLink = 'photo-detail.php'.$web->getQuery(array('imgId' => $row['imgId']));
+			$detailLink = 'photo-detail.php'.$web->getQuery(['imgId' => $row['imgId']]);
 
 			if ($imgSize[0] > $imgSize[1]) {
 				$css = 'slideHorizontal';
