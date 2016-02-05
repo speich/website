@@ -14,10 +14,15 @@
 <a href="../articles/guyanas-wildlife-along-the-rewa-river/">Regenwald von Guyana</a>.</div>
 <p>
 <script type="text/javascript">
-document.write('Ich bin über die E-Mail Adresse <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> kontaktierbar, <br>');
+document.write('Ich bin über die E-Mail Adresse <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> kontaktierbar<br>');
 </script>
 oder auf <a href="https://github.com/speich" target="_blank">GitHub</a> und
 <a href="https://plus.google.com/106123818725835286537?rel=author" target="_blank">Google+</a> zu finden.</p>
+<h2>Mitgliedschaften</h2>
+<ul>
+<li><a href="http://www.naturfotografen.ch/speich-simon.html" target="_blank">Naturfotografen Schweiz</a></li>
+<li><a href="https://www.gdtfoto.de/mitglied/1001285/Simon-Speich" target="_blank">GDT Gesellschaft Deutscher Tierfotografen</a></li>
+</ul>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
 </html>
