@@ -9,7 +9,7 @@
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Photo Equipment</h1>
-<div class="photoContainer"><img src="guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with 30mm in Action"
+<div class="photoContainer"><img src="guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action"
 	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.</div>
 <h2>Cameras</h2>
 <ul class="main">
@@ -25,6 +25,7 @@
 </ul>
 <h2>Lenses</h2>
 <ul class="main">
+<li>600mm f/4 FL ED VR (12.08.2015)</li>
 <li>24mm f/1.4G ED AF-S NIKKOR (26.03.2014)</li>
 <li>80-400mm f/4.5-5.6G ED VR AF-S Nikkor (20.09.2013)</li>
 <li>18-200mm f/3.5-5.6 G ED VR AF-S DX Nikkor (08.01.2009)</li>

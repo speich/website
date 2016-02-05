@@ -162,8 +162,18 @@ h1 a, h1 a:visited {
 
 pre, code, blockquote {
 	padding: 2px;
-	font-size: 11px;
 }
+
+.entry-content blockquote {
+	font-family: Georgia, "Bitstream Charter", serif;
+	font-style: italic;
+	font-weight: normal;
+	padding: 1em;
+	margin-left: 3em;
+	margin-right: 3em;
+}
+
+
 ol.commentlist {
 	list-style: none;
 	padding-left: 0;

@@ -69,16 +69,8 @@ $pagingBar = '<div class="pagingBar">'.
 <div id="slideFullScreenCont">
 <div class="slideFullScreen">
 <span class="slideFullScreenAuthor"><?php echo $i18n['photo']; ?> Simon Speich, www.speich.net</span>
-</div>
-<!-- not implemented yet
-<div class="slideNavClose">close</div>
-<div class="slideNavPrev">previous</div>
-<div class="slideNavNext">next</div>
--->
-</div>
 
 <?php require_once 'inc_body_end.php'; ?>
-
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
@@ -86,10 +78,8 @@ var dojoConfig = {
 };
 </script>
 <script type="text/javascript" src="../../library/dojo/1.10.4/dojo/dojo.js"></script>
-<script type="text/javascript">
 require(['../../photo/photodb/photoApp.js'], function(photoApp) {
 	photoApp.init();
 });
-</script>
 </body>
 </html>
