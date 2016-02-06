@@ -16,7 +16,7 @@ include_once 'Menu.php';
 include_once 'PagedNav.php';
 
 $web = new Language();
-$web->lastUpdate = '31.01.2016';
+$web->lastUpdate = '06.02.2016';
 $lang = $web->getLang();
 $web->setLang($lang);
 $web->setWebroot('/');
@@ -25,13 +25,9 @@ ini_set('default_charset', $web->charset);
 
 if ($lang === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
-	$metaDescription = 'Website von Simon Speich über Fotografie und Webprogrammierung';
-	$metaKeywords = 'Simon Speich, Schweiz, Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Foto, Photographie';
 }
 else {
 	$windowTitle = 'Photography and web programming';
-	$metaDescription = 'Simon Speich\'s website about photography and web programming';
-	$metaKeywords = 'Simon Speich, Switzerland, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP';
 }
 $web->pageTitle = 'speich.net - '.$windowTitle;
 
