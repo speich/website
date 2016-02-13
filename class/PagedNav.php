@@ -127,10 +127,11 @@ class PagedNav {
 	 * Print HTML navigation.
 	 * The parameter $curPage is 1-based.
 	 * @param integer $curPage current page number
-	 * @param Language $web
+	 * @param Website $web
+	 * @param Language $lang
 	 * @return string HTML string to print
 	 */
-	function render($curPage, $web) {
+	function render($curPage, $web, $lang) {
 		$lb = $this->getLowerBoundary($curPage);
 		$ub = $this->getUpperBoundary($curPage);
 
