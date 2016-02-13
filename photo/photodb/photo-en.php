@@ -17,7 +17,7 @@ $pagingBar = '<div class="pagingBar">'.
 	$mRecPp->render().
 	'<div class="barTxt">'.$i18n['per page'].'</div>'.
 	'<div class="barVertSeparator"></div>'.
-	$pagedNav->render($params->page + 1, $web).
+	$pagedNav->render($params->page + 1, $web, $lang).
 	'</div>';
 ?>
 <!DOCTYPE html>

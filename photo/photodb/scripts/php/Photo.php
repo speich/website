@@ -112,7 +112,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 				$sql.= ", it.ThemeId themeId";
 			}
 			else if ($params->country) {
-				$sql.= ", ic.CountryId countryId";
+				$sql.= ", c.id countryId";
 			}
 			$sql.= ", CASE WHEN i.ImgDateOriginal IS NULL THEN
 				(CASE WHEN i.ImgDate IS NOT NULL THEN DATETIME(i.ImgDate, 'unixepoch', 'localtime') END)
@@ -122,7 +122,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 				$sql.= " INNER JOIN Images_Themes it ON i.Id = it.ImgId";
 			}
 			else if ($params->country) {
-				$sql.= "	INNER JOIN Images_Countries ic ON i.Id = ic.ImgId";
+				$sql.= "	INNER JOIN Countries c ON i.CountryId = c.id";
 			}
 			$sql.= " INNER JOIN Rating r ON i.RatingId = r.Id
 		)";

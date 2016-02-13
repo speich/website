@@ -20,7 +20,7 @@ if (strpos($web->getLastPage(), 'photo-mapsearch.php') !== false) {
 	$sideNav->arrItem[3]->setActive();
 }
 
-$lang = ucfirst($web->getLang());
+$ucLang = ucfirst($lang->get());
 $sql = "SELECT I.id imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgDate imgDate, I.imgTechInfo imgTechInfo,
 	I.dateAdded dateAdded, I.lastChange lastChange, I.datePublished datePublished, I.imgDesc imgDesc, I.imgTitle imgTitle, I.imgDateOriginal imgDateOriginal,
 	I.imgLat imgLat, I.imgLng imgLng, I.showLoc showLoc,
@@ -32,12 +32,12 @@ $sql = "SELECT I.id imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgDate i
 	E.imageHeight imageHeight, E.createDate createDate, E.dateTimeOriginal dateTimeOriginal, E.bitsPerSample bitsPerSample,
 	E.gpsLatitude gpsLatitude, E.gpsLongitude gpsLongitude, E.gpsAltitude gpsAltitude, E.gpsAltitudeRef gpsAltitudeRef,
 	E.lensSpec lensSpec, E.lens lens, E.fileType fileType, E.vibrationReduction vibrationReduction,
-	GROUP_CONCAT(DISTINCT T.name".$lang.") themes,
+	GROUP_CONCAT(DISTINCT T.name".$ucLang.") themes,
 	GROUP_CONCAT(DISTINCT K.name) categories,
 	N.nameDe wissNameDe, N.nameEn wissNameEn, N.nameLa wissNameLa,
 	S.name sex,
 	GROUP_CONCAT(DISTINCT L.name) locations,
-	GROUP_CONCAT(DISTINCT C.name".$lang.") countries
+	GROUP_CONCAT(DISTINCT C.name".$ucLang.") countries
 	FROM Images I
 	LEFT JOIN FilmTypes F ON I.filmTypeId = F.id
 	LEFT JOIN Rating R ON I.ratingId = R.id
