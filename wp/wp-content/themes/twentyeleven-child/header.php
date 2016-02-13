@@ -38,6 +38,5 @@
 ?>
 </head>
 
-<body>
 <body onload="prettyPrint()">
 <?php require_once 'inc_body_begin.php'; ?>

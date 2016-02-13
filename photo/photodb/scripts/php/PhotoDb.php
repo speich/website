@@ -114,50 +114,49 @@ class PhotoDb {
 	 * Method used in the SQLite createAggregate function to implement SQL GROUP_CONCAT
 	 * which is not supported by PDO. 
 	 * @return string
-	 * @param string $Context
-	 * @param string $RowId
-	 * @param string $String
+	 * @param string $context
+	 * @param string $str
 	 * @param bool [$Unique]
 	 * @param string [$Separator]
 	 */
-	public function groupConcatStep($Context, $RowId, $String, $Unique = false, $Separator = ", ") {
-		if ($Context) {
-			if ($Unique) {
-				if (strpos($Context, $String) === false) {
-					return $Context.$Separator.$String;
+	public function groupConcatStep($context, $str, $unique = false, $separator = ", ") {
+		if ($context) {
+			if ($unique) {
+				if (strpos($context, $str) === false) {
+					return $context.$separator.$str;
 				}
 				else {
-					return $Context;
+					return $context;
 				}
 			}
 			else {
-				return $Context.$Separator.$String;
+				return $context.$separator.$str;
 			}
 		}
 		else {
-			return $String;
+			return $str;
 		}
 	}
 
 	/**
-	 * @param $Context
+	 * @param $context
 	 * @return mixed
 	 */
-	public function groupConcatFinalize($Context) {
-		return $Context;
+	public function groupConcatFinalize($context) {
+		return $context;
 	}
 
 	/**
 	 * Adds the PHP strtotime function to PDO SQLite.
 	 * @return string 
-	 * @param string $Context
+	 * @param string $context
 	 */
-  public function strToTime($Context) {
-  	if (strlen($Context) > 4) {
-  		return strtotime($Context);
+  public function strToTime($context) {
+  	if (strlen($context) > 4) {
+  		return strtotime($context);
 		}
-		else if (preg_match('/[0-9]{4}/', $Context)) {
-			return strtotime($Context."-01-01");
+		else if (preg_match('/[0-9]{4}/', $context)) {
+			return strtotime($context."-01-01");
 		}
 		else {
 			return null;

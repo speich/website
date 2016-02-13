@@ -4,7 +4,7 @@
 <head>
 <title>speich.net - Photography and web programming</title>
 <meta name="description" content="Simon Speich's website about photography and web programming">
-<meta name="keywords" content="Simon Speich, photo, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP, nature, animals, birds, wildlife, Switzerland">
+<meta name="keywords" content="Simon Speich, photo, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP, nature, animals, birds, wildlife">
 <?php require_once 'layout/inc_head.php' ?>
 <style type="text/css">
 .imgFrame {
