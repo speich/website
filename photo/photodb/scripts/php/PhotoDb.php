@@ -44,7 +44,7 @@ class PhotoDb {
 				// Do every time you connect since they are only valid during connection (not permanent)
 				$this->db->exec('PRAGMA full_column_names = 0');
 				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
-				$this->db->sqliteCreateAggregate('GROUP_CONCAT', array($this, 'groupConcatStep'), array($this, 'groupConcatFinalize'));
+				$this->db->sqliteCreateAggregate('GROUP_CONCAT', [$this, 'groupConcatStep'], [$this, 'groupConcatFinalize']);
 				//$this->db->sqliteCreateFunction('STRTOTIME', array($this, 'strToTime'));
 			}
 			catch (PDOException $Error) {
@@ -112,14 +112,18 @@ class PhotoDb {
 	/**
 	 * Adds a SQL GROUP_CONCAT function
 	 * Method used in the SQLite createAggregate function to implement SQL GROUP_CONCAT
-	 * which is not supported by PDO. 
-	 * @return string
+	 * which is not supported by PDO.
+	 *
 	 * @param string $context
+	 * @param $rowId
 	 * @param string $str
-	 * @param bool [$Unique]
-	 * @param string [$Separator]
+	 * @param bool $unique
+	 * @param string $separator
+	 * @return string
+	 * @internal param $bool [$Unique]
+	 * @internal param $string [$Separator]
 	 */
-	public function groupConcatStep($context, $str, $unique = false, $separator = ", ") {
+	public function groupConcatStep($context, $rowId, $str, $unique = false, $separator = ", ") {
 		if ($context) {
 			if ($unique) {
 				if (strpos($context, $str) === false) {
