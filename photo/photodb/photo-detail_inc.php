@@ -1,5 +1,6 @@
 <?php
 use PhotoDb\PhotoDb;
+use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
 require_once __DIR__.'/../../library/inc_script.php';
@@ -64,13 +65,14 @@ $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
  * @param $data
  * @param PhotoDb $db
  * @param Website $web
+ * @param Language $lang
  * @param array $i18n internationalization
  */
-function renderPhoto($data, $db, $web, $i18n) {
+function renderPhoto($data, $db, $web, $lang, $i18n) {
 
-	$backPage = 'photo.php'.$web->getQuery(['imgId'], 2);
-	if (strpos($backPage, 'photo-mapsearch.php') !== false) {
-		$backPage = 'photo-mapsearch.php?'.$_SERVER['QUERY_STRING'];	// when coming from map via js lastPage was not set with latest query vars, use current
+	$backPage = $lang->createPage('photo.php').$web->getQuery(['imgId'], 2);
+	if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {
+		$backPage = $lang->createPage('photo-mapsearch.php').'?'.$_SERVER['QUERY_STRING'];	// when coming from map via js lastPage was not set with latest query vars, use current
 	}
 	$imgFile = $db->webroot.$db->getPath('img').$data['imgFolder'].'/'.$data['imgName'];
 

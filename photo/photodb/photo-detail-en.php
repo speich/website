@@ -11,7 +11,7 @@
 <body>
 <?php
 require_once 'inc_body_begin.php';
-renderPhoto($photo[0], $db, $web, $i18n);
+renderPhoto($photo[0], $db, $web, $lang, $i18n);
 require_once 'inc_body_end.php';
 ?>
 <script type="text/javascript">

@@ -7,6 +7,8 @@ use stdClass;
 use PhotoDb\PhotoDb;
 use PhotoDb\PhotoDbQuery;
 use WebsiteTemplate\Language;
+use WebsiteTemplate\Website;
+
 
 require_once 'PhotoDb.php';
 require_once 'PhotoDbQuery.php';
@@ -232,11 +234,12 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 	/**
 	 * Display photos.
 	 * @param array $photos database records
-	 * @param Language $web
+	 * @param Website $web
+	 * @param Language $lang
 	 * @param array $i18n
 	 * @return string HTML
 	 */
-	public function renderData($photos, $web, $i18n) {
+	public function renderData($photos, $web, $lang, $i18n) {
 		$str = '';
 		if (count($photos) == 0) {
 			$str.= '<p>'.$i18n['not found'].'</p>';
@@ -249,7 +252,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			$imgSize = getimagesize(__DIR__.'/../../../..'.$web->getWebRoot().$this->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
 			$imgTitle = $row['imgTitle'];
 			$link = str_replace('thumbs/', '', $imgFile).'?w='.$imgSize[0].'&h='.$imgSize[1];
-			$detailLink = 'photo-detail.php'.$web->getQuery(['imgId' => $row['imgId']]);
+			$detailLink = $lang->createPage('photo-detail.php').$web->getQuery(['imgId' => $row['imgId']]);
 
 			if ($imgSize[0] > $imgSize[1]) {
 				$css = 'slideHorizontal';

@@ -62,7 +62,7 @@ $pagingBar = '<div class="pagingBar">'.
 </div>
 </div>
 
-<div><ul><?php echo $photo->renderData($photos, $web, $i18n); ?></ul></div>
+<div><ul><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul></div>
 
 <?php echo $pagingBar ?>
 

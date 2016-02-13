@@ -19,7 +19,7 @@ $arrNav['de'] = [
 ];
 
 $arrNav['en'] = [
-	[1, 'N','Photography', $path.'photo/photodb/photo.php'],
+	[1, 'N','Photography', $path.'photo/photodb/photo-en.php'],
 	[2, 'N','Articles', $path.'articles/?lang=en'],
 	[3, 'N','Projects', $path.'projects/programming/progs.php'],
 	[5, 'N','Person', $path.'about/cv.php'.$web->getQuery()],
