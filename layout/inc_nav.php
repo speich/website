@@ -98,7 +98,7 @@ $sideNav->setAutoActiveMatching(3);
 switch($mainNav->getActive()) {
 	case 1:
 		// do not render side navigation on map page
-		if ($web->page !== $lang->createPage('photo-mapsearch.php')) {
+		if ($lang->createPage($web->page) !== $lang->createPage('photo-mapsearch.php')) {
 			createSideMenuPhoto($web, $sideNav, $arrPhotoNav[$lang->get()], $lang);
 		}
 		break;
