@@ -138,10 +138,10 @@ class PagedNav {
 
 		if ($this->renderText) {
 			$str.= '<div class="text">';
-			$str.= $this->i18n[$web->getLang()]['search result'].": ".$this->numRec." ";
-			$str.= $this->numRec > 1 ? $this->i18n[$web->getLang()]['entries'] : $this->i18n[$web->getLang()]['entry'];
-			$str.= " ".$this->i18n[$web->getLang()]['on']." $this->numPages ";
-			$str.= $this->numPages > 1 ? $this->i18n[$web->getLang()]['pages'] : $this->i18n[$web->getLang()]['page'];
+			$str.= $this->i18n[$lang->get()]['search result'].": ".$this->numRec." ";
+			$str.= $this->numRec > 1 ? $this->i18n[$lang->get()]['entries'] : $this->i18n[$lang->get()]['entry'];
+			$str.= " ".$this->i18n[$lang->get()]['on']." $this->numPages ";
+			$str.= $this->numPages > 1 ? $this->i18n[$lang->get()]['pages'] : $this->i18n[$lang->get()]['page'];
 			$str.= '</div>';
 		}
 

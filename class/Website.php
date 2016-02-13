@@ -41,7 +41,7 @@ class Website {
 	public $charset = 'utf-8';
 
 	/** @var string date of last update */
-	public $lastUpdate = '';
+	public static $lastUpdate = '';
 
 	/** @var string name of index page */
 	public $indexPage = 'index.php';
@@ -199,7 +199,7 @@ class Website {
 					}
 					else {
 						if ($modifier == 2) {
-							$arr = array(); // make array keys for array_diff_key
+							$arr = []; // make array keys for array_diff_key
 							foreach ($arrQuery as $QueryVar) {
 								$arr[$QueryVar] = null;
 							}

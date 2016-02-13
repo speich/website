@@ -1,6 +1,6 @@
 <?php require_once 'photo-detail_inc.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title>Foto | <?php echo $web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
@@ -20,7 +20,7 @@ var dojoConfig = {
 	has: {
 		'dojo-debug-messages': false
 	},
-	locale: '<?php echo $locale = $web->getLang(); ?>',
+	locale: '<?php echo $locale = $lang->get(); ?>',
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
 	]

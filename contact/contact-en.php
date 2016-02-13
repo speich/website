@@ -1,6 +1,6 @@
 <?php include '../library/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title>Contact | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>

@@ -1,5 +1,6 @@
 <?php
 use WebsiteTemplate\Language;
+use WebsiteTemplate\Website;
 
 set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');
@@ -11,19 +12,22 @@ $incPath.= $path.'layout'.PATH_SEPARATOR;
 $incPath.= $path.'library';
 set_include_path($incPath);
 
+include_once 'Website.php';
 include_once 'Language.php';
-include_once 'Menu.php';
 include_once 'PagedNav.php';
 
-$web = new Language();
-$web->lastUpdate = '06.02.2016';
-$lang = $web->getLang();
-$web->setLang($lang);
+$lang = new Language();
+$lang->arrLang = ['de', 'en'];
+$lang->arrLangLong = ['de' => 'Deutsch', 'en' => 'English'];
+$lang->set();
+
+$web = new Website();
+Website::$lastUpdate = '13.02.2016';
 $web->setWebroot('/');
 
 ini_set('default_charset', $web->charset);
 
-if ($lang === 'de') {
+if ($lang->get() === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
 }
 else {
@@ -31,5 +35,5 @@ else {
 }
 $web->pageTitle = 'speich.net - '.$windowTitle;
 
-include_once 'inc_nav.php';
 
+include_once 'inc_nav.php';

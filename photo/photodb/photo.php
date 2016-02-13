@@ -21,7 +21,7 @@ $pagingBar = '<div class="pagingBar">'.
 	'</div>';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
@@ -35,7 +35,7 @@ $pagingBar = '<div class="pagingBar">'.
 <div class="search">
 <script>
   (function() {
-    var cx = '<?php echo ($web->getLang() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>';
+    var cx = '<?php echo ($lang->get() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>';
     var gcse = document.createElement('script');
     gcse.type = 'text/javascript';
     gcse.async = true;
@@ -82,7 +82,7 @@ $pagingBar = '<div class="pagingBar">'.
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	locale: '<?php echo $locale = $web->getLang(); ?>'
+	locale: '<?php echo $locale = $lang->get(); ?>'
 };
 </script>
 <script type="text/javascript" src="../../library/dojo/1.10.4/dojo/dojo.js"></script>

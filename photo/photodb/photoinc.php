@@ -4,7 +4,7 @@ use WebsiteTemplate\Menu;
 
 require_once __DIR__.'/../../library/inc_script.php';
 require_once __DIR__.'/scripts/php/Photo.php';
-require_once __DIR__.'/nls/'.$web->getLang().'/photo.php';
+require_once __DIR__.'/nls/'.$lang->get().'/photo.php';
 
 $photo = new Photo($web->getWebRoot());
 $params = $photo->createObjectFromPost((object) $_GET);

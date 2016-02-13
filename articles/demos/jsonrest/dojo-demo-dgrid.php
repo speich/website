@@ -1,6 +1,6 @@
 <?php require_once '../../../library/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
 <meta charset="utf-8">

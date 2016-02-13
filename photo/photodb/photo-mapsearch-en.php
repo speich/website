@@ -1,6 +1,6 @@
 <?php
 require_once 'photoinc.php';
-require_once __DIR__.'/nls/'.$web->getLang().'/photo-mapsearch.php';
+require_once __DIR__.'/nls/'.$lang->get().'/photo-mapsearch.php';
 
 $web->setLastPage();
 ?>
@@ -81,7 +81,7 @@ var dojoConfig = {
 	has: {
 		'dojo-debug-messages': false
 	},
-	locale: '<?php echo $locale = $web->getLang(); ?>',
+	locale: '<?php echo $locale = $lang->get(); ?>',
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
 	]

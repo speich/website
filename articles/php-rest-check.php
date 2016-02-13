@@ -68,7 +68,7 @@ else {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -77,7 +77,7 @@ else {
 <script type="text/javascript" src="../library/prettify/prettify.js"></script>
 <script type="text/javascript">
 var dojoConfig = {
-	locale: '<?php echo $locale = $web->getLang(); ?>'
+	locale: '<?php echo $locale = $lang->get(); ?>'
 };
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>

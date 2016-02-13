@@ -1,11 +1,11 @@
 <?php
 require_once 'photoinc.php';
-require_once __DIR__.'/nls/'.$web->getLang().'/photo-mapsearch.php';
+require_once __DIR__.'/nls/'.$lang->get().'/photo-mapsearch.php';
 
 $web->setLastPage();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
@@ -81,7 +81,7 @@ var dojoConfig = {
 	has: {
 		'dojo-debug-messages': false
 	},
-	locale: '<?php echo $locale = $web->getLang(); ?>',
+	locale: '<?php echo $locale = $lang->get(); ?>',
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
 	]

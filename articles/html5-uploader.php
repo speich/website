@@ -1,6 +1,6 @@
 <?php require_once '../library/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $web->getLang(); ?>">
+<html lang="<?php echo $lang->get(); ?>">
 <head>
 <title>speich.net HTML5 demo: multiple file upload with drag and drop</title>
 <?php require_once 'inc_head.php' ?>
