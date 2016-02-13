@@ -56,9 +56,9 @@ $arrPhotoNav['de'] = [
 	[4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery($arrQueryDel, 2)]
 ];
 $arrPhotoNav['en'] = [
-	[1, 'f', 'Photo Database', $path.'photo.php'.$web->getQuery()],
-	[2, 1, 'All Photos', $path.'photo.php'],
-	[3, 'f', 'Search on Map', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)],
+	[1, 'f', 'Photo Database', $path.'photo-en.php'.$web->getQuery()],
+	[2, 1, 'All Photos', $path.'photo-en.php'],
+	[3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$web->getQuery($arrQueryDel, 2)],
 	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2)]
 ];
 
@@ -195,7 +195,7 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 	// treat country as a theme, do not allow country and theme vars in the query string at the same time
 	// note: country and theme will be added back in loop
 	$arrQueryDel = ['pg', 'numRec', 'country', 'qual', 'lang', 'imgId', 'theme', 'lat1', 'lng1', 'lat2', 'lng2'];
-	$path = $web->getWebRoot().'photo/photodb/photo.php';
+	$path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
 	$lastMenuId = null;
 	while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {
 		$arrQueryAdd = [$row['queryField'] => $row['queryValue']];
