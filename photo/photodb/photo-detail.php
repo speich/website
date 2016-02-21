@@ -1,4 +1,6 @@
-<?php require_once 'photo-detail_inc.php'; ?>
+<?php require_once 'photo-detail_inc.php';
+
+?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
 <head>

@@ -12,16 +12,12 @@ if (isset($_GET['imgId'])) {
 else {
 	header('Location: http://www.speich.net/photo/photodb/photo.php');
 }
-$db = new PhotoDb($web->getWebRoot());
-$db->connect();
 
-// this page is accessed from different pages in the menu tree. Set correct menu item to active.
-if (strpos($web->getLastPage(), 'photo-mapsearch.php') !== false) {
-	$sideNav->arrItem[1]->setActive(null);
-	$sideNav->arrItem[3]->setActive();
-}
 
 $ucLang = ucfirst($lang->get());
+
+$db = new PhotoDb($web->getWebRoot());
+$db->connect();
 $sql = "SELECT I.id imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgDate imgDate, I.imgTechInfo imgTechInfo,
 	I.dateAdded dateAdded, I.lastChange lastChange, I.datePublished datePublished, I.imgDesc imgDesc, I.imgTitle imgTitle, I.imgDateOriginal imgDateOriginal,
 	I.imgLat imgLat, I.imgLng imgLng, I.showLoc showLoc,
