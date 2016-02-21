@@ -206,20 +206,19 @@ class Language {
 			$config->ulClass = 'nav';
 			$config->liClassActive = 'navActive';
 			$config->delimiter = '';
-			$config->redirect = $web->getWebRoot().$web->indexPage.'?lang='.self::$langDefault;
+			$config->redirect = '/'.$web->indexPage;
 		}
 
-		$page = $web->page;
 		$str = '';
 		$str .= '<ul id="'.$config->ulId.'" class="'.$config->ulClass.'">';
 		foreach ($this->arrLang as $lang) {
-			$page = $this->createPage($page, $lang);
+			$page = $web->page === '' ? $this->createPage($web->indexPage, $lang) : $this->createPage($web->page, $lang);
 			$file = $web->getDir().$page;
 			if (file_exists(__DIR__.'/..'.$file)) {
-				$url = $file.$web->getQuery(array('lang' => $lang));
+				$url = $file.$web->getQuery(['lang' => $lang]);
 			}
 			else {
-				$url = $config->redirect.$web->getQuery(array('lang' => $lang, 'url' => $file));
+				$url = $this->createPage($config->redirect).$web->getQuery(['lang' => $lang, 'url' => $file]);
 			}
 			$str .= '<li';
 			if ($lang == $this->get()) {
