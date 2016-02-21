@@ -22,7 +22,7 @@ $arrNav['en'] = [
 	[1, 'N','Photography', $path.'photo/photodb/photo-en.php'],
 	[2, 'N','Articles', $path.'articles/?lang=en'],
 	[3, 'N','Projects', $path.'projects/programming/progs.php'],
-	[5, 'N','Person', $path.'about/cv.php'.$web->getQuery()],
+	[5, 'N','Person', $path.'about/cv-en.php'.$web->getQuery()],
 	[6, 'N','Contact', $path.'contact/contact-en.php'.$web->getQuery()]
 ];
 
@@ -45,7 +45,8 @@ $mainNav->setActive();
 
 
 /******************************
- * different sub navigation to the left *
+ * Create different sub navigation to the left
+ * and set them active
  *****************************/
 $path = $web->getWebRoot().'photo/photodb/';
 $arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
@@ -86,7 +87,7 @@ $arrPersonNav['de'] = [
 	[5, 'f', 'Diplomarbeit', $path.'diplomarbeit.php'.$web->getQuery()]
 ];
 $arrPersonNav['en'] = [
-	[1, 'f', 'Curriculum Vitae', $path.'cv.php'.$web->getQuery()],
+	[1, 'f', 'Curriculum Vitae', $path.'cv-en.php'.$web->getQuery()],
 	[5, 'f', 'Diploma Thesis', $path.'diplomarbeit.php'.$web->getQuery()]
 ];
 
@@ -212,16 +213,14 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 		$lastMenuId = $row['menuId'];
 	}
 
-	$sideNav->setActive($path.$web->getQuery($arrQueryDel, 2));
-
-	if (isset($_GET['theme']) || isset($_GET['country'])) {
-		// unset item ('Alle Fotos'), otherwise it would always be active
-		$sideNav->arrItem[2]->setActive(false); //
+	if ($web->page == $lang->createPage('photo-detail.php')) {
+		$sideNav->setActive($lang->createPage('photo-detail.php').$web->getQuery($arrQueryDel, 2));
 	}
-	else if (strpos($web->getLastPage(), $lang->createPage('photo-mapsearch.php')) !== false) {
-		// for photo-details.php
-		$sideNav->arrItem[1]->setActive(false);
-		$sideNav->arrItem[3]->setActive();
+
+	// unset item ('Alle Fotos'), otherwise it would always be active
+	if (isset($_GET['theme']) || isset($_GET['country'])) {
+		$sideNav->arrItem[1]->setActive(false); //
+
 	}
 
 	if ($web->page == $lang->createPage('ausruestung.php')) {
