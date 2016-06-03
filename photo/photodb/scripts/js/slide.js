@@ -37,7 +37,7 @@ function(fx, win, query, on, domStyle, domGeometry) {
 				onEnd: function() {
 					// TODO use class instead of style
 					win.body().style.overflow = 'auto';
-					this.style.display = 'none';
+					this.node.style.display = 'none';
 				}
 			}).play();
 		},
