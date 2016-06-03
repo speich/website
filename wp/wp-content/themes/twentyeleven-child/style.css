@@ -175,7 +175,14 @@ pre, code, blockquote {
 	margin-left: 3em;
 	margin-right: 3em;
 }
+.entry-content ol {
+	list-style: decimal inside;
+	padding-left: 0;
+}
 
+.entry-content li img {
+	margin: 0.75em 0 1em 0;
+}
 
 ol.commentlist {
 	list-style: none;
@@ -236,4 +243,9 @@ ol.commentlist {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+li img.inlineIcon {
+	vertical-align: bottom;
+	margin: 0;
 }
