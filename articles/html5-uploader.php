@@ -6,7 +6,7 @@
 <?php require_once 'inc_head.php' ?>
 <meta charset="utf-8">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link href="/library/speich.net/fileUploader/resources/uploader.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #dropTarget {
@@ -46,7 +46,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require(['dojo/_base/kernel', 'dojo/dom', 'dojo/ready', 'snet/fileUploader/Uploader'], function(kernel, dom, ready, Uploader) {
 	ready(function() {

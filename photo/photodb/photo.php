@@ -85,7 +85,7 @@ var dojoConfig = {
 	locale: '<?php echo $locale = $lang->get(); ?>'
 };
 </script>
-<script type="text/javascript" src="../../library/dojo/1.10.4/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../library/dojo/1.11.1/dojo/dojo.js"></script>
 <script type="text/javascript">
 require(['../../photo/photodb/photoApp.js'], function(photoApp) {
 	photoApp.init();

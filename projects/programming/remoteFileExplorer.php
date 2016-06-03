@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
-<link rel="stylesheet" href="/library/dojo/1.10.4/dijit/themes/claro/document.css">
-<link rel="stylesheet" href="/library/dojo/1.10.4/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="/library/dojo/1.11.1/dijit/themes/claro/document.css">
+<link rel="stylesheet" href="/library/dojo/1.11.1/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <style type="text/css">
@@ -52,7 +52,7 @@ var dojoConfig = {
 	}
 };
 </script>
-<script type="text/javascript" src="/library/dojo/1.10.4/dojo/dojo.js"></script>
+<script type="text/javascript" src="/library/dojo/1.11.1/dojo/dojo.js"></script>
 <script type="text/javascript">
 require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
 	ready(function() {
