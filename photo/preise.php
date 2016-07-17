@@ -26,7 +26,7 @@ Naturfotografen Schweiz, <a href="http://naturfotografen.ch/id-2016.html" title=
 <li><h3>Glanzlicher 2016</h3>
 Highlight, Kategorie Black and White<br>
 projekt natur & fotografie, <a href="http://glanzlichter.com/template/index.cfm/fuseaction/executeMenuID/uuidMenu/7882AF21-F10E-77C3-B34D495D5BC2FAAA/lastuuid/7882AF21-F10E-77C3-B34D495D5BC2FAAA/23/index.htm" title="Glanzlichter 2016, 18. internationaler Naturfoto-Wettbewerb" target="_blank">Glanzlichter 2016</a><br>
-<a href="https://www.speich.net/articles/de/2016/04/23/1311/"><img src="../about/images/helmkasuar.jpg" width="133" height="200" alt="Foto eines Helmkasuars"></a><br>
+<a href="https://www.speich.net/articles/de/2016/04/23/1311/"><img src="images/helmkasuar.jpg" width="133" height="200" alt="Foto eines Helmkasuars"></a><br>
 Endrunde, Kategorie Wildlife in Human Environment<br>
 <a href="https://speich/photo/photodb/photo-detail.php?imgId=4693"><img src="photodb/images/thumbs/2012-04-Florida/2012-04-Florida-337.jpg" width="180" height="120"></a></li>
 <li><h3>Schnappschuss 2015/16</h3>
