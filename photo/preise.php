@@ -23,7 +23,7 @@ li img {
 1. Rang, Kategorie Nature as Art<br>
 Naturfotografen Schweiz, <a href="http://naturfotografen.ch/id-2016.html" title="NFS-Wettbewerb 2016" target="_blank">NFS-Wettbewerb 2016</a><br>
 <a href="photodb/images/ch/ch014/ch014-078.jpg"><img src="photodb/images/thumbs/ch/ch014/ch014-078.jpg" width="180" height="119" alt="Foto von vereisten Bäumen"></a></li>
-<li><h3>Glanzlicher 2016</h3>
+<li><h3>Glanzlichter 2016</h3>
 Highlight, Kategorie Black and White<br>
 projekt natur & fotografie, <a href="http://glanzlichter.com/template/index.cfm/fuseaction/executeMenuID/uuidMenu/7882AF21-F10E-77C3-B34D495D5BC2FAAA/lastuuid/7882AF21-F10E-77C3-B34D495D5BC2FAAA/23/index.htm" title="Glanzlichter 2016, 18. internationaler Naturfoto-Wettbewerb" target="_blank">Glanzlichter 2016</a><br>
 <a href="https://www.speich.net/articles/de/2016/04/23/1311/"><img src="images/helmkasuar.jpg" width="133" height="200" alt="Foto eines Helmkasuars"></a><br>
@@ -54,7 +54,7 @@ Schweizerischen Vogelwarte Sempach, <a href="http://photo.vogelwarte.ch/wettbewe
 <a href="https://www.speich.net/photo/photodb/photo-detail.php?imgId=3066"><img src="photodb/images/thumbs/ch/ch011/ch011-033.jpg" width="119" height="180"></a></li>
 <li><h3>basellomorallye.02</h3>
 1. Rang, <a href="http://lomography.ch/2002/09/09/basellomorallye02/" target="_blank">basellomorallye 2002</a><br>
-<a href="images/016-009.jpg"><img src="http://lomography.ch/wp-content/gallery/basel.02.selection/hotlovestory01.jpg" width="180" height="120" alt="hot love story"></a></li>
+<a href="images/016-009.jpg"><img src="images/016-009-thumb.jpg" width="180" height="117" alt="hot love story"></a></li>
 </ul>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
