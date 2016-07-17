@@ -9,8 +9,8 @@
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Foto-Ausrüstung</h1>
-<div class="photoContainer"><img src="guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit Nikon 300mm in Aktion"
-	class="imgFrame" style="background-image: url(guyana-simon.jpg)">Simon beim Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.</div>
+<div class="photoContainer"><img src="images/guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit Nikon 300mm in Aktion"
+											class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">Simon beim Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.</div>
 <h2>Kameras</h2>
 <ul class="main">
 <li>Nikon D810 (29.12.2014)</li>
