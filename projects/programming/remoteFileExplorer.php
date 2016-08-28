@@ -32,6 +32,8 @@
 <p>This is a running demo of a <a href="http://dojotoolkit.org/reference-guide/dijit/Tree.html" target="_blank">dijit tree</a>
 	combined with a <a href="http://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="http://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
 <p>You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
+<p>The demo is currently broken. I'm working on upgrading to the latest version of dgrid, which uses dstore instead of store/data as well as
+removed the dependencies on xstyle and put-selector. Sorry for the inconvenience.</p>
 <div id="remoteFileExplorer"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
 <script type="text/javascript">
 var dojoConfig = {
