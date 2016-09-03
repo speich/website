@@ -4,9 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
-<link rel="stylesheet" href="/library/dojo/1.11.1/dijit/themes/claro/document.css">
-<link rel="stylesheet" href="/library/dojo/1.11.1/dijit/themes/claro/claro.css">
-<link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">
+<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/document.css">
+<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="/library/dgrid/v0.3.16/css/skins/claro.css">
+<link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <style type="text/css">
 #remoteFileExplorer {
@@ -32,14 +33,12 @@
 <p>This is a running demo of a <a href="http://dojotoolkit.org/reference-guide/dijit/Tree.html" target="_blank">dijit tree</a>
 	combined with a <a href="http://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="http://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
 <p>You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
-<p>The demo is currently broken. I'm working on upgrading to the latest version of dgrid, which uses dstore instead of store/data as well as
-removed the dependencies on xstyle and put-selector. Sorry for the inconvenience.</p>
 <div id="remoteFileExplorer"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
 	packages: [
-		{name: 'dgrid', location: '/library/dgrid'},
+		{name: 'dgrid', location: '/library/dgrid/v0.3.16'},
 		{name: 'xstyle', location: '/library/xstyle'},
 		{name: 'put-selector', location: '/library/put-selector'},
 		{name: 'rfe', location: '/library/remoteFileExplorer/js'},
@@ -50,11 +49,15 @@ var dojoConfig = {
 		'dijit/tree': {
 			'dijit/tree/_dndSelector': 'rfe/dnd/TreeSelector',
 			'dijit/tree/dndSource': 'rfe/dnd/TreeSource'
+		},
+		'dojo/dnd': {
+			'dojo/dnd/Selector': 'rfe/dnd/Selector'
 		}
 	}
 };
 </script>
-<script type="text/javascript" src="/library/dojo/1.11.1/dojo/dojo.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dojo/dojo.js"></script>
+<!--<script type="text/javascript" src="/dojo/1.11.1/dojo/dojo.js"></script>-->
 <script type="text/javascript">
 require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
 	ready(function() {
