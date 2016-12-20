@@ -19,11 +19,11 @@ define([
 		tabIndex: 21,
 		pathSeparator: ';',	// should be character that does not occur in id
 		multiplePathSeparator: ',',
+		dndSource: null,	// expose instance of dndController as in dgrid
 		dndController: function(arg, params) {
 			return new TreeSource(arg, lang.mixin(params || {}, {
 				accept: ['dgrid-row'],
-				fileStore: arg.rfe.store,
-				singular: true
+				rfe: arg.rfe
 			}));
 		},
 
@@ -36,6 +36,7 @@ define([
 					this.savePaths(newVal);
 				}));
 			}));
+			this.dndSource = this.dndController;
 		},
 
 		/**
@@ -57,11 +58,11 @@ define([
 		},
 
 		/**
- 		 * Save selected nodes in a cookie.
+		 * Save selected nodes in a cookie.
 		 * Converts the path array to a string separated with slashes. If there are multiple nodes selected, they
 		 * are separated by this.multiplePathSeparator.
 		 * @param {array} paths
- 		 */
+		 */
 		savePaths: function(paths) {
 			var arr = [], selects = [],
 			model = this.tree.model;
@@ -79,7 +80,12 @@ define([
 					path: '/'
 				});
 			}
-		}
+		} //,
 
+
+	//	_setSelectedItemAttr: function(/*Item or id*/ item){
+	//		//this.selection[item];
+	//		this.set('selectedItems', [item]);
+	//	}
 	});
 });

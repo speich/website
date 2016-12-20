@@ -1,12 +1,18 @@
 <?php
+/**
+ * This file contains the class Controller.
+ */
+namespace WebsiteTemplate;
+
+use stdClass;
+
 
 /**
  * This class is used as a REST controller.
  * REST resources are transformed into a controller (first path segment) and an array of resources, e.g.:
- * filesystem.php/administration/user/1 would be stored as
+ * controller.php/administration/user/1 would be stored as
  * $this->controller = 'administration' and $this->resources = array('user', 1);
  */
-
 class Controller {
 
 	/** @var int minimum number of bytes before using gzip for response */
@@ -21,55 +27,61 @@ class Controller {
 	/** @var null|string http method */
 	private $method = null;
 
-	/** @var string holding path */
-	private $resource = '';
+	/** @var array array of path segments */
+	private $resources = array();
 
-	/** @var string holding path segments */
-	private $resources = '';
+	/** @var null|Header  */
+	private $header = null;
 
-	/** @var string|null first path segment */
-	private $controller = null;
-
-	/** @var string */
-	public $contentType = 'json';
-
-	/** @var bool resource not found */
+	/** @var bool respond with 404 resource not found */
 	public $notFound = false;
+
+	/** @var bool flush buffer every bytes */
+	public $outputChunked = false;
+
+	/** @var int chunk size for flushing */
+	public $chunkSize = 4096;	// = 1 KB
 
 	/**
 	 * Constructs the controller instance.
+	 * If you don't want the first path segment to be set as the controller, set $useController to false.
 	 * @param Header $header
 	 * @param Error $error
+	 * @param Boolean $useController use first path segment as controller?
 	 */
-	public function __construct($header, $error) {
+	public function __construct(Header $header, Error $error, $useController = true) {
 		$this->header = $header;
 		$this->protocol = $_SERVER["SERVER_PROTOCOL"];
 		$this->method = $_SERVER['REQUEST_METHOD'];
-		$this->resource = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
+		$this->resources = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null;
 		$this->err = $error;
-
-		if (!is_null($this->resource)) {
-			/* Resource (path) is split into an array. The first segment is saved as the controller. */
-			$this->resources = ltrim($this->resource, '/');
-			$this->resources = explode('/', $this->resources);
-			$this->controller = array_shift($this->resources);
-		}
 	}
 
 	/**
 	 * Converts PHP input parameters to an object
 	 * Object properties correspond with request data
-	 * @return object|null
+	 * @param bool $json handle post data as json
+	 * @return stdClass |null
 	 */
-	public function getDataAsObject() {
+	public function getDataAsObject($json = false) {
 		switch ($this->method) {
 			case 'POST':
-				$data = count($_POST) > 0 ? $_POST : file_get_contents('php://input');	// in my local php installation $_POST is always empty, haven't figured out why yet
-				$arr = json_decode($data);
+				if ($json) {
+					$arr = json_decode(file_get_contents('php://input'));
+				}
+				else {
+					// note: Make sure you set the correct Content-Type when doint a xhr POST
+					$arr = $_POST;
+				}
 				break;
 			case 'PUT':
 				$data = file_get_contents('php://input');
-				$arr = json_decode($data);
+				if ($json) {
+					$arr = json_decode($data);
+				}
+				else {
+					parse_str($data, $arr);
+				}
 				break;
 			case 'GET':
 				$arr = $_GET;
@@ -90,14 +102,6 @@ class Controller {
 	}
 
 	/**
-	 * Returns the first path segment.
-	 * @return null|string
-	 */
-	public function getController() {
-		return $this->controller;
-	}
-
-	/**
 	 * Returns the http method, e.g. GET, POST, PUT or DELETE
 	 * @return null|string
 	 */
@@ -115,18 +119,17 @@ class Controller {
 
 	/**
 	 * Returns the path split into segments (resources).
-	 * @return array
+	 * @param bool $asString return a string instead of an array
+	 * @return array|string
 	 */
-	public function getResources() {
-		return $this->resources;
-	}
+	public function getResources($asString = false) {
+		$resources = $this->resources;
+		if (!is_null($resources) && $asString === false) {
+			$resources = trim($resources, '/');
+			$resources = explode('/', $resources);
+		}
 
-	/**
-	 * Returns the full resource (path)
-	 * @return string
-	 */
-	public function getResource() {
-		return $this->resource;
+		return $resources;
 	}
 
 	/**
@@ -148,15 +151,19 @@ class Controller {
 	}
 
 	/**
-	 * Set HTTP header.
+	 * Prints the header section of the HTTP response.
+	 * Sets the Status Code, Content-Type and additional headers set optionally.
 	 */
 	public function printHeader() {
-
-		header('Content-Type: '.$this->header->getContentType($this->contentType).'; '.$this->header->getCharset());
+		$contentType = $this->notFound ? 'text/html' : $this->header->getContentType();
+		header('Content-Type: '.$contentType.'; '.$this->header->getCharset());
+		foreach($this->header->get() as $header) {
+			header($header);
+		}
 
 		// server error
 		if (count($this->err->get()) > 0) {
-			header($_SERVER['SERVER_PROTOCOL'].' 505 Internal Server Error');
+			header($this->getProtocol().' 505 Internal Server Error');
 		}
 		// resource not found
 		else if ($this->notFound) {
@@ -172,12 +179,14 @@ class Controller {
 	}
 
 	/**
-	 * Print http response body.
+	 * Prints the body section of the HTTP response.
+	 * Automatically compresses body if autoCompress is set to true and length threshold is reached.
+	 * Prints the body in chunks if outputChunked is set to true.
 	 * @param string $data response body
 	 */
 	public function printBody($data = null) {
 		if (count($this->err->get()) > 0) {
-			if ($this->contentType == 'json') {
+			if ($this->header->getContentType() === 'application/json') {
 				echo $this->err->getAsJson();
 			}
 			else {
@@ -188,10 +197,28 @@ class Controller {
 			$len = strlen($data);
 			if ($this->autoCompress && $len > $this->gzipThreshold) {
 				$data = gzencode($data);
+				// recalc length after compressing
+				$len = strlen($data);
 				header('Content-Encoding: gzip');
 				header('Content-Length: '.$len);
 			}
-			echo $data;
+
+			if ($this->outputChunked) {
+				$chunks = str_split($data, $this->chunkSize);
+				foreach ($chunks as $chunk) {
+					echo $chunk;
+					ob_flush();
+					flush();
+				}
+			}
+			else {
+				echo $data;
+			}
+		}
+		else {
+			if ($this->header->getContentType() === 'application/json') {
+				echo '{}';
+			}
 		}
 	}
 }

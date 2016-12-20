@@ -17,17 +17,17 @@ $path = '/library/remoteFileExplorer/';
 
 // make include paths available to pages independent on subdir they reside in. On windows this has to be absolute paths
 $absPath = rtrim($_SERVER['DOCUMENT_ROOT'], '/').$path;
-$incPath = $absPath.'php/class'.PATH_SEPARATOR;
-$incPath.= $absPath.'php/services';
+$incPath = $absPath.'php/class/'.PATH_SEPARATOR;
+$incPath.= $absPath.'php/services/';
 set_include_path($incPath);
 
 
 // config paths
-$rfeConfig = array(
-	'paths' => array(
+$rfeConfig = [
+	'paths' => [
 		'webroot' => $absPath,
 		'demo' => $absPath.'php/fs/demo/',
 		'fileSystemRoot' => $absPath.'php/fs/',
 		'thumbnailCache' => $absPath.'php/fs/cache/'
-	)
-);
+	]
+];

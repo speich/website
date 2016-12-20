@@ -1,12 +1,12 @@
 <?php
 namespace remoteFileExplorer\fs;
-
 require_once 'FileSystem.php';
 
-class FileSession extends FileSystem {
+class FileSession implements FileSystem {
 
+	/** @var array define allowed 'database' fields */
 	public $fields = array(
-		'id', 'parId', 'name', 'size', 'mod', 'dir', 'mime'
+		'id', 'parId', 'name', 'size', 'mod', 'cre', 'dir', 'mime'
 	);
 
 	/** @var int limit number of items that can be in filesystem */
@@ -21,6 +21,8 @@ class FileSession extends FileSystem {
 	 */
 	private $fsDefault = array();
 
+	private $rootDir = '/';
+
 	/**
 	 * Instantiates the session based filesystem.
 	 * The string root dir is used as the session name.
@@ -28,12 +30,29 @@ class FileSession extends FileSystem {
 	 * @param array $data
 	 */
 	public function __construct($rootDir, $data) {
-		parent::__construct($rootDir);
+		$this->rootDir = $rootDir;
 		if (!isset($_SESSION['rfe'])) {
 			$this->fsDefault = $data;
 			$_SESSION['rfe'][$rootDir] = serialize($data);
 			$_SESSION['rfe']['lastUsedItemId'] = count($data);	// this is a very simple way which is not very robust // TODO: better way to create an id
 		}
+	}
+
+	/**
+	 * Set the root directory.
+	 * @param string $rootDir
+	 * @return void
+	 */
+	public function setRoot($rootDir) {
+		$this->rootDir = $rootDir;
+	}
+
+	/**
+	 * Get root directory
+	 * @return string
+	 */
+	public function getRoot() {
+		return $this->rootDir;
 	}
 	
 	/**
@@ -97,7 +116,7 @@ class FileSession extends FileSystem {
 			foreach ($data as $prop => $val) {
 				$fs[$data->id][$prop] = $val;
 			}
-
+			$fs[$data->id]['mod'] = time() * 1000;
 			$_SESSION['rfe'][$this->getRoot()] = serialize($fs);
 			$json = json_encode($fs[$data->id], JSON_NUMERIC_CHECK);
 		}
@@ -126,7 +145,8 @@ class FileSession extends FileSystem {
 				$id = $this->getId();
 				$item['id'] = $id;
 				$item['parId'] = $target;
-				$item['mod'] = date('d.m.Y H:i:s', time());
+				$item['cre'] = time() * 1000;
+				$item['mod'] = time() * 1000;
 				$fs[$id] = $item;
 
 				if (array_key_exists('dir', $fs[$resource])) {
@@ -164,7 +184,10 @@ class FileSession extends FileSystem {
 				$item['dir'] = true;
 			}
 			$id = $this->getId();
+			$date = time() * 1000;
 			$item['id'] = $id;
+			$item['cre'] = $date;
+			$item['mod'] = $date;
 			$fs[$id] = $item;
 			$_SESSION['rfe'][$this->getRoot()] = serialize($fs);
 			$json = json_encode($item, JSON_NUMERIC_CHECK);
@@ -227,7 +250,7 @@ class FileSession extends FileSystem {
 		}
 		else {
 			foreach($fs as $file) {
-				if (strpos($file['name'], $keyword) !== false) {
+				if (stripos($file['name'], $keyword) !== false) {
 					if ($count >= $start && $count <= $end) {
 						$file['path'] = $this->createPath($fs, $file);
 						$arr[] = $file;
@@ -254,7 +277,7 @@ class FileSession extends FileSystem {
 		}
 		$count = 0;
 		foreach($fs as $file) {
-			if (strpos($file['name'], $keyword) !== false) {
+			if (stripos($file['name'], $keyword) !== false) {
 				$count++;
 			}
 		}
@@ -300,7 +323,7 @@ class FileSession extends FileSystem {
 					$id = $this->getId();
 					$item['id'] = $id;
 					$item['parId'] = $target;
-					$item['mod'] = date('d.m.Y H:i:s', time());
+					$item['mod'] = time() * 1000;
 					$fs[$id] = $item;
 
 					if (array_key_exists('dir', $row)) {

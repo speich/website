@@ -1,7 +1,12 @@
 <?php
-use remoteFileExplorer\fs as fs;
+use remoteFileExplorer\fs\FileSession;
+use remoteFileExplorer\InputChecker;
+use WebsiteTemplate\Controller;
+use WebsiteTemplate\Error;
+use WebsiteTemplate\Header;
 
-require_once '../inc_global.php';
+
+require_once __DIR__.'/../inc_global.php';
 require_once 'Error.php';
 require_once 'Controller.php';
 require_once 'Header.php';
@@ -9,15 +14,15 @@ require_once 'Http.php';
 require_once 'InputChecker.php';
 
 $err = new Error();
-$ctrl = new Controller(new Header(), $err);
-$data = $ctrl->getDataAsObject();
-$resource = $ctrl->getResource();
-$controller = $ctrl->getController();
-$resources = $ctrl->getResources();
-$ctrl->contentType = 'json';
-$response = false;
-$header = false;
+$header = new Header();
+$header->setContentType('json');
+$ctrl = new Controller($header, $err);
+$data = $ctrl->getDataAsObject(true);
+$controller = $ctrl->getResources();
+$controller = is_array($controller) ? $controller[0] : null;
+$resource = $ctrl->getResources(true);
 $moduleType = 'session';
+$response = null;
 
 
 switch($moduleType) {
@@ -25,7 +30,7 @@ switch($moduleType) {
 		// use session to store the user's filesystem
 		require_once('FileSession.php');
 		$fsData = require_once $rfeConfig['paths']['demo'].'demodata.php';
-		$fs = new fs\FileSession($rfeConfig['paths']['demo'], $fsData);
+		$fs = new FileSession($rfeConfig['paths']['demo'], $fsData);
 		break;
 	case 'sqlite':
 		// TODO: use ModuleSQLite to store user's file system
@@ -35,20 +40,20 @@ switch($moduleType) {
 		break;
 }
 
-//sleep(1); // for testing async
-//time_nanosleep(0, 500000000);	// = 0.5 seconds
-$checker = new \remoteFileExplorer\InputChecker();
+// for testing async
+//time_nanosleep(0, rand(1, 2) * 250000000);	// = rand * 0.25 seconds
 
-if (is_null($data) || $checker->sanitizeProperties($data, $fs->fields)) {
+$checker = new InputChecker();
 
-	if ($resource || $data) {
+if ((is_null($data) || $checker->sanitizeProperties($data, $fs->fields))) {
 		switch ($ctrl->getMethod()) {
 			case 'GET':
-				if ($controller == 'search') {
+				if ($controller === 'search') {
 					$keyword = str_replace('*', '', $data->name);
 					$numRec = $fs->getNumSearchRecords($keyword);
-					$ranges = $ctrl->header->getRange();
-					$header = $ctrl->header->createRange($ranges, $numRec);
+					$ranges = $header->getRange();
+					$rangeHeader = $header->createRange($ranges, $numRec);
+					$header->add($rangeHeader);
 					$response = $fs->search($keyword, $ranges['start'], $ranges['end']);
 				}
 				else {
@@ -70,19 +75,11 @@ if (is_null($data) || $checker->sanitizeProperties($data, $fs->fields)) {
 				$response = $fs->del($resource);
 				break;
 		}
-	}
 
 }
 
-// resource found and processed
-if ($response) {
-	if ($header) {
-		header($header);
-	}
-}
-else {
+if (is_null($response)) {
 	$ctrl->notFound = true;
 }
-
 $ctrl->printHeader();
 $ctrl->printBody($response);

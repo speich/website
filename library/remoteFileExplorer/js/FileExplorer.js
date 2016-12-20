@@ -1,17 +1,16 @@
+/**
+ * A module that creates an application that allows you to manage and browse files and directories on a remote web server.
+ * It consists of tree and a grid. The tree loads file data over REST via php from remote server.
+ * @module FileExplorer rfe/FileExplorer
+ */
 define([
 	'dojo/_base/lang',
 	'dojo/_base/declare',
 	'dojo/Deferred',
 	'dojo/when',
-	'dojo/cookie',
-	'dojo/keys',
 	'dojo/dom',
 	'dojo/dom-class',
-	'dojo/date/locale',
 	'dojo/on',
-	'dojo/topic',
-	'dojo/query',	// required for dojo/on event delegation
-	'dojo/io-query',
 	'dojo/Stateful',
 	'dijit/registry',
 	'rfe/_Base',
@@ -20,20 +19,13 @@ define([
 	'rfe/Edit',
 	'rfe/store/FileStore',
 	'rfe/dialogs/dialogs',
+	'rfe/Keyboard',
 	'rfe/dnd/Manager'	// needs to be loaded for dnd
-], function(lang, declare, Deferred, when, cookie, keys, dom, domClass, locale, on, topic, query, ioQuery, Stateful,
-				registry, _Base, Layout, History, Edit, FileStore, dialogs) {
-
-	/**
-	 * A module that creates an application that allows you to manage and browse files and directories on a remote web server.
-	 * It consists of tree and a grid. The tree loads file data over REST via php from remote server.
-	 * @module FileExplorer rfe/FileExplorer
-	 */
-
-	// TODO: multiselect (in tree allow only of files but not of folders)
+], function(lang, declare, Deferred, when, dom, domClass, on, Stateful,
+				registry, _Base, Layout, History, Edit, FileStore, dialogs, Keyboard) {
 
 	/*
-	 *	@constructor
+	 *	@class rfe/FileExporer
 	 *	@extends {rfe/Layout}
 	 * @mixes {rfe/Edit}
 	 * @property {string} version
@@ -51,9 +43,9 @@ define([
 	 * @property {rfe/store/FileStore} store
 	 *
 	 */
-	return declare([_Base, History, Layout, Edit], {
+	return declare([_Base, History, Layout, Edit, Keyboard], {
 		version: '0.9',
-		versionDate: '2013',
+		versionDate: '2014',
 		currentTreeObject: null,
 		context: null,
 		store: null,
@@ -71,14 +63,17 @@ define([
 			this.context = {
 				isOnGridRow: false,
 				isOnGridContainer: false,
+				isOnGrid: false,
 				isOnTreeRow: false,
-				isOnTreeContainer: false
+				isOnTreeContainer: false,
+				isOnTree: false
 			};
 			this.domNode = dom.byId(this.id);
 		},
 
 		startup: function() {
 			this.init();
+			this.postCreate();
 			this.initEvents();
 		},
 
@@ -88,44 +83,51 @@ define([
 				tree = this.tree,
 				store = this.store;
 
-			tree.on('click', function(object) {	// when calling tree.on(click, load) at once object is not passed
-				self.displayChildrenInGrid(object).then(function() {
-					self.currentTreeObject.set(object);
-					self.set('history', object.id);
-				});
-			});
-			tree.on('load', lang.hitch(this, this.initState));
-
-			grid.on('.dgrid-row:click, .dgrid-row:dblclick', function(evt) {
-				var object = grid.row(evt.target).data;
-				if (evt.type == 'dblclick' && object.dir){
-					self.display(object).then(function() {
-						self.set('history', object.id);
-					});
-				}
-				else {
-					self.set('history', object.id);
-				}
-			});
-			grid.on('dgrid-datachange', function(evt) {
-				// catch using editor when renaming
-				var obj = evt.cell.row.data;
-
-				obj[store.labelAttr] = evt.value;
-				store.put(obj).then(function() {
-					grid.save();
-				}, function() {
-					grid.revert();
-				});
-			});
-
 			on(this.panes.domNode, '.rfeTreePane:mousedown, .rfeGridPane:mousedown', function(evt) {
 				self.set('context', evt, this);
 			});
 
-			on(this.domNode, '.dgrid-content:keydown, .dijitTreeContainer:keydown',  function(evt) {
-				self.set('context', evt, this);
-				self._onKeyDown(evt, this);
+			tree.on('click', function(object) {	// when calling tree.on(click, load) at once object is not passed
+				when(self.displayChildrenInGrid(object), function() {	// use when since dfd might already have resolved from previous click
+					self.currentTreeObject.set(object);
+					self.set('history', object.id);
+				});
+			});
+			tree.on('load', function() {
+				self.initState().then(function() {
+
+					grid.on('.dgrid-row:click, .dgrid-row:dblclick', function(evt) {
+						var object = grid.row(evt.target).data;
+
+						switch(evt.type) {
+							case 'dblclick':
+								if (object.dir) {
+									self.display(object).then(function() {
+										self.set('history', object.id);
+									});
+								}
+								else {
+									window.open(store.storeMaster.target + object.id, '_blank');
+								}
+								break;
+							case 'click':
+								self.set('history', object.id);
+								break;
+						}
+
+					});
+					grid.on('dgrid-datachange', function(evt) {
+						// catch using editor when renaming
+						var obj = evt.cell.row.data;
+
+						obj[store.labelAttr] = evt.value;
+						store.put(obj).then(function() {
+							grid.save();
+						}, function() {
+							grid.revert();
+						});
+					});
+				});
 			});
 		},
 
@@ -198,57 +200,28 @@ define([
 		},
 
 		/**
-		 * Reload current folder.
+		 * Reload file explorer.
 		 */
 		reload: function() {
-			/*
-			var dndController = this.tree.dndController.declaredClass;
+			//window.location.reload();
+			// TODO: only reload files and folders
 
+			//var dndController = this.tree.dndController.declaredClass;
 			this.store.storeMemory.setData([]);
 			this.grid.refresh();
 
 			// reset and rebuild tree
-			this.tree.dndController.destroy();	// cleanup dnd connections and such
+			//this.tree.dndController = null;
 			this.tree._itemNodesMap = {};
 			this.tree.rootNode.destroyRecursive();
 			this.tree.rootNode.state = "UNCHECKED";
-			this.tree.dndController = dndController; //'rfe.dnd.TreeSource',
+			//this.tree.dndController = dndController; //'rfe.dnd.TreeSource',
 			this.tree.postMixInProperties();
+		//	this.tree._load();
 			this.tree.postCreate();
 			this.initState();
-			*/
-		},
 
-		/**
-		 * Handle key events on grid and tree.
-		 * @private
-		 */
-		_onKeyDown: function(evt, sourceNode) {
 
-			var nodeType = evt.target.nodeName.toLowerCase();
-
-			if (nodeType === 'input' || nodeType === 'textarea') {
-				// prevent calling delete
-				return;
-			}
-
-			switch(evt.keyCode){
-				// TODO: copy, paste, cut
-				case keys.DELETE:
-					this.del();
-					break;
-			}
-		},
-
-		/**
-		 * Returns the current date.
-		 * @return {string} formatted date
-		 */
-		getDate: function() {
-			return locale.format(new Date(), {
-				datePattern: 'dd.MM.yyyy',
-				timePattern: 'HH:mm'
-			});
 		},
 
 		/**
@@ -258,15 +231,20 @@ define([
 		 */
 		_setContext: function(evt, node) {
 			var widget = registry.getEnclosingWidget(evt.target),
-				isGridRow = typeof this.grid.row(evt) !== 'undefined',
+				isGridRow = this.grid.row(evt) !== undefined,
 				isTreeRow = widget && widget.baseClass === 'dijitTreeNode';
+
+			node = node || widget.domNode;
 
 			this.context = {
 				isOnGridRow: isGridRow,
 				isOnGridContainer: domClass.contains(node, 'rfeGridPane') && !isGridRow,
 				isOnTreeRow: isTreeRow,
-				isOnTreeContainer: domClass.contains(node, 'rfeTreePane') && !isTreeRow
+				isOnTreeContainer: widget && widget.baseClass === 'dijitTree'
 			};
+
+			this.context.isOnGrid = this.context.isOnGridRow || this.context.isOnGridContainer;
+			this.context.isOnTree = this.context.isOnTreeRow || this.context.isOnTreeContainer;
 		},
 
 		/**
@@ -330,14 +308,16 @@ define([
 			});
 			// get objects children and display them in grid
 			dfd = dfd.then(function(object) {
-					// TODO: when object is a file get parent object's children
 					return when(store.getChildren(object), function() {	// load children puts them in the cache, then set grid's store
+						var row, cell;
 						// Setting caching store for grid would not use cache, because cache.query() always uses the
 						// master store => use storeMemory.
 						grid.set('store', store.storeMemory, { parId: id });
 						if (file) {
-							var row = grid.row(file.id);
+							row = grid.row(file.id);
+							cell = grid.cell(file, 'name');
 							grid.select(row);
+							grid.focus(grid.cellNavigation ? cell : row);
 						}
 					});
 			});
@@ -348,14 +328,14 @@ define([
 			// Note: A visible file/folder object is always loaded
 			var dialog, id, store = this.store,
 				i = 0, len,
-				widget = this.context.isOnGridRow || this.context.isOnGridContainer ? this.grid : this.tree,
-				sel = widget.selection;
+				widget = this.context.isOnGrid ? this.grid : this.tree,
+				selection = widget.selection;
 
 			// TODO: if multiple selected file objects, only use one dialog with multiple values (and sum of all file sizes). Requires preloading folder contents first!
 			// grid
-			if (sel) {
-				for (id in sel) {
-					if (sel[id] === true) {
+			if (selection) {
+				for (id in selection) {
+					if (selection[id] === true) {
 						dialog = dialogs.getByFileObj('fileProperties', store.get(id));
 						dialog.show();
 					}

@@ -1,11 +1,13 @@
+/**
+ * Module containing a class to create a search box in the toolbar.
+ */
 define([
-	'dojo/_base/lang',
 	'dojo/_base/declare',
 	'dijit/form/ComboBox',
-	'rfe/_SearchBoxMenu',
 	'dojo/store/JsonRest',
-	'dojo/when'
-], function(lang, declare, ComboBox, _SearchBoxMenu, JsonRest, when) {
+	'dojo/when',
+	'rfe/util/stringUtil'
+], function(declare, ComboBox, JsonRest, when, stringUtil) {
 
 	return declare([ComboBox], {
 		value: 'search',
@@ -19,7 +21,7 @@ define([
 		store: null,
 		rfe: null,
 		target: '',
-		dropDownClass: _SearchBoxMenu,
+		labelType: 'html',
 
 		constructor: function(args) {
 			this.store = new JsonRest({
@@ -37,17 +39,29 @@ define([
 
 			var rfe = this.rfe;
 
+			// display selected folder or file in grid and tree
 			this.on('change', function() {
 				var file = this.item;
 
+				if (!file) {
+					// nothing selected
+					return;
+				}
+
 				if (file.dir) {
 					rfe.display(file);
+					// TODO: set focus in tree
+					//focusNode()
 				}
 				else {
 					when(rfe.store.get(file.parId), function(object) {
 						rfe.display(object).then(function() {
-							var row = rfe.grid.row(file.id);
-							rfe.grid.select(row);
+							var grid = rfe.grid,
+								row = grid.row(file.id),
+								cell = grid.cell(file, 'name');
+
+							grid.select(row);
+							grid.focus(grid.cellNavigation ? cell : row);
 						});
 					});
 				}
@@ -58,7 +72,16 @@ define([
 					evt.stopPropagation();
 				}
 			});
+		},
+
+		labelFunc: function(obj) {
+			return obj.name + '<br>' +
+				this.target + '/' + obj.path + '<br>' +
+				'<span class="rfeSearchBoxItemLabel">Date created:</span> ' + stringUtil.formatDate(obj.cre) +
+				', <span class="rfeSearchBoxItemLabel">Date modified:</span> ' + stringUtil.formatDate(obj.mod) + '<br>' +
+				'<span class="rfeSearchBoxItemLabel">Size:</span> ' + stringUtil.formatFileSize(obj.size);
 		}
+
 	});
 });
 

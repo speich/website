@@ -1,13 +1,9 @@
 define([
-	'dojo/_base/array',
 	'dojo/_base/lang',
 	'dojo/_base/declare',
-	'dojo/on',
-	'dojo/topic',
 	'dojo/cookie',
 	'dojo/dom-construct',
 	'dojo/query',
-	'dojo/Stateful',
 	'rfe/Tree',
 	'rfe/Grid',
 	'rfe/dnd/GridSource',
@@ -19,7 +15,7 @@ define([
 	'rfe/layout/Panes',
 	'rfe/Console',
 	'rfe/ContextMenu'
-], function(array, lang, declare, on, topic, cookie, domConstruct, query, Stateful, Tree, Grid, GridSource,
+], function(lang, declare, cookie, domConstruct, query, Tree, Grid, GridSource,
 				registry, CheckBox, Dialog, Toolbar, Menubar, Panes, Console, ContextMenu) {
 
 	/**
@@ -99,11 +95,12 @@ define([
 			this.grid = new Grid({
 				rfe: this,
 				tabIndex: 31,
+				view: 'icons',
 				store: null, // store is set in FileExplorer.initState()
 				dndConstructor: GridSource,	// dgrid/extension/dnd can't be overridden directly
 				dndParams: {
 					accept: ['treeNode'],
-					fileStore: this.store
+					rfe: this
 				}
 			}, div);
 		},
@@ -119,17 +116,18 @@ define([
 					'<h2>Remote File Explorer (rfe)</h2>' +
 					'<p>version ' + this.version + ' - ' + this.versionDate + '</p>' +
 					'<p>Created by <a href="http://www.speich.net" target="_blank">Simon Speich</a>, www.speich.net using the ' +
-					'<a href="http://www.dojotoolkit.org" target="_blank">dojotoolkit</a> and <a href="http://www.php.net" target="_blank">PHP</a>.' +
+					'<a href="http://www.dojotoolkit.org" target="_blank">dojotoolkit</a> and <a href="http://www.php.net" target="_blank">PHP</a>. ' +
 					'The code is available on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">github</a></p>' +
-					'<p>Can be used and altered freely as long as this dialog with logo and link is included.</p>' +
+					'<p>Available under the same <a href="http://dojotoolkit.org/license" target="_blank">dual BSD/AFL license</a> as the Dojo Toolkit.</p>' +
 					'</div>'
 			});
 
+			// TODO: move to dialogs.js
 			var self = this;
 			var dialog = new Dialog({
 				id: 'rfeDialogSettings',
 				title: "Settings",
-				content: '<div>' +
+				content: '<div>Not implmented yet' +
 				'<fieldset><legend>Navigation Pane (Folders)</legend></fieldset>' +
 				'</div>'
 			});
@@ -142,6 +140,7 @@ define([
 			var input = domConstruct.create('input', null, label, 'first');
 			new CheckBox({
 				checked: cookie(this._cnDialogSettingsFolderState) || true,
+				disabled: 'disabled',
 				onChange: function() {
 					self.tree.set('persist', this.checked);
 					cookie(this._cnDialogSettingsFolderState, this.checked);
@@ -154,6 +153,7 @@ define([
 			input = domConstruct.create('input', null, label, 'first');
 			new CheckBox({
 				checked: true,
+				disabled: 'disabled',
 				onClick: function() {
 					self.store.skipWithNoChildren = this.checked;
 					self.reload();

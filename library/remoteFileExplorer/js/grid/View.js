@@ -1,17 +1,14 @@
 define([
 	'dojo/_base/declare',
-	'dojo/_base/lang',
-	'dojo/request/xhr',
 	'dojo/on',
-	'dojo/aspect',
 	'dgrid/Grid',
 	'put-selector/put'
-], function(declare, lang, xhr, on, aspect, Grid, put) {
+], function(declare, on, Grid, put) {
 
 	return declare(null, {
 
 		/** default view */
-		view: 'icons',
+		view: 'list',
 
 		/** width of icons */
 		iconWidth: 80,
@@ -66,7 +63,7 @@ define([
 		},
 
 		/**
-		 * Rerender headings and rows
+		 * Re-render headings and rows
 		 * @param {String} view
 		 */
 		_setView: function(view) {
@@ -84,10 +81,10 @@ define([
 		 * @returns {HTMLImageElement}
 		 */
 		_getIconType: function(obj) {
-			var mime, img = put('img', {
+			var mime, img = put('img'); /*, {
 				width: 64,
 				height: 64
-			});
+			});*/
 
 			mime = obj.mime ? obj.mime.split('/')[0] : null;
 			switch (mime) {
@@ -136,6 +133,10 @@ define([
 					this.columns[prop].renderCell = this.cellRenderers[view][prop];
 				}
 			}
+
+			// Should keyboard navigation occur at row or cell level?
+			// @see dgrid/Keyboard.js
+			this.cellNavigation = view === 'list';
 
 			put(this.domNode, "!gridViewList!gridViewIcons!gridViewDetails." + cssClass);
 		},

@@ -1,12 +1,11 @@
 define([
 	'dojo/_base/declare',
-	'dojo/_base/lang',
 	'dojo/when',
-	'dojo/on',
-	'dojo/mouse', // mouse.isLeft
-	'dojo/dnd/Source'
+	'dojo/dnd/Source',
+	'dojo/dnd/Manager',
+	'rfe/dnd/_SourceMixin'
 ],
-function(declare, lang, when, on, mouse, DnDSource) {
+function(declare, when, DndSource, DndManager, _SourceMixin) {
 
 	/**
 	 * Class to handle drag and drop of the dgrid.
@@ -16,42 +15,12 @@ function(declare, lang, when, on, mouse, DnDSource) {
 	 * @property {OnDemandGrid} grid
 	 * @property {FileStore}
 	 */
-	return declare(DnDSource, /** @lends rfe.dnd.GridSource.prototype */ {
+	return declare([DndSource, _SourceMixin], /** @lends rfe.dnd.GridSource.prototype */ {
 
-		grid: null,
-
-		fileStore: null,
+		rfe: null,
 
 		getObject: function(node) {
 			return this.grid.row(node).data;
-		},
-
-		// Allow bubbling up by fixing dojo/dnd/Selector.js calling event.stop(et
-		// make sure event is only emitted once if necessary, e.g. left mouse down on grid.row
-		onMouseDown: function(evt) {
-			// Note: Overriding to bubble up
-						// to know where user clicked at in FileExplorer.getWidget
-			if (evt._dndSelf || !this.grid.row(evt) || mouse.isRight(evt)) {
-				// prevent endless loop when called from grid.row mousedown,
-				// also ignore when not on row or when right mousedown, which is not canceled by parent mouse down
-				return;
-			}
-			this.inherited('onMouseDown', arguments);
-			on.emit(evt.target, 'mousedown', {
-				bubbles: true,
-				cancelable: true,
-				_dndSelf: true
-			});
-			evt.preventDefault();
-		},
-
-		_legalMouseDown: function(evt){
-			// summary:
-			//		fix _legalMouseDown to only allow starting drag from an item
-			//		(not from bodyNode outside contentNode)
-			var legal = this.inherited("_legalMouseDown", arguments);
-			// DnDSource.prototype._legalMouseDown.apply(this, arguments);
-			return legal && evt.target !== this.grid.bodyNode;
 		},
 
 		/**
@@ -92,12 +61,12 @@ function(declare, lang, when, on, mouse, DnDSource) {
 		 * @param newParentObject
 		 */
 		onDropInternal: function(nodes, copy, newParentObject) {
-			var fileStore = this.fileStore,
+			var fileStore = this.rfe.store,
 				storeMemory = fileStore.storeMemory,
 				targetSource = this,
 				oldParentObject;
 
-			// Don't bother continuing if not moving anything.
+			// Don't bother continuing if not moving onto anything.
 			// (Don't need to worry about edge first/last cases since dropping
 			// directly on self doesn't fire onDrop, but we do have to worry about
 			// dropping last node into empty space beyond rendered rows, if we don't copy)
@@ -112,6 +81,8 @@ function(declare, lang, when, on, mouse, DnDSource) {
 				// all nodes in grid share same parent, only get it once from first node. Since you can only drag an object
 				// that's visible (hence loaded an cached) we can directly use the memoryStore
 				oldParentObject = oldParentObject || storeMemory.get(object[fileStore.parentAttr]);
+				// if dropped on empty space beyond rendered row newParentObject (target) is undefined, use same parent
+				newParentObject = newParentObject || oldParentObject;
 				fileStore.pasteItem(object, oldParentObject, newParentObject, copy);
 			});
 		},
@@ -120,7 +91,7 @@ function(declare, lang, when, on, mouse, DnDSource) {
 		 * Handle objects dropped from an external source onto the grid.
 		 */
 		onDropExternal: function(sourceSource, nodes, copy, newParentObject) {
-			var fileStore = this.fileStore,
+			var fileStore = this.rfe.store,
 				storeMemory = fileStore.storeMemory,
 				row, grid = this.grid,
 				oldParentObject;
@@ -137,7 +108,7 @@ function(declare, lang, when, on, mouse, DnDSource) {
 					newParentObject = storeMemory.get(row.data[fileStore.parentAttr]);
 				}
 				else {	// empty folder get parent from tree (TODO: find solution which uses dnd interface (possible?)
-					newParentObject = grid.rfe.currentTreeObject;
+					newParentObject = this.rfe.currentTreeObject;
 				}
 			}
 
@@ -151,14 +122,23 @@ function(declare, lang, when, on, mouse, DnDSource) {
 			});
 		},
 
-		checkAcceptance: function(source, nodes){
-			// summary:
-			//		augment checkAcceptance to block drops from sources without getObject or
-			return source.getObject &&
-				//source.singular &&
-				DnDSource.prototype.checkAcceptance.apply(this, arguments);
+		/**
+		 * Process mouse move events
+		 */
+		onMouseMove: function() {
+			this.inherited('onMouseMove', arguments);
+
+			var parentObj, id,
+				m = DndManager.manager();
+
+			// guard against dragging from tree into own child in grid
+			if (this.isDragging && m.source.tree) {
+				id = m.source.getObject(m.nodes[0]).id;
+				parentObj = this.rfe.currentTreeObject;
+				if (this._isParentChild(id, parentObj)){
+					m.canDrop(false);
+				}
+			}
 		}
-
-
 	});
 });
