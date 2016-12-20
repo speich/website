@@ -45,6 +45,7 @@
 <ul class="main">
 <li><a href="../../downloads/demo-dgrid-jsonrest.zip">Download all necessary PHP files</a> for the dgrid demo.</li>
 <li>Notes about <a href="/articles/2011/12/29/rest-with-dojo-and-php-notes-on-using-dgrid-with-a-caching-store/">possible pitfalls when using a caching store and an observable</a>.</li>
+<li>You can find a much more advanced demo showing a <a href="../../../projects/programming/remoteFileExplorer.php/demo/photos" title="demo of removeFileExplorer">dgrid combined with a tree</a> hooked up to a dojo/store/JsonRest.</li>
 </ul>
 <script type="text/javascript">
  var dojoConfig = {
