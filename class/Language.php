@@ -224,7 +224,7 @@ class Language {
 			if ($lang == $this->get()) {
 				$str .= ' class="'.$config->liClassActive.'"';
 			}
-			$str .= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.strtoupper($lang).'</a>';
+			$str .= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.$this->arrLangLong[$lang].'</a>';
 			$str .= '</li>';
 			if ($config->delimiter != '' && key($this->arrLang) < count($this->arrLang)) {
 				$str .= '<li>'.$config->delimiter.'</li>';
