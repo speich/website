@@ -26,7 +26,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script type="text/javascript" src="../../library/dojo/1.11.1/dojo/dojo.js"></script>
+<script type="text/javascript" src="../../library/dojo/1.12.1/dojo/dojo.js"></script>
 <script type="text/javascript">
 require([
 	'gmap/gmapLoader!https://maps.google.com/maps/api/js?v=3.&language=' + dojoConfig.locale,
