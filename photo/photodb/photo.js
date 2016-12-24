@@ -31,7 +31,7 @@ require([
 	// start slideshow at clicked slide using event delegation
 	domNodeSlides.addEventListener('click', function(evt) {
 		var parent = evt.target.parentNode;
-		if (evt.target.tagName.toLowerCase() === 'a' && parent.classList.contains('slideCanvas')) {
+		if (evt.target.tagName.toLowerCase() === 'a' && evt.target.href.indexOf('photo-detail') === -1) {
 			evt.preventDefault();
 			options = {
 				index: getElementIndex(parent.parentNode),
