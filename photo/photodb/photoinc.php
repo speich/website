@@ -11,7 +11,7 @@ $params = $photo->createObjectFromPost((object) $_GET);
 
 // generate filter and sorting menus
 $arrDel = ['pg'];
-$arrVal = [7, 14, 21, 28, 56];
+$arrVal = [14, 28, 56, 112];
 $mRecPp = new Menu(null, 'menu menu2 mRecPp');
 $mRecPp->add(['a', 'b', $params->numRecPerPage]);
 foreach ($arrVal as $key => $val) {

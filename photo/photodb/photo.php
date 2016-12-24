@@ -1,6 +1,7 @@
 <?php
 use WebsiteTemplate\PagedNav;
 
+
 require_once __DIR__.'/../../library/inc_script.php';
 require_once 'photoinc.php';
 
@@ -26,6 +27,8 @@ $pagingBar = '<div class="pagingBar">'.
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../../library/PhotoSwipe/dist/photoswipe.css">
+<link rel="stylesheet" href="../../library/PhotoSwipe/dist/default-skin/default-skin.css">
 </head>
 
 <body class="tundra">
@@ -34,61 +37,120 @@ $pagingBar = '<div class="pagingBar">'.
 <?php echo $pagingBar; ?>
 <div class="search">
 <script>
-  (function() {
-    var cx = '<?php echo ($lang->get() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
+(function() {
+	var cx = '<?php echo($lang->get() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>';
+	var gcse = document.createElement('script');
+	gcse.type = 'text/javascript';
+	gcse.async = true;
+	gcse.src = (document.location.protocol == 'https:' ? 'https:': 'http:') +
+		'//www.google.com/cse/cse.js?cx=' + cx;
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(gcse, s);
+})();
 </script>
 <gcse:search></gcse:search>
 </div>
 <div class="optionBar">
 <div class="barTxt"><?php
-	echo $i18n['sorting'];
-	echo $mSort->render(); ?>
+echo $i18n['sorting'];
+echo $mSort->render(); ?>
 </div>
 <div class="barVertSeparator"></div>
 <div class="barTxt"><?php
-	echo $i18n['rating'];
-	echo $mRating->render();
+echo $i18n['rating'];
+echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
-<div id="showMap" class="button buttShowMap" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n['map']; ?><img src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
+<div id="showMap" class="button buttShowMap" title="<?php echo $i18n['show on map']; ?>"><a
+	href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n['map']; ?><img
+		src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
 </div>
 </div>
-
-<div><ul><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul></div>
-
+<div>
+<ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul>
+</div>
 <?php echo $pagingBar ?>
 
-<div id="slideFullScreenCont">
-<div class="slideFullScreen">
-<span class="slideFullScreenAuthor"><?php echo $i18n['photo']; ?> Simon Speich, www.speich.net</span>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div id="gallery" class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="pswp__bg"></div>
+<div class="pswp__scroll-wrap">
+<div class="pswp__container">
+<div class="pswp__item"></div>
+<div class="pswp__item"></div>
+<div class="pswp__item"></div>
 </div>
-<!-- not implemented yet
-<div class="slideNavClose">close</div>
-<div class="slideNavPrev">previous</div>
-<div class="slideNavNext">next</div>
--->
+<div class="pswp__ui pswp__ui--hidden">
+<div class="pswp__top-bar">
+<div class="pswp__counter"></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+<div class="pswp__preloader">
+<div class="pswp__preloader__icn">
+<div class="pswp__preloader__cut">
+<div class="pswp__preloader__donut"></div>
 </div>
-
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class="pswp__share-tooltip"></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+<div class="pswp__caption">
+<div class="pswp__caption__center"></div>
+</div>
+</div>
+</div>
+</div>
 <?php require_once 'inc_body_end.php'; ?>
+<script src="../../library/tinyamd.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+require([
+	'../../library/PhotoSwipe/dist/photoswipe',
+	'../../library/PhotoSwipe/dist/photoswipe-ui-default'
+], function(PhotoSwipe, PhotoSwipeUI_Default) {
+	var gallery, options, slides, items = [],
+		domNodeGallery = document.getElementById('gallery'),
+		domNodeSlides = document.getElementById('slides'),
 
-<script type="text/javascript">
-var dojoConfig = {
-	async: true,
-	locale: '<?php echo $locale = $lang->get(); ?>'
-};
-</script>
-<script type="text/javascript" src="../../library/dojo/1.11.1/dojo/dojo.js"></script>
-<script type="text/javascript">
-require(['../../photo/photodb/photoApp.js'], function(photoApp) {
-	photoApp.init();
+		/**
+		 * Return the index of a child element.
+		 * @param {HTMLElement} element
+		 */
+		getElementIndex = function(element) {
+			var els = element.parentNode.children;	// note: children contains only elements :-)
+
+			for (var i = 0, len = els.length; i < len; i++) {
+				if (els[i] === element) {
+					return i;
+				}
+			}
+			return i;
+		};
+
+	// create gallery items
+	slides = domNodeSlides.getElementsByClassName('slideCanvas');
+	for (var i = 0, len = slides.length; i < len; i++) {
+		items[i] = JSON.parse(slides[i].dataset.slide);
+		items[i].src = slides[i].getElementsByTagName('a')[0].href;
+	}
+
+	// start slideshow at clicked slide using event delegation
+	domNodeSlides.addEventListener('click', function(evt) {
+		var parent = evt.target.parentNode;
+		if (evt.target.tagName.toLowerCase() === 'a' && parent.classList.contains('slideCanvas')) {
+			evt.preventDefault();
+			options = {
+				index: getElementIndex(parent.parentNode),
+				shareButtons: null
+			};
+			gallery = new PhotoSwipe(domNodeGallery, PhotoSwipeUI_Default, items, options);
+			gallery.init();
+		}
+	});
 });
 </script>
 </body>

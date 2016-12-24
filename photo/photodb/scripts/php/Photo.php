@@ -62,7 +62,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 	var $sort = 1;
 
 	/** @var int default number of records per page */
-	var $numRecPerPage = 14;
+	var $numRecPerPage = 28;
 
 	/**
 	 * @param string $webroot path to root folder
@@ -251,7 +251,8 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			$imgFile = $this->webroot.$this->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
 			$imgSize = getimagesize(__DIR__.'/../../../..'.$web->getWebRoot().$this->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
 			$imgTitle = $row['imgTitle'];
-			$link = str_replace('thumbs/', '', $imgFile).'?w='.$imgSize[0].'&h='.$imgSize[1];
+			$imgData = htmlspecialchars('{"w":'.$imgSize[0].',"h":'.$imgSize[1].'}', ENT_COMPAT, $web->charset);
+			$link = str_replace('thumbs/', '', $imgFile);
 			$detailLink = $lang->createPage('photo-detail.php').$web->getQuery(['imgId' => $row['imgId']]);
 
 			if ($imgSize[0] > $imgSize[1]) {
@@ -269,7 +270,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			}
 
 			$str.= '<li class="slide">';
-			$str.= '<div class="slideCanvas '.$css.'">';
+			$str.= '<div class="slideCanvas '.$css.'" data-slide="'.$imgData.'">';
 			$str.= '<a href="'.$link.'" title="'.$imgTitle.'">';
 			$str.= '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'">';
 			$str.= '</a></div>';
