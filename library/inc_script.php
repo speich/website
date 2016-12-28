@@ -33,7 +33,7 @@ if ($lang->get() === 'de') {
 else {
 	$windowTitle = 'Photography and web programming';
 }
-$web->pageTitle = 'speich.net - '.$windowTitle;
+$web->pageTitle = 'Simon Speich - '.$windowTitle;
 
 
 include_once 'inc_nav.php';
