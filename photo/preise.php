@@ -45,7 +45,7 @@ Naturhistorischen Museums Basel, <a href="http://www.nmb.bs.ch/wildlife/wildlife
 <a href="https://www.speich.net/articles/de/2013/02/21/fotowettbewerb-bilderrausch/"><img src="photodb/images/thumbs/2012-04-Florida/2012-04-Florida-268.jpg" width="180" height="120" alt="Foto eines Blaufussreihers"></a></li>
 <li><h3>photo.vogelwarte.ch 2012</h3>
 Finalist und 3. Rang, Monat Juli<br>
-Schweizerischen Vogelwarte Sempach, <a href="http://photo.vogelwarte.ch/gallery-2012/#pic-67" alt="Finalist 2012" target="_blank">Fotowettbewerb</a><br>
+Schweizerische Vogelwarte Sempach, <a href="http://photo.vogelwarte.ch/gallery-2012/#pic-67" alt="Finalist 2012" target="_blank">Fotowettbewerb</a><br>
 <a href="https://www.speich.net/photo/photodb/photo-detail.php?imgId=4702"><img src="photodb/images/thumbs/2012-04-Florida/2012-04-Florida-348.jpg" width="180" height="120" alt="Foto eines Fischadlers mit Fisch"></a></li>
 <li><h3>WWF Magazin</h3>
 2. Rang, Leserfoto <a href="http://www.wwf.ch/de/aktuell/publikationen/magazin/" target="_blank">WWF Magazin</a> 2/2012<br>
