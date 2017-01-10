@@ -61,8 +61,8 @@ $arrPhotoNav['en'] = [
 	[1, 'f', 'Photo Database', $path.'photo-en.php'.$web->getQuery()],
 	[2, 1, 'All Photos', $path.'photo-en.php'],
 	[3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$web->getQuery($arrQueryDel, 2)],
-	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2)]
-	//[5, 'f', 'Awards', $web->getWebRoot().'photo/preise-en.php'.$web->getQuery($arrQueryDel, 2)]
+	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2)],
+	[5, 'f', 'Awards', $web->getWebRoot().'photo/preise-en.php'.$web->getQuery($arrQueryDel, 2)]
 ];
 
 $path = $web->getWebRoot().'articles/';
