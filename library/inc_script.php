@@ -2,7 +2,6 @@
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
-set_time_limit(300);
 date_default_timezone_set('Europe/Zurich');
 
 // make include paths available to pages independent on subdir they reside in
@@ -22,7 +21,7 @@ $lang->arrLangLong = ['de' => 'Deutsch', 'en' => 'English'];
 $lang->set();
 
 $web = new Website();
-Website::$lastUpdate = '24.12.2016';
+Website::$lastUpdate = '10.01.2017';
 $web->setWebroot('/');
 
 ini_set('default_charset', $web->charset);
