@@ -91,8 +91,8 @@ $arrPersonNav['de'] = [
 ];
 $arrPersonNav['en'] = [
 	[1, 'f', 'Curriculum Vitae', $path.'cv-en.php'.$web->getQuery()],
-	[2, 'f', 'Diploma Thesis', $path.'diplomarbeit.php'.$web->getQuery()]
-	//[3, 'f', 'Awards', $web->getWebRoot().'photo/preise-en.php'.$web->getQuery()]
+	[2, 'f', 'Diploma Thesis', $path.'diplomarbeit.php'.$web->getQuery()],
+	[3, 'f', 'Awards', $web->getWebRoot().'photo/preise-en.php'.$web->getQuery()]
 ];
 
 
