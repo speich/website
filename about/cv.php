@@ -53,7 +53,8 @@ td:nth-child(2) {
 <h3>Projekte:</h3>
 <ul class="main">
 <li>Webapplikation <a href="http://www.lfi.ch/resultate/anleitung.php" target="_blank">interaktive Abfrage zu Ergebnissen</a> (Tabellen und Karten) des Schweizerischen Landesforstinventars LFI</li>
-<li>Webapplikation <a href="http://www.lfi.ch/publikationen/publ/NAFIDAS.pdf" target="_blank">NAFIDAS</a> (National Forest Inventory Data Analysing System) im WSL Intranet</li>
+<li>Webapplikation: <a href="http://www.sciencedirect.com/science/article/pii/S016816991630792X" target="_blank">The data storage and analysis system of the Swiss National Forest Inventory</a><br>
+Computers and Electronics in Agriculture Volume 132</li>
 <li>Website <a href="http://www.lfi.ch" target="_blank">Schweizerisches Landesforstinventar</a></li>
 <li>Website mit Bilddatenbank des <a href="http://www.forstmuseum.ch" target="_blank">Förderverein Forstmuseum Ballenberg</a></li>
 <li>Fotografie und Layout <a href="http://www.lfi.ch/publikationen/publ/LFI_Kalender_2014_de.pdf" target="_blank">LFI-Kalender</a> und <a href="http://www.lfi.ch/publikationen/publ_lfiinfo.php" target="_blank">LFI info</a> (eingestellt)</li>
