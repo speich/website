@@ -21,7 +21,7 @@ $lang->arrLangLong = ['de' => 'Deutsch', 'en' => 'English'];
 $lang->set();
 
 $web = new Website();
-Website::$lastUpdate = '10.01.2017';
+Website::$lastUpdate = '06.05.2017';
 $web->setWebroot('/');
 
 ini_set('default_charset', $web->charset);
