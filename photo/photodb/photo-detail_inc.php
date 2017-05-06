@@ -92,7 +92,7 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	echo '<span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</p>';
 	echo '<p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</p>';
-	echo '<p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['original size'].':</span> '.$data['imageWidth'].' x '.$data['imageHeight'].' '.$i18n['pixel'];
+	//echo '<p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['original size'].':</span> '.$data['imageWidth'].' x '.$data['imageHeight'].' '.$i18n['pixel'];
 	echo '<p><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$data['imgId'].'</p>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$data['imgName'].'<p>';
 	echo '</div>';
@@ -118,13 +118,13 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	echo '<div id="exifInfo"><div class="col">';
 	echo '<p><strong>'.$i18n['technical information'].' (Exif)</strong></p>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$data['model'].', '.$data['make']."</p>\n";
-	echo '<p><span class="photoTxtLabel">'.$i18n['original size'].':</span> '.$data['imageWidth'].' x '.$data['imageHeight'].'px @ ';
+	/*echo '<p><span class="photoTxtLabel">'.$i18n['original size'].':</span> '.$data['imageWidth'].' x '.$data['imageHeight'].'px @ ';
 	if ($data['bitsPerSample'] != '') {
 		echo $data['bitsPerSample'];
 	}
 	else {
 		echo '8bit';
-	}
+	}*/
 	echo "</p>\n";
 	echo '<p><span class="photoTxtLabel">'.$i18n['file format'].':</span> '.$data['fileType']." (".$data['fileSize'].")</p>\n";
 	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
