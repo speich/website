@@ -18,39 +18,39 @@ $ucLang = ucfirst($lang->get());
 
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
-$sql = "SELECT I.id imgId, I.imgFolder imgFolder, I.imgName imgName, I.imgDate imgDate, I.imgTechInfo imgTechInfo,
-	I.dateAdded dateAdded, I.lastChange lastChange, I.datePublished datePublished, I.imgDesc imgDesc, I.imgTitle imgTitle, I.imgDateOriginal imgDateOriginal,
-	I.imgLat imgLat, I.imgLng imgLng, I.showLoc showLoc,
-	CASE WHEN F.code NOT NULL THEN F.name ||' ('||F.code||')' ELSE F.name END film,
+$sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgDate imgDate, I.ImgTechInfo imgTechInfo,
+	I.DateAdded dateAdded, I.LastChange lastChange, I.DatePublished datePublished, I.ImgDesc imgDesc, I.ImgTitle imgTitle, I.ImgDateOriginal imgDateOriginal,
+	I.ImgLat imgLat, I.ImgLng imgLng, I.ShowLoc showLoc,
+	CASE WHEN F.Code NOT NULL THEN F.Name ||' ('||F.Code||')' ELSE F.Name END film,
 	R.Name rating,
-	E.make make, E.model model, E.fileSize fileSize, E.exposureTime exposureTime, E.fNumber fNumber, E.iso iso,
-	E.focalLength focalLength, E.exposureProgram exposureProgram,
-	E.meteringMode meteringMode, E.flash flash, E.focusDistance focusDistance, E.imageWidth imageWidth,
-	E.imageHeight imageHeight, E.createDate createDate, E.dateTimeOriginal dateTimeOriginal, E.bitsPerSample bitsPerSample,
-	E.gpsLatitude gpsLatitude, E.gpsLongitude gpsLongitude, E.gpsAltitude gpsAltitude, E.gpsAltitudeRef gpsAltitudeRef,
-	E.lensSpec lensSpec, E.lens lens, E.fileType fileType, E.vibrationReduction vibrationReduction,
-	GROUP_CONCAT(DISTINCT T.name".$ucLang.") themes,
-	GROUP_CONCAT(DISTINCT K.name) categories,
-	N.nameDe wissNameDe, N.nameEn wissNameEn, N.nameLa wissNameLa,
-	S.name sex,
-	GROUP_CONCAT(DISTINCT L.name) locations,
-	GROUP_CONCAT(DISTINCT C.name".$ucLang.") countries
+	E.Make make, E.Model model, E.FileSize fileSize, E.ExposureTime exposureTime, E.FNumber fNumber, E.Iso iso,
+	E.FocalLength focalLength, E.ExposureProgram exposureProgram,
+	E.MeteringMode meteringMode, E.Flash flash, E.FocusDistance focusDistance, E.ImageWidth imageWidth,
+	E.ImageHeight imageHeight, E.DateTimeOriginal dateTimeOriginal, --E.BitsPerSample bitsPerSample,E.CreateDate createDate
+	E.GpsLatitude gpsLatitude, E.GpsLongitude gpsLongitude, E.GpsAltitude gpsAltitude, E.GpsAltitudeRef gpsAltitudeRef,
+	E.LensSpec lensSpec, E.Lens lens, E.FileType fileType, E.VibrationReduction vibrationReduction,
+	GROUP_CONCAT(DISTINCT T.Name".$ucLang.") themes,
+	GROUP_CONCAT(DISTINCT K.Name) categories,
+	N.NameDe wissNameDe, N.NameEn wissNameEn, N.NameLa wissNameLa,
+	S.Name sex,
+	GROUP_CONCAT(DISTINCT L.Name) locations,
+	GROUP_CONCAT(DISTINCT C.Name".$ucLang.") countries
 	FROM Images I
-	LEFT JOIN FilmTypes F ON I.filmTypeId = F.id
-	LEFT JOIN Rating R ON I.ratingId = R.id
-	LEFT JOIN Exif E ON I.id = E.imgId
-	LEFT JOIN Images_Themes IT ON I.id = IT.imgId
-	LEFT JOIN Themes T ON IT.themeId = T.id
-	LEFT JOIN Images_Keywords IK ON I.id = IK.imgId
-	LEFT JOIN Keywords K ON IK.keywordId = K.id
-	LEFT JOIN Images_ScientificNames ISc ON I.id = ISc.imgId
-	LEFT JOIN ScientificNames N ON ISc.scientificNameId = N.id
-	LEFT JOIN Sexes S ON ISc.sexId = S.id
-	LEFT JOIN Images_Locations IL ON I.id = IL.imgId
-	LEFT JOIN Locations L ON IL.locationId = L.id
-	LEFT JOIN Locations_Countries LC ON L.id = LC.locationId
-	LEFT JOIN Countries C ON LC.countryId = C.id
-	WHERE I.id = :imgId";
+	LEFT JOIN FilmTypes F ON I.FilmTypeId = F.Id
+	LEFT JOIN Rating R ON I.RatingId = R.Id
+	LEFT JOIN Exif E ON I.Id = E.ImgId
+	LEFT JOIN Images_Themes IT ON I.Id = IT.ImgId
+	LEFT JOIN Themes T ON IT.ThemeId = T.Id
+	LEFT JOIN Images_Keywords IK ON I.Id = IK.ImgId
+	LEFT JOIN Keywords K ON IK.KeywordId = K.Id
+	LEFT JOIN Images_ScientificNames ISc ON I.Id = ISc.ImgId
+	LEFT JOIN ScientificNames N ON ISc.ScientificNameId = N.Id
+	LEFT JOIN Sexes S ON ISc.SexId = S.Id
+	LEFT JOIN Images_Locations IL ON I.Id = IL.ImgId
+	LEFT JOIN Locations L ON IL.LocationId = L.Id
+	LEFT JOIN Locations_Countries LC ON L.Id = LC.LocationId
+	LEFT JOIN Countries C ON LC.CountryId = C.Id
+	WHERE I.Id = :imgId";
 $stmt = $db->db->prepare($sql);
 $stmt->bindValue(':imgId', $imgId);
 $stmt->execute();
