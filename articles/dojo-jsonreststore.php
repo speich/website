@@ -97,7 +97,7 @@ else {
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="../library/prettify/prettify.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="../library/prettify/prettify.js"></script>
-<link href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
+<link href="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #log {
 	padding: 8px;
@@ -132,7 +132,7 @@ var dojoConfig = {
 	locale: '<?php echo $locale = $lang->get(); ?>'
 };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
 <script type="text/javascript">
 dojo.require('dojox.data.JsonRestStore');
 dojo.require('dijit.Tree');

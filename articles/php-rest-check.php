@@ -80,7 +80,7 @@ var dojoConfig = {
 	locale: '<?php echo $locale = $lang->get(); ?>'
 };
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
 <script type="text/javascript">
 var demo = {
 	// general arguments object for the different xhr methods.
