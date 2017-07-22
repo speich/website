@@ -2,50 +2,44 @@
 
 use PhotoDb\PhotoDb;
 
+
 require_once '../library/inc_script.php';
 require_once __DIR__.'/../photo/photodb/scripts/php/PhotoDb.php';
 
 if (!isset($_GET['fnc'])) {
-	exit;
+    exit;
 }
 
-switch($_GET['fnc']) {
-	case 'randDbImg':
-		$db = new PhotoDb($web->getWebRoot());
-		displRandomDbImg($db, $web->getWebRoot());
-		break;
-	case 'randImg':
-		displRandomImg($_SERVER['DOCUMENT_ROOT'].'/layout/images/randhome/');
-		break;
+switch ($_GET['fnc']) {
+    case 'randDbImg':
+        $db = new PhotoDb($web->getWebRoot());
+        displRandomDbImg($db, $web->getWebRoot());
+        break;
+    case 'randImg':
+        displRandomImg($_SERVER['DOCUMENT_ROOT'].'/layout/images/randhome/');
+        break;
 }
-
 
 /**
  * Displays a randomly chosen image from the database.
  * @param Photodb $db
  * @param string $webroot
  */
-function displRandomDbImg($db, $webroot) {
-	$sql = "SELECT ImgFolder, ImgName FROM Images
+function displRandomDbImg($db, $webroot)
+{
+    $sql = "SELECT ImgFolder, ImgName FROM Images
 		WHERE RatingId = 3
 		ORDER BY RANDOM() LIMIT 1";
-	$db->connect();
-	$stmt = $db->db->prepare($sql);
-	$stmt->execute();
-	$photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$photo = $webroot.$db->getPath('img').$photo[0]['ImgFolder'].'/'.$photo[0]['ImgName'];
-	$photo = $_SERVER['DOCUMENT_ROOT'].$photo;
-	$mimeType = exif_imagetype($photo);
-	switch($mimeType) {
-		case 1: imagecreatefromgif($photo); break;
-		case 2: imagecreatefromjpeg($photo); break;
-		case 3: imagecreatefrompng($photo); break;
-	}
-	$mimeType = image_type_to_mime_type($mimeType);
-	ob_start();
-	header("Content-Type: ".$mimeType);
-	readfile($photo);
-	ob_end_flush();
+    $db->connect();
+    $stmt = $db->db->prepare($sql);
+    $stmt->execute();
+    $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $photo = $webroot.$db->getPath('img').$photo[0]['ImgFolder'].'/'.$photo[0]['ImgName'];
+    $photo = $_SERVER['DOCUMENT_ROOT'].$photo;
+    $imageType = exif_imagetype($photo);
+    $mimeType = image_type_to_mime_type($imageType);
+    header("Content-Type: ".$mimeType);
+    readfile($photo);
 }
 
 /**
@@ -54,83 +48,76 @@ function displRandomDbImg($db, $webroot) {
  * does not check for mimetype
  * @param string $dir directory to sample
  */
-function displRandomImg($dir) {
-	$images = array();
-	$dh = opendir($dir);
-	while (false !== ($file = readdir($dh))) {
-    if ($file != '.' && $file != '..') {
-			$images[] = $file;
-		}
-	}
-	$i = mt_rand(0, count($images)-1);
-	$photo = $images[$i];
-	$photo = $dir.$photo;
-	$mimeType = exif_imagetype($photo);
-	switch($mimeType) {
-		case 1: imagecreatefromgif($photo); break;
-		case 2: imagecreatefromjpeg($photo); break;
-		case 3: imagecreatefrompng($photo); break;
-	}
-	$mimeType = image_type_to_mime_type($mimeType);
-	ob_start();
-	header("Content-Type: ".$mimeType);
-	readfile($photo);
-	ob_end_flush();	
+function displRandomImg($dir)
+{
+    $images = [];
+    $dh = opendir($dir);
+    while (false !== ($file = readdir($dh))) {
+        if ($file != '.' && $file != '..') {
+            $images[] = $file;
+        }
+    }
+    $i = mt_rand(0, count($images) - 1);
+    $photo = $images[$i];
+    $photo = $dir.$photo;
+    $imageType = exif_imagetype($photo);
+    $mimeType = image_type_to_mime_type($imageType);
+    header("Content-Type: ".$mimeType);
+    readfile($photo);
 }
 
 /**
  * @param string $file
  * @return array|bool
  */
-function displPalette($file) {
-	$file_img = getImageSize($file);
-	
-	switch ($file_img[2]) {
-		case 1: //GIF
-			$srcImage = imagecreatefromgif($file);
-			break;
-		case 2: //JPEG
-			$srcImage = imagecreatefromjpeg($file);
-			break;
-		case 3: //PNG
-			$srcImage = imagecreatefrompng($file);
-			break;
-		
-		default:
+function displPalette($file)
+{
+    $file_img = getImageSize($file);
 
-			return false;
-	}
-	
+    switch ($file_img[2]) {
+        case 1: //GIF
+            $srcImage = imagecreatefromgif($file);
+            break;
+        case 2: //JPEG
+            $srcImage = imagecreatefromjpeg($file);
+            break;
+        case 3: //PNG
+            $srcImage = imagecreatefrompng($file);
+            break;
 
-	$xloop = ceil( ( $file_img[0] - 20 ) / ($steps - 1) );
-	$yloop = ceil( ( $file_img[1] - 20 ) / ($steps - 1) );
-	
-	for ($y=10; $y<$file_img[1]; $y+=$yloop) {
-		for ($x=10; $x<$file_img[0]; $x+=$xloop) {
-			
-			$rgbNow	  = imagecolorat($srcImage, $x, $y);
-			$colorrgb = imagecolorsforindex($srcImage,$rgbNow);
-	
-			foreach($colorrgb as $k => $v) {
-				$t[$k] = dechex($v);
-				if( strlen($t[$k]) == 1 ) {
-					if( is_int($t[$k]) ) {
-						$t[$k] = $t[$k] . "0";
-					} else {
-						$t[$k] = "0" . $t[$k];
-					}
-				}
-			}
-	
-			$rgb2 = strtoupper($t[red] . $t[green] . $t[blue]);
-			$color_set[] = $rgb2;
-			
-		}
-	}
-	return $color_set;	
+        default:
+
+            return false;
+    }
+
+    $xloop = ceil(($file_img[0] - 20) / ($steps - 1));
+    $yloop = ceil(($file_img[1] - 20) / ($steps - 1));
+
+    for ($y = 10; $y < $file_img[1]; $y += $yloop) {
+        for ($x = 10; $x < $file_img[0]; $x += $xloop) {
+
+            $rgbNow = imagecolorat($srcImage, $x, $y);
+            $colorrgb = imagecolorsforindex($srcImage, $rgbNow);
+
+            foreach ($colorrgb as $k => $v) {
+                $t[$k] = dechex($v);
+                if (strlen($t[$k]) == 1) {
+                    if (is_int($t[$k])) {
+                        $t[$k] = $t[$k]."0";
+                    } else {
+                        $t[$k] = "0".$t[$k];
+                    }
+                }
+            }
+
+            $rgb2 = strtoupper($t[red].$t[green].$t[blue]);
+            $color_set[] = $rgb2;
+
+        }
+    }
+
+    return $color_set;
 }
-
-
 
 /*
 if (isset($_GET['ImgId'])) {
@@ -284,85 +271,85 @@ ob_end_flush();
 /**
   * Caches the putput if necessary
   */
-function cache($caching, $filename) {	
-	//cache the output before outputting it
-	if ($caching) {
-		// open the cache file for writing
-		$fp = fopen($filename, 'w'); 
+function cache($caching, $filename)
+{
+    //cache the output before outputting it
+    if ($caching) {
+        // open the cache file for writing
+        $fp = fopen($filename, 'w');
 
-		// save the contents of output buffer to the file
-		fwrite($fp, ob_get_contents());
+        // save the contents of output buffer to the file
+        fwrite($fp, ob_get_contents());
 
-		// close the 
-		fclose($fp);
-	}
+        // close the
+        fclose($fp);
+    }
 }
 
 /**
-  * This functions encodes the historgram data to a GChart compatible encoding
-  */
+ * This functions encodes the historgram data to a GChart compatible encoding
+ */
 
-function encodeHistogram($histogram, $max) {
+function encodeHistogram($histogram, $max)
+{
 
-	// Port of JavaScript from http://code.google.com/apis/chart/
-	// http://james.cridland.net/code
+    // Port of JavaScript from http://code.google.com/apis/chart/
+    // http://james.cridland.net/code
 
-	// A list of encoding characters to help later, as per Google's example
-	$simpleEncoding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	$chartData = "";
-	for ($i = 0; $i < count($histogram); $i++) {
-	   	$currentValue = $histogram[$i];
-		
-    	if ($currentValue > -1) {
-   			$chartData.=substr($simpleEncoding,61*($currentValue/$max),1);
-	    }
-	    else {
-	    	$chartData.='_';
-	    }
-	}
+    // A list of encoding characters to help later, as per Google's example
+    $simpleEncoding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    $chartData = "";
+    for ($i = 0; $i < count($histogram); $i++) {
+        $currentValue = $histogram[$i];
 
-	// Return the chart data 
-	return $chartData;
+        if ($currentValue > -1) {
+            $chartData .= substr($simpleEncoding, 61 * ($currentValue / $max), 1);
+        } else {
+            $chartData .= '_';
+        }
+    }
+
+    // Return the chart data
+    return $chartData;
 }
 
-
 /**
-  * Gets the mime of a remote file
-  */
-function getMime($link) {
-	//try and check the mime type
-	try {
-		//unless the link is empty
-		if ($link != "") {
-			//try and open the link (read only)
-			@$file = fopen($link, "r");
-			//if the file is not readable, return false
-			if (!$file) {
-				return false;
-			} 
-			//if the file is readable, check the mime type
-			else {
-				//get the metadata of the file
-				$wrapper = stream_get_meta_data($file);
-				//get the file headers
-				$headers = $wrapper['wrapper_data'];
-			
-				//loop through the headers and search for the content type
-				foreach ($headers as $header) {
-					//if the content type matches the provided content type, return true
-					if (stripos($header, 'Content-Type')!==false ) {
-						return substr($header, 14);
-					}
-				}	
-				//if we exited the loop, clearly no correct header was found, and return false
-				return false;
-			}
-		}
-	}
-	//return false if fetching the file fails
-	catch (Exception $e) {
-		return false;
-	}
+ * Gets the mime of a remote file
+ */
+function getMime($link)
+{
+    //try and check the mime type
+    try {
+        //unless the link is empty
+        if ($link != "") {
+            //try and open the link (read only)
+            @$file = fopen($link, "r");
+            //if the file is not readable, return false
+            if (!$file) {
+                return false;
+            } //if the file is readable, check the mime type
+            else {
+                //get the metadata of the file
+                $wrapper = stream_get_meta_data($file);
+                //get the file headers
+                $headers = $wrapper['wrapper_data'];
+
+                //loop through the headers and search for the content type
+                foreach ($headers as $header) {
+                    //if the content type matches the provided content type, return true
+                    if (stripos($header, 'Content-Type') !== false) {
+                        return substr($header, 14);
+                    }
+                }
+
+                //if we exited the loop, clearly no correct header was found, and return false
+                return false;
+            }
+        }
+    } //return false if fetching the file fails
+    catch (Exception $e) {
+        return false;
+    }
 }
 
 ?>
