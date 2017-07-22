@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-<title>speich.net - Photography and web programming</title>
+<title><?php echo $web->pageTitle; ?></title>
 <meta name="description" content="Simon Speich's website about photography and web programming">
 <meta name="keywords" content="Simon Speich, photo, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP, nature, animals, birds, wildlife">
 <?php require_once 'layout/inc_head.php' ?>
