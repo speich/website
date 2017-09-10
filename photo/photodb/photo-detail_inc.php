@@ -1,4 +1,6 @@
 <?php
+
+use PhotoDb\Photo\Photo;
 use PhotoDb\PhotoDb;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
@@ -29,16 +31,19 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgDate i
 	E.ImageHeight imageHeight, E.DateTimeOriginal dateTimeOriginal, --E.BitsPerSample bitsPerSample,E.CreateDate createDate
 	E.GpsLatitude gpsLatitude, E.GpsLongitude gpsLongitude, E.GpsAltitude gpsAltitude, E.GpsAltitudeRef gpsAltitudeRef,
 	E.LensSpec lensSpec, E.Lens lens, E.FileType fileType, E.VibrationReduction vibrationReduction,
+	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
 	GROUP_CONCAT(DISTINCT T.Name".$ucLang.") themes,
 	GROUP_CONCAT(DISTINCT K.Name) categories,
 	N.NameDe wissNameDe, N.NameEn wissNameEn, N.NameLa wissNameLa,
 	S.Name sex,
 	GROUP_CONCAT(DISTINCT L.Name) locations,
-	GROUP_CONCAT(DISTINCT C.Name".$ucLang.") countries
+	GROUP_CONCAT(DISTINCT C.Name".$ucLang.") countries,
+	C2.Name".$ucLang." country
 	FROM Images I
 	LEFT JOIN FilmTypes F ON I.FilmTypeId = F.Id
 	LEFT JOIN Rating R ON I.RatingId = R.Id
 	LEFT JOIN Exif E ON I.Id = E.ImgId
+	LEFT JOIN Xmp X ON I.Id = X.ImgId
 	LEFT JOIN Images_Themes IT ON I.Id = IT.ImgId
 	LEFT JOIN Themes T ON IT.ThemeId = T.Id
 	LEFT JOIN Images_Keywords IK ON I.Id = IK.ImgId
@@ -50,6 +55,7 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgDate i
 	LEFT JOIN Locations L ON IL.LocationId = L.Id
 	LEFT JOIN Locations_Countries LC ON L.Id = LC.LocationId
 	LEFT JOIN Countries C ON LC.CountryId = C.Id
+	LEFT JOIN Countries C2 ON I.CountryId = C2.Id 
 	WHERE I.Id = :imgId";
 $stmt = $db->db->prepare($sql);
 $stmt->bindValue(':imgId', $imgId);
@@ -65,6 +71,7 @@ $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
  * @param array $i18n internationalization
  */
 function renderPhoto($data, $db, $web, $lang, $i18n) {
+    $photo = new Photo($db->webroot);
 
 	$backPage = $lang->createPage('photo.php').$web->getQuery(['imgId'], 2);
 	if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {
@@ -90,21 +97,22 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	echo '<p><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] != '' ? $data['categories'].'<br/>' : '').'</p>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <i>'.$data['wissNameLa'].'</i><br/>';
 	echo '<span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</p>';
-	echo '<p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>';
-	echo '<p><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</p>';
-	//echo '<p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['original size'].':</span> '.$data['imageWidth'].' x '.$data['imageHeight'].' '.$i18n['pixel'];
-	echo '<p><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$data['imgId'].'</p>';
-	echo '<p><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$data['imgName'].'<p>';
-	echo '</div>';
+    echo '<p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>';
+    echo '<p><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</p>';
+    echo '<p><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$data['imgId'].'</p>';
+    $dim = $photo->getImageSize($data);
+    echo '<p><span class="photoTxtLabel">'.$i18n['image size'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</p>';
+    echo '<p><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$data['imgName'].'<p>';
+    echo '</div>';
 
-	echo '<div class="col colRight">';
+    echo '<div class="col colRight">';
 	echo '<div id="map">';
 	if ($data['showLoc'] === '0') {
 		echo '<div id="mapNote">'.$i18n['Coordinates are not shown'].'</div>';
 	}
 	echo '</div>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['place'].':</span> '.$data['locations'].'</p>';
-	echo '<p><span class="photoTxtLabel">'.$i18n['country'].':</span> '.$data['countries'].'</p>';
+	echo '<p><span class="photoTxtLabel">'.$i18n['country'].':</span> '.(is_null($data['countries']) ? $data['country'] : $data['countries']).'</p>';
 	echo '</div>';
 	echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
 
@@ -116,15 +124,8 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	echo '</div>';
 
 	echo '<div id="exifInfo"><div class="col">';
-	echo '<p><strong>'.$i18n['technical information'].' (Exif)</strong></p>';
+	echo '<h3>'.$i18n['technical information'].' (Exif)</h3>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$data['model'].', '.$data['make']."</p>\n";
-	/*echo '<p><span class="photoTxtLabel">'.$i18n['original size'].':</span> '.$data['imageWidth'].' x '.$data['imageHeight'].'px @ ';
-	if ($data['bitsPerSample'] != '') {
-		echo $data['bitsPerSample'];
-	}
-	else {
-		echo '8bit';
-	}*/
 	echo "</p>\n";
 	echo '<p><span class="photoTxtLabel">'.$i18n['file format'].':</span> '.$data['fileType']." (".$data['fileSize'].")</p>\n";
 	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
@@ -148,10 +149,24 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 		echo $data['gpsLatitude'].' / '.$data['gpsLongitude'];
 	}
 	echo '<p><span class="photoTxtLabel">'.$i18n['hight'].' (GPS):</span> '.$data['gpsAltitude'].' m '.($data['gpsAltitudeRef'] == '1' ? 'b.s.l.' : 'a.s.l.');
-	echo '<p><strong>'.$i18n['database information'].'</strong></p>';
+	echo '<h3>'.$i18n['database information'].'</h3>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['added'].':</span> '.(!empty($data['dateAdded']) ? date("d.m.Y H:i:s", $data['dateAdded']) : '').'</p>';
 	echo '<p><span class="photoTxtLabel">'.$i18n['changed'].':</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s", $data['lastChange']) : '').'</p>';
 	echo '<p class="PhotoTxtSeparator"><span class="photoTxtLabel">'.$i18n['published'].':</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s", $data['datePublished']) : '').'</p>';
 	echo '</div></div>';
 	echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
+}
+
+/**
+ * Return the cropped image size from Adobe Lightroom Xmp.
+ * @param $data
+ */
+function getSizeCropped($data) {
+    $ax = $data['CropLeft'];
+    $ay = $data['CropTop'];
+    $bx = $data['CropRight'];
+    $by = $data['CropBottom'];
+    $phi = $data['CropAngle']; // in degrees
+
+
 }

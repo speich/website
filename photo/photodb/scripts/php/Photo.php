@@ -281,4 +281,26 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 		}
 		return $str;
 	}
+
+    public function getImageSize($imgData)
+    {
+        if (is_null($imgData['CropTop']) || is_null($imgData['CropBottom'])) {
+            $arr = [];
+            $arr['w'] = $imgData['ImageWidth'];
+            $arr['h'] = $imgData['ImageHeight'];
+            $arr['isCropped'] = false;
+        } else {
+            $arr = $this->calcCropDimensions($imgData);
+            $arr['isCropped'] = true;
+        }
+
+        return $arr;
+    }
+
+    public function calcCropDimensions($imageData) {
+	    $arr['w'] = 0; // TODO
+	    $arr['h'] = 0; // TODO
+
+	    return $arr;
+	}
 }
