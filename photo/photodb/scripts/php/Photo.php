@@ -286,20 +286,31 @@ class Photo extends PhotoDb implements PhotoDbQuery {
     {
         if (is_null($imgData['CropTop']) || is_null($imgData['CropBottom'])) {
             $arr = [];
-            $arr['w'] = $imgData['ImageWidth'];
-            $arr['h'] = $imgData['ImageHeight'];
+            $arr['w'] = $imgData['imageWidth'];
+            $arr['h'] = $imgData['imageHeight'];
             $arr['isCropped'] = false;
-        } else {
+        } else if ((float) $imgData['CropAngle'] > 0) {
             $arr = $this->calcCropDimensions($imgData);
+            $arr['isCropped'] = true;
+        }
+        else {
+            $arr['w'] = round(($imgData['CropRight'] - $imgData['CropLeft']) * $imgData['imageWidth']);
+            $arr['h'] = round(($imgData['CropBottom'] - $imgData['CropTop']) * $imgData['imageHeight']);
             $arr['isCropped'] = true;
         }
 
         return $arr;
     }
 
-    public function calcCropDimensions($imageData) {
-	    $arr['w'] = 0; // TODO
-	    $arr['h'] = 0; // TODO
+    public function calcCropDimensions($imgData) {
+        $ax = $imgData['CropLeft'];
+        $ay = $imgData['CropTop'];
+        $bx = $imgData['CropRight'];
+        $by = $imgData['CropBottom'];
+        $phi = $imgData['CropAngle']; // in degrees
+        // TODO
+        $arr['w'] = 0;
+        $arr['h'] = 0;
 
 	    return $arr;
 	}
