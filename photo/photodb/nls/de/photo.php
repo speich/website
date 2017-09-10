@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+return [
 	'page title' => 'Bildarchiv',
 	'photo' => 'Foto',
 	'photos' => 'Fotos',
@@ -26,6 +26,8 @@ $i18n = [
 	'date' => 'Datum',
 	'original size' => 'Originalgrösse',
 	'order number' => 'Bestellnummer',
+    'image size' => 'Bildgrösse',
+    'cropped' => 'beschnitten',
 	'file name' => 'Dateiname',
 	'file format' => 'Dateiformat',
 	'pixel' => ' Pixel',

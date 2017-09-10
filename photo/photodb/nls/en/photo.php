@@ -1,5 +1,5 @@
 <?php
-$i18n = [
+return [
 	'page title' => 'Photo database',
 	'photo' => 'photo',
 	'photos' => 'photos',
@@ -26,6 +26,8 @@ $i18n = [
 	'date' => 'date',
 	'original size' => 'original size',
 	'order number' => 'order number',
+    'image size' => 'image size',
+    'cropped' => 'cropped',
 	'file name' => 'file name',
 	'file format' => 'file format',
 	'pixel' => 'pixel',
