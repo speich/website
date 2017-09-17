@@ -16,6 +16,7 @@ return [
 	'back' => 'back',
 	'zoom photo' => 'enlarge photo',
 	'details' => 'details',
+    'dimensions' => 'dimensions',
 	'show details' => 'show image details',
 	'thumbnail of' => 'thumbnail of',
 	'zoom' => 'zoom',

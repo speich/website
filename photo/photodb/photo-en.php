@@ -35,21 +35,20 @@ $pagingBar = '<div class="pagingBar">'.
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
 <?php echo $pagingBar; ?>
-<div class="search">
+<!--<div class="searchBox">
 <script>
-(function() {
-	var cx = '<?php echo($lang->get() == 'de' ? '000284793056488053930:zkcmsdcpu2k' : '000284793056488053930:vzx-zdwjz0w'); ?>';
-	var gcse = document.createElement('script');
-	gcse.type = 'text/javascript';
-	gcse.async = true;
-	gcse.src = (document.location.protocol == 'https:' ? 'https:': 'http:') +
-		'//www.google.com/cse/cse.js?cx=' + cx;
-	var s = document.getElementsByTagName('script')[0];
-	s.parentNode.insertBefore(gcse, s);
-})();
+  (function() {
+    var cx = '000284793056488053930:vzx-zdwjz0w';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
 </script>
-<gcse:search></gcse:search>
-</div>
+<gcse:searchbox-only resultsUrl="photosearch-en.php"></gcse:searchbox-only>
+</div>-->
 <div class="optionBar">
 <div class="barTxt"><?php
 echo $i18n['sorting'];

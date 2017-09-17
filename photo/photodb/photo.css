@@ -5,6 +5,10 @@
 	vertical-align: top;
 }
 
+.col > h3 {
+    margin-top: 0;
+}
+
 #contPhoto, #exifInfo {
 	margin-bottom: 20px;
 	border-bottom: 6px solid #DFE8D9;

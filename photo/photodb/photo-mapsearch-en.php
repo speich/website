@@ -97,9 +97,8 @@ require([
 	'dojo/dom-style',
 	'dojo/dom-geometry',
 	'dojo/io-query',
-	'gmap/gmapLoader!https://maps.google.com/maps/api/js?v=3.&language=' + dojoConfig.locale,
-	//'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
-	'/library/gmap/markerclustererplus/src/markerclusterer.js',
+	'gmap/gmapLoader!https://maps.google.com/maps/api/js',
+	'/library/gmap/markerclustererplus/src/markerclusterer_packed.js',
 	'dojo/domReady!'
 ], function(lang, array, win, xhr, domStyle, domGeometry, ioQuery) {
 

@@ -117,7 +117,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 				$sql.= ", c.id countryId";
 			}
 			$sql.= ", CASE WHEN i.ImgDateOriginal IS NULL THEN
-				(CASE WHEN i.ImgDate IS NOT NULL THEN DATETIME(i.ImgDate, 'unixepoch', 'localtime') END)
+				(CASE WHEN i.ImgDateManual IS NOT NULL THEN DATETIME(i.ImgDateManual, 'unixepoch', 'localtime') END)
 				ELSE DATETIME(i.ImgDateOriginal, 'unixepoch', 'localtime') END date
 				FROM Images i";
 			if ($params->theme) {
@@ -282,6 +282,13 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 		return $str;
 	}
 
+    /**
+     * Displays the file, but only if xmp info is available.
+     * Note: Idea is not to show original size if image is cropped, but crop information is not available yet (e.g. older photodb versions)
+     * Returns an array with keys w, h and isCropped
+     * @param $imgData
+     * @return array
+     */
     public function getImageSize($imgData)
     {
         if (is_null($imgData['CropTop']) || is_null($imgData['CropBottom'])) {
@@ -289,28 +296,40 @@ class Photo extends PhotoDb implements PhotoDbQuery {
             $arr['w'] = $imgData['imageWidth'];
             $arr['h'] = $imgData['imageHeight'];
             $arr['isCropped'] = false;
-        } else if ((float) $imgData['CropAngle'] > 0) {
+            //} else if ((float) $imgData['CropAngle'] > 0) {
+        } else {
             $arr = $this->calcCropDimensions($imgData);
-            $arr['isCropped'] = true;
-        }
-        else {
-            $arr['w'] = round(($imgData['CropRight'] - $imgData['CropLeft']) * $imgData['imageWidth']);
-            $arr['h'] = round(($imgData['CropBottom'] - $imgData['CropTop']) * $imgData['imageHeight']);
             $arr['isCropped'] = true;
         }
 
         return $arr;
     }
 
+    /**
+     * Adobe Lightroom Xmp cropping data
+     * @param array $imgData
+     * @return array array with width and height
+     */
     public function calcCropDimensions($imgData) {
-        $ax = $imgData['CropLeft'];
-        $ay = $imgData['CropTop'];
-        $bx = $imgData['CropRight'];
-        $by = $imgData['CropBottom'];
-        $phi = $imgData['CropAngle']; // in degrees
-        // TODO
-        $arr['w'] = 0;
-        $arr['h'] = 0;
+        // TODO:  @see www.speich.net/articles/...
+	    $ax = $imgData['CropLeft'];     // x of vector a [CropLeft, CropTop]
+        $ay = $imgData['CropTop'];      // y of vector a [CropLeft, CropTop]
+        $bx = $imgData['CropRight'];    // x of vector b [CropRight, CropBottom]
+        $by = $imgData['CropBottom'];   // y of vector b [CropRight, CropBottom]
+        $phi = $imgData['CropAngle'];   // in degrees
+
+        // rescale
+        // remember: y is scaled differently than x, e.g. values are width = 100% and height = 100% in Adobe XMP
+        $ax *= $imgData['imageWidth'];
+        $ay *= $imgData['imageHeight'];
+        $bx *= $imgData['imageWidth'];
+        $by *= $imgData['imageHeight'];
+        $phi *= -1;
+
+        $a2 = abs(sqrt((pow(($ax - $bx) / 2, 2) + pow(($ay - $by) / 2, 2))));    // magnitude of vector a' (after translating image to origin)
+        $alpha = rad2deg(atan2(($ay - $by), ($ax - $bx) )) * -1;
+        $arr['w'] = abs(round(cos(deg2rad($alpha - $phi)) * $a2 * 2));
+        $arr['h'] = abs(round(sin(deg2rad($alpha - $phi)) * $a2 * 2) );
 
 	    return $arr;
 	}
