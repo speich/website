@@ -86,6 +86,7 @@ var dojoConfig = {
 		{name: 'gmap', location: './../../../gmap'}
 	]
 };
+var gmapsApiKey = 'AIzaSyBEPhZpv_OQYeJH_mVYEOubDgGLlY5aLWg';
 </script>
 <script type="text/javascript" src="../../library/dojo/1.12.1/dojo/dojo.js"></script>
 <script type="text/javascript">
@@ -97,9 +98,9 @@ require([
 	'dojo/dom-style',
 	'dojo/dom-geometry',
 	'dojo/io-query',
-	'gmap/gmapLoader!https://maps.google.com/maps/api/js?v=3.&language=' + dojoConfig.locale,
-	//'/library/gmap/markerclusterer/src/markerclusterer_packed.js',
-	'/library/gmap/markerclustererplus/src/markerclusterer.js',
+	'gmap/gmapLoader!https://maps.googleapis.com/maps/api/js?key=' + gmapsApiKey + '&language=' + dojoConfig.locale,
+	'/library/gmap/markerclustererplus/src/markerclusterer_packed.js',
+	//'/library/gmap/markerclustererplus/src/markerclusterer.js',
 	'dojo/domReady!'
 ], function(lang, array, win, xhr, domStyle, domGeometry, ioQuery) {
 
