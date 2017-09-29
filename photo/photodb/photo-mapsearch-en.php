@@ -78,9 +78,7 @@ img[id^=mtgt_unnamed] {
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	has: {
-		'dojo-debug-messages': false
-	},
+    gmapsApiKey: 'AIzaSyBEPhZpv_OQYeJH_mVYEOubDgGLlY5aLWg',
 	locale: '<?php echo $locale = $lang->get(); ?>',
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
