@@ -316,20 +316,20 @@ class Photo extends PhotoDb implements PhotoDbQuery {
         $ay = $imgData['CropTop'];      // y of vector a [CropLeft, CropTop]
         $bx = $imgData['CropRight'];    // x of vector b [CropRight, CropBottom]
         $by = $imgData['CropBottom'];   // y of vector b [CropRight, CropBottom]
-        $phi = $imgData['CropAngle'];   // in degrees
+        $theta = $imgData['CropAngle'];   // in degrees
 
-        // rescale
+        // rectify
         // remember: y is scaled differently than x, e.g. values are width = 100% and height = 100% in Adobe XMP
         $ax *= $imgData['imageWidth'];
         $ay *= $imgData['imageHeight'];
         $bx *= $imgData['imageWidth'];
         $by *= $imgData['imageHeight'];
-        $phi *= -1;
+        $theta *= -1;
 
         $a2 = abs(sqrt((pow(($ax - $bx) / 2, 2) + pow(($ay - $by) / 2, 2))));    // magnitude of vector a' (after translating image to origin)
         $alpha = rad2deg(atan2(($ay - $by), ($ax - $bx) )) * -1;
-        $arr['w'] = abs(round(cos(deg2rad($alpha - $phi)) * $a2 * 2));
-        $arr['h'] = abs(round(sin(deg2rad($alpha - $phi)) * $a2 * 2) );
+        $arr['w'] = abs(round(cos(deg2rad($alpha - $theta)) * $a2 * 2));
+        $arr['h'] = abs(round(sin(deg2rad($alpha - $theta)) * $a2 * 2) );
 
 	    return $arr;
 	}
