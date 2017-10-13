@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="boxplot"></div>
-</body>
+
 <script src="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo/dojo.js"
         data-dojo-config="async: true, packages: [
             {name: 'jquery', location: '/articles/demos/jqplot.1.0.9.d96a669', main: 'jquery.min'},
@@ -21,7 +21,7 @@
         ]"></script>
 <script>
     define.amd.jQuery = true;	// allow loading jquery with dojo amd
-    require(['jquery'], function () {
+    require(['jquery'], function () {   // jquery has to be loaded before jqplot
         require(['jqplot'], function () {
             require([
                 'speich.net/ChartBoxplot'
@@ -42,4 +42,5 @@
         });
     });
 </script>
+</body>
 </html>
