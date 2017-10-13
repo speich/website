@@ -72,7 +72,6 @@ define([
 				[['D7', data.q25, data.max, data.min, data.q75, data.median]]	// cat, 25%, max, min, 75%
 			];
 			this.plot = $.jqplot(this.id, data.series, this.options);
-			this.plot.redraw();	// ugly hack to remove label. bug: showLabel = false in config is not respected
 		}
 	});
 });
