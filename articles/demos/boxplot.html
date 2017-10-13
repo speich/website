@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BoxplotRender Plugin for JQplot</title>
+<link href="jqplot.1.0.9.d96a669/jquery.jqplot.min.css" rel="stylesheet" type="text/css">
+<style>
+#boxplot {
+    width: 120px;
+}
+</style>
+</head>
+<body>
+<div id="boxplot"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo/dojo.js"
+        data-dojo-config="async: true, packages: [
+            {name: 'jquery', location: '/articles/demos/jqplot.1.0.9.d96a669', main: 'jquery.min'},
+            {name: 'jqplot', location: '/articles/demos/jqplot.1.0.9.d96a669', main: 'jquery.jqplot.min'},
+            {name: 'speich.net', location: '/articles/demos/boxplot'}
+        ]"></script>
+<script>
+    define.amd.jQuery = true;	// allow loading jquery with dojo amd
+    require(['jquery'], function () {
+        require(['jqplot'], function () {
+            require([
+                'speich.net/ChartBoxplot'
+            ], function (ChartBoxplot) {
+                var data, boxplot = new ChartBoxplot({}, 'boxplot');
+
+                data = {
+                    q25: 3.2,
+                    max: 11,
+                    min: 1,
+                    q75: 7,
+                    median: 4.4,
+                    xLabel: 'Diameter'
+                };
+
+                boxplot.create(data);
+            });
+        });
+    });
+</script>
+</html>
