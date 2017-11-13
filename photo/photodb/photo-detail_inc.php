@@ -90,7 +90,7 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
     $dim = $photo->getImageSize($data);
 	$star = '';
 
-	$str = '<img id="ratingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
+	$str = '<img class="imgRatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
 	for ($i = 0; $i < strlen($data['rating']); $i++) {
 		$star.= $str;
 	}
