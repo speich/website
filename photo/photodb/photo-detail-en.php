@@ -5,7 +5,7 @@
 <title>Photo |<?php echo $web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
-<link href="photo.css" rel="stylesheet" type="text/css">
+<link href="photo-detail.css" rel="stylesheet" type="text/css">
 </head>
 
 <body data-config="<?php echo $jsConfig; ?>">
