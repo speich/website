@@ -12,18 +12,18 @@ $path = $web->getWebRoot();
 $arrNav = [];
 $arrNav['de'] = [
 	[1, 'N','Fotografie', $path.'photo/photodb/photo.php'],
-	[2, 'N','Artikel', $path.'articles/?lang=de'],
+	[2, 'N','Artikel', $path.'articles/de'],
 	[3, 'N','Projekte', $path.'projects/programming/progs.php'],
-	[5, 'N','Person', $path.'about/cv.php'.$web->getQuery()],
-	[6, 'N','Kontakt', $path.'contact/contact.php'.$web->getQuery()]
+	[5, 'N','Person', $path.'about/cv.php'],
+	[6, 'N','Kontakt', $path.'contact/contact.php']
 ];
 
 $arrNav['en'] = [
 	[1, 'N','Photography', $path.'photo/photodb/photo-en.php'],
-	[2, 'N','Articles', $path.'articles/?lang=en'],
+	[2, 'N','Articles', $path.'articles/en'],
 	[3, 'N','Projects', $path.'projects/programming/progs.php'],
-	[5, 'N','Person', $path.'about/cv-en.php'.$web->getQuery()],
-	[6, 'N','Contact', $path.'contact/contact-en.php'.$web->getQuery()]
+	[5, 'N','Person', $path.'about/cv-en.php'],
+	[6, 'N','Contact', $path.'contact/contact-en.php'   ]
 ];
 
 $mainNav = new Menu('menuMain', null, $arrNav[$lang->get()]);
@@ -51,14 +51,14 @@ $mainNav->setActive();
 $path = $web->getWebRoot().'photo/photodb/';
 $arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
 $arrPhotoNav['de'] = [
-	[1, 'f', 'Bildarchiv', $path.'photo.php'.$web->getQuery(['lang'])],
+	[1, 'f', 'Bildarchiv', $path.'photo.php'],
 	[2, 1, 'Alle Fotos', $path.'photo.php'],
 	[3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)],
 	[4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery($arrQueryDel, 2)],
 	[5, 'f', 'Auszeichnungen', $web->getWebRoot().'photo/preise.php'.$web->getQuery($arrQueryDel, 2)]
 ];
 $arrPhotoNav['en'] = [
-	[1, 'f', 'Photo Database', $path.'photo-en.php'.$web->getQuery()],
+	[1, 'f', 'Photo Database', $path.'photo-en.php'],
 	[2, 1, 'All Photos', $path.'photo-en.php'],
 	[3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$web->getQuery($arrQueryDel, 2)],
 	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2)],
@@ -75,24 +75,24 @@ $arrArticleNav['en'] = [
 
 $path = $web->getWebRoot().'projects/';
 $arrProjectNav['de'] = [
-	[1, 'f', 'Programmierung', $path.'programming/progs.php'.$web->getQuery()],
-	[2, 'f', 'Musik', $path.'music/music.php'.$web->getQuery()]
+	[1, 'f', 'Programmierung', $path.'programming/progs.php'],
+	[2, 'f', 'Musik', $path.'music/music.php']
 ];
 $arrProjectNav['en'] = [
-	[1, 'f', 'Programming', $path.'programming/progs.php'.$web->getQuery()],
-	[2, 'f', 'Music', $path.'music/music.php'.$web->getQuery()]
+	[1, 'f', 'Programming', $path.'programming/progs.php'],
+	[2, 'f', 'Music', $path.'music/music.php']
 ];
 
 $path = $web->getWebRoot().'about/';
 $arrPersonNav['de'] = [
-	[1, 'f', 'Lebenslauf', $path.'cv.php'.$web->getQuery()],
-	[2, 'f', 'Diplomarbeit', $path.'diplomarbeit.php'.$web->getQuery()],
-	[3, 'f', 'Auszeichungen', $web->getWebRoot().'photo/preise.php'.$web->getQuery()]
+	[1, 'f', 'Lebenslauf', $path.'cv.php'],
+	[2, 'f', 'Diplomarbeit', $path.'diplomarbeit.php'],
+	[3, 'f', 'Auszeichungen', $web->getWebRoot().'photo/preise.php']
 ];
 $arrPersonNav['en'] = [
-	[1, 'f', 'Curriculum Vitae', $path.'cv-en.php'.$web->getQuery()],
-	[2, 'f', 'Diploma Thesis', $path.'diplomarbeit.php'.$web->getQuery()],
-	[3, 'f', 'Awards', $web->getWebRoot().'photo/preise-en.php'.$web->getQuery()]
+	[1, 'f', 'Curriculum Vitae', $path.'cv-en.php'],
+	[2, 'f', 'Diploma Thesis', $path.'diplomarbeit-en.php'],
+	[3, 'f', 'Awards', $web->getWebRoot().'photo/preise-en.php']
 ];
 
 
