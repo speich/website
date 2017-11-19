@@ -157,7 +157,7 @@ class Website {
 			parse_str($this->query, $arrVar);
 			$arrQuery = array_merge($arrVar, $arrQuery); // if arrays have same string keys, the later key will overwrite the previous
 		}
-		$this->query = http_build_query($arrQuery); // update local self::$Query
+		$this->query = http_build_query($arrQuery, '', '&amp;'); // update local self::$Query
 
 		return '?'.$this->query;
 	}
@@ -218,7 +218,7 @@ class Website {
 			}
 		}
 
-		return '?'.http_build_query($arrQuery);
+		return '?'.http_build_query($arrQuery, '', '&amp;');
 	}
 
 	/**
