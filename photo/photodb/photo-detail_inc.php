@@ -136,9 +136,9 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	echo '</p>';
 	echo '</div>';
 
-	echo '<div id="exifInfo"><div class="col">';
-	echo '<h3>'.$i18n['technical information'].' (Exif)</h3>';
-	echo '<ul>';
+	echo '<div id="exifInfo">
+        <div class="col">
+	    <h3>'.$i18n['technical information'].' (Exif)</h3>';
 	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
 	    echo '<ul><li><span class="photoTxtLabel">'.$i18n['type of film'].':</span> '.$data['film'].'</li>
 		    <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$data['model'].', '.$data['make'].'</li></ul>';
