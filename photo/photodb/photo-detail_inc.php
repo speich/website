@@ -107,9 +107,9 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	        <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] != '' ? $data['categories'].'<br/>' : '').'</li>
 	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</li>
             <li><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <i>'.$data['wissNameLa'].'</i></li>
-            </ul><ul>';
-            //<li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</li>
-     echo '       <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
+            </ul><ul>
+            <li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</li>
+            <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
             <li><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$data['imgId'].'</li>
             <li><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$data['imgName'].'</li>
         </ul>
