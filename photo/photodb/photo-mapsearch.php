@@ -60,7 +60,7 @@ img[id^=mtgt_unnamed] {
 }
 
 #mRating li:hover > ul {
-	top: 25px;
+	top: 24px;
 }
 </style>
 </head>
