@@ -36,7 +36,7 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgTechIn
 	GROUP_CONCAT(DISTINCT T.Name".$ucLang.") themes,
 	GROUP_CONCAT(DISTINCT K.Name) categories,
 	N.NameDe wissNameDe, N.NameEn wissNameEn, N.NameLa wissNameLa,
-	S.Name sex,
+	S.Name".$ucLang." sex, S.Symbol symbol,
 	GROUP_CONCAT(DISTINCT L.Name) locations,
 	GROUP_CONCAT(DISTINCT C.Name".$ucLang.") countries,
 	C2.Name".$ucLang." country
@@ -106,7 +106,7 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	    <ul>
 	        <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] != '' ? $data['categories'].'<br/>' : '').'</li>
 	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</li>
-            <li><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <i>'.$data['wissNameLa'].'</i></li>
+            <em><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <em>'.$data['wissNameLa'].' <span title="'.$data['sex'].'">'.$data['symbol'].'</span></em></em>
             </ul><ul>
             <li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</li>
             <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
