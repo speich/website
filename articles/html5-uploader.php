@@ -4,8 +4,6 @@
 <head>
 <title>speich.net HTML5 demo: multiple file upload with drag and drop</title>
 <?php require_once 'inc_head.php' ?>
-<meta charset="utf-8">
-<link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link href="/library/speich.net/fileUploader/resources/uploader.css" rel="stylesheet" type="text/css">
 <style type="text/css">

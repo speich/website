@@ -27,6 +27,7 @@ $pagingBar = '<div class="pagingBar">'.
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.css" rel="stylesheet" type="text/css">
+<link href="photo.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../../library/PhotoSwipe/dist/photoswipe.css">
 <link rel="stylesheet" href="../../library/PhotoSwipe/dist/default-skin/default-skin.css">
 </head>

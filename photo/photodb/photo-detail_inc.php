@@ -90,7 +90,7 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
     $dim = $photo->getImageSize($data);
 	$star = '';
 
-	$str = '<img id="ratingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
+	$str = '<img class="imgRatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
 	for ($i = 0; $i < strlen($data['rating']); $i++) {
 		$star.= $str;
 	}
@@ -107,9 +107,9 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	        <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] != '' ? $data['categories'].'<br/>' : '').'</li>
 	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</li>
             <li><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <i>'.$data['wissNameLa'].'</i></li>
-            </ul><ul>';
-            //<li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</li>
-     echo '       <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
+            </ul><ul>
+            <li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</li>
+            <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
             <li><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$data['imgId'].'</li>
             <li><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$data['imgName'].'</li>
         </ul>
@@ -136,9 +136,9 @@ function renderPhoto($data, $db, $web, $lang, $i18n) {
 	echo '</p>';
 	echo '</div>';
 
-	echo '<div id="exifInfo"><div class="col">';
-	echo '<h3>'.$i18n['technical information'].' (Exif)</h3>';
-	echo '<ul>';
+	echo '<div id="exifInfo">
+        <div class="col">
+	    <h3>'.$i18n['technical information'].' (Exif)</h3>';
 	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
 	    echo '<ul><li><span class="photoTxtLabel">'.$i18n['type of film'].':</span> '.$data['film'].'</li>
 		    <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$data['model'].', '.$data['make'].'</li></ul>';
