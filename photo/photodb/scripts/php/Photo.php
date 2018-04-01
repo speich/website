@@ -312,22 +312,27 @@ class Photo extends PhotoDb implements PhotoDbQuery {
      */
     public function calcCropDimensions($imgData) {
         // TODO:  @see www.speich.net/articles/...
+        // test method with images (ImgId):
+        // 7216 2017-10-Fenalet-009.NEF     5232 x 3492  1.71
+        // 7099 2017-03-Florida-016.NEF     4498 x 2999 -2.04
+        // 7162 2017-03-Florida-054.NEF     7205 x 4809  0.83
+        // 7207 2017-03-Florida-103.NEF     4276 x 2851  3.15
+        
 	    $ax = $imgData['CropLeft'];     // x of vector a [CropLeft, CropTop]
         $ay = $imgData['CropTop'];      // y of vector a [CropLeft, CropTop]
         $bx = $imgData['CropRight'];    // x of vector b [CropRight, CropBottom]
         $by = $imgData['CropBottom'];   // y of vector b [CropRight, CropBottom]
-        $theta = $imgData['CropAngle'];   // in degrees
+        $theta = $imgData['CropAngle'];   // in degrees clockwise
 
-        // rectify
+        // scale
         // remember: y is scaled differently than x, e.g. values are width = 100% and height = 100% in Adobe XMP
         $ax *= $imgData['imageWidth'];
         $ay *= $imgData['imageHeight'];
         $bx *= $imgData['imageWidth'];
         $by *= $imgData['imageHeight'];
-        $theta *= -1;
 
         $a2 = abs(sqrt((pow(($ax - $bx) / 2, 2) + pow(($ay - $by) / 2, 2))));    // magnitude of vector a' (after translating image to origin)
-        $alpha = rad2deg(atan2(($ay - $by), ($ax - $bx) )) * -1;
+        $alpha = rad2deg(atan2(($ay - $by), ($ax - $bx))); //* -1;
         $arr['w'] = abs(round(cos(deg2rad($alpha - $theta)) * $a2 * 2));
         $arr['h'] = abs(round(sin(deg2rad($alpha - $theta)) * $a2 * 2) );
 
