@@ -13,6 +13,7 @@
 											class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.</div>
 <h2>Cameras</h2>
 <ul class="main">
+<li>Nikon D850 (19.04.2018)</li>
 <li>Nikon D810 (29.12.2014)</li>
 <li>Nikon D500 (15.12.2016)</li>
 <li>Nikon F100 (12.06.2004)</li>
@@ -21,15 +22,17 @@
 </ul>
 <h2>Lenses</h2>
 <ul class="main">
-<li>Nikon 600mm f/4 FL ED VR (12.08.2015)</li>
+<li>Nikon 600mm f/4E FL ED VR (12.08.2015)</li>
+<li>Nikon 300mm f/4G AF-S PF ED VR (19.04.2018)</li>
 <li>Nikon 300mm f/2.8G AF-S ED VR II (22.12.2011)</li>
-<li>Nikon 105mm f/2.8 D AF (14.06.1996)</li>
+<li>Nikon 105mm f/2.8D AF (14.06.1996)</li>
 <li>Nikon 50mm f/1.8 AF (11.04.1996)</li>
-<li>Nikon 28mm f/2.8 D AF (14.06.1996)</li>
+<li>Nikon 28mm f/2.8D AF (14.06.1996)</li>
 <li>Nikon 24mm f/1.4G ED AF-S (26.03.2014)</li>
-<li>Nikon 20mm f/2.8 D AF (22.03.2012)</li>
+<li>Nikon 20mm f/2.8D AF (22.03.2012)</li>
 <li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013)</li>
-<li>Nikon 70-200mm f/2.8 G AF-S ED VR II (22.12.2011)</li>
+<li>Nikon 70-200mm f/2.8G AF-S ED VR II (22.12.2011)</li>
+<li>Nikon 16-80mm f/2.8-4E AF-S ED VR (27.04.2018)</li>
 </ul>
 <h2>Accessories</h2>
 <ul class="main">
