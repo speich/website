@@ -30,7 +30,6 @@
 <li>Nikon 28mm f/2.8D AF (14.06.1996)</li>
 <li>Nikon 24mm f/1.4G ED AF-S (26.03.2014)</li>
 <li>Nikon 20mm f/2.8D AF (22.03.2012)</li>
-<li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013)</li>
 <li>Nikon 70-200mm f/2.8G AF-S ED VR II (22.12.2011)</li>
 <li>Nikon 16-80mm f/2.8-4E AF-S ED VR (27.04.2018)</li>
 </ul>
@@ -62,6 +61,7 @@ Weitere Informationen <a href="/articles/en/2013/05/10/best-way-to-transport-you
 <li>Ricoh Singlex (- 2006)</li>
 <li>Nikon 600mm f/4G ED VR AF-S (27.07.2008)</li>
 <li>Nikon 600mm f/5.6 MF Nikkor (14.03.1997 - 27.07.2008)</li>
+<li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013 - 20.05.2018)</li>
 <li>Nikon 80-400mm f/4.5-5.6D ED VR AF (27.10.2005 - 20.09.2013)</li>
 <li>Nikon 18-200mm f/3.5-5.6 G ED VR AF-S (08.01.2009)</li>
 <li>GPS Dawntec di-GPS Pro (17.06.2011)</li>
