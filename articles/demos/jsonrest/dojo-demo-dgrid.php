@@ -23,6 +23,7 @@
 .button {
 	display: none;
 	margin: 8px 0 16px 0;
+	padding: 2px 8px;
 }
 </style>
 </head>
@@ -51,7 +52,7 @@
  var dojoConfig = {
 	  async: true,
 	  packages:[
-			{ name:'dgrid', location:'/library/dgrid'},
+			{ name:'dgrid', location:'/library/dgrid/v0.3.16'},
 			{ name:'xstyle', location:'/library/xstyle'},
 			{ name:'put-selector', location:'/library/put-selector'},
 			{ name:'speich.net', location:'/library/speich.net'}
