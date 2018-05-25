@@ -162,7 +162,7 @@ class Controller {
 		}
 
 		// server error
-		if (count($this->err->get()) > 0) {
+		if ($this->err->get() !== null && count($this->err->get()) > 0) {
 			header($this->getProtocol().' 505 Internal Server Error');
 		}
 		// resource not found
