@@ -1,0 +1,77 @@
+.chart {
+	width: 386px;
+	height: 300px;
+	display: inline-block;
+}
+
+#legend {
+	font-size: 10px;
+	display: inline-block;
+	width: 90px;
+	margin-top: 80px;
+	font-family: Verdana, Tahoma, Helvetica, Arial, sans-serif;
+}
+
+.claro .dgrid {
+	border-width: 1px 0 0 0;
+}
+
+#grid.dgrid {
+	height: 800px;
+	margin: 24px 0;
+}
+
+#grid .dgrid-header {
+	right: 0;
+	font-size: 10px;
+}
+
+#grid .dgrid-header-scroll {
+	display: none;
+}
+
+#grid .dgrid, #grid .dgrid-scroller {
+	overflow: auto;
+}
+
+#grid .thumb {
+	width: 90px;
+	vertical-align: middle;
+	margin-right: 6px;
+}
+
+.field-model {
+	width: 70px;
+}
+
+.field-lens {
+	width: 290px;
+}
+
+.field-f {
+	width: 60px;
+}
+
+.field-w {
+	width: 60px;
+}
+
+.field-d {
+	width: 85px;
+}
+
+.field-l {
+	width: 70px;
+}
+
+.nikon, .canon {
+	display: inline-block;
+	margin: 0 4px 2px 0;
+	width: 6px;
+	height: 6px;
+	background-color: #9e4897;
+}
+
+.canon {
+	background-color: #73a84c;
+}
