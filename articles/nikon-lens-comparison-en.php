@@ -17,15 +17,14 @@
 	These lenses are also heavy, especially when carrying around on foot. The charts and table on this page may help you
 	decide which telephoto lens to buy, if the weight plays a	major role.</p>
 <p>For more details read my article <a href="https://photographylife.com/canon-vs-nikon-telephoto-lenses" target="_blank">Canon vs Nikon Telephoto Lenses</a> on photographylife.com</p>
-<h2>Date of comparison: 2011</h2>
+<h2>Date of comparison: 2013</h2>
+<ul class="legend"><li class="nikon"></li><li>Nikon</li><li class="canon"></li><li>Canon</li></ul>
 <div id="chartRatio" class="chart"></div>
 <div id="chartWeight" class="chart"></div>
 <div id="chartDiameter" class="chart"></div>
 <div id="chartLength" class="chart"></div>
-<p>It is kind of frustrating that the Canon <img src="images/circle-canon.gif" alt="green circle icon"> lenses are about
-	half to a full kilo lighter (because of the fluorite lenses) than the Nikon
-	<img src="images/square-nikon.gif" alt="pink square icon"> ones if you are an owner of Nikon equipment like me.
-	For the weight of a Nikon 500mm you get a Canon 600mm...</p>
+<p>It is kind of frustrating that the Canon lenses are about half to a full kilo lighter (because of the fluorite lenses)
+	than the Nikon ones if you are an owner of Nikon equipment like me. For the weight of a Nikon 500mm you get a Canon 600mm...</p>
 <h2>Nikon and Canon telephoto lenses</h2>
 <p>Note: The column headings of the table below are sortable. Just click on them.</p>
 <div id="grid"></div>

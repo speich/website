@@ -4,14 +4,6 @@
 	display: inline-block;
 }
 
-#legend {
-	font-size: 10px;
-	display: inline-block;
-	width: 90px;
-	margin-top: 80px;
-	font-family: Verdana, Tahoma, Helvetica, Arial, sans-serif;
-}
-
 .claro .dgrid {
 	border-width: 1px 0 0 0;
 }
@@ -64,14 +56,20 @@
 	width: 70px;
 }
 
-.nikon, .canon {
+.legend li {
 	display: inline-block;
-	margin: 0 4px 2px 0;
-	width: 6px;
-	height: 6px;
+	vertical-align: middle;
+	margin-right: 1em;
+}
+
+li.nikon, li.canon {
+	display: inline-block;
+	width: 0.5em;
+	height: 0.5em;
+	margin-right: 0.2em;
 	background-color: #9e4897;
 }
 
-.canon {
+li.canon {
 	background-color: #73a84c;
 }
