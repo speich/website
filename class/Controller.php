@@ -166,7 +166,7 @@ class Controller {
 		header('Content-Type: '.$this->header->getContentType($this->contentType).'; '.$this->header->getCharset());
 
 		// server error
-		if (count($this->err->get()) > 0) {
+		if ($this->err->get() !== null && count($this->err->get()) > 0) {
 			header($_SERVER['SERVER_PROTOCOL'].' 505 Internal Server Error');
 		}
 		// resource not found
@@ -187,7 +187,7 @@ class Controller {
 	 * @param string $data response body
 	 */
 	public function printBody($data = null) {
-		if (count($this->err->get()) > 0) {
+		if ($this->err->get() !== null && count($this->err->get()) > 0) {
 			if ($this->contentType == 'json') {
 				echo $this->err->getAsJson();
 			}
