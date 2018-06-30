@@ -220,11 +220,13 @@ class Language {
 			else {
 				$url = $this->createPage($config->redirect).$web->getQuery(['lang' => $lang, 'url' => $file]);
 			}
-			$str .= '<li';
-			if ($lang == $this->get()) {
-				$str .= ' class="'.$config->liClassActive.'"';
-			}
-			$str .= '><a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.$this->arrLangLong[$lang].'</a>';
+			$str .= '<li'.($lang === $this->get() ? ' class="'.$config->liClassActive.'"' : '').'>';
+			if ($lang === $this->get()) {
+                $str .= $this->arrLangLong[$lang];
+            }
+            else {
+                $str .= '<a href="'.$url.'" title="'.$this->arrLangLong[$lang].'">'.$this->arrLangLong[$lang].'</a>';
+            }
 			$str .= '</li>';
 			if ($config->delimiter != '' && key($this->arrLang) < count($this->arrLang)) {
 				$str .= '<li>'.$config->delimiter.'</li>';
