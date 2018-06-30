@@ -1,5 +1,5 @@
 <?php
-require_once '../../library/inc_script.php';
+require_once '../../scripts/php/inc_script.php';
 $sideNav->arrItem[1]->setActive();
 ?>
 <!DOCTYPE html>

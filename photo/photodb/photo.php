@@ -2,7 +2,7 @@
 use WebsiteTemplate\PagedNav;
 
 
-require_once __DIR__.'/../../library/inc_script.php';
+require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once 'photoinc.php';
 
 $photos = $photo->loadPhotos($params);
@@ -18,7 +18,7 @@ $pagingBar = '<div class="pagingBar">'.
 	$mRecPp->render().
 	'<div class="barTxt">'.$i18n['per page'].'</div>'.
 	'<div class="barVertSeparator"></div>'.
-	$pagedNav->render($params->page + 1, $web, $lang).
+	$pagedNav->render($params->page + 1, $web).
 	'</div>';
 ?>
 <!DOCTYPE html>
@@ -36,20 +36,6 @@ $pagingBar = '<div class="pagingBar">'.
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
 <?php echo $pagingBar; ?>
-<!--<div class="search">
-<script>
-  (function() {
-    var cx = '000284793056488053930:zkcmsdcpu2k';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:search></gcse:search>
-</div>-->
 <div class="optionBar">
 <div class="barTxt"><?php
 echo $i18n['sorting'];
@@ -62,7 +48,7 @@ echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
 <div id="showMap" class="button buttShowMap" title="<?php echo $i18n['show on map']; ?>"><a
-	href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n['map']; ?><img
+	href="photo-mapsearch.php<?php echo $query->getString(); ?>	"><?php echo $i18n['map']; ?><img
 		src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
 </div>
 </div>

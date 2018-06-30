@@ -4,7 +4,7 @@ use WebsiteTemplate\Controller;
 use WebsiteTemplate\Error;
 use WebsiteTemplate\Header;
 
-require_once __DIR__.'/../../library/inc_script.php';
+require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once 'Controller.php';
 require_once 'Error.php';
 require_once 'Header.php';

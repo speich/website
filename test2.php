@@ -1,7 +1,7 @@
 <?php
 use PhotoDb\PhotoDb;
 
-require_once 'library/inc_script.php';
+require_once 'scripts/php/inc_script.php';
 require_once 'photo/photodb/scripts/php/PhotoDb.php';
 
 $db = new PhotoDb($web->getWebRoot());

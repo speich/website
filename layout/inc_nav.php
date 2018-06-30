@@ -1,9 +1,9 @@
 <?php
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Menu;
+use WebsiteTemplate\QueryString;
 use WebsiteTemplate\Website;
 
-require_once 'Menu.php';
 
 /**************************
  * main navigation on top *
@@ -26,7 +26,8 @@ $arrNav['en'] = [
 	[6, 'N','Contact', $path.'contact/contact-en.php'   ]
 ];
 
-$mainNav = new Menu('menuMain', null, $arrNav[$lang->get()]);
+$mainNav = new Menu($arrNav[$lang->get()]);
+$mainNav->cssId = 'menuMain';
 
 // set main menu active according to first (top) directory
 foreach ($mainNav->arrItem as $item) {
@@ -48,21 +49,22 @@ $mainNav->setActive();
  * Create different sub navigation to the left
  * and set them active
  *****************************/
+$query = new QueryString();
 $path = $web->getWebRoot().'photo/photodb/';
 $arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
 $arrPhotoNav['de'] = [
 	[1, 'f', 'Bildarchiv', $path.'photo.php'],
 	[2, 1, 'Alle Fotos', $path.'photo.php'],
-	[3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$web->getQuery($arrQueryDel, 2)],
-	[4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'.$web->getQuery($arrQueryDel, 2)],
-	[5, 'f', 'Auszeichnungen', $web->getWebRoot().'photo/auszeichungen.php'.$web->getQuery($arrQueryDel, 2)]
+	[3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$query->withString(null, $arrQueryDel)],
+	[4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'],
+	[5, 'f', 'Auszeichnungen', $web->getWebRoot().'photo/auszeichungen.php']
 ];
 $arrPhotoNav['en'] = [
 	[1, 'f', 'Photo Database', $path.'photo-en.php'],
 	[2, 1, 'All Photos', $path.'photo-en.php'],
-	[3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$web->getQuery($arrQueryDel, 2)],
-	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'.$web->getQuery($arrQueryDel, 2)],
-	[5, 'f', 'Awards', $web->getWebRoot().'photo/auszeichnungen-en.php'.$web->getQuery($arrQueryDel, 2)]
+	[3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$query->withString(null, $arrQueryDel)],
+	[4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'],
+	[5, 'f', 'Awards', $web->getWebRoot().'photo/auszeichnungen-en.php']
 ];
 
 $path = $web->getWebRoot().'articles/';
@@ -96,7 +98,8 @@ $arrPersonNav['en'] = [
 ];
 
 
-$sideNav = new Menu(null, 'sideMenu');
+$sideNav = new Menu();
+$sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
 
 /* render different side navigation depending on active main navigation*/
@@ -166,11 +169,13 @@ function createSideMenuArticles($web, $sideNav, $menuItems) {
  * @param Language $lang
  */
 function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
-	require_once __DIR__.'/../photo/photodb/scripts/php/PhotoDb.php';
+    foreach ($menuItems as $item) {
+        $sideNav->add($item);
+    }
+
 	$db = new PhotoDb\PhotoDb($web->getWebRoot());
 	$db->connect();
 	$ucLang = ucfirst($lang->get());
-
 	// 't' and 's' are used to make the menu id's unique
 	$sql = "SELECT 's' || s.Id menuId, s.Name".$ucLang." menuLabel,
 			't' || t.Id submenuId, t.Name".$ucLang." submenuLabel, t.Id queryValue, 'theme' queryField
@@ -192,43 +197,41 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 			ORDER BY menuLabel ASC, submenuLabel ASC";
 	$themes = $db->db->query($sql);
 
-	foreach($menuItems as $item) {
-		$sideNav->add($item);
-	}
-
-	// side menu links should start fresh with only ?theme={id} as query string (or non photo related query variables)
+	// side menu links for submenu database should start fresh with only ?theme={id} as query string (or non photo related query variables)
 	// treat country as a theme, do not allow country and theme vars in the query string at the same time
 	// note: country and theme will be added back in loop
+    $query = new QueryString();
 	$arrQueryDel = ['pg', 'numRec', 'country', 'qual', 'lang', 'imgId', 'theme', 'lat1', 'lng1', 'lat2', 'lng2'];
 	$path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
 	$lastMenuId = null;
-	while ($row = $themes->fetch(PDO::FETCH_ASSOC)) {
+    $row = $themes->fetch(PDO::FETCH_ASSOC);
+	while ($row) {
 		$arrQueryAdd = [$row['queryField'] => $row['queryValue']];
 		// main subject areas (parent menu)
 		if ($row['menuId'] != $lastMenuId) {
-			$link = $path.$web->getQuery($arrQueryAdd, $arrQueryDel);
+			$link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
 			$sideNav->add([$row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link]);
 		}
 		// sub menu
 		$arrQueryAdd = [$row['queryField'] => $row['queryValue']];
-		$link = $path.$web->getQuery($arrQueryAdd, $arrQueryDel);
+		$link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
 		$sideNav->add([$row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link]);
-
 		$lastMenuId = $row['menuId'];
+        $row = $themes->fetch(PDO::FETCH_ASSOC);
 	}
 
 	if ($web->page == $lang->createPage('photo-detail.php')) {
-		$sideNav->setActive($lang->createPage('photo-detail.php').$web->getQuery($arrQueryDel, 2));
+		$sideNav->setActive($lang->createPage('photo-detail.php').$query->withString(null, $arrQueryDel));
 	}
-
 	// unset item ('Alle Fotos'), otherwise it would always be active
 	if (isset($_GET['theme']) || isset($_GET['country'])) {
-		$sideNav->arrItem[1]->setActive(false); //
-
+		$sideNav->arrItem[1]->setActive(false);
 	}
-
 	if ($web->page == $lang->createPage('ausruestung.php')) {
 		$sideNav->arrItem[1]->setActive(false);
 		$sideNav->arrItem[2]->setActive(false);
 	}
 }
+
+$langNav = new \WebsiteTemplate\LanguageMenu($lang, $web);
+$langNav->useLabel = true;

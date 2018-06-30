@@ -1,4 +1,4 @@
-<?php include '../library/inc_script.php'; ?>
+<?php include '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
 <head>

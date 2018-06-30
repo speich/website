@@ -3,7 +3,7 @@
 use PhotoDb\PhotoDb;
 
 
-require_once '../library/inc_script.php';
+require_once '../scripts/php/inc_script.php';
 require_once __DIR__.'/../photo/photodb/scripts/php/PhotoDb.php';
 
 if (!isset($_GET['fnc'])) {

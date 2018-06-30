@@ -1,4 +1,4 @@
-<?php require_once '../library/inc_script.php'; ?>
+<?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
 <head>
@@ -54,16 +54,16 @@ Weitere Informationen <a href="/articles/en/2013/05/10/best-way-to-transport-you
 </ul>
 <h2>Ausrangierte Ausrüstung</h2>
 <ul class="main">
-<li>Nikon D800 (21.03.2012)</li>
+<li>Nikon D800 (21.03.2012 - )</li>
 <li>Nikon D300 (08.01.2009 - 18.08.2014)</li>
 <li>Nikon F90x (1996 - 2004)</li>
 <li>Nikon Coolpix P4 (19.05.2006 - 06.12.2013)</li>
 <li>Ricoh Singlex (- 2006)</li>
-<li>Nikon 600mm f/4G ED VR AF-S (27.07.2008)</li>
+<li>Nikon 600mm f/4G ED VR AF-S (27.07.2008 - 30.03.2016)</li>
 <li>Nikon 600mm f/5.6 MF Nikkor (14.03.1997 - 27.07.2008)</li>
 <li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013 - 20.05.2018)</li>
 <li>Nikon 80-400mm f/4.5-5.6D ED VR AF (27.10.2005 - 20.09.2013)</li>
-<li>Nikon 18-200mm f/3.5-5.6 G ED VR AF-S (08.01.2009)</li>
+<li>Nikon 18-200mm f/3.5-5.6 G ED VR AF-S (08.01.2009 - 27.05.2014)</li>
 <li>GPS Dawntec di-GPS Pro (17.06.2011)</li>
 <li>GPS Solmeta Geotagger N2 (23.05.2009 - 2011)</li>
 <li>Schwenkkopf von <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>

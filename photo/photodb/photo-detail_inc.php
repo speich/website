@@ -6,7 +6,7 @@ use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
 
-require_once __DIR__.'/../../library/inc_script.php';
+require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once 'photoinc.php';
 
 if (isset($_GET['imgId'])) {

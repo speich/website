@@ -1,0 +1,19 @@
+{
+    "require": {
+      "speich.net/WebsiteTemplate": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhotoDb\\": "../photo/photodb/scripts/php",
+            "WebsiteTemplate\\": "vendor/speich.net/WebsiteTemplate/scripts/php"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/speich/WebsiteTemplate"
+        }
+    ],
+    "name": "",
+    "description": ""
+}

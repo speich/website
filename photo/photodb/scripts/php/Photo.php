@@ -1,18 +1,14 @@
 <?php
-namespace PhotoDb\Photo;
+namespace PhotoDb;
 
 use PDO;
 use PDOStatement;
 use stdClass;
-use PhotoDb\PhotoDb;
-use PhotoDb\PhotoDbQuery;
 use WebsiteTemplate\Language;
+use WebsiteTemplate\QueryString;
 use WebsiteTemplate\Website;
 
 
-require_once 'PhotoDb.php';
-require_once 'PhotoDbQuery.php';
-require_once 'Language.php';
 
 /**
  * This class is used to define the bind parameters for the SQL statement used to load marker data.
@@ -246,6 +242,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			return $str;
 		}
 
+        $query = new QueryString();
 		foreach ($photos as $row) {
 			// get image dimensions
 			$imgFile = $this->webroot.$this->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
@@ -253,7 +250,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			$imgTitle = $row['imgTitle'];
 			$imgData = htmlspecialchars('{"w":'.$imgSize[0].',"h":'.$imgSize[1].'}', ENT_COMPAT, $web->charset);
 			$link = str_replace('thumbs/', '', $imgFile);
-			$detailLink = $lang->createPage('photo-detail.php').$web->getQuery(['imgId' => $row['imgId']]);
+			$detailLink = $lang->createPage('photo-detail.php').$query->withString(['imgId' => $row['imgId']]);
 
 			if ($imgSize[0] > $imgSize[1]) {
 				$css = 'slideHorizontal';

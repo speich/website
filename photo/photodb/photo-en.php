@@ -2,7 +2,7 @@
 use WebsiteTemplate\PagedNav;
 
 
-require_once __DIR__.'/../../library/inc_script.php';
+require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once 'photoinc.php';
 
 $photos = $photo->loadPhotos($params);

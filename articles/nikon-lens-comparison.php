@@ -1,4 +1,4 @@
-<?php require_once '../library/inc_script.php'; ?>
+<?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
 <head>
@@ -17,7 +17,7 @@
 	Diese sind entsprechend schwer und müssen oft erst noch lange herumgetragen werden. Die Grafiken und Tabelle auf dieser
 	Seite können als Entscheidungshilfe beim Kauf eines Teleobjektivs	dienen, wenn das Gewicht eine Hauptrolle spielt.</p>
 <p>Mein Beitrag <a href="https://photographylife.com/canon-vs-nikon-telephoto-lenses" target="_blank">Canon vs Nikon Telephoto Lenses</a> auf photographylife.com liefert weitere Informationen.</p>
-<h2>Vergleich 2013</h2>
+<h2>Vergleich 2011/2013</h2>
 <ul class="legend"><li class="nikon"></li><li>Nikon</li><li class="canon"></li><li>Canon</li></ul>
 <div id="chartRatio" class="chart"></div>
 <div id="chartWeight" class="chart"></div>

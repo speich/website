@@ -1,5 +1,5 @@
 <?php
-namespace PhotoDb\Map;
+namespace PhotoDb;
 
 use PDO;
 use PDOStatement;

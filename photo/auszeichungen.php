@@ -1,34 +1,30 @@
-<?php require_once '../library/inc_script.php'; ?>
+<?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
 <head>
 <title>Fotowettbewerbe | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>
-<style type="text/css">
-
-li img {
-	margin: 0.5em 0 0 0;
-	border:  1px solid black;
-	box-shadow: 2px 2px 3px rgba(120,120,120, 0.5);
-}
-
-</style>
+<link rel="stylesheet" href="auszeichnungen.css">
 </head>
 
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Auszeichnungen Fotowettbewerbe</h1>
 <ul class="awards">
+<li><h3>NFS-Wettbewerb 2018</h3>
+Naturfotografen Schweiz, <a href="http://naturfotografen.ch/fotowettbewerb-2018.html" title="NFS-Wettbewerb 2018" target="_blank">NFS-Wettbewerb 2018</a><br>
+Sonderkategorie "Bewegung / Aktion", <strong>Lobenswerte Erwähnung</strong><br>
+<a href="photodb/photo-detail.php?imgId=7673"><img src="photodb/images/thumbs/2016-05-Ungarn/2016-05-Ungarn-352.jpg" width="180" height="120" alt="Foto badende Stare"></a></li>
 <li><h3>NFS-Wettbewerb 2017</h3>
 Naturfotografen Schweiz, <a href="http://naturfotografen.ch/fotowettbewerb-2017.html" title="NFS-Wettbewerb 2017" target="_blank">NFS-Wettbewerb 2017</a><br>
 Kategorie Vögel, <strong>Lobenswerte Erwähnung</strong><br>
-<a href="photodb/images/ch/2015-03-Pontresina/2015-03-Pontresina-005.jpg"><img src="photodb/images/thumbs/ch/2015-03-Pontresina/2015-03-Pontresina-005.jpg" width="180" height="120" alt="Foto einer Haubenmeise"></a></li>
+<a href="photodb/photo-detail.php?imgId=7104"><img src="photodb/images/thumbs/ch/2015-03-Pontresina/2015-03-Pontresina-005.jpg" width="180" height="120" alt="Foto einer Haubenmeise"></a></li>
 <li>Kategorie Landschaft, <strong>Lobenswerte Erwähnung</strong><br>
-<a href="photodb/images/ch/ch012/ch012-031.jpg"><img src="photodb/images/thumbs/ch/ch012/ch012-031.jpg" width="180" height="119" alt="Foto von vereisten Bäumen"></a></li>
+<a href="photodb/photo-detail.php?imgId=3156"><img src="photodb/images/thumbs/ch/ch012/ch012-031.jpg" width="180" height="119" alt="Foto von vereisten Bäumen"></a></li>
 <li><h3>NFS-Wettbewerb 2016</h3>
 Naturfotografen Schweiz, <a href="http://naturfotografen.ch/id-2016.html" title="NFS-Wettbewerb 2016" target="_blank">NFS-Wettbewerb 2016</a><br>
 Kategorie Nature as Art, <strong>1. Rang</strong><br>
-<a href="photodb/images/ch/ch014/ch014-078.jpg"><img src="photodb/images/thumbs/ch/ch014/ch014-078.jpg" width="180" height="119" alt="Foto von vereisten Bäumen"></a></li>
+<a href="photodb/photo-detail.php?imgId=3851"><img src="photodb/images/thumbs/ch/ch014/ch014-078.jpg" width="180" height="119" alt="Foto von vereisten Bäumen"></a></li>
 <li><h3>Glanzlichter 2016</h3>
 projekt natur & fotografie, <a href="http://glanzlichter.com/template/index.cfm/fuseaction/executeMenuID/uuidMenu/7882AF21-F10E-77C3-B34D495D5BC2FAAA/lastuuid/7882AF21-F10E-77C3-B34D495D5BC2FAAA/23/index.htm" title="Glanzlichter 2016, 18. internationaler Naturfoto-Wettbewerb" target="_blank">Glanzlichter 2016</a><br>
 Kategorie Black and White, <strong>Highlight</strong><br>

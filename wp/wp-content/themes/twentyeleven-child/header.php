@@ -9,7 +9,7 @@
  * @since Twenty Eleven 1.0
  */
 ?>
-<?php require_once '../library/inc_script.php'; ?>
+<?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>

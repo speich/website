@@ -1,4 +1,4 @@
-<?php require_once '../library/inc_script.php'; ?>
+<?php require_once '../scripts/php/inc_script.php'; ?>
 <?php
 /*
  * Simple PHP page that checks if all HTTP request methods are supported by your apache installation
