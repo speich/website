@@ -1,9 +1,8 @@
 <?php
 
-use PhotoDb\Photo\Photo;
+use PhotoDb\Photo;
 use PhotoDb\PhotoDb;
 use WebsiteTemplate\Language;
-use WebsiteTemplate\Website;
 
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
@@ -73,15 +72,14 @@ $jsConfig = htmlspecialchars($jsConfig, ENT_COMPAT, $web->charset);
  * Print HTML to display photo detail.
  * @param $data
  * @param PhotoDb $db
- * @param Website $web
  * @param Language $lang
  * @param array $i18n internationalization
  */
-function renderPhoto($data, $db, $web, $lang, $i18n)
+function renderPhoto($data, $db, $lang, $i18n)
 {
 	$photo = new Photo($db->webroot);
-
-	$backPage = $lang->createPage('photo.php').$web->getQuery(['imgId'], 2);
+    $query = new \WebsiteTemplate\QueryString();
+	$backPage = $lang->createPage('photo.php').$query->withString(null, ['imgId']);
 	if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {
 		$backPage = $lang->createPage('photo-mapsearch.php').'?'.$_SERVER['QUERY_STRING'];    // when coming from map via js lastPage was not set with latest query vars, use current
 	}

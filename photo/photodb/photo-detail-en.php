@@ -11,7 +11,7 @@
 <body data-config="<?php echo $jsConfig; ?>">
 <?php
 require_once 'inc_body_begin.php';
-renderPhoto($photo[0], $photoDb, $web, $lang, $i18n);
+renderPhoto($photo[0], $photoDb, $lang, $i18n);
 require_once 'inc_body_end.php';
 ?>
 <script type="text/javascript" src="../../library/dojo/1.12.1/dojo/dojo.js" data-dojo-config="async: true,

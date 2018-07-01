@@ -18,7 +18,7 @@ $mRecPp->add(['a', 'b', $params->numRecPerPage]);
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$query->withString(['numRecPp' => $val], $arrDel);
 	$mRecPp->add([$key, 'a', $val, $url]);
-	if ($params->numRecPerPage == $val) {
+	if ($params->numRecPerPage === $val) {
 		$mRecPp->arrItem[$key]->setActive();
 	}
 }
@@ -35,7 +35,7 @@ $mSort->add(['a', 'b', $arrVal[$params->sort]]);
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$query->withString(['sort' => $key], $arrDel);
 	$mSort->add([$key, 'a', $val, $url]);
-	if ($params->sort == $key) {
+	if ($params->sort === $key) {
 		$mSort->arrItem[$key]->setActive();
 	}
 }
@@ -49,11 +49,12 @@ $arrVal = [
 $mRating = new Menu();
 $mRating->cssId = 'mRating';
 $mRating->cssClass .= ' menu2 mRating';
-$mRating->add(['a', 'b', $arrVal[$params->qual], null, null, 'rating '.$params->qual]);
+$val = array_key_exists($params->qual, $arrVal) ? $arrVal[$params->qual] : $arrVal[2];
+$mRating->add(['a', 'b', $val]);
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$query->withString(['qual' => $key], $arrDel);
-	$mRating->add([$key, 'a', $val, $url, null, 'rating '.$key]);
-	if ($params->qual == $key) {
+	$mRating->add([$key, 'a', $val, $url]);
+	if ($params->qual === $key) {
 		$mRating->arrItem[$key]->setActive();
 	}
 }

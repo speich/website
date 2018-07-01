@@ -102,7 +102,7 @@ $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
 
-/* render different side navigation depending on active main navigation*/
+/* render different side navigation depending on active main navigation */
 switch($mainNav->getActive()) {
 	case 1:
 		// do not render side navigation on map page
@@ -201,25 +201,25 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 	// treat country as a theme, do not allow country and theme vars in the query string at the same time
 	// note: country and theme will be added back in loop
     $query = new QueryString();
-	$arrQueryDel = ['pg', 'numRec', 'country', 'qual', 'lang', 'imgId', 'theme', 'lat1', 'lng1', 'lat2', 'lng2'];
+	$arrQueryDel = ['pg', 'numRec', 'lang', 'imgId', 'lat1', 'lng1', 'lat2', 'lng2'];
 	$path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
 	$lastMenuId = null;
     $row = $themes->fetch(PDO::FETCH_ASSOC);
 	while ($row) {
 		$arrQueryAdd = [$row['queryField'] => $row['queryValue']];
+        $link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
 		// main subject areas (parent menu)
 		if ($row['menuId'] != $lastMenuId) {
-			$link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
 			$sideNav->add([$row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link]);
 		}
 		// sub menu
-		$arrQueryAdd = [$row['queryField'] => $row['queryValue']];
-		$link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
+		//$arrQueryAdd = [$row['queryField'] => $row['queryValue']];
+		//$link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
 		$sideNav->add([$row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link]);
 		$lastMenuId = $row['menuId'];
         $row = $themes->fetch(PDO::FETCH_ASSOC);
 	}
-
+/*
 	if ($web->page == $lang->createPage('photo-detail.php')) {
 		$sideNav->setActive($lang->createPage('photo-detail.php').$query->withString(null, $arrQueryDel));
 	}
@@ -231,6 +231,7 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 		$sideNav->arrItem[1]->setActive(false);
 		$sideNav->arrItem[2]->setActive(false);
 	}
+*/
 }
 
 $langNav = new \WebsiteTemplate\LanguageMenu($lang, $web);

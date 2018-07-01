@@ -1,31 +1,24 @@
 <?php
-use PhotoDb\Map\Map;
+use PhotoDb\Map;
 use WebsiteTemplate\Controller;
 use WebsiteTemplate\Error;
 use WebsiteTemplate\Header;
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-require_once 'Controller.php';
-require_once 'Error.php';
-require_once 'Header.php';
-require_once __DIR__.'/scripts/php/Map.php';
 
 $err = new Error();
 $ctrl = new Controller(new Header(), $err);
 $data = $ctrl->getDataAsObject();
-$resource = $ctrl->getResource();
-$controller = $ctrl->getController();
-$resources = $ctrl->getResources();
+$resources = $ctrl->getResource();
+$controller = array_shift($resources);
 $ctrl->contentType = 'json';
 $response = false;
 $header = false;
-
 
 if ($controller == 'marker') {
 	$db = new Map($web->getWebRoot());
 	$params = $db->createObjectFromPost($data);
 	$response = $db->loadMarkerData($params);
-	$ctrl->setAutoCompress(true);
 }
 else if ($controller == 'country') {
 	$db = new Map($web->getWebRoot());
