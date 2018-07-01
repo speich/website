@@ -3,11 +3,11 @@ ul.awards {
 }
 
 li img {
-	margin: 0.5em 0 1em 0;
+	margin: 0.2em 0 0.5em 0;
 	border:  1px solid black;
 	box-shadow: 2px 2px 3px rgba(120,120,120, 0.5);
 }
 
-li h2:first-of-type {
+li:first-child h3 {
 	margin-top: 0;
 }
