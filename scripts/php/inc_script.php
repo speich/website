@@ -1,6 +1,7 @@
 <?php
+
+use speich\WebsiteSpeich;
 use WebsiteTemplate\Language;
-use WebsiteTemplate\Website;
 
 
 
@@ -19,7 +20,7 @@ $lang = new Language();
 $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $lang->set();
 
-$web = new Website();
+$web = new WebsiteSpeich();
 $web->lastUpdate = '29.06.2018';
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);

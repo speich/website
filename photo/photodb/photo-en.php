@@ -10,6 +10,7 @@ $numRec = $photo->getNumRec($params);
 
 $pagedNav = new PagedNav($numRec, $params->numRecPerPage);
 $pagedNav->renderText = false;
+$pagedNav->setWhitelist($web->getWhitelistQueryString());
 
 $word = 'photo'.($numRec > 1 ? 's' : '');
 $pagingBar = '<div class="pagingBar">'.
@@ -36,20 +37,6 @@ $pagingBar = '<div class="pagingBar">'.
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
 <?php echo $pagingBar; ?>
-<!--<div class="searchBox">
-<script>
-  (function() {
-    var cx = '000284793056488053930:vzx-zdwjz0w';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:searchbox-only resultsUrl="photosearch-en.php"></gcse:searchbox-only>
-</div>-->
 <div class="optionBar">
 <div class="barTxt"><?php
 echo $i18n['sorting'];
@@ -62,7 +49,7 @@ echo $mRating->render();
 ?></div>
 <div class="barVertSeparator"></div>
 <div id="showMap" class="button buttShowMap" title="<?php echo $i18n['show on map']; ?>"><a
-	href="photo-mapsearch.php<?php echo $web->getQuery(); ?>	"><?php echo $i18n['map']; ?><img
+	href="photo-mapsearch.php<?php echo $query->getString(); ?>	"><?php echo $i18n['map']; ?><img
 		src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
 </div>
 </div>

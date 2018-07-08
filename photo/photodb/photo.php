@@ -2,6 +2,7 @@
 use WebsiteTemplate\PagedNav;
 
 
+
 require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once 'photoinc.php';
 
@@ -10,6 +11,7 @@ $numRec = (int)$photo->getNumRec($params);
 
 $pagedNav = new PagedNav($numRec, $params->numRecPerPage);
 $pagedNav->renderText = false;
+$pagedNav->setWhitelist($web->getWhitelistQueryString());
 
 $word = 'photo'.($numRec > 1 ? 's' : '');
 $pagingBar = '<div class="pagingBar">'.
@@ -38,7 +40,7 @@ $pagingBar = '<div class="pagingBar">'.
 <?php echo $pagingBar; ?>
 <div class="optionBar">
 <div class="barTxt"><?php
-echo $i18n['sorting'];
+echo '<label>'.$i18n['sorting'].'</label>';
 echo $mSort->render(); ?>
 </div>
 <div class="barVertSeparator"></div>

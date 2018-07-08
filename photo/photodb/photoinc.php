@@ -1,11 +1,13 @@
 <?php
 use PhotoDb\Photo;
 use WebsiteTemplate\Menu;
+use WebsiteTemplate\QueryString;
+
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
 $i18n = require_once __DIR__.'/nls/'.$lang->get().'/photo.php';
 
-$query = new \WebsiteTemplate\QueryString();
+$query = new QueryString();
 $photo = new Photo($web->getWebRoot());
 $params = $photo->createObjectFromPost((object) $_GET);
 
@@ -13,7 +15,7 @@ $params = $photo->createObjectFromPost((object) $_GET);
 $arrDel = ['pg'];
 $arrVal = [14, 28, 56, 112];
 $mRecPp = new Menu();
-$mRecPp->cssClass .= ' menu2 mRecPp';
+$mRecPp->cssClass.= ' menu2 mRecPp';
 $mRecPp->add(['a', 'b', $params->numRecPerPage]);
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$query->withString(['numRecPp' => $val], $arrDel);
@@ -30,7 +32,7 @@ $arrVal = [
 	3 => $i18n['last changed']
 ];
 $mSort = new Menu();
-$mSort->cssClass .= ' menu2 mSort';
+$mSort->cssClass.= ' menu2 mSort';
 $mSort->add(['a', 'b', $arrVal[$params->sort]]);
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$query->withString(['sort' => $key], $arrDel);
@@ -48,7 +50,7 @@ $arrVal = [
 ];
 $mRating = new Menu();
 $mRating->cssId = 'mRating';
-$mRating->cssClass .= ' menu2 mRating';
+$mRating->cssClass.= ' menu2 mRating';
 $val = array_key_exists($params->qual, $arrVal) ? $arrVal[$params->qual] : $arrVal[2];
 $mRating->add(['a', 'b', $val]);
 foreach ($arrVal as $key => $val) {

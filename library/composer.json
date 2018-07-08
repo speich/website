@@ -4,6 +4,7 @@
     },
     "autoload": {
         "psr-4": {
+            "speich\\": "../scripts/php/class",
             "PhotoDb\\": "../photo/photodb/scripts/php",
             "WebsiteTemplate\\": "vendor/speich.net/WebsiteTemplate/scripts/php"
         }

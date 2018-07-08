@@ -1,8 +1,9 @@
 <?php
+
+use speich\WebsiteSpeich;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Menu;
 use WebsiteTemplate\QueryString;
-use WebsiteTemplate\Website;
 
 
 /**************************
@@ -27,6 +28,7 @@ $arrNav['en'] = [
 ];
 
 $mainNav = new Menu($arrNav[$lang->get()]);
+$mainNav->cssClass = "menu menu2";
 $mainNav->cssId = 'menuMain';
 
 // set main menu active according to first (top) directory
@@ -128,7 +130,7 @@ switch($mainNav->getActive()) {
 
 /**
  * Create sub navigation for main menu articles.
- * @param Website $web
+ * @param WebsiteSpeich $web
  * @param Menu $sideNav
  * @param array $menuItems
  */
@@ -163,7 +165,7 @@ function createSideMenuArticles($web, $sideNav, $menuItems) {
 
 /**
  * Creates the side menu photography for the main menu.
- * @param Website $web
+ * @param WebsiteSpeich $web
  * @param Menu $sideNav
  * @param array $menuItems
  * @param Language $lang
@@ -200,7 +202,7 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 	// side menu links for submenu database should start fresh with only ?theme={id} as query string (or non photo related query variables)
 	// treat country as a theme, do not allow country and theme vars in the query string at the same time
 	// note: country and theme will be added back in loop
-    $query = new QueryString();
+    $query = new QueryString($web->getWhitelistQueryString());
 	$arrQueryDel = ['pg', 'numRec', 'lang', 'imgId', 'lat1', 'lng1', 'lat2', 'lng2'];
 	$path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
 	$lastMenuId = null;
@@ -236,3 +238,4 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 
 $langNav = new \WebsiteTemplate\LanguageMenu($lang, $web);
 $langNav->useLabel = true;
+$langNav->setWhitelist($web->getWhitelistQueryString());

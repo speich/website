@@ -16,7 +16,6 @@ body {
 }
 
 #layoutTop02 {
-	height: 22px;
 	background-color: #225300;
 }
 
@@ -179,13 +178,18 @@ a:visited {
 }
 
 #menuMain {
+	margin: 0 0 4px 210px;
+	background: none;
+	border: none;
+	vertical-align: top;
 	display: inline-block;
-	margin: 0 0 0 210px;
+}
+
+#menuMain a, #menuMain div {
+    padding: 2px 12px 0 12px;
 }
 
 #menuMain li {
-	float: left;
-	margin: 2px 26px 0 0;
 	letter-spacing: 0.1em;
 }
 
@@ -194,12 +198,13 @@ a:visited {
 	text-decoration: none;
 }
 
-#menuMain a:hover, #navLang a:hover  {
-	color: #cc0000;
+#menuMain li a:hover, #navLang a:hover  {
+	margin-bottom: -2px;
+	border-bottom: 2px solid #ffdb0b;
 }
 
 #menuMain .menuActive a, #navLang .navActive {
-	color: #578626;
+	color: #ffdb0b;
 }
 
 .sideMenu {
@@ -241,8 +246,9 @@ a:visited {
 }
 
 #navLang {
-	margin: 5px 20px 0 200px;
+	margin: 0 20px 0 200px;
 	display: inline-block;
+	vertical-align: middle;
 }
 
 #navLang li {
@@ -250,87 +256,6 @@ a:visited {
 	margin-right: 12px;
 }
 
-.menu {
-	cursor: pointer;
-	list-style: none;
-}
-
-.menu a:hover {
-	color: #578626;
-}
-
-.menu a {
-	display: block;
-	text-decoration: none;
-}
-
-.menu .menuActive > a {
-	color: #a00a00;
-}
-
-/** menu2 is an advanced horizontal menu with animated submenus
- * Modified from http://accu.org/index.php/journals/1399 to use css3 transitions
- */
-.menu2 {
-	display: inline-block;
-	margin: 2px 4px 2px 4px;
-	border: 1px solid #cccccc;
-	background-color: #fafafa;
-}
-
-.menu2 li {
-	background-color: #fafafa;
-	position: relative;
-}
-
-.menu2 > li {
-	background: #fafafa linear-gradient(#fafafa, #e6e6e6) repeat;
-}
-
-.menu2 ul {
-	position: absolute;
-	border: 1px solid #ccc;
-	opacity: 0;
-	visibility: hidden;
-	left: -1px;
-	transition: opacity .5s ease-in-out;
-	box-shadow: #ccc 2px 2px 4px;
-}
-
-.menu2 li:hover > ul {
-	opacity: 1;
-	visibility: visible;
-	top: 26px;
-}
-
-.menu2 a {
-	color: #555555;
-	text-decoration: none;
-	background: url(images/icon_arrowdown.gif) right no-repeat;
-	padding: 4px 6px 4px 6px;
-	white-space: nowrap;
-}
-
-.menu2 a[href] {
-	background-image: none;
-}
-
-.menu2 ul a:hover {
-	background-color: #e6e6e6;
-}
-
-.menu2 li ul ul {
-	left: 100%;
-}
-
-.menu2 > li:nth-child(2) > ul > li:nth-child(1),
-.menu2 > li:nth-child(3) > ul > li:nth-child(1),
-.menu2 > li:nth-child(3) > ul ul > li:nth-child(2) {
-	border-bottom: 1px solid #cccccc;
-	box-shadow: 0 1px #ffffff;
-}
-
-/*** End Submenu ***/
 
 ul.main li {
 	background: url(images/bullet1.gif) no-repeat 0 0.5em;
