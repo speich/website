@@ -79,7 +79,7 @@ class Photo extends PhotoDb implements PhotoDbQuery {
 			$postData = new stdClass();
 		}
 		$params = new stdClass();
-		$params->qual = property_exists($postData, 'qual') ? $postData->qual : $this->quality;
+		$params->qual = (int) (property_exists($postData, 'qual') ? $postData->qual : $this->quality);
 		$params->theme = property_exists($postData, 'theme') ? (int) $postData->theme : null;
 		$params->country = property_exists($postData, 'country') ? (int) $postData->country : null;
 		$params->lat1 = property_exists($postData, 'lat1') ? (float) $postData->lat1 : null;
