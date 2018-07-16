@@ -131,6 +131,24 @@
 	background-color: #fafafa;
 }
 
+.menu2 ul {
+	border: 1px solid #cccccc;
+	left: -1px;
+}
+
+.menu2 li > div {
+	background: url(../../library/vendor/speich.net/WebsiteTemplate/layout/images/arrowdown.gif) right 3px center no-repeat;
+}
+
+
+.menu2 ul li:hover {
+	background-color: #e6e6e6;
+}
+
+.menu2 a:hover {
+	color: #578626;
+}
+
 .mSort li, .mRating li {
 	z-index: 98;
 }

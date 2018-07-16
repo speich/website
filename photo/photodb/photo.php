@@ -41,8 +41,8 @@ $pagingBar = '<div class="pagingBar">'.
 <div class="optionBar">
 <div class="barTxt"><?php
 echo '<label>'.$i18n['sorting'].'</label>';
-echo $mSort->render(); ?>
-</div>
+echo $mSort->render();
+?></div>
 <div class="barVertSeparator"></div>
 <div class="barTxt"><?php
 echo $i18n['rating'];

@@ -49,10 +49,8 @@ $arrVal = [
 	0 => $star
 ];
 $mRating = new Menu();
-$mRating->cssId = 'mRating';
 $mRating->cssClass.= ' menu2 mRating';
-$val = array_key_exists($params->qual, $arrVal) ? $arrVal[$params->qual] : $arrVal[2];
-$mRating->add(['a', 'b', $val]);
+$mRating->add(['a', 'b', $arrVal[$params->qual]]);
 foreach ($arrVal as $key => $val) {
 	$url = $web->page.$query->withString(['qual' => $key], $arrDel);
 	$mRating->add([$key, 'a', $val, $url]);
