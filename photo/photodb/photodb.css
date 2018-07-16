@@ -140,6 +140,9 @@
 	background: url(../../library/vendor/speich.net/WebsiteTemplate/layout/images/arrowdown.gif) right 3px center no-repeat;
 }
 
+.menu2 ul li a, .menu2 ul li div {
+	min-width: auto;
+}
 
 .menu2 ul li:hover {
 	background-color: #e6e6e6;
@@ -153,24 +156,30 @@
 	z-index: 98;
 }
 
-.mRecPp {
-	width: 50px;
-}
 
 .mRecPp li {
 	z-index: 99;
+	width: 44px;
 }
 
-.mRecPp li {
-	width: 44px;
+.mRecPp div {
+	width: calc(44px - 24px);
 }
 
 .mSort li {
 	width: 132px;
 }
 
+.mSort div {
+	width: calc(132px - 24px);
+}
+
 .mRating li {
 	width: 82px;
+}
+
+.mRating div {
+	width: calc(82px - 24px);
 }
 
 .imgRatingStar {
