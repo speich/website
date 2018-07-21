@@ -14,7 +14,7 @@
 	padding-top: 3px;
 }
 .button {
-	padding: 2px 4px;
+	padding: 3px 10px;
 }
 </style>
 </head>
@@ -23,8 +23,8 @@
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Confirm dialog with dojo</h1>
 <p>The demo on this page simulates the blocking behavior of JavaScript's native
-<a href="https://developer.mozilla.org/en/DOM/window.confirm">window.confirm()</a> method by using a
-<a href="http://dojotoolkit.org/reference-guide/1.9/dojo/Deferred.html">dojo.Deferred()</a>.</p>
+<a href="https://developer.mozilla.org/en/DOM/window.confirm" target="_blank">window.confirm()</a> method by using a
+<a href="https://dojotoolkit.org/reference-guide/1.10/dojo/Deferred.html" target="_blank">dojo/Deferred</a>.</p>
 <p>The DialogConfirm.show() method is called 6 times in a loop. You can either cancel the loop, press 'OK' on each
 dialog or tick the checkbox and the remaining dialogs will be skipped.</p>
 <p id="startLink">Wait for dojo to load...</p>
