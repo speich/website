@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BoxplotRender Plugin for JQplot</title>
-<link href="jqplot.1.0.9.d96a669/jquery.jqplot.min.css" rel="stylesheet" type="text/css">
+<link href="../../library/jqplot.1.0.9.d96a669/jquery.jqplot.min.css" rel="stylesheet" type="text/css">
 <style>
 #boxplot {
     width: 120px;
@@ -13,34 +13,35 @@
 <body>
 <div id="boxplot"></div>
 
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.12.2/dojo/dojo.js"
-        data-dojo-config="async: true, packages: [
-            {name: 'jquery', location: '/articles/demos/jqplot.1.0.9.d96a669', main: 'jquery.min'},
-            {name: 'jqplot', location: '/articles/demos/jqplot.1.0.9.d96a669', main: 'jquery.jqplot.min'},
-            {name: 'speich.net', location: '/articles/demos/boxplot'}
-        ]"></script>
+<script src="../../library/dojo/1.13.0/dojo/dojo.js" data-dojo-config="async: true,
+	baseUrl: '/library',
+	packages: [
+		{name: 'dojo', location: 'dojo/1.13.0/dojo' },
+    {name: 'jquery', location: 'jquery', main: 'jquery-3.3.1.min'},
+    {name: 'jqplot', location: 'jqplot.1.0.9.d96a669', main: 'jquery.jqplot.min'},
+    {name: 'boxplot', location: 'speich.net/boxplot'}
+  ]"></script>
 <script>
-    define.amd.jQuery = true;	// allow loading jquery with dojo amd
-    require(['jquery'], function () {   // jquery has to be loaded before jqplot
-        require(['jqplot'], function () {
-            require([
-                'speich.net/ChartBoxplot'
-            ], function (ChartBoxplot) {
-                var data, boxplot = new ChartBoxplot({}, 'boxplot');
+define.amd.jQuery = true;	// allow loading jquery with dojo amd
+require(['jquery'], function () {   // jquery has to be loaded before jqplot
+    require(['jqplot'], function () {
+        require([
+            'boxplot/ChartBoxplot'
+        ], function (ChartBoxplot) {
+            var data, boxplot = new ChartBoxplot({}, 'boxplot');
 
-                data = {
-                    q25: 3.2,
-                    max: 11,
-                    min: 1,
-                    q75: 7,
-                    median: 4.4,
-                    xLabel: 'Diameter'
-                };
-
-                boxplot.create(data);
-            });
+            data = {
+                q25: 3.2,
+                max: 11,
+                min: 1,
+                q75: 7,
+                median: 4.4,
+                xLabel: 'Diameter'
+            };
+            boxplot.create(data);
         });
     });
+});
 </script>
 </body>
 </html>

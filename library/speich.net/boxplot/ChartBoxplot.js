@@ -3,8 +3,8 @@
  */
 define([
 	'dojo/_base/declare',
-	'speich.net/BoxplotRenderer',
-	'speich.net/Chart',
+	'boxplot/BoxplotRenderer',
+	'boxplot/Chart',
 	'jqplot/plugins/jqplot.categoryAxisRenderer'
 ], function(declare, BoxplotRenderer, Chart) {
 

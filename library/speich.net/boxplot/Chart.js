@@ -17,7 +17,7 @@ define([
 
 	var config, idx = 0;
 
-	require(['speich.net/configChart'], function(configChart) {
+	require(['boxplot/configChart'], function(configChart) {
 		// canvasAxisLabelRenderer has to be loaded first
 		config = configChart;
 	});
