@@ -1,85 +1,133 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="<?php echo $lang->get(); ?>">
+<?php
+require_once '../scripts/php/inc_script.php';
+$lang = $lang->get();
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>speich.net +++ Dojo BorderContainer Beispiel</title>
-<script type="text/javascript">
-var djConfig = {
-	isDebug: false, 
-	parseOnLoad: false
-};
-</script>
-<script type="text/javascript" src="http://o.aolcdn.com/dojo/1.2.3/dojo/dojo.xd.js"></script>
-<link rel="stylesheet" type="text/css" href="http://o.aolcdn.com/dojo/1.2.3/dojo/resources/dojo.css"/>
-<link rel="stylesheet" type="text/css" href="http://o.aolcdn.com/dojo/1.2.3/dijit/themes/tundra/tundra.css"/>
-<script type="text/javascript">
-dojo.require("dijit.layout.ContentPane");
-dojo.require("dijit.layout.BorderContainer");
-dojo.require("dijit.layout.TabContainer");
-
-function Init() {
-	// create layout
-	var El = new dijit.layout.BorderContainer({style: 'width: 100%; height: 100%;' }, 'LayoutSplit1');
-	new dijit.layout.ContentPane({region: 'top'}, 'Top1');
-	new dijit.layout.ContentPane({region: 'left', splitter: true, minSize: 200, style: 'width: 350px' }, 'Left1');
-	new dijit.layout.ContentPane({region: 'center' }, 'Right1');
-	new dijit.layout.BorderContainer({style: 'width: 100%; height: 100%;' }, 'LayoutSplit2');
-	new dijit.layout.ContentPane({splitter: true, region: 'left', minSize: 300, style: 'width: 50%' }, 'Left2');
-	new dijit.layout.ContentPane({region: 'center' }, 'Right2');
-	new dijit.layout.TabContainer({style: 'width: 100%'}, 'TabCont');
-  new dijit.layout.ContentPane({title: 'Tab1'}, 'Tab1');
-	new dijit.layout.ContentPane({title: 'Tab2'}, 'Tab2');
-	new dijit.layout.BorderContainer({style: 'width: 100%; height: 100%;' }, 'LayoutSplit3');
-	new dijit.layout.ContentPane({splitter: true, region: 'top', style: 'height: 70%'}, 'Top3');
-	new dijit.layout.ContentPane({region: 'center' }, 'Bottom3');
-	El.startup();	// has to be called on top element in widget hierarchy
-}
-dojo.addOnLoad(Init);
-
-</script>
+<title><?php echo $web->pageTitle.': Dojo BorderContainer '.($lang === 'en' ? 'Example' : 'Beispiel'); ?></title>
+<?php require_once '../layout/inc_head.php' ?>
+<link rel="stylesheet" type="text/css" href="../library/dojo/1.13.0/dojo/resources/dojo.css"/>
+<link href="../library/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-#LayoutCont {
+#layoutCont {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 }
-#Top1 {
-	background-image:url(../../images/ban_bg.gif); 
-	background-position: center top;
-	background-repeat: repeat-x;
-	height:75px;
-	background-color: #1C78A6;
+
+#top1.dijitContentPane {
+	padding: 0;
 }
-#Top1 img {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+
+#layoutSplit1, #layoutSplit2, #layoutSplit3 {
+	width: 100%;
+	height: 100%;
+}
+
+#left1 {
+	width: 350px;
+	padding-right: 0;
+}
+
+#right1 {
+	padding-left: 0;
+}
+
+#right1 .dijitTabPaneWrapper {
+	border: none;
+}
+
+#right1 .dijitTab:first-of-type {
+	margin-left: 6px;
+}
+
+#left2 {
+	width: 50%;
+	padding: 12px 0 0 0;
+}
+
+#top1 {
+	background: url(../layout/images/layout-top.jpg) no-repeat;
+}
+
+#top3 {
+	height: 30%;
 }
 </style>
 </head>
 
-<body class="tundra">
-<div id="LayoutCont">
-<div id="LayoutSplit1">
-<div id="Top1"><a href="../../default.php"><img alt="Layout" src="../../images/logo.gif"/></a></div>
-<div id="Left1">
-<div id="LayoutSplit3">
-<div id="Top3">Region 3 Top</div>
-<div id="Bottom3">Region 3 Center</div>
-</div>
-</div>
-<div id="Right1">
-<div id="LayoutSplit2">
-<div id="Left2">
-<div id="TabCont">
-<div id="Tab1">Tab1 Cont</div>
-<div id="Tab2">Tab2 Cont</div>
-</div>
-</div>
-<div id="Right2">Region 2 Center</div>
-</div>
-</div>
-</div>
+<body class="claro">
+<div id="layoutCont">
+	<div id="layoutSplit1">
+		<div id="top1"><a href="../index.php"><img alt="Layout" src="../layout/images/layout-logo.gif"/></a></div>
+		<div id="left1">
+			<div id="layoutSplit3">
+				<div id="top3">Region 3 top</div>
+				<div id="bottom3">Region 3 center</div>
+			</div>
+		</div>
+		<div id="right1">
+			<div id="layoutSplit2">
+				<div id="left2">
+					<div id="tabCont">
+						<div id="tab1">Tab1 content</div>
+						<div id="tab2">Tab2 content</div>
+					</div>
+				</div>
+				<div id="right2">Region 2 center</div>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
+
+<script type="text/javascript" src="../library/dojo/1.13.0/dojo/dojo.js"
+        data-dojo-config="async: true,	isDebug: false,	parseOnLoad: false"></script>
+<script type="text/javascript">
+require(['dijit/layout/ContentPane', 'dijit/layout/BorderContainer', 'dijit/layout/TabContainer'], function(ContentPane, BorderContainer, TabContainer) {
+	var el = new BorderContainer({
+		gutters: false
+	}, 'layoutSplit1');
+	new ContentPane({
+		region: 'top',
+		splitter: false
+	}, 'top1');
+	new ContentPane({
+		region: 'left',
+		splitter: true
+	}, 'left1');
+	new ContentPane({
+		region: 'center'
+	}, 'right1');
+	new BorderContainer({}, 'layoutSplit2');
+	new ContentPane({
+		splitter: true,
+		region: 'left',
+		minSize: 300
+	}, 'left2');
+	new ContentPane({
+		region: 'center',
+		minSize: 600
+	}, 'right2');
+	new TabContainer({
+		style: 'width: 100%'
+	}, 'tabCont');
+	new ContentPane({
+		title: 'Tab1'
+	}, 'tab1');
+	new ContentPane({
+		title: 'Tab2'
+	}, 'tab2');
+	new BorderContainer({}, 'layoutSplit3');
+	new ContentPane({
+		splitter: true,
+		region: 'top'
+	}, 'top3');
+	new ContentPane({
+		region: 'center'
+	}, 'bottom3');
+	el.startup();	// has to be called on top element in widget hierarchy
+});
+</script>
 </html>

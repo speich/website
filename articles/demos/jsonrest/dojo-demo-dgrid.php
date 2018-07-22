@@ -3,11 +3,9 @@
 <html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
-<meta charset="utf-8">
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dijit/themes/claro/claro.css" rel="stylesheet"
-		type="text/css">
-<link rel="stylesheet" href="/library/dgrid/css/skins/claro.css">
-<link href="../../../layout/layout.css" rel="stylesheet" type="text/css">
+<?php require_once 'inc_head.php' ?>
+<link href="../../../library/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet"	type="text/css">
+<link rel="stylesheet" href="../../../library/dgrid/v0.3.16/css/skins/claro.css">
 <style type="text/css">
 .claro .dgrid { border-width: 1px 0 0 0; }
 #grid.dgrid {
@@ -59,7 +57,7 @@
 	  ]
  };
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dojo/dojo.js" type="text/javascript"></script>
+<script src="../../../library/dojo/1.13.0/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/when',

@@ -14,7 +14,7 @@ require_once 'inc_body_begin.php';
 renderPhoto($photo[0], $photoDb, $lang, $i18n);
 require_once 'inc_body_end.php';
 ?>
-<script type="text/javascript" src="../../library/dojo/1.12.1/dojo/dojo.js" data-dojo-config="async: true,
+<script type="text/javascript" src="../../library/dojo/1.13.0/dojo/dojo.js" data-dojo-config="async: true,
     gmapsApiKey: 'AIzaSyBEPhZpv_OQYeJH_mVYEOubDgGLlY5aLWg',
 	locale: '<?php echo $locale = $lang->get(); ?>',
 	packages: [

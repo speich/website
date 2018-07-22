@@ -3,10 +3,9 @@
 <html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Teleobjektive</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<?php require_once 'inc_head.php' ?>
+<link href="../library/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/library/dgrid/v0.3.16/css/skins/claro.css">
-<link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -32,19 +31,19 @@
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: '//ajax.googleapis.com/ajax/libs/dojo/1.9.0/',
+	baseUrl: '../library/dojo/1.13.0/',
 	packages: [
 		{name: 'dojo', location: 'dojo'},
 		{name: 'dijit', location: 'dijit'},
 		{name: 'dojox', location: 'dojox'},
-		{name: 'dgrid', location: '/library/dgrid/v0.3.16'},
-		{name: 'xstyle', location: '/library/xstyle'},
-		{name: 'put-selector', location: '/library/put-selector'},
-		{name: 'snet', location: '/library/speich.net'}
+		{name: 'dgrid', location: '../../dgrid/v0.3.16'},
+		{name: 'xstyle', location: '../../xstyle'},
+		{name: 'put-selector', location: '../../put-selector'},
+		{name: 'snet', location: '../../speich.net'}
 	]
 };
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js" type="text/javascript"></script>
+<script src="../library/dojo/1.13.0/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',

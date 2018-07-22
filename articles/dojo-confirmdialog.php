@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: dojo confirm dialog</title>
 <?php require_once '../layout/inc_head.php' ?>
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .dijitDialog {
 	width: 300px;
@@ -30,22 +30,17 @@ dialog or tick the checkbox and the remaining dialogs will be skipped.</p>
 <p id="startLink">Wait for dojo to load...</p>
 <p>For more information read my short article about the <a href="../articles/?p=291">DialogConfirm widget</a>
 or get the <a href="https://github.com/speich/dialogconfirm">code on github</a>.</p>
-<script type="text/javascript">
-var dojoConfig = {
-	async: true,
+<script src="../library/dojo/1.13.0/dojo/dojo.js" type="text/javascript" data-dojo-config="async: true,
 	packages: [
-		{ 'name': 'snet', 'location': '/library/speich.net' }
-	]
-};
-</script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js" type="text/javascript"></script>
+		{ 'name': 'speich', 'location': '/library/speich.net' }
+	]"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/array',
 	'dojo/_base/Deferred',
 	'dojo/dom',
 	'dojo/dom-construct',
-	'snet/DialogConfirm/DialogConfirm'
+	'speich/DialogConfirm/DialogConfirm'
 ], function(array, Deferred, dom, domConstruct, DialogConfirm) {
 
 	function startDemo() {

@@ -3,9 +3,8 @@
 <html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/library/dgrid/v0.3.16/css/skins/claro.css">
+<?php require_once 'inc_head.php' ?>
+<link rel="stylesheet" href="../library/dgrid/v0.3.16/css/skins/claro.css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">
 </head>
@@ -31,7 +30,7 @@
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: '//ajax.googleapis.com/ajax/libs/dojo/1.9.0/',
+	baseUrl: '../library/dojo/1.13.0/',
 	packages: [
 		{name: 'dojo', location: 'dojo'},
 		{name: 'dijit', location: 'dijit'},
@@ -45,7 +44,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js" type="text/javascript"></script>
+<script src="../library/dojo/1.13.0/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',

@@ -1,5 +1,6 @@
-<?php require_once '../scripts/php/inc_script.php'; ?>
 <?php
+require_once '../scripts/php/inc_script.php';
+
 /*
  * Simple PHP page that checks if all HTTP request methods are supported by your apache installation
  * and directly writes the parameters back as json
@@ -16,11 +17,11 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 		$_DATA = $_GET;
 	}
 	
-	$arr = array(
+	$arr = [
 		'method' => $method,
 		'resource' => $resource,
 		'data' => $_DATA
-	);	
+  ];
 
 // GET = load all tree items
 // in a real world example you would generate the tree items
@@ -28,26 +29,30 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 if ($method == 'GET') {
 	switch($resource) {
 		case '/':
-			$arr = array( 
-				array('$ref' => 'node1', 'name' => 'node1', 'children' => true),
-				array('id' => 'node2', 'name' =>'node2', 'someProperty' =>'somePropertyB'),
-				array('id' => 'node3', 'name' =>'node3', 'someProperty' =>'somePropertyC'),
-				array('id' => 'node4', 'name' =>'node4', 'someProperty' =>'somePropertyA'),
-				array('id' => 'node5', 'name' =>'node5', 'someProperty' =>'somePropertyB')
-			);
+			$arr = [
+				['$ref' => 'node1', 'name' => 'node1', 'children' => true],
+				['id' => 'node2', 'name' =>'node2', 'someProperty' =>'somePropertyB'],
+				['id' => 'node3', 'name' =>'node3', 'someProperty' =>'somePropertyC'],
+				['id' => 'node4', 'name' =>'node4', 'someProperty' =>'somePropertyA'],
+				['id' => 'node5', 'name' =>'node5', 'someProperty' =>'somePropertyB']
+      ];
 			break;
 		case '/node1':
-			$arr = array('id' => 'node1', 'name' => 'node1', 'someProperty' => 'somePropertyA', 'children' => array(
-				array('$ref' => 'node1.1', 'name' => 'node1.1', 'children' => true),
-				array('name' => 'node1.2')
-			));
+			$arr = [
+          'id' => 'node1', 'name' => 'node1', 'someProperty' => 'somePropertyA', 'children' => [
+				['$ref' => 'node1.1', 'name' => 'node1.1', 'children' => true],
+				['name' => 'node1.2']
+          ]
+      ];
 			break;
 		case '/node1.1':
-			$arr = array('id' => 'node1.1', 'name' =>'node1.1', 'someProperty' => 'somePropertyA1', 'children' => array(
-				array('id' => 'node1.1.3', 'name' => 'node1.1.3'),
-				array('$ref' => 'node1.1.1', 'name' => 'node1.1.1'),
-				array('$ref' => 'node1.1.2', 'name' => 'node1.1.2')
-			));
+			$arr = [
+          'id' => 'node1.1', 'name' =>'node1.1', 'someProperty' => 'somePropertyA1', 'children' => [
+				['id' => 'node1.1.3', 'name' => 'node1.1.3'],
+				['$ref' => 'node1.1.1', 'name' => 'node1.1.1'],
+				['$ref' => 'node1.1.2', 'name' => 'node1.1.2']
+          ]
+      ];
 			break;
 	}
 	$status = 'HTTP/1.1 200 OK';
@@ -55,9 +60,9 @@ if ($method == 'GET') {
 
 // POST = create new item 6 and append it to node 5
 else if ($method == 'POST') {
-	$arr = array(
-		array('id' => 'node6', '$ref' => 'node5', 'name' => 'node6')
-	);
+	$arr = [
+		['id' => 'node6', '$ref' => 'node5', 'name' => 'node6']
+  ];
 	$status = 'HTTP/1.1 201 Created';
 }
 
@@ -88,16 +93,12 @@ echo json_encode($arr);
 }
 else {
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../layout/layout.css" rel="stylesheet" type="text/css">
-<link href="../library/prettify/prettify.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="../library/prettify/prettify.js"></script>
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
+<?php require_once '../layout/inc_head.php' ?>
+<link href="../library/dojo/1.13.0/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #log {
 	padding: 8px;
@@ -127,160 +128,160 @@ server response does not contain these previous changes (in this demo they are s
 <div id="log"></div>
 <p>Download the zipped demo file of part 1 <a href="downloads/dojo-jsonreststore.zip">dojo-jsonreststore.zip</a></p>
 <?php require_once 'inc_body_end.php'; ?>
+<script src="../library/dojo/1.13.0/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $lang->get(); ?>'"></script>
 <script type="text/javascript">
-var dojoConfig = {
-	locale: '<?php echo $locale = $lang->get(); ?>'
-};
-</script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js"></script>
-<script type="text/javascript">
-dojo.require('dojox.data.JsonRestStore');
-dojo.require('dijit.Tree');
+require([
+	'dojo/_base/lang',
+	'dojo/_base/array',
+	'dojo/dom',
+	'dojo/query',
+	'dojox/data/JsonRestStore',
+	'dijit/Tree',
+	'dijit/tree/ForestStoreModel'
+	], function(lang, array, dom, query, JsonRestStore, Tree, ForestStoreModel) {
+	var demo = {
+		store: null,
+		model: null,
+		tree: null,
+		forceError: false,
 
-var demo = {
-	store: null,
-	model: null,
-	tree: null,
-	forceError: false,
+		init: function() {
+			this.store = new JsonRestStore({
+				target: 'dojo-jsonreststore.php',
+				labelAttribute: "name"
+			});
 
-	init: function() {
-		this.store = new dojox.data.JsonRestStore({
-			target: 'dojo-jsonreststore.php',
-			labelAttribute: "name"
-		});
+			this.model = new ForestStoreModel({
+				store: this.store,
+				deferItemLoadingUntilExpand: true,
+				rootId: "images",
+				rootLabel: "images",
+				query: {},
+				childrenAttrs: ['children']
+			});
 
-		this.model = new dijit.tree.ForestStoreModel({
-			store: this.store,
-			deferItemLoadingUntilExpand: true,
-			rootId: "images",
-			rootLabel: "images",
-			query: {},
-			childrenAttrs: ['children']
-		});
+			this.tree = new Tree({
+				model: this.model,
+				persist: false
+			}, 'tree');
+			this.tree.startup();
+		},
 
-		this.tree = new dijit.Tree({
-			model: this.model,
-			persist: false
-		}, 'tree');
-		this.tree.startup();
-	},
+		/*** CRUD operations ***
+		 * Note: Updating data in the tree's JsonRestStore wille make the ForestStoreModel adapter
+		 * re-query the top nodes on every onNew notification event and every onDelete event that involves a top level item.
+		 * This can result in queries to the server even though the server has not yet been sent all changes.
+		 * This makes top level additions essentially disappear when the re-query takes place. You may need to
+		 * override the _onNewItem and _onDeleteItem to provide your own logic about where new and deleted items should be placed in the hierarchy.
+		 */
 
-	/*** CRUD operations ***
-	 * Note: Updating data in the tree's JsonRestStore wille make the ForestStoreModel adapter
-	 * re-query the top nodes on every onNew notification event and every onDelete event that involves a top level item.
-	 * This can result in queries to the server even though the server has not yet been sent all changes.
-	 * This makes top level additions essentially disappear when the re-query takes place. You may need to
-	 * override the _onNewItem and _onDeleteItem to provide your own logic about where new and deleted items should be placed in the hierarchy.
-	 */
+		// GET = read item 1
+		get: function() {
+			this.store.fetchItemByIdentity({
+				identity: 'node1',
+				onItem: lang.hitch(this.store, function(item) {
+					var children = this.getValue(item, 'children');
 
-	// GET = read item 1
-	get: function() {
-		this.store.fetchItemByIdentity({
-			identity: 'node1',
-			onItem: dojo.hitch(this.store, function(item) {
-				var children = this.getValue(item, 'children');
-				dojo.byId('log').innerHTML+= 'item ' + item.id + ' contains:<br/>';
-				dojo.forEach(children, function(child) {
-					dojo.byId('log').innerHTML+= 'item ' + child.name + '<br/>';
-				});
-			}),
-			onError: function(error) {
-				dojo.byId('log').innerHTML+= 'fetching item failed with ' + error + '<br/>';
-			}
-		});
-	},
+					dom.byId('log').innerHTML += 'item ' + item.id + ' contains:<br/>';
+					array.forEach(children, function(child) {
+						dom.byId('log').innerHTML += 'item ' + child.name + '<br/>';
+					});
+				}),
+				onError: function(error) {
+					dom.byId('log').innerHTML += 'fetching item failed with ' + error + '<br/>';
+				}
+			});
+		},
 
-	// PUT = update item 2
-	put: function() {
-		this.store.fetchItemByIdentity({
-			identity: 'node2',
-			onItem: dojo.hitch(this.store, function(item) {
-				this.setValue(item, 'name', 'renamed');	// updating will requery this will reload
-				this.save({
-					onComplete: function() {
-						dojo.byId('log').innerHTML+= 'item successfully renamed<br/>';
-					},
-					onError: function(error) {
-						dojo.byId('log').innerHTML+= 'updating item failed with ' + error + '<br/>';
-					}
-				});
-			}),
-			onError: function(error) {
-				dojo.byId('log').innerHTML+= 'fetching item failed with: ' + error + '<br/>';
-			}
-		});
-	},
+		// PUT = update item 2
+		put: function() {
+			this.store.fetchItemByIdentity({
+				identity: 'node2',
+				onItem: lang.hitch(this.store, function(item) {
+					this.setValue(item, 'name', 'renamed');	// updating will requery this will reload
+					this.save({
+						onComplete: function() {
+							dom.byId('log').innerHTML += 'item successfully renamed<br/>';
+						},
+						onError: function(error) {
+							dom.byId('log').innerHTML += 'updating item failed with ' + error + '<br/>';
+						}
+					});
+				}),
+				onError: function(error) {
+					dom.byId('log').innerHTML += 'fetching item failed with: ' + error + '<br/>';
+				}
+			});
+		},
 
-	// DELETE = delete item 3
-	del: function() {
-		this.store.fetchItemByIdentity({
-			identity: 'node3',
-			onItem: dojo.hitch(this.store, function(item) {
-				this.deleteItem(item);
-				this.save({
-					onComplete: function(item) {
-						dojo.byId('log').innerHTML+= 'item successfully deleted<br/>';
-					},
-					onError: function(error) {
-						dojo.byId('log').innerHTML+= 'deleting item failed with: ' + error + '<br/>';
-						app.store.revert();	// has to be called explicitly compare to PUT/POST
-					}
-				});
-			}),
-			onError: function(error) {
-				dojo.byId('log').innerHTML+= 'fetching item failed with: ' + error + '<br/>';
-			}
-		});
-	},
+		// DELETE = delete item 3
+		del: function() {
+			this.store.fetchItemByIdentity({
+				identity: 'node3',
+				onItem: lang.hitch(this.store, function(item) {
+					this.deleteItem(item);
+					this.save({
+						onComplete: function(item) {
+							dom.byId('log').innerHTML += 'item successfully deleted<br/>';
+						},
+						onError: function(error) {
+							dom.byId('log').innerHTML += 'deleting item failed with: ' + error + '<br/>';
+							app.store.revert();	// has to be called explicitly compare to PUT/POST
+						}
+					});
+				}),
+				onError: function(error) {
+					dom.byId('log').innerHTML += 'fetching item failed with: ' + error + '<br/>';
+				}
+			});
+		},
 
-	// POST = create new item 6 as child of node 5
-	post: function() {
-		this.store.fetchItemByIdentity({
-			identity: 'node5',
-			onItem: dojo.hitch(this, function(item) {
-				this.model.newItem({
-					name: 'new node 6',
-					$ref: 'node5'
-				}, item);
-				this.store.save({
-					onComplete: function() {
-						dojo.byId('log').innerHTML+= 'new item successfully created<br/>';
-						// update store to display folder icon
-						//'dijitFolderClosed'
-					},
-					onError: function(error) {
-						dojo.byId('log').innerHTML+= 'creating new item fails with: ' + error + '<br/>';
-					}
-				});
-			}),
-			onError: function() {
-				dojo.byId('log').innerHTML+= 'fetching item failed with: ' + error + '<br/>';
-			}
-		});
-		// didn't get this to work, e.g. append to root
-		/*
-		var onItem = dojo.hitch(this, function(root) {
-			console.debug(root)
-			this.model.newItem({
-				name: 'new node 2'
-			}, root);
-			this.store.save();
-		});
-		var onError = dojo.hitch(this, function(error) {
-			console.debug('createing new item fails with: ', error);
-		});
-		this.model.getRoot(onItem, onError);
-		*/
-	}
-};
+		// POST = create new item 6 as child of node 5
+		post: function() {
+			this.store.fetchItemByIdentity({
+				identity: 'node5',
+				onItem: lang.hitch(this, function(item) {
+					this.model.newItem({
+						name: 'new node 6',
+						$ref: 'node5'
+					}, item);
+					this.store.save({
+						onComplete: function() {
+							dom.byId('log').innerHTML += 'new item successfully created<br/>';
+							// update store to display folder icon
+							//'dijitFolderClosed'
+						},
+						onError: function(error) {
+							dom.byId('log').innerHTML += 'creating new item fails with: ' + error + '<br/>';
+						}
+					});
+				}),
+				onError: function() {
+					dom.byId('log').innerHTML += 'fetching item failed with: ' + error + '<br/>';
+				}
+			});
+			// didn't get this to work, e.g. append to root
+			/*
+          var onItem = lang.hitch(this, function(root) {
+              console.debug(root)
+              this.model.newItem({
+                  name: 'new node 2'
+              }, root);
+              this.store.save();
+          });
+          var onError = lang.hitch(this, function(error) {
+              console.debug('createing new item fails with: ', error);
+          });
+          this.model.getRoot(onItem, onError);
+          */
+		}
+	};
 
-dojo.addOnLoad(function() {
 	demo.init();
-	prettyPrint();
 	// add each request method to one of the links
-	dojo.query('#ulDemo li').forEach(function(node, i) {
-		dojo.connect(node, 'onclick', function(e) {
-			dojo.stopEvent(e);	// prevent link action
+	query('#ulDemo li').forEach(function(node, i) {
+		node.addEventListener('click', function(e) {
+			e.preventDefault();	// prevent link action
 			switch(i) {
 				case 0:
 					demo.post();

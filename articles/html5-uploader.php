@@ -4,8 +4,8 @@
 <head>
 <title>speich.net HTML5 demo: multiple file upload with drag and drop</title>
 <?php require_once 'inc_head.php' ?>
-<link href="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
-<link href="/library/speich.net/fileUploader/resources/uploader.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="../library/speich.net/fileUploader/resources/uploader.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #dropTarget {
 	width: 400px;
@@ -22,7 +22,6 @@
 .targetActive {
 	box-shadow: 0 0 15px #006666;
 }
-
 </style>
 </head>
 
@@ -34,22 +33,22 @@ Works with Mozilla Firefox 3.6 and Google Chrome 7.</p>
 <div id="dropTarget"><p>Drop files from your desktop here</p></div>
 <form><input type="file" id="fldFiles" multiple></form>
 <p>Note: pause/resume only works with Firefox 4.</p>
-<p>Download the <a href="https://github.com/speich/fileUploader/">demo code from github</a> or <a href="http://www.speich.net/articles/?p=308#more-308">leave a comment</a>.</p>
-<script type="text/javascript">
-var dojoConfig = {
-	async: true,
+<p>Download the <a href="https://github.com/speich/fileUploader/" target="_blank">demo code from github</a> or <a href="http://www.speich.net/articles/?p=308#more-308">leave a comment</a>.</p>
+<script src="../library/dojo/1.13.0/dojo/dojo.js" type="text/javascript" data-dojo-config="async: true,
 	locale: 'en-us',
+	baseUrl: '../library/dojo/1.13.0',
 	packages: [
-		{ name: 'snet', location: '/library/speich.net'}
-	]
-};
-</script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.1/dojo/dojo.js" type="text/javascript"></script>
+		{ name: 'dojo', location: 'dojo' },
+		{ name: 'dijit', location: 'dijit' },
+		{ name: 'snet', location: '../../speich.net' }
+	],
+	paths: { 'snet/DialogConfirm': '../../speich.net/DialogConfirm/DialogConfirm' }
+"></script>
 <script type="text/javascript">
-require(['dojo/_base/kernel', 'dojo/dom', 'dojo/ready', 'snet/fileUploader/Uploader'], function(kernel, dom, ready, Uploader) {
+require(['dojo/dom', 'dojo/ready', 'snet/fileUploader/Uploader'], function(dom, ready, Uploader) {
 	ready(function() {
 		var upl = new Uploader({
-			url: kernel.moduleUrl('snet') + 'fileUploader/upload-controller.php',
+			url: require.toUrl('snet') + '/fileUploader/upload-controller.php',
 			dropTarget: 'dropTarget',
 			fileInputField: 'fldFiles',
 			maxKBytes: 50000,
