@@ -5,7 +5,7 @@ $version = isset($_GET['demo']) ? (int)$_GET['demo'] : 1;
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Title</title>
+<title>Demo of all images loaded</title>
 <style type="text/css">
 html, body {
 	height: calc(100% - 0.5em);
@@ -164,7 +164,7 @@ let byId = document.getElementById.bind(document),
 				promises = [];
 
 			images.forEach(img => {
-				let promise;
+				let promise, handler;
 
 				if (img.complete) {
 					// in case image is already loaded before we add the onload event
@@ -172,8 +172,16 @@ let byId = document.getElementById.bind(document),
 				}
 				else {
 					promise = new Promise((resolve) => {
-						img.addEventListener('load', resolve);
-						img.addEventListener('error', resolve);
+						handler = () => { 	resolve(); };
+
+						img.addEventListener('load', handler);
+						// also resolve on loading errors, since we only care about the height change
+						// and not if a specific image was loaded successfully or not
+						img.addEventListener('error', handler);
+					}).then(() => {
+						// remove handlers, since we no longer need them
+						img.removeEventListener('load', handler);
+						img.removeEventListener('error', handler);
 					});
 				}
 				promises.push(promise);
@@ -208,12 +216,13 @@ window.addEventListener('load', () => {
 	app.loadImages()
 		.then(items => {
 			app.renderList(items);
-			app.queryAllImagesSettled('ul img')
-				.then(() => {
-					let id = app.getId();
 
-					app.select(id);
-				});
+			return app.queryAllImagesSettled('ul img');
+		})
+		.then(() => {
+			let id = app.getId();
+
+			app.select(id);
 		});
 });
 <?php }  ?>
