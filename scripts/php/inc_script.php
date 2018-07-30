@@ -18,12 +18,22 @@ require_once __DIR__.'/../../library/vendor/autoload.php';
 
 $lang = new Language();
 $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
-$lang->set();
 
 $web = new WebsiteSpeich();
 $web->lastUpdate = '30.07.2018';
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
+
+// TODO: just a quick fix to set wordpress language correctly
+if (preg_match('/\/en(\/|$)/', $web->path) === 1) {
+    $lang->set('en');
+}
+else if (preg_match('/\/de(\/|$)/', $web->path) === 1) {
+    $lang->set('de');
+}
+else {
+    $lang->set();   // auto from query string or browser
+}
 
 if ($lang->get() === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';
@@ -32,6 +42,5 @@ else {
 	$windowTitle = 'Photography and web programming';
 }
 $web->pageTitle = 'Simon Speich - '.$windowTitle;
-
 
 require_once 'inc_nav.php';

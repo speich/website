@@ -26,8 +26,8 @@
 <p>Dies ist die Website von Simon Speich über Fotografie und Webprogrammierung.</p>
 <p>Haben Sie Freude an schönen Naturfotos insbesondere zum Thema <a href="photo/photodb/photo.php?theme=1">Vögel</a>,
 	dann ist meine <a href="photo/photodb/photo.php">Bilddatenbank</a> genau das Richtige für Sie. Wenn Sie sich eher
-für die Webprogrammierung interessieren lesen Sie doch einen meiner Artikel über
-	<a href="articles/category/php/">PHP</a> oder <a href="articles/category/javascript/">JavaScript</a>.</p>
+für die Webprogrammierung interessieren lesen Sie doch einen meiner Artikel (in Englisch) über
+	<a href="articles/en/category/php/">PHP</a> oder <a href="articles/en/category/javascript/">JavaScript</a>.</p>
 <div class="imgFrame"><img src="library/imagefnc.php?fnc=randDbImg" title="Foto www.speich.net" alt="zufällig ausgewähltes Foto" width="740"></div>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
