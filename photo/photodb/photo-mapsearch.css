@@ -1,0 +1,51 @@
+#mapContainer {
+	position: relative;
+	display: none;
+}
+
+#loading {
+	width: 200px;
+	margin: 150px auto;
+}
+
+#loading img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+
+/* adjust layout for map */
+#layoutMiddle { bottom: 100px; margin: 0}
+#layoutMain { margin-left: 0; }
+#layoutMiddle, #layoutFooterCont {
+	max-width: none;
+}
+#layoutFooterCont {
+	padding: 0;
+}
+
+#map-canvas {
+	/* dimension overwritten by js */
+	height: 100%;
+	width: 100%;
+}
+
+#map {
+	height: 520px;
+	border: 1px solid black;
+	display: none;
+	visibility: hidden;
+}
+
+img[id^=mtgt_unnamed] {
+	border: 1px solid white !important;
+}
+
+.mRating, #showPhotos {
+	margin: 6px;
+	display: none;
+}
+
+#mRating li:hover > ul {
+	top: 24px;
+}
