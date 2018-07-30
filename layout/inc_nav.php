@@ -59,7 +59,7 @@ $arrPhotoNav['de'] = [
 	[2, 1, 'Alle Fotos', $path.'photo.php'],
 	[3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$query->withString(null, $arrQueryDel)],
 	[4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'],
-	[5, 'f', 'Auszeichnungen', $web->getWebRoot().'photo/auszeichungen.php']
+	[5, 'f', 'Auszeichnungen', $web->getWebRoot().'photo/auszeichnungen.php']
 ];
 $arrPhotoNav['en'] = [
 	[1, 'f', 'Photo Database', $path.'photo-en.php'],
@@ -91,7 +91,7 @@ $path = $web->getWebRoot().'about/';
 $arrPersonNav['de'] = [
 	[1, 'f', 'Lebenslauf', $path.'cv.php'],
 	[2, 'f', 'Diplomarbeit', $path.'diplomarbeit.php'],
-	[3, 'f', 'Auszeichungen', $web->getWebRoot().'photo/auszeichungen.php']
+	[3, 'f', 'Auszeichungen', $web->getWebRoot().'photo/auszeichnungen.php']
 ];
 $arrPersonNav['en'] = [
 	[1, 'f', 'Curriculum Vitae', $path.'cv-en.php'],
