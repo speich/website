@@ -24,10 +24,10 @@
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Insights and views</h1>
 <p>This is Simon Speich's Website about photography and web programming.</p>
-<p>If you enjoy looking at beautiful nature photos, especially <a href="photo/photodb/photo.php?theme=1">birds</a>,
-	then my <a href="photo/photodb/photo.php">photo archive</a> is exactly what you are looking for.
+<p>If you enjoy looking at beautiful nature photos, especially <a href="photo/photodb/photo-en.php?theme=1">birds</a>,
+	then my <a href="photo/photodb/photo-en.php">photo archive</a> is exactly what you are looking for.
 	If you are more interested in web programming, have a look at my articles about
-	<a href="articles/category/php/">PHP</a> and <a href="articles/category/javascript/">JavaScript</a>.</p>
+	<a href="articles/category/php/?lang=en">PHP</a> and <a href="articles/category/javascript/?lang=en">JavaScript</a>.</p>
 <div class="imgFrame"><img src="library/imagefnc.php?fnc=randDbImg" title="photo www.speich.net" alt="random photo" width="740"></div>
 <?php require_once 'inc_body_end.php'; ?>
 </body>
