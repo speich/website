@@ -16,7 +16,7 @@
 	decide which telephoto lens to buy, if the weight plays a	major role.</p>
 <p>For more details read my article <a href="https://photographylife.com/canon-vs-nikon-telephoto-lenses" target="_blank">Canon vs Nikon Telephoto Lenses</a> on photographylife.com</p>
 <h2>Date of comparison: 2011/2013</h2>
-<ul class="legend"><li class="nikon"></li><li>Nikon</li><li class="canon"></li><li>Canon</li></ul>
+<ul class="legend"><li class="canon"></li><li>Canon</li><li class="nikon"></li><li>Nikon</li></ul>
 <div id="chartRatio" class="chart"></div>
 <div id="chartWeight" class="chart"></div>
 <div id="chartDiameter" class="chart"></div>

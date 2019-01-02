@@ -67,9 +67,12 @@ li.nikon, li.canon {
 	width: 0.6em;
 	height: 0.6em;
 	margin-right: 0.2em;
-	background-color: #9e4897;
+}
+
+li.nikon {
+	background-color: #73a84c;
 }
 
 li.canon {
-	background-color: #73a84c;
+	background-color: #9e4897;
 }

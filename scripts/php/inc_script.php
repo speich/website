@@ -20,7 +20,7 @@ $lang = new Language();
 $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 
 $web = new WebsiteSpeich();
-$web->lastUpdate = '30.07.2018';
+$web->lastUpdate = '18.08.2018';
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 
