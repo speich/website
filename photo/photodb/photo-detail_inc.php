@@ -88,7 +88,8 @@ function renderPhoto($data, $db, $lang, $i18n)
 	$star = '';
 
 	$str = '<img class="imgRatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
-	for ($i = 0; $i < strlen($data['rating']); $i++) {
+    $len = strlen($data['rating']);
+	for ($i = 0; $i < $len; $i++) {
 		$star .= $str;
 	}
 	if ($data['dateTimeOriginal']) {
@@ -104,7 +105,7 @@ function renderPhoto($data, $db, $lang, $i18n)
 	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</li>
             <em><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <em>'.$data['wissNameLa'].' <span title="'.$data['sex'].'">'.$data['symbol'].'</span></em></em>
             </ul><ul>
-            <li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].'</li>
+            <li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].' px</li>
             <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
             <li><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$data['imgId'].'</li>
             <li><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$data['imgName'].'</li>
