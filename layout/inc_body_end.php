@@ -6,9 +6,8 @@
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
-
 if ($lang->get() === 'de') {	// for wordpress to work we need static access because of being in function scope
-	echo '<p>© 2003-2018 speich.net, Konzept und Programmierung Simon Speich';
+	echo '<p>© 2003-2019 speich.net, Konzept und Programmierung Simon Speich';
 	echo '<span style="float: right;">Letzte Aktualisierung '.$web->lastUpdate.'</span><p>';
 	if (strpos($_SERVER['REQUEST_URI'], '/photo') !== false) { ?>
 		<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.de"><img alt="Creative Commons Lizenzvertrag" src="https://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
@@ -21,7 +20,7 @@ if ($lang->get() === 'de') {	// for wordpress to work we need static access beca
 	}
 }
 else {
-	echo '<p>© 2003-2018 speich.net, concept und programming Simon Speich';
+	echo '<p>© 2003-2019 speich.net, concept und programming Simon Speich';
 	echo '<span style="float: right;">last update '.$web->lastUpdate.'</span><p>';
 	if (strpos($web->getDir(), '/photo') !== false) { ?>
 			<p><a rel="license" href="https://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons licence" src="https://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
