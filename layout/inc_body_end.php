@@ -15,9 +15,6 @@ if ($lang->get() === 'de') {	// for wordpress to work we need static access beca
 		sofern der Bildautor folgendermassen angeben wird:<br>
 		<strong>Foto Simon Speich, www.speich.net</strong>. Für kommerzielle Zwecke oder höhere Bildauflösungen <a href="/contact/contact.php">kontaktieren</a> Sie bitte den Bildautor.</p>
 	<?php }
-	if (!$mainNav) {
-		echo '<p>Die Artikel auf dieser Seite laufen mit <a href="http://www.wordpress.org">WordPress</a>.</p>';
-	}
 }
 else {
 	echo '<p>© 2003-2019 speich.net, concept und programming Simon Speich';
@@ -27,9 +24,6 @@ else {
 		 	All photos on this website are licenced under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution 3.0 Unported License</a>:<br>
 			<strong>Photo Simon Speich, www.speich.net</strong>. For a commercial licence or higher resolution please <a href="/contact/contact.php">contact</a> the author.</p>
 	<?php }
-	if (!$mainNav) {
-		echo '<p>Die Artikel auf dieser Seite laufen mit <a href="https://www.wordpress.org">WordPress</a>.</p>';
-	}
 } ?>
 </div>
 </div>
