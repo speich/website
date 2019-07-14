@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
-<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/document.css">
-<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dijit/themes/claro/claro.css">
+<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/document.css">
+<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/library/dgrid/v0.3.16/css/skins/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
@@ -56,8 +56,7 @@ var dojoConfig = {
 	}
 };
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dojo/dojo.js"></script>
-<!--<script type="text/javascript" src="/dojo/1.11.1/dojo/dojo.js"></script>-->
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"></script>
 <script type="text/javascript">
 require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
 	ready(function() {
