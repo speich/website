@@ -31,13 +31,13 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgTechIn
 	E.GpsLatitude gpsLatitude, E.GpsLongitude gpsLongitude, E.GpsAltitude gpsAltitude, E.GpsAltitudeRef gpsAltitudeRef,
 	E.LensSpec lensSpec, E.Lens lens, E.FileType fileType, E.VibrationReduction vibrationReduction,
 	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
-	GROUP_CONCAT(DISTINCT T.Name".$ucLang.") themes,
+	GROUP_CONCAT(DISTINCT T.Name".$ucLang.') themes,
 	GROUP_CONCAT(DISTINCT K.Name) categories,
 	N.NameDe wissNameDe, N.NameEn wissNameEn, N.NameLa wissNameLa,
-	S.Name".$ucLang." sex, S.Symbol symbol,
+	S.Name'.$ucLang.' sex, S.Symbol symbol,
 	GROUP_CONCAT(DISTINCT L.Name) locations,
-	GROUP_CONCAT(DISTINCT C.Name".$ucLang.") countries,
-	C2.Name".$ucLang." country
+	GROUP_CONCAT(DISTINCT C.Name'.$ucLang.') countries,
+	C2.Name'.$ucLang.' country
 	FROM Images I
 	LEFT JOIN FilmTypes F ON I.FilmTypeId = F.Id
 	LEFT JOIN Rating R ON I.RatingId = R.Id
@@ -55,7 +55,7 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgTechIn
 	LEFT JOIN Locations_Countries LC ON L.Id = LC.LocationId
 	LEFT JOIN Countries C ON LC.CountryId = C.Id
 	LEFT JOIN Countries C2 ON I.CountryId = C2.Id 
-	WHERE I.Id = :imgId";
+	WHERE I.Id = :imgId';
 $stmt = $photoDb->db->prepare($sql);
 $stmt->bindValue(':imgId', $imgId);
 $stmt->execute();
@@ -87,13 +87,13 @@ function renderPhoto($data, $db, $lang, $i18n)
 	$dim = $photo->getImageSize($data);
 	$star = '';
 
-	$str = '<img class="imgRatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image"/>';
+	$str = '<img class="imgRatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image">';
     $len = strlen($data['rating']);
 	for ($i = 0; $i < $len; $i++) {
 		$star .= $str;
 	}
 	if ($data['dateTimeOriginal']) {
-		$datum = date("d.m.Y H:i:s", $data['dateTimeOriginal']);
+		$datum = date('d.m.Y H:i:s', $data['dateTimeOriginal']);
 	} else {
 		$datum = $data['ImgDateManual'];
 	}
@@ -101,7 +101,7 @@ function renderPhoto($data, $db, $lang, $i18n)
 	echo '<p>'.$data['imgDesc'].'</p>';
 	echo '<div class="col colLeft">
 	    <ul>
-	        <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] != '' ? $data['categories'].'<br/>' : '').'</li>
+	        <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] !== '' ? $data['categories'].'<br/>' : '').'</li>
 	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$data['wissNameDe'].' - '.$data['wissNameEn'].'</li>
             <em><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <em>'.$data['wissNameLa'].' <span title="'.$data['sex'].'">'.$data['symbol'].'</span></em></em>
             </ul><ul>
@@ -112,7 +112,7 @@ function renderPhoto($data, $db, $lang, $i18n)
         </ul>
         <ul>
             <li><span class="photoTxtLabel">'.$i18n['place'].':</span> '.$data['locations'].'</li>
-	        <li><span class="photoTxtLabel">'.$i18n['country'].':</span> '.(is_null($data['countries']) ? $data['country'] : $data['countries']).'</li>
+	        <li><span class="photoTxtLabel">'.$i18n['country'].':</span> '.($data['countries'] ?? $data['country']).'</li>
         </ul>
         <p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>
         </div>';
@@ -129,14 +129,14 @@ function renderPhoto($data, $db, $lang, $i18n)
 	echo '<div id="contPhoto">';
 	echo '<p><a title="'.$data['imgTitle'].' '.$i18n['photo'].'" href="'.$imgFile.'">';
 	echo '<img src="'.$imgFile.'" id="photo" alt="'.$data['imgTitle'].'"/></a><br>';
-	echo $data['imgTitle'].' © Simon Speich, www.speich.net';
+	echo $data['imgTitle'].' ©Simon Speich, www.speich.net';
 	echo '</p>';
 	echo '</div>';
 
 	echo '<div id="exifInfo">
         <div class="col">
 	    <h3>'.$i18n['technical information'].' (Exif)</h3>';
-	if ($data['model'] == 'Nikon SUPER COOLSCAN 5000 ED') {
+	if ($data['model'] === 'Nikon SUPER COOLSCAN 5000 ED') {
 		echo '<ul><li><span class="photoTxtLabel">'.$i18n['type of film'].':</span> '.$data['film'].'</li>
 		    <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$data['model'].', '.$data['make'].'</li></ul>';
 	} else {
@@ -150,25 +150,25 @@ function renderPhoto($data, $db, $lang, $i18n)
 		    <li><span class="photoTxtLabel">'.$i18n['program'].':</span> '.$data['exposureProgram'].', '.$data['meteringMode'].'</li>
 		    <li><span class="photoTxtLabel">VR:</span> '.$data['vibrationReduction'].'</li>
 		    <li><span class="photoTxtLabel">'.$i18n['flash'].':</span> '.$data['flash'].'</li>
-		    <li><span class="photoTxtLabel">'.$i18n['lens'].':</span> '.($data['lensSpec'] != '' ? $data['lensSpec'] : ($data['lens'] != '' ? $data['lens'] : '')).'</li>
+		    <li><span class="photoTxtLabel">'.$i18n['lens'].':</span> '.($data['lensSpec'] !== '' ? $data['lensSpec'] : ($data['lens'] !== '' ? $data['lens'] : '')).'</li>
 	        <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$data['model'].'</li>
 	        </ul>';
 	}
 	echo '<ul>
         <li><span class="photoTxtLabel">'.$i18n['position'].' (GPS):</span> '.($data['showLoc'] === '1' ? $data['gpsLatitude'].' / '.$data['gpsLongitude'] : '').'</li>
-    	<li><span class="photoTxtLabel">'.$i18n['hight'].' (GPS):</span> '.$data['gpsAltitude'].' m '.($data['gpsAltitudeRef'] == '1' ? 'b.s.l.' : 'a.s.l.').'</li>
+    	<li><span class="photoTxtLabel">'.$i18n['hight'].' (GPS):</span> '.$data['gpsAltitude'].' m '.($data['gpsAltitudeRef'] === '1' ? 'b.s.l.' : 'a.s.l.').'</li>
     	</ul>';
 	echo '</div>';
 
 	echo '<div class="col">';
 	echo '<h3>'.$i18n['database information'].'</h3>';
-	echo '<ul><li><span class="photoTxtLabel">'.$i18n['added'].':</span> '.(!empty($data['dateAdded']) ? date("d.m.Y H:i:s",
+	echo '<ul><li><span class="photoTxtLabel">'.$i18n['added'].':</span> '.(!empty($data['dateAdded']) ? date('d.m.Y H:i:s',
 			$data['dateAdded']) : '').'</li>
-	    <li><span class="photoTxtLabel">'.$i18n['changed'].':</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s",
+	    <li><span class="photoTxtLabel">'.$i18n['changed'].':</span> '.(!empty($data['lastChange']) ? date('d.m.Y H:i:s',
 			$data['lastChange']) : '').'</li>
-        <li><span class="photoTxtLabel">'.$i18n['published'].':</span> '.(!empty($data['lastChange']) ? date("d.m.Y H:i:s",
+        <li><span class="photoTxtLabel">'.$i18n['published'].':</span> '.(!empty($data['lastChange']) ? date('d.m.Y H:i:s',
 			$data['datePublished']) : '').'</li></ul>';
-	echo '<ul><li><span class="photoTxtLabel">'.$i18n['file format'].':</span> '.$data['fileType']." (".$data['fileSize'].')</li></ul>';
+	echo '<ul><li><span class="photoTxtLabel">'.$i18n['file format'].':</span> '.$data['fileType'].' ('.$data['fileSize'].')</li></ul>';
 	echo '</div></div>';
 	echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
 }
