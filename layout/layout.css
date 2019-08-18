@@ -96,16 +96,6 @@ pre, code, blockquote {
 
 em { font-style: italic; }
 
-/*
-a:link {
-	color:#333399;
-}
-
-a:visited {
-	color:#884488;
-}
-*/
-
 #layoutFooterCont {
 	clear: both;
 	padding-top: 30px;
@@ -115,7 +105,7 @@ a:visited {
 	border-top: 1px solid #48b100;
 	height: 83px;
 	padding: 5px 10px 0 12px;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	letter-spacing: 0.1em;
 }
 
@@ -181,7 +171,7 @@ a:visited {
 	margin: 0 0 4px 210px;
 	background: none;
 	border: none;
-	vertical-align: top;
+	vertical-align: middle;
 	display: inline-block;
 }
 
@@ -265,9 +255,4 @@ ul.main li {
 
 .small {
 	font-size: 0.9em;
-}
-
-pre.prettyprint {
-	font-family: monospace;
-
 }
