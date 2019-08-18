@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/*
+Theme Name: Twenty Nineteen speich.net
+Theme URI: https://www.speich.net/wp/wp-content/themes/twentynineteen-child/
+Author: Simon Speich
+Author URI: https://www.speich.net/
+Template: twentynineteen
+Description: twentynineteen child theme for www.speich.net/articles/
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+#layoutMain {
+	margin-left: 0;
+}
+
+#layoutMiddle {
+	min-width: inherit;
+	max-width: inherit;
+}
+
+#layoutMain .entry-content > *, #layoutMain .entry .entry-summary > * {
+	margin: 20px 0;
+}
+
+.wp-caption-text {
+	text-align: left;
+	padding: 0;
+}
+
+h2 {
+	font-size: inherit;
+}
