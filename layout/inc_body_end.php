@@ -3,12 +3,9 @@
 <div id="layoutFooterCont">
 <div id="layoutFooter">
 <?php
-use WebsiteTemplate\Language;
-use WebsiteTemplate\Website;
-
-if ($lang->get() === 'de') {	// for wordpress to work we need static access because of being in function scope
+if ($lang->get() === 'de') {
 	echo '<p>© 2003-2019 speich.net, Konzept und Programmierung Simon Speich';
-	echo '<span style="float: right;">Letzte Aktualisierung '.$web->lastUpdate.'</span><p>';
+	echo '<span style="float: right;">letzte Aktualisierung '.$web->lastUpdate.'</span><p>';
 	if (strpos($_SERVER['REQUEST_URI'], '/photo') !== false) { ?>
 		<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.de"><img alt="Creative Commons Lizenzvertrag" src="https://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
 	 	Alle Fotos stehen unter der <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.de">Creative Commons Lizenz</a> zur Verfügung,
