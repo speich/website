@@ -17,6 +17,7 @@ set_include_path($incPath);
 require_once __DIR__.'/../../library/vendor/autoload.php';
 
 $lang = new Language();
+$lang->autoSet();
 $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 
 $web = new WebsiteSpeich();
@@ -25,7 +26,7 @@ $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 
 // TODO: just a quick fix to set wordpress language correctly
-if (preg_match('/\/en(\/|$)/', $web->path) === 1) {
+/*if (preg_match('/\/en(\/|$)/', $web->path) === 1) {
     $lang->set('en');
 }
 else if (preg_match('/\/de(\/|$)/', $web->path) === 1) {
@@ -33,7 +34,7 @@ else if (preg_match('/\/de(\/|$)/', $web->path) === 1) {
 }
 else {
     $lang->set();   // auto from query string or browser
-}
+}*/
 
 if ($lang->get() === 'de') {
 	$windowTitle = 'Fotografie und Webprogrammierung';

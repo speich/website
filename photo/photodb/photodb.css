@@ -46,7 +46,7 @@
 
 .slideText {
 	position: relative;
-	top: -18px;
+	top: -1.4em;
 	left: 20px;
 }
 
@@ -137,7 +137,7 @@
 }
 
 .menu2 li > div {
-	background: url(../../library/vendor/speich.net/WebsiteTemplate/layout/images/arrowdown.gif) right 3px center no-repeat;
+	background: url(../../library/vendor/speich.net/websitetemplate/layout/images/arrowdown.gif) right 3px center no-repeat;
 }
 
 .menu2 ul li a, .menu2 ul li div {

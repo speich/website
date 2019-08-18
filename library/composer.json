@@ -1,22 +1,23 @@
 {
-	"require": {
-		"speich.net/WebsiteTemplate": "dev-master",
-		"ext-pdo": "*",
-		"ext-json": "*"
-	},
-	"autoload": {
-		"psr-4": {
-			"speich\\": "../scripts/php/class",
-			"PhotoDb\\": "../photo/photodb/scripts/php",
-			"WebsiteTemplate\\": "vendor/speich.net/WebsiteTemplate/scripts/php"
-		}
-	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/speich/WebsiteTemplate"
-		}
-	],
-	"name": "",
-	"description": ""
+    "require": {
+      "speich.net/websitetemplate": "dev-master",
+        "ext-sqlite3": "*",
+        "ext-pdo": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "speich\\": "../scripts/php/class",
+            "PhotoDb\\": "../photo/photodb/scripts/php",
+            "WebsiteTemplate\\": "vendor/speich.net/websitetemplate/scripts/php"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/speich/WebsiteTemplate"
+        }
+    ],
+    "name": "",
+    "description": ""
 }
