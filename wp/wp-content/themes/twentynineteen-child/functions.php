@@ -15,7 +15,6 @@ function enqueueStyles()
 }
 
 // remember: in wordpress head footer are included in function scope, so variables can not be shared directly
-
 add_action('wp_head', static function() use ($web) {
     echo '<link href="'.$web->getWebRoot().'layout/images/favicon.png'.'" type="image/png" rel="shortcut icon">';
 });

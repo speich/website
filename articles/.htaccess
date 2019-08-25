@@ -1,0 +1,12 @@
+# BEGIN WordPress
+# WordPress's index.php and .htaccess files should be together in the directory indicated by the
+# Site address (URL) setting on your General Options page, e.g. /articles/
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /articles/
+    RewriteRule ^index\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /articles/index.php [L]
+</IfModule>
+# END WordPress

@@ -112,9 +112,6 @@ switch($mainNav->getActive()) {
 			createSideMenuPhoto($web, $sideNav, $arrPhotoNav[$lang->get()], $lang);
 		}
 		break;
-	case 2:
-		createSideMenuArticles($web, $sideNav, $arrArticleNav[$lang->get()]);
-		break;
 	case 3:
 		foreach ($arrProjectNav[$lang->get()] as $item) {
 			$sideNav->add($item);
@@ -125,42 +122,6 @@ switch($mainNav->getActive()) {
 			$sideNav->add($item);
 		}
 		break;
-}
-
-
-/**
- * Create sub navigation for main menu articles.
- * @param WebsiteSpeich $web
- * @param Menu $sideNav
- * @param array $menuItems
- */
-function createSideMenuArticles($web, $sideNav, $menuItems) {
-	$sideNav->autoActive = false;
-	$path = $web->getWebRoot().'articles/';
-	foreach ($menuItems as $item) {
-		$sideNav->add($item);
-	}
-	$count = 2;
-	if (function_exists('get_categories')) {
-		$categories = get_categories('orderby=name');
-		foreach ($categories as $cat) {
-			$sideNav->add([$count, 'f', $cat->cat_name, $path.'?cat='.$cat->cat_ID]);
-			$count++;
-		}
-		if (isset($_GET['p'])) {
-			$postId = $_GET['p'];
-			$categories = get_the_category($postId);
-			foreach ($categories as $cat) {
-				$sideNav->setActive($path.'?cat='.$cat->cat_ID);
-			}
-		}
-		else if (isset($_GET['cat'])) {
-			$sideNav->setActive($path.'?cat='.$_GET['cat']);
-		}
-		else {
-			$sideNav->setActive($path);
-		}
-	}
 }
 
 /**

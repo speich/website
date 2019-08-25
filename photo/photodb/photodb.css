@@ -1,15 +1,3 @@
-.cse .gsc-control-cse, .gsc-control-cse {
-	padding: 0 !important;
-}
-
-.cse .gsc-control-cse:after, .gsc-control-cse:after {
-	content: normal !important;
-}
-
-.gsc-search-box {
-	width: 500px !important;
-}
-
 .slide {
 	margin: 1px 10px 10px 1px;
 	display: inline-block;
@@ -200,6 +188,10 @@
 	border: 1px solid #cccccc;
 	background: linear-gradient(#fafafa, #dfe8d9);
 	margin-bottom: 13px;
+}
+
+.optionBar {
+	padding: 0.2rem;
 }
 
 .pagingBar div, .pagingBar label,

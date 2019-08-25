@@ -4,8 +4,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 body {
 	background: url(images/layout-top-bg.jpg) top repeat-x;
-	font: 12px Verdana, Arial, Myriad, Helvetica, Tahoma, clean, sans-serif;
-	*font-size: 75%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 	font-weight: normal;
 	line-height: 1.5;
 }
@@ -173,6 +172,7 @@ em { font-style: italic; }
 	border: none;
 	vertical-align: middle;
 	display: inline-block;
+	font-size: inherit;
 }
 
 #menuMain a, #menuMain div {

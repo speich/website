@@ -31,3 +31,73 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 h2 {
 	font-size: inherit;
 }
+
+aside.widget-area {
+	float: left;
+	margin: 0 0 0 10px;
+	width: 170px;
+}
+
+.widget_search .search-field {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+	color: #888888;
+	background: url("images/search.png") no-repeat scroll 5px 6px rgba(0, 0, 0, 0);
+	border-radius: 2px;
+}
+
+.widget_nav_menu {
+	margin-bottom: 2rem;
+}
+
+.widget_nav_menu ul li {
+	font-size: 0.9em;
+}
+
+.widget_nav_menu ul li, .widget_recent_entries ul li {
+	font-weight: normal;
+}
+
+.widget_recent_entries .widget-title {
+	text-transform: uppercase;
+	color: #666666;
+	font-size: 0.7em;
+}
+
+.widget_recent_entries .widget-title:before {
+	content: unset;
+}
+
+.widget_recent_entries ul li {
+	font-size: 0.8em;
+	font-weight: normal;
+}
+
+.widget_nav_menu a {
+	text-decoration: none;
+}
+
+.menu-item a {
+	border-bottom: 1px solid #48B100;
+	color: #000000;
+	display: block;
+	padding: 6px 0;
+	text-decoration: none;
+}
+
+.menu-item a:hover {
+	color: #cc0000;
+	text-decoration: none;
+}
+
+.current-menu-item a {
+	color: #CC0000;
+}
+
+.entry {
+	margin-top: 3rem;
+}
+
+.entry .entry-footer {
+	margin-top: 0.5rem;
+	margin-bottom: 2rem;
+}
