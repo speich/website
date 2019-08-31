@@ -32,7 +32,7 @@ class WebsiteSpeich extends Website
      * @param string $type
      * @return array
      */
-    public function getDomains($type = 'public')
+    public function getDomains($type = 'public'): array
     {
         switch ($type) {
             case 'dev':

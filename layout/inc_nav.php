@@ -1,6 +1,7 @@
 <?php
 
 use speich\WebsiteSpeich;
+use speich\LanguageMenu;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Menu;
 use WebsiteTemplate\QueryString;
@@ -13,7 +14,7 @@ $path = $web->getWebRoot();
 $arrNav = [];
 $arrNav['de'] = [
 	[1, 'N','Fotografie', $path.'photo/photodb/photo.php'],
-	[2, 'N','Artikel', $path.'articles/de'],
+	[2, 'N','Artikel', $path.'articles/de/'],
 	[3, 'N','Projekte', $path.'projects/programming/progs.php'],
 	[5, 'N','Person', $path.'about/cv.php'],
 	[6, 'N','Kontakt', $path.'contact/contact.php']
@@ -21,14 +22,14 @@ $arrNav['de'] = [
 
 $arrNav['en'] = [
 	[1, 'N','Photography', $path.'photo/photodb/photo-en.php'],
-	[2, 'N','Articles', $path.'articles/en'],
+	[2, 'N','Articles', $path.'articles/en/'],
 	[3, 'N','Projects', $path.'projects/programming/progs.php'],
 	[5, 'N','Person', $path.'about/cv-en.php'],
 	[6, 'N','Contact', $path.'contact/contact-en.php'   ]
 ];
 
 $mainNav = new Menu($arrNav[$lang->get()]);
-$mainNav->cssClass = "menu menu2";
+$mainNav->cssClass = 'menu menu2';
 $mainNav->cssId = 'menuMain';
 
 // set main menu active according to first (top) directory
@@ -152,12 +153,12 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 				'c' || c.Id submenuId, c.Name".$ucLang." submenuLabel, c.Id queryValue, 'country' queryField
 				FROM SubjectAreas s
 				CROSS JOIN (
-					SELECT DISTINCT Id, Name".$ucLang." FROM Countries c
+					SELECT DISTINCT Id, Name".$ucLang.' FROM Countries c
 					INNER JOIN Locations_Countries lc ON c.Id = lc.CountryId
 				) c
 				WHERE s.Id = 7	-- id of country in SubjectArea table
 			) t
-			ORDER BY menuLabel ASC, submenuLabel ASC";
+			ORDER BY menuLabel ASC, submenuLabel ASC';
 	$themes = $db->db->query($sql);
 
 	// side menu links for submenu database should start fresh with only ?theme={id} as query string (or non photo related query variables)
@@ -197,6 +198,6 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 */
 }
 
-$langNav = new \WebsiteTemplate\LanguageMenu($lang, $web);
+$langNav = new LanguageMenu($lang, $web);
 $langNav->useLabel = true;
 $langNav->setWhitelist($web->getWhitelistQueryString());
