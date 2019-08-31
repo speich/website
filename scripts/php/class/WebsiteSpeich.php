@@ -2,7 +2,6 @@
 
 namespace speich;
 
-use WebsiteTemplate\Language;
 use WebsiteTemplate\Website;
 
 
@@ -16,9 +15,6 @@ class WebsiteSpeich extends Website
 
     /** @var array whitelisted developer domains */
     private $domainsDev = ['speich', 'localhost'];
-
-    /** @var Language */
-    public $lang;
 
     /**
      * Constructs the class.
