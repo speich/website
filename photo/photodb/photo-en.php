@@ -33,7 +33,7 @@ $pagingBar = '<div class="pagingBar">'.
 <link rel="stylesheet" href="../../library/PhotoSwipe/dist/default-skin/default-skin.css">
 </head>
 
-<body class="tundra">
+<body>
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
 <?php echo $pagingBar; ?>
