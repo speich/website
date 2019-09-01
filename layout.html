@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Website Layout</title>
+<style>
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 600px;
+}
+
+header, main, footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+header, main, footer, header nav, header .banner, main .content, main .content > div, footer .content {
+	width: calc(100% - 4px);
+	min-width: 200px;
+}
+
+header, main, footer {
+	min-width: 300px;
+}
+
+main .content, header nav, header .banner, footer .content {
+	max-width: 990px;
+}
+
+header .banner, main, main .content, footer .content {
+	height: 100%;
+}
+
+main .content {
+	display: flex;
+	flex-direction: row;
+}
+
+@media screen and (max-width: 500px) {
+	main .content {
+		flex-direction: column;
+
+	}
+}
+
+footer {
+	height: 100px;
+}
+
+header {
+	height: 200px;
+}
+
+main .content nav {
+	min-width: 180px;
+}
+
+
+
+/* borders to show layout */
+header, main, footer {
+	border: 2px solid black;
+}
+
+header nav, header .banner, main .content, footer .content {
+	border: 2px solid blue;
+}
+
+main .content nav, main .content > div {
+	border: 2px solid purple;
+}
+</style>
+</head>
+<body>
+<header>
+	<div class="banner">banner</div>
+	<nav>main navigation link1 link2 link3 link4</nav>
+</header>
+<main>
+	<div class="content">
+	<nav>side navigation link1 link2 link3 link4 link5</nav>
+	<div>Content asdflasd asdlf lkja aödsfasd ölölööl iasd iasdfo po oo ipausdoiu poiuaposdf
+	<img src="layout/images/layout-logo.gif">
+	<!--<img src="layout/images/layout-top.gif">-->
+	</div>
+	</div>
+</main>
+<footer>
+	<div class="content">footer</div>
+</footer>
+</body>
+</html>
