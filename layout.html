@@ -2,79 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Website Layout</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/necolas/normalize.css@8.0.1/normalize.min.css">
 <style>
 html, body {
 	height: 100%;
 }
 
 body {
-	margin: 0;
-	padding: 0;
 	display: flex;
 	flex-direction: column;
 	min-height: 600px;
+	min-width: 300px;
 }
 
-header, main, footer {
+body > header, main, body > footer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-header, main, footer, header nav, header .banner, main .content, main .content > div, footer .content {
+header, main, body > footer, header .banner, main .content, footer .content {
 	width: calc(100% - 4px);
-	min-width: 200px;
 }
 
 header, main, footer {
 	min-width: 300px;
 }
 
-main .content, header nav, header .banner, footer .content {
-	max-width: 990px;
+header .banner, main > *, footer .content {
+	max-width: 1200px;
 }
 
-header .banner, main, main .content, footer .content {
-	height: 100%;
+header .banner, main, footer .content {
+	flex: 1;
 }
 
-main .content {
+
+header nav > ul {
+	display: flex;
+}
+
+/* start flex version */
+/* display flex can only be used if nav has fixed width, if width is to be fluid, grid has to be used for correct positioning of  main nav above content */
+.nav-fixed > header, .nav-fixed .content {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 }
 
-@media screen and (max-width: 500px) {
-	main .content {
-		flex-direction: column;
+.nav-fixed header > div, .nav-fixed .content {
+ flex: 1;
+}
 
+.nav-fixed > .content > nav:first-of-type, .nav-fixed > .content > div:last-child {
+	width: calc(100% - 220px - 8px);
+}
+
+.nav-fixed > .content > div:first-child, .nav-fixed > .content > nav:nth-of-type(2) {
+	width: 220px;
+}
+
+.nav-fixed > .content > div:last-child {
+
+}
+
+/* start grid version where nav can have a fluid width */
+.nav-fluid {
+
+}
+
+
+ul {
+	list-style: none;
+}
+
+@media screen and (max-width: 600px) {
+	/*			.nav-fixed .content {
+					flex-direction: column-reverse;
+					justify-content: flex-end;
+				}*/
+	.nav-fixed > .content > nav:first-of-type, .nav-fixed > .content > nav:nth-of-type(2), .nav-fixed > .content div:last-child {
+		width: unset;
+	}
+
+	.nav-fixed .content > div:first-child {
+		display: none;
+	}
+
+	main .content nav > ul {
+		display: flex;
 	}
 }
 
-footer {
-	height: 100px;
+/* settings below are only there for the demo, can be deleted */
+body > footer {
+	height: 90px;
 }
 
-header {
-	height: 200px;
+body > header {
+	height: 150px;
 }
 
-main .content nav {
-	min-width: 180px;
-}
-
-
-
-/* borders to show layout */
 header, main, footer {
 	border: 2px solid black;
 }
 
-header nav, header .banner, main .content, footer .content {
+main header > div, main header nav, header .banner, main .content, footer .content {
 	border: 2px solid blue;
 }
 
-main .content nav, main .content > div {
+main > header nav, main .content nav, main .content > div {
 	border: 2px solid purple;
 }
 </style>
@@ -82,13 +121,35 @@ main .content nav, main .content > div {
 <body>
 <header>
 	<div class="banner">banner</div>
-	<nav>main navigation link1 link2 link3 link4</nav>
 </header>
-<main>
+<main class="nav-fixed">
 	<div class="content">
-	<nav>side navigation<ol><li>link 1</li><li>link 2</li><li>link 3</li><li>link 4</li></ol></nav>
-	<div>Content asdflasd asdlf lkja aödsfasd ölölööl iasd iasdfo po oo ipausdoiu poiuaposdf
-	<img src="layout/images/layout-logo.gif">
+
+	<div></div>
+	<nav>
+		<ul>
+		<li>main menu link 1</li>
+		<li>main menu link 2</li>
+		<li>main menu link 3</li>
+		<li>main menu link 4</li>
+		</ul>
+	</nav>
+
+	<nav>side navigation
+		<ul>
+		<li>menu link 1</li>
+		<li>menu link 2 with very extra long text</li>
+		<li>menu link 3</li>
+		<li>menu link 4</li>
+		</ul>
+	</nav>
+	<div>
+	<h1>Header 1</h1>
+	<h2>Header 2</h2>
+	<h3>Header 3</h3>
+	<p>Content asdflasd asdlf lkja aödsfasd ölölööl iasd iasdfo po oo ipausdoiu poiuaposdf bl bal
+		<img src="layout/images/layout-logo.gif"></p>
+	<p>more bla bla content</p>
 	<!--<img src="layout/images/layout-top.gif">-->
 	</div>
 	</div>
