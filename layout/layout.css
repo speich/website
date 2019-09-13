@@ -108,29 +108,6 @@ nav.main > ul, nav.lang > ul {
 
 
 
-ul {
-	list-style: none;
-	padding: unset;
-}
-
-h1, h2, h3 {
-	color: #2E7300;
-}
-
-a {
-	color: #cc0000;
-}
-
-a:visited {
-	color: #743399;
-}
-
-a:active, a:hover {
-	color: #ff4b33;
-}
-
-
-
 #menuMain {
 
 
@@ -155,5 +132,3 @@ a:active, a:hover {
 #menuMain .menuActive a, #navLang .navActive {
 	color: #ffdb0b;
 }
-
-
