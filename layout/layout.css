@@ -118,17 +118,3 @@ nav.main > ul, nav.lang > ul {
 	letter-spacing: 0.1em;
 }
 */
-
-#menuMain a {
-	color: #ffffff;
-	text-decoration: none;
-}
-
-#menuMain li a:hover, #navLang a:hover  {
-	margin-bottom: -2px;
-	border-bottom: 2px solid #ffdb0b;
-}
-
-#menuMain .menuActive a, #navLang .navActive {
-	color: #ffdb0b;
-}
