@@ -3,7 +3,8 @@
       "speich.net/websitetemplate": "dev-master",
         "ext-sqlite3": "*",
         "ext-pdo": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-exif": "*"
     },
     "autoload": {
         "psr-4": {

@@ -55,9 +55,9 @@
 }
 
 body {
-  font-size: calc(12px + 1vw);
+  font-size: 1em;
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
-	line-height: calc(1.1em + 0.5vw);
+	line-height: 1.4;
 }
 
 ul {
@@ -81,9 +81,42 @@ a:active, a:hover {
 	color: #ff4b33;
 }
 
+figure {
+	margin: 0 0 2em 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-header a {
+figure img {
+	max-width: 100%;
+}
+
+figcaption {
+	font-size: 80%;
+	border-bottom: 1px solid #cccccc;
+	min-width: 33%;
+	text-align: center;
+	padding: 0.8em;
+}
+
+
+body > header, .nav, main, body > footer {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+body > header {
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+body > header a {
 	text-decoration: none;
+}
+
+main {
+	padding-bottom: 2em;
 }
 
 .speich-logo {
@@ -91,8 +124,19 @@ header a {
 }
 
 .speich-logo svg {
-	width: 2em;
-	height: 2em;
+	width: 3em;
+	height: 3.5em;
+}
+
+.speich-logo svg use {
+	fill: rgba(55, 136, 0, 1);
+	fill-rule: nonzero;
+	stroke: #9bc809;
+	stroke-width: 2;
+	stroke-linecap: butt;
+	stroke-linejoin: miter;
+	stroke-miterlimit: 4;
+	stroke-dasharray: none;
 }
 
 .speich-logo .text {
@@ -111,33 +155,74 @@ header a {
 }
 
 .speich-logo .text div:first-child {
-	font-size: 1.1em;
-	line-height: 0.7;
-	margin: 0.25em 0 0 3em;
+	font-size: 2em;
+	letter-spacing: -0.05em;
+	line-height: 0.55;
+	margin-top: 0.25em;
 }
 
 .speich-logo .text div:nth-child(2) {
-	font-size: 0.55em;
+	font-size: 0.75em;
+	letter-spacing: 0.04em;
 }
 
 nav.main ul, nav.lang ul {
 	margin: 0.5em 0;
 }
 
-nav.main li, nav.lang li {
-	margin-right: 1em;
+nav.main li {
+	margin: 0.5em 0;
 }
 
 nav.main li a, nav.lang li a {
 	color: #ffffff;
 	text-decoration: none;
+	letter-spacing: 0.1em;
 }
 
-nav.main li a:hover, nav.lang a:hover {
+nav.main li a {
+	display: block;
+	padding: 0 0.5em;
+}
+
+nav.main li a:hover, nav.main .menuActive a {
 	margin-bottom: -2px;
 	border-bottom: 2px solid #ffdb0b;
 }
 
-#nav.main .menuActive a, nav.lang .navActive {
+nav.main .menuActive a, nav.lang .navActive, nav.lang a:hover {
 	color: #ffdb0b;
+}
+
+body > footer * {
+	font-size: 75%;
+}
+
+body > footer *:first-child {
+	margin-bottom: 0.3em;
+}
+
+body > footer *:last-child {
+	margin-top: 0.3em;
+}
+
+@media screen and (min-width: 550px) {
+
+	nav.main li {
+		margin: 0;
+	}
+
+	nav.main li:first-child a {
+		padding-left: 0;
+	}
+
+	nav.main li:last-child a {
+		padding-right: 0;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+
+
+
 }

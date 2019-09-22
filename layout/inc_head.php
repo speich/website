@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width">
 <link rel="preload" href="<?php echo $web->getWebRoot(); ?>layout/fonts/open-sans-v17-latin-regular.woff2" as="font">
 <link rel="preload" href="<?php echo $web->getWebRoot(); ?>layout/fonts/open-sans-v17-latin-italic.woff2" as="font">
 <link rel="preload" href="<?php echo $web->getWebRoot(); ?>layout/fonts/open-sans-v17-latin-600.woff2" as="font">

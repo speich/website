@@ -29,8 +29,8 @@ $arrNav['en'] = [
 ];
 
 $mainNav = new Menu($arrNav[$lang->get()]);
-$mainNav->cssClass = 'menu menu2';
-$mainNav->cssId = 'menuMain';
+$mainNav->cssClass = 'menu';
+
 
 // set main menu active according to first (top) directory
 foreach ($mainNav->arrItem as $item) {
@@ -199,5 +199,6 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang) {
 }
 
 $langNav = new LanguageMenu($lang, $web);
+$langNav->ulClass = '';
 $langNav->useLabel = true;
 $langNav->setWhitelist($web->getWhitelistQueryString());

@@ -1,6 +1,3 @@
 </main>
-<div class="row5 footer"></div>
-<footer class="row5">
-<div><?php echo $htmlFooterLeft[$lang->get()]; ?></div>
-<div><?php echo $htmlFooterRight[$lang->get()]; ?></div>
-</footer>
+<div class="row5 footer-before layout-wide"></div>
+<footer class="row5"><?php echo $htmlFooter[$lang->get()]; ?></footer>
