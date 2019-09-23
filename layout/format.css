@@ -55,7 +55,7 @@
 }
 
 body {
-  font-size: 1em;
+  	font-size: 1em;
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	line-height: 1.4;
 }
@@ -167,11 +167,11 @@ main {
 }
 
 nav.main ul, nav.lang ul {
-	margin: 0.5em 0;
+	margin: 0;
 }
 
-nav.main li {
-	margin: 0.5em 0;
+nav.main li, nav.lang li {
+	margin: 0.5em;
 }
 
 nav.main li a, nav.lang li a {
@@ -198,31 +198,29 @@ body > footer * {
 	font-size: 75%;
 }
 
-body > footer *:first-child {
-	margin-bottom: 0.3em;
-}
 
-body > footer *:last-child {
-	margin-top: 0.3em;
+@media screen and (max-width: 550px) {
+
 }
 
 @media screen and (min-width: 550px) {
 
-	nav.main li {
-		margin: 0;
+	nav.main ul {
+		margin-left: -1em;
+		margin-right: -1em;
 	}
 
-	nav.main li:first-child a {
-		padding-left: 0;
+	nav.lang ul {
+		margin-left: -0.5em;
+		margin-right: -0.5em;
 	}
 
-	nav.main li:last-child a {
-		padding-right: 0;
+	body > footer > * {
+		margin-top: 0.3em;
 	}
 }
 
 @media screen and (min-width: 1024px) {
-
 
 
 }

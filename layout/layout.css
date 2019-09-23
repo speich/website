@@ -62,7 +62,7 @@ nav.lang > ul {
 	}
 }*/
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 550px) {
 
 	body {
 		display: grid;
