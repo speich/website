@@ -4,32 +4,7 @@
 <head>
 <title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
 <?php require_once '../layout/inc_head.php' ?>
-<style type="text/css">
-.tblCv { margin: 30px 0; }
-
-.tblCv td:first-child {
-	white-space: nowrap;
-	margin-right: 15px;
-}
-
-.tblCv td {
-	padding: 8px 0;
-	border: 0 solid #DFE8D9; border-bottom-width: 1px;
-}
-
-.tdCvHead {
-	font-size: 14px;
-	font-weight: normal;
-	color: #2E7300;
-}
-
-td:first-child {
-	white-space: nowrap;
-}
-td:nth-child(2) {
-	width: 15px;
-}
-</style>
+<link rel="stylesheet" href="cv.css">
 </head>
 
 <body>

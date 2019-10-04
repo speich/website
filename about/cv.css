@@ -1,0 +1,28 @@
+.tblCv td:first-child {
+	white-space: nowrap;
+	vertical-align: top;
+}
+
+.tblCv td {
+	padding: 1em 0;
+	border: 0 solid #DFE8D9;
+	border-bottom-width: 1px;
+}
+
+.tblCv td > p:first-of-type {
+	margin-top: 0;
+}
+
+.tdCvHead {
+	font-size: 0.85em;
+	font-weight: normal;
+	color: #2E7300;
+}
+
+td:first-child {
+	white-space: nowrap;
+}
+
+td:nth-child(2) {
+	width: 1em;
+}
