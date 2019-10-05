@@ -1,3 +1,10 @@
-#layoutMiddle {
-	max-width: none;
+
+@media screen and (min-width: 35em) {
+	body {
+		grid-template-columns: 0 minmax(8em, 16em) minmax(20em, 60em) 1fr;
+	}
+
+	main {
+		grid-area: 3 / 3 / 3/ 5;
+	}
 }

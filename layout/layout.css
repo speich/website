@@ -10,9 +10,8 @@ body {
 }
 
 body > header {
-	order: -1;
+	order: -3;
 	display: flex;	/* removes white space between elements */
-	justify-content: flex-end;
 	background-image: linear-gradient(180deg, #2e7300, #286100)
 }
 
@@ -32,12 +31,16 @@ body > header {
 }
 
 main {
+	order: -2;
+}
+
+nav.sub {
 	order: -1;
 }
 
 nav.lang > ul {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: flex-end;
 }
 
 .layout-medium {
@@ -48,40 +51,34 @@ nav.lang > ul {
 	display: none;
 }
 
-/*@media screen and (min-width: 550px) {
-	body {
-		grid-template-columns: 1fr 1fr minmax(300px, 1200px) min-content 1fr;
-	}
-
-	nav.sub {
-		grid-area: 4 / 3 / 4 / 5;
-	}
-
-	nav.sub > ul {
+@media screen and (min-width: 45em) {
+	body > .nav {
+		grid-area: 2 / 3 / 2 / 4;
 		display: flex;
+		justify-content: space-between;
 	}
-}*/
+}
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 35em) {
 
 	body {
 		display: grid;
 		grid-template-rows: min-content min-content max-content min-content;
-		grid-template-columns: 1fr minmax(180px, 220px) minmax(300px, 900px) 1fr;
+		grid-template-columns: 1fr minmax(8em, 16em) minmax(20em, 60em) 1fr;
 	}
 
 	body > header {
 		grid-area: 1 / 1 / 1 / 3;
+		justify-content: flex-start;
 	}
 
-	.nav-before {
-		grid-area: 2 / 1 / 2 / 3;
+	.header-after {
+		grid-area: 1 / 3 / 1 / 5;
+		background-image: linear-gradient(180deg, #2e7300, #286100)
 	}
 
-	.nav {
-		grid-area: 2 / 3 / 2 / 4;
-		display: flex;
-		justify-content: space-between;
+	body > .nav {
+		grid-area: 2 / 2 / 2 / 4;
 	}
 
 	nav.main > ul {
@@ -89,29 +86,61 @@ nav.lang > ul {
 		flex-wrap: wrap;
 	}
 
-	.nav-after {
-		grid-area: 2 / 5 / 2 / 6;
-	}
-
 	nav.sub {
 		grid-area: 3 / 2 / 3 / 3;
 	}
 
 	main {
-		grid-area: 3 / 3 / 3/ 5;
+		grid-area: 3 / 3 / 3 / 4;
+	}
+
+	nav.sub:empty ~ main {
+		grid-area: 3 / 2 / 3 / 4;
+	}
+
+	body > footer {
+		grid-area: 5 / 2 / 4 / 4;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.layout-medium {
+		display: unset;
+	}
+}
+
+@media screen and (min-width: 60em) {
+
+	body > header {
+		justify-content: flex-end;
+	}
+
+	.nav-before {
+		grid-area: 2 / 1 / 2 / 3;
+	}
+
+	body > .nav {
+		grid-area: 2 / 3 / 2 / 4;
+	}
+
+	.nav-after {
+		grid-area: 2 / 4 / 2 / 5;
+	}
+
+	nav.sub:empty ~ main {
+		grid-area: 3 / 3 / 3 / 4;
 	}
 
 	.footer-before {
 		grid-area: 5 / 1 / 4 / 3;
 	}
 
-	footer {
+	body > footer {
 		grid-area: 5 / 3 / 4 / 4;
-		display: flex;
-		justify-content: space-between;
 	}
 
 	.layout-wide {
 		display: unset;
 	}
+
 }

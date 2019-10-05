@@ -16,7 +16,7 @@ require_once 'index_inc.php';
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Ein- und Aussichten</h1>
 <h2>Website von Simon Speich über Fotografie und Webprogrammierung</h2>
-<figure><a href="<?php echo $url; ?>" title="zufällig gewähltes Foto aus der Bildatenbank"><img src="<?php echo $src; ?>" alt="Foto: <?php echo $photo->ImgTitle ?>"></a>
+<figure><a href="<?php echo $url; ?>" title="zufällig gewähltes Foto aus der Bildatenbank"><img class="imgFrame" src="<?php echo $src; ?>" alt="Foto: <?php echo $photo->ImgTitle ?>"></a>
 <figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
 <p>Haben Sie Freude an schönen Naturfotos insbesondere zum Thema <a href="photo/photodb/photo.php?theme=1">Vögel</a> und andere Tiere,

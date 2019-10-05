@@ -54,8 +54,12 @@
 	url('fonts/open-sans-v17-latin-800.woff2') format('woff2');
 }
 
+* {
+	box-sizing: border-box;
+}
+
 body {
-  	font-size: 1em;
+	font-size: 1em;
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	line-height: 1.4;
 }
@@ -65,8 +69,17 @@ ul {
 	padding: unset;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h1 a, h2 a {
 	color: #2e7300;
+}
+
+h2 {
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+h2 + p {
+	margin-top: 0;
 }
 
 a {
@@ -116,6 +129,7 @@ body > header a {
 }
 
 main {
+	padding-top: 1.5em;
 	padding-bottom: 2em;
 }
 
@@ -194,16 +208,123 @@ nav.main .menuActive a, nav.lang .navActive, nav.lang a:hover {
 	color: #ffdb0b;
 }
 
-body > footer * {
-	font-size: 75%;
+nav.sub {
+	padding: 2em 1.5em;
 }
 
-
-@media screen and (max-width: 550px) {
-
+.sideMenu ul {
+	margin-left: 1em;
 }
 
-@media screen and (min-width: 550px) {
+.sideMenu li {
+	padding: 1px 0 1px 0;
+}
+
+.sideMenu a {
+	display: block;
+	text-decoration: none;
+	color: #000000;
+	padding: 0.5em 0;
+	font-size: 1em;
+	border-bottom: 1px solid #cccccc;
+}
+
+.sideMenu a:hover, .sideMenu .menuActive > a {
+	color: #cc0000;
+}
+
+.sideMenu li li li {
+	font-size: 0.9em;
+}
+
+body > footer > * {
+	font-size: 80%;
+	letter-spacing: 0.05em;
+}
+
+.imgFrame {
+	border: 10px solid #f1f1f1;
+	box-shadow: inset 2px 2px 3px rgba(150, 150, 150, 0.5), 2px 2px 3px rgba(150, 150, 150, 0.5);
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	line-height: 0;
+}
+
+.photoContainer {
+	margin-right: 0.5em;
+}
+
+.menu2 {
+	cursor: pointer;
+	margin-left: 7px;
+	background: linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
+	border: solid #999999;
+	border-width: 1px 0 1px 0;
+}
+
+.menu2 li {
+	color: #555555;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.menu2 ul {
+	position: absolute;
+	border: 1px solid #999999;
+	background-color: #fafafa;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .5s ease-in-out;
+	box-shadow: #cccccc 4px 4px 4px;
+}
+
+.menu2 li:hover > ul {
+	opacity: 1;
+	visibility: visible;
+}
+
+.menu2 a, .menu2 div {
+	padding: 0.4em 1em;
+	text-decoration: none;
+}
+
+.menu2 ul li {
+	display: flex;
+}
+
+.menu2 ul li a, .menu2 ul li div {
+	flex: auto;
+	padding: 8px 12px 8px 12px;
+	white-space: nowrap;
+}
+
+.menu2 ul li.menuHasChild > a, .menu2 ul li.menuHasChild > div {
+	background: url(../images/arrowright.gif) right 3px center no-repeat;
+}
+
+.menu2 li ul ul {
+	left: 100%;
+	top: -1px
+}
+
+/* add separator lines between specific menu items */
+.menu2 > li:nth-child(2) > ul > li:nth-child(1),
+.menu2 > li:nth-child(3) > ul > li:nth-child(1),
+.menu2 > li:nth-child(3) > ul ul > li:nth-child(2) {
+	border-bottom: 1px solid;
+	border-image: linear-gradient(
+		to right, #ffffff, #ffffff 3px,
+		#cccccc 12px, #cccccc calc(100% - 12px), #ffffff calc(100% - 3px)
+	) 1;
+	box-shadow: 0 1px #ffffff;
+}
+
+.spec {
+	font-style: italic;
+}
+
+@media screen and (min-width: 35em) {
 
 	nav.main ul {
 		margin-left: -1em;
@@ -215,12 +336,19 @@ body > footer * {
 		margin-right: -0.5em;
 	}
 
+	nav.sub {
+		padding: 6.5em 1.5em;
+	}
+
 	body > footer > * {
 		margin-top: 0.3em;
 	}
-}
 
-@media screen and (min-width: 1024px) {
+	body > footer > * > p:first-child {
+		margin-top: 0;
+	}
 
-
+	.photoContainer {
+		float: right;
+	}
 }

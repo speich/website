@@ -1,2 +1,2 @@
-Bash+Shell, PHP, SQL
+Markup, CSS, JavaScript, Bash+Shell, PHP, SQL, ini
 Line-Numbers

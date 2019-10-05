@@ -112,9 +112,7 @@
 }
 
 .menu2 {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 2px 4px 2px 4px;
+	margin: 0.25em 0.5em;
 	border: 1px solid #cccccc;
 	background-color: #fafafa;
 }
@@ -144,76 +142,60 @@
 	z-index: 98;
 }
 
-
-.mRecPp li {
+.mRecPp li, .mRecPp div {
 	z-index: 99;
-	width: 44px;
+	width: 3em;
 }
 
-.mRecPp div {
-	width: calc(44px - 24px);
+.mSort li, .mSort div {
+	width: 9em;
 }
 
-.mSort li {
-	width: 132px;
-}
-
-.mSort div {
-	width: calc(132px - 24px);
-}
-
-.mRating li {
-	width: 82px;
-}
-
-.mRating div {
-	width: calc(82px - 24px);
+.mRating li, .mRating div {
+	width: 6em;
 }
 
 .imgRatingStar {
-	margin-right: 3px;
-	vertical-align: bottom;
+	margin-right: 0.25em;
 }
 
 .toolbar {
-	min-width: 740px;
 	border-bottom: 1px solid #cccccc;
 	padding-top: 27px;
 	margin: 0 10px 20px 0;
 }
 
 .pagingBar {
-	padding: 0 4px;
-	min-width: 740px;
+	padding: 0 0.25em;
 	border: 1px solid #cccccc;
-	background: linear-gradient(#fafafa, #dfe8d9);
+	background: linear-gradient(#fafafa, #eef0d8);
 	margin-bottom: 13px;
 }
 
 .optionBar {
-	padding: 0.2rem;
+	padding: 0.25em;
 }
 
+.pagingBar, .optionBar,
 .pagingBar div, .pagingBar label,
 .optionBar div, .optionBar label {
-	display: inline-block;
-	vertical-align: middle;
+	display: flex;
+	align-items: center;
 }
 
 .barVertSeparator {
 	border-right: 1px solid #ffffff;
 	border-left: 1px solid #cccccc;
 	background-color: white;
-	margin: 0 6px;
+	margin: 0 1em;
 	width: 0;
-	height: 33px;
-	vertical-align: bottom;
+	height: 2.5em;
 }
 
 .pages a, .curPage {
 	color: #000000;
 	text-decoration: none;
-	padding: 6px;
+	padding: 0.4em 0.8em;
 }
 
 .curPage, .pages a:hover {

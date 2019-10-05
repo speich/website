@@ -9,8 +9,10 @@
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <h1>Photo Equipment</h1>
-<div class="photoContainer"><img src="images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action"
-											class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.</div>
+<figure class="photoContainer"><img src="images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action"
+											class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">
+	<figcaption>Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.
+	</figcaption></figure>
 <h2>Cameras</h2>
 <ul class="main">
 <li>Nikon D850 (19.04.2018)</li>

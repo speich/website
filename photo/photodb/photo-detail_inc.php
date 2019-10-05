@@ -97,8 +97,13 @@ function renderPhoto($data, $db, $lang, $i18n)
 	} else {
 		$datum = $data['ImgDateManual'];
 	}
-	echo '<h1>'.ucfirst($i18n['photo']).': '.$data['imgTitle']."</h1>\n";
-	echo '<p>'.$data['imgDesc'].'</p>';
+	echo '<h1>'.$data['imgTitle'].'</h1>';
+	echo $data['imgDesc'] ? '<p>'.$data['imgDesc'].'</p>' : '';
+    echo '<figure>
+        <a title="'.$i18n['photo'].': '.$data['imgTitle'].'" href="'.$imgFile.'">
+        <img src="'.$imgFile.'" id="photo" alt="'.$data['imgTitle'].'"/></a>
+        <figcaption>'.$data['imgTitle'].'<br>
+         © '.ucfirst($i18n['photo']).' Simon Speich, www.speich.net</figcaption></figure>';
 	echo '<div class="col colLeft">
 	    <ul>
 	        <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($data['categories'] !== '' ? $data['categories'].'<br/>' : '').'</li>
@@ -125,13 +130,6 @@ function renderPhoto($data, $db, $lang, $i18n)
 	echo '</div>';
 	echo '</div>';
 	echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
-
-	echo '<div id="contPhoto">';
-	echo '<p><a title="'.$data['imgTitle'].' '.$i18n['photo'].'" href="'.$imgFile.'">';
-	echo '<img src="'.$imgFile.'" id="photo" alt="'.$data['imgTitle'].'"/></a><br>';
-	echo $data['imgTitle'].' ©Simon Speich, www.speich.net';
-	echo '</p>';
-	echo '</div>';
 
 	echo '<div id="exifInfo">
         <div class="col">
