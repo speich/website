@@ -109,6 +109,7 @@ figcaption {
 	font-size: 80%;
 	border-bottom: 1px solid #cccccc;
 	min-width: 33%;
+	max-width: 66%;
 	text-align: center;
 	padding: 0.8em;
 }

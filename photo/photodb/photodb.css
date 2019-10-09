@@ -180,6 +180,7 @@
 .pagingBar div, .pagingBar label,
 .optionBar div, .optionBar label {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 }
 

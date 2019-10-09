@@ -169,7 +169,7 @@ require([
 				queryObj = this.queryObj;
 
 			window.onresize = this.setMapDimension;
-			this.setMapDimension();
+			// this.setMapDimension();
 
 			mapOptions = {
 				center: new gmaps.LatLng(this.mapLat, this.mapLng),

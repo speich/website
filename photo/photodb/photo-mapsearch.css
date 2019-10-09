@@ -1,6 +1,19 @@
+
+@media screen and (min-width: 35em) {
+	body {
+		grid-template-rows: min-content min-content 1fr min-content;
+		grid-template-columns: 0 minmax(8em, 16em) minmax(20em, 60em) 1fr;
+	}
+
+	nav.sub:empty ~ main {
+		grid-area: 3 / 3 / 3 / 5;
+	}
+}
+
 #mapContainer {
 	position: relative;
 	display: none;
+	height: 100%;
 }
 
 #loading {
@@ -13,28 +26,10 @@
 	margin-right: 5px;
 }
 
-
-/* adjust layout for map */
-#layoutMiddle { bottom: 100px; margin: 0}
-#layoutMain { margin-left: 0; }
-#layoutMiddle, #layoutFooterCont {
-	max-width: none;
-}
-#layoutFooterCont {
-	padding: 0;
-}
-
 #map-canvas {
 	/* dimension overwritten by js */
 	height: 100%;
 	width: 100%;
-}
-
-#map {
-	height: 520px;
-	border: 1px solid black;
-	display: none;
-	visibility: hidden;
 }
 
 img[id^=mtgt_unnamed] {
@@ -48,4 +43,8 @@ img[id^=mtgt_unnamed] {
 
 #mRating li:hover > ul {
 	top: 24px;
+}
+
+.gm-style {
+	font: unset;
 }
