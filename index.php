@@ -1,6 +1,14 @@
 <?php
 require_once 'scripts/php/inc_script.php';
 require_once 'index_inc.php';
+
+
+// if user requested root, e.g. www.speich.ch/ we have to redirect to the correct index.php according to language
+if ($lang->get() !== $lang->getDefault()) {
+	$url = $lang->createPage('index.php');
+	header('Location: '.$url);
+	exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="de-ch">
@@ -10,7 +18,7 @@ require_once 'index_inc.php';
 <meta name="keywords" content="Simon Speich, Foto, Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Natur, Tiere, Vögel, Flora und Fauna">
 <?php require_once 'layout/inc_head.php' ?>
 <link rel="stylesheet" href="index.css">
-</head>
+§</head>
 
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
