@@ -11,7 +11,7 @@ class WebsiteSpeich extends Website
     protected $whitelistQueryString = ['pg', 'theme', 'country', 'qual', 'lang', 'sort', 'imgId', 'numRecPp', 'lat1', 'lat2', 'lng1', 'lng2'];
 
     /** @var array whitelisted public domains */
-    private $domains = ['speich.ch', 'www.speich.ch'];
+    private $domains = ['speich.net', 'www.speich.net'];
 
     /** @var array whitelisted developer domains */
     private $domainsDev = ['speich', 'localhost'];
