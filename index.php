@@ -18,7 +18,7 @@ if ($lang->get() !== $lang->getDefault()) {
 <meta name="keywords" content="Simon Speich, Foto, Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Natur, Tiere, Vögel, Flora und Fauna">
 <?php require_once 'layout/inc_head.php' ?>
 <link rel="stylesheet" href="index.css">
-§</head>
+</head>
 
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
