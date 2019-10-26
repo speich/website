@@ -21,7 +21,7 @@ document.write('You can reach me by e-mail <a href="mailto:info' + '@' + 'speich
 or find me on <a href="https://github.com/speich" target="_blank">GitHub</a>.</p>
 <h2>Memberships</h2>
 <ul class="main">
-<li><a href="http://www.naturfotografen.ch/speich-simon.html" target="_blank">Naturfotografen Schweiz</a> (in German)</li>
+<li><a href="https://naturfotografen.ch/bilder/mitgliedergalerien/mitglied/simon-speich.html" target="_blank">Naturfotografen Schweiz</a> (in German)</li>
 <li><a href="https://www.gdtfoto.de/mitglied/1001285/Simon-Speich" target="_blank">GDT Society of German Wildlife Photographers</a> (in German)</li>
 </ul>
 <?php require_once 'inc_body_end.php'; ?>
