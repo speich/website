@@ -13,7 +13,7 @@
 	Mediterranean Sea Studied by Radar</h2>
 <p><strong>General Introduction</strong></p>
 <p>
-	<figure><img src="images/bruchwasserl_sw.jpg" alt="Foto eines Bruchwasserläufers">
+	<figure><img src="images/bruchwasserlaeufer.jpg" alt="photo of a wood sandpiper">
 		<figcaption>Wood sandpiper <span class="spec">(Tringa glareola)</span></figcaption>
 	</figure>
 	Migratory

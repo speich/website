@@ -15,8 +15,8 @@
 	Mediterranean Sea Studied by Radar</h2>
 <p><strong>General Introduction</strong></p>
 <p>
-	<figure><img src="images/bruchwasserl_sw.jpg" alt="Foto eines Bruchwasserläufers">
-		<figcaption>Bruchwasserläufer <span class="spec">(Tringa glareola)</span></figcaption>
+	<figure><img src="images/bruchwasserlaeufer.jpg" alt="Foto eines Bruchwasserläufers">
+		<figcaption>Bruchwasserläufer <span class="spec">(Tringa glareola)</span>. Nikon F90x, </figcaption>
 	</figure>
 	Migratory
 	birds have to cross or circumvent two vast areas, the Sahara Desert and the Mediterreanean
