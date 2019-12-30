@@ -12,6 +12,7 @@ add_action('wp_footer', static function() use ($htmlFooter, $lang) {
     require_once 'inc_body_end.php';
 });
 add_action('wp_enqueue_scripts', static function() {
+    wp_enqueue_style('style', get_stylesheet_directory_uri().'/style2.min.css');
     wp_enqueue_style('prismjs', '/../library/prismjs-1.17.1/prism.css');
     wp_enqueue_script('prismjs', '/../library/prismjs-1.17.1/prism.min.js');
 });
