@@ -21,7 +21,7 @@ $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $lang->autoSet();
 
 $web = new WebsiteSpeich();
-$web->lastUpdate = '18.10.2019';
+$web->lastUpdate = '30.12.2019';
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 $isPhoto = strpos($_SERVER['REQUEST_URI'], '/photo') !== false;

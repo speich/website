@@ -123,7 +123,7 @@
 }
 
 .menu2 li > div {
-	background: url(../../library/vendor/speich.net/websitetemplate/layout/images/arrowdown.gif) right 3px center no-repeat;
+	background: url(../../library/vendor/speich.net/websitetemplate/layout/images/arrowdown.gif) right 0.5em center no-repeat;
 }
 
 .menu2 ul li a, .menu2 ul li div {
@@ -138,12 +138,15 @@
 	color: #578626;
 }
 
-.mSort li, .mRating li {
+.optionBar .menu {
+	z-index: 99;
+}
+
+.pagingBar .menu {
 	z-index: 98;
 }
 
 .mRecPp li, .mRecPp div {
-	z-index: 99;
 	width: 3em;
 }
 
@@ -160,28 +163,48 @@
 }
 
 .toolbar {
-	border-bottom: 1px solid #cccccc;
-	padding-top: 27px;
-	margin: 0 10px 20px 0;
+	margin: 1em 0 2em 0;
+}
+
+.pagingBar, .optionBar {
+	padding: 0.25em;
 }
 
 .pagingBar {
-	padding: 0 0.25em;
-	border: 1px solid #cccccc;
-	background: linear-gradient(#fafafa, #eef0d8);
-	margin-bottom: 13px;
-}
-
-.optionBar {
-	padding: 0.25em;
+	border: solid #cccccc;
+	border-width: 1px 0 1px 0;
+	margin-bottom: 1em;
 }
 
 .pagingBar, .optionBar,
 .pagingBar div, .pagingBar label,
-.optionBar div, .optionBar label {
+.optionBar div, .optionBar label,
+.optionBar a {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+}
+
+.optionBar button {
+	border: 1px solid #cccccc;
+	background: #fafafa linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
+	padding: 0.2em 0.4em;
+	display: flex;
+}
+
+.optionBar button a {
+	text-decoration: none;
+	color: black;
+}
+
+.optionBar button svg.icon {
+	margin-left: 0.2em;
+	width: 1.5em;
+	height: 1.5em;
+}
+
+#map svg use {
+	fill: #578626;
 }
 
 .barVertSeparator {

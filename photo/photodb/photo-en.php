@@ -27,8 +27,8 @@ $pagingBar = '<div class="pagingBar">'.
 <head>
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
-<link href="photodb.css" rel="stylesheet" type="text/css">
-<link href="photo.css" rel="stylesheet" type="text/css">
+<link href="photodb.min.css" rel="stylesheet" type="text/css">
+<link href="photo.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../../library/PhotoSwipe/dist/photoswipe.css">
 <link rel="stylesheet" href="../../library/PhotoSwipe/dist/default-skin/default-skin.css">
 </head>
@@ -36,26 +36,17 @@ $pagingBar = '<div class="pagingBar">'.
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
-<?php echo $pagingBar; ?>
 <div class="optionBar">
-<div class="barTxt"><?php
-echo $i18n['sorting'];
-echo $mSort->render(); ?>
-</div>
+<div class="barTxt"><label><?php echo $i18n['sorting']; ?></label><?php echo $mSort->render(); ?></div>
 <div class="barVertSeparator"></div>
-<div class="barTxt"><?php
-echo $i18n['rating'];
-echo $mRating->render();
-?></div>
+<div class="barTxt"><label><?php echo $i18n['rating']; ?></label><?php echo $mRating->render(); ?></div>
 <div class="barVertSeparator"></div>
-<div id="showMap" class="button buttShowMap" title="<?php echo $i18n['show on map']; ?>"><a
-	href="photo-mapsearch.php<?php echo $query->getString(); ?>	"><?php echo $i18n['map']; ?><img
-		src="../../layout/images/icon_map.gif" alt="icon to display photos on a map"></a></div>
+<button id="map" class="barTxt" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $query->getString(); ?>">
+	<?php echo $i18n['map']; ?><svg class="icon"><use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#map-marker"></use></svg></a></button>
 </div>
+<?php echo $pagingBar; ?>
 </div>
-<div>
-<ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul>
-</div>
+<div><ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul></div>
 <?php echo $pagingBar ?>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->

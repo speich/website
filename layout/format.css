@@ -230,7 +230,8 @@ nav.sub {
 	border-bottom: 1px solid #cccccc;
 }
 
-.sideMenu a:hover, .sideMenu .menuActive > a {
+.sideMenu a:hover, .sideMenu .menuActive > a,
+.menu a:hover, .menu .menuActive > a{
 	color: #cc0000;
 }
 
@@ -286,8 +287,9 @@ body > footer > * {
 }
 
 .menu2 a, .menu2 div {
-	padding: 0.4em 1em;
+	padding: 0.4em 0.8em;
 	text-decoration: none;
+	color: black;
 }
 
 .menu2 ul li {
@@ -301,7 +303,7 @@ body > footer > * {
 }
 
 .menu2 ul li.menuHasChild > a, .menu2 ul li.menuHasChild > div {
-	background: url(../images/arrowright.gif) right 3px center no-repeat;
+	background: url(../images/arrowright.gif) right 0.4em center no-repeat;
 }
 
 .menu2 li ul ul {
