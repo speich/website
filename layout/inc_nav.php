@@ -134,6 +134,7 @@ switch ($mainNav->getActive()) {
  */
 function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
 {
+    // TODO: move to a (new) photo db class
     foreach ($menuItems as $item) {
         $sideNav->add($item);
     }
@@ -147,6 +148,7 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
 			FROM SubjectAreas s
 			INNER JOIN Themes t ON t.SubjectAreaId = s.Id
 			INNER JOIN Images_Themes It ON t.Id = It.ThemeId
+			WHERE It.ThemeId != 10
 			-- add countries
 			UNION
 			SELECT * FROM (
