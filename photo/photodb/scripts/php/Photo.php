@@ -89,9 +89,9 @@ class Photo extends PhotoDb implements PhotoDbQuery
         // filter by rating or coordinates (bounds) is always possible
         $sqlFilter = ' WHERE themeId != 10 AND ratingId > :qual';
         if ($params->theme) {
-            $sqlFilter .= ' themeId = :theme AND';
+            $sqlFilter .= ' AND themeId = :theme';
         } elseif ($params->country) {
-            $sqlFilter .= ' countryId = :country AND';
+            $sqlFilter .= ' AND countryId = :country';
         }
         if ($params->lat1 && $params->lng1 && $params->lat2 && $params->lng2) {
             if ($params->lng2 < $params->lng1) {
