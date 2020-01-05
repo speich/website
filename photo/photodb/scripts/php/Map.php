@@ -38,13 +38,13 @@ class Map extends PhotoDb implements PhotoDbQuery
             $postData = new stdClass();
         }
         $params = new stdClass();
-        $params->qual = property_exists($postData, 'qual') ? $postData->qual : 2;
-        $params->theme = property_exists($postData, 'theme') ? (int)$postData->theme : null;
-        $params->country = property_exists($postData, 'country') ? (int)$postData->country : null;
-        $params->lat1 = property_exists($postData, 'lat1') ? (float)$postData->lat1 : null;
-        $params->lng1 = property_exists($postData, 'lng1') ? (float)$postData->lng1 : null;
-        $params->lat2 = property_exists($postData, 'lat2') ? (float)$postData->lat2 : null;
-        $params->lng2 = property_exists($postData, 'lng2') ? (float)$postData->lng2 : null;
+        $params->qual = property_exists($postData, 'qual') ? filter_var($postData->qual, FILTER_SANITIZE_NUMBER_INT) : 2;
+        $params->theme = property_exists($postData, 'theme') ? filter_var($postData->theme, FILTER_SANITIZE_NUMBER_INT) : null;
+        $params->country = property_exists($postData, 'country') ? filter_var($postData->country, FILTER_SANITIZE_NUMBER_INT) : null;
+        $params->lat1 = property_exists($postData, 'lat1') ? filter_var($postData->lat1, FILTER_SANITIZE_NUMBER_FLOAT) : null;
+        $params->lng1 = property_exists($postData, 'lng1') ? filter_var($postData->lng1, FILTER_SANITIZE_NUMBER_FLOAT) : null;
+        $params->lat2 = property_exists($postData, 'lat2') ? filter_var($postData->lat2, FILTER_SANITIZE_NUMBER_FLOAT) : null;
+        $params->lng2 = property_exists($postData, 'lng2') ? filter_var($postData->lng2, FILTER_SANITIZE_NUMBER_FLOAT) : null;
 
         return $params;
     }
