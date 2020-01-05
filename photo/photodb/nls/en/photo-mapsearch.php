@@ -1,7 +1,7 @@
 <?php
 return [
+	'loading map' => 'loading map...',
 	'page title' => 'Photo Database Mapsearch',
 	'photos' => 'photos',
-	'show photos' => 'show photos',
-	'loading map' => 'loading map...'
+	'show photos' => 'show photos'
 ];
