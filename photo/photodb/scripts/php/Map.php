@@ -4,8 +4,6 @@ namespace PhotoDb;
 
 use PDO;
 use PDOStatement;
-use PhotoDb\PhotoDb;
-use PhotoDb\PhotoDbQuery;
 use stdClass;
 
 
