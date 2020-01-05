@@ -5,7 +5,7 @@ use WebsiteTemplate\QueryString;
 
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-$i18n = require_once __DIR__.'/nls/'.$lang->get().'/photo.php';
+$i18n = require __DIR__.'/nls/'.$lang->get().'/photo.php';
 
 $query = new QueryString();
 $photo = new Photo($web->getWebRoot());
@@ -42,7 +42,7 @@ foreach ($arrVal as $key => $val) {
 	}
 }
 
-$star = '<img class="imgRatingStar" src="'.$web->getWebRoot().'layout/images/ratingstar.gif" alt="'.$i18n['star icon'].'">';
+$star = '<svg class="icon"><use xlink:href="/../../layout/images/symbols.svg#star"></use></svg>';
 $arrVal = [
 	2 => $star.$star.$star,
 	1 => $star.$star,

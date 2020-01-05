@@ -1,5 +1,3 @@
-
-
 @media screen and (min-width: 60em) {
     .col {
         display: inline-block;
@@ -45,4 +43,8 @@
 
 .photoTxtLabel {
     color: #777777;
+}
+
+.mRating {
+    display: flex;
 }

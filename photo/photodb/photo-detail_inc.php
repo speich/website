@@ -87,7 +87,7 @@ function renderPhoto($data, $db, $lang, $i18n)
 	$dim = $photo->getImageSize($data);
 	$star = '';
 
-	$str = '<img class="imgRatingStar" src="../../layout/images/ratingstar.gif" alt="star icon for rating image">';
+	$str = '<svg class="icon"><use xlink:href="/../../layout/images/symbols.svg#star"></use></svg>';
     $len = strlen($data['rating']);
 	for ($i = 0; $i < $len; $i++) {
 		$star .= $str;
@@ -119,7 +119,7 @@ function renderPhoto($data, $db, $lang, $i18n)
             <li><span class="photoTxtLabel">'.$i18n['place'].':</span> '.$data['locations'].'</li>
 	        <li><span class="photoTxtLabel">'.$i18n['country'].':</span> '.($data['countries'] ?? $data['country']).'</li>
         </ul>
-        <p class="photoTxtSeparator"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>
+        <p class="mRating"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>
         </div>';
 
 	echo '<div class="col colRight">';

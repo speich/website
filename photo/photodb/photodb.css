@@ -112,7 +112,7 @@
 }
 
 .menu2 {
-	margin: 0.25em 0.5em;
+	margin: 0 0 0 0.5em;
 	border: 1px solid #cccccc;
 	background-color: #fafafa;
 }
@@ -120,14 +120,6 @@
 .menu2 ul {
 	border: 1px solid #cccccc;
 	left: -1px;
-}
-
-.menu2 li > div {
-	background: url(../../library/vendor/speich.net/websitetemplate/layout/images/arrowdown.gif) right 0.5em center no-repeat;
-}
-
-.menu2 ul li a, .menu2 ul li div {
-	min-width: auto;
 }
 
 .menu2 ul li:hover {
@@ -154,20 +146,34 @@
 	width: 9em;
 }
 
-.mRating li, .mRating div {
-	width: 6em;
-}
-
-.imgRatingStar {
-	margin-right: 0.25em;
+.mRating svg.icon {
+	fill: url(../../layout/images/symbols.svg#gradient-vertical) #ffdb0b;
+	stroke-width: 0.5;
+	stroke: #578626;
 }
 
 .toolbar {
+	max-width: 60em;
 	margin: 1em 0 2em 0;
 }
 
-.pagingBar, .optionBar {
-	padding: 0.25em;
+.frmSearch {
+	flex: auto;
+}
+
+.frmSearch input[type=text] {
+	width: 100%;
+	height: 100%;
+	min-width: 16em;
+	border: 1px solid #ccc;
+	border-right: none;
+	padding-left: 0.6em;
+}
+
+
+
+.pagingBar, .barContainer {
+	padding: 0.6em;
 }
 
 .pagingBar {
@@ -176,20 +182,29 @@
 	margin-bottom: 1em;
 }
 
-.pagingBar, .optionBar,
-.pagingBar div, .pagingBar label,
-.optionBar div, .optionBar label,
-.optionBar a {
+.barContainer, .pagingBar, .optionBar,
+.pagingBar .pages, .frmSearch,
+.toolbar .barVertSeparator, .toolbar label, .toolbar .barTxt,
+.optionBar a, .menu2 div {
 	display: flex;
+}
+
+.barContainer, .pagingBar, .pagingBar .pages, .optionBar  {
 	flex-wrap: wrap;
+}
+
+.barTxt, .pages, button a {
 	align-items: center;
 }
 
-.optionBar button {
+.toolbar button {
 	border: 1px solid #cccccc;
 	background: #fafafa linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
-	padding: 0.2em 0.4em;
 	display: flex;
+}
+
+.toolbar button, .toolbar input {
+	padding: 0.3em 0.6em;
 }
 
 .optionBar button a {
@@ -197,26 +212,21 @@
 	color: black;
 }
 
-.optionBar button svg.icon {
+svg.icon {
 	margin-left: 0.2em;
 	width: 1.5em;
 	height: 1.5em;
-}
-
-#map svg use {
 	fill: #578626;
 }
 
 .barVertSeparator {
-	border-right: 1px solid #ffffff;
-	border-left: 1px solid #cccccc;
-	background-color: white;
-	margin: 0 1em;
-	width: 0;
-	height: 2.5em;
+	background-color: #ccc;
+	margin: -0.3em 1em;
+	width: 1px;
+	position: relative;
 }
 
-.pages a, .curPage {
+.curPage, .pages a {
 	color: #000000;
 	text-decoration: none;
 	padding: 0.4em 0.8em;
@@ -224,10 +234,4 @@
 
 .curPage, .pages a:hover {
 	color: #cc0000;
-}
-
-#q {
-	width: 170px;
-	margin-right: 3px;
-	margin-top: 2px;
 }
