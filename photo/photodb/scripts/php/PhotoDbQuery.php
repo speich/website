@@ -22,17 +22,17 @@ interface PhotoDbQuery {
 	 */
 	public function createObjectFromPost($postData);
 
-	/**
-	 * Return SQL string used for query.
-	 * @param stdClass $params
-	 * @return String SQL
-	 */
-	public function getSql($params);
+    /**
+     * Return SQL string used for query.
+     * @param stdClass $params
+     * @return String SQL
+     */
+	public function getSql($params): string;
 
-	/**
-	 * Bind variables to SQL query.
-	 * @param PDOStatement $stmt
-	 * @param stdClass $params
-	 */
-	public function bind($stmt, $params);
+    /**
+     * Bind variables to SQL query.
+     * @param PDOStatement $stmt
+     * @param stdClass $params
+     */
+	public function bind($stmt, $params): void;
 } 
