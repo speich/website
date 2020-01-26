@@ -290,14 +290,13 @@ main a:active, main a:hover {
 	color: black;
 }
 
-.menu2 ul li {
-	display: flex;
-}
-
 .menu2 li a, .menu2 li div {
 	padding: 0.3em 0.6em;
-	justify-content: space-between;
 	align-items: center;
+}
+
+.menu2 > li div {
+	justify-content: space-between;
 }
 
 .menu2 li ul ul {

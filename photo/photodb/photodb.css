@@ -113,8 +113,6 @@
 
 .menu2 {
 	margin: 0 0 0 0.5em;
-	border: 1px solid #cccccc;
-	background-color: #fafafa;
 }
 
 .menu2 ul {
@@ -125,6 +123,12 @@
 .menu2 ul li:hover {
 	background-color: #e6e6e6;
 }
+
+
+.menu2 a:visited {
+	color: black;
+}
+
 
 .menu2 a:hover {
 	color: #578626;
@@ -139,17 +143,25 @@
 }
 
 .mRecPp li, .mRecPp div {
-	width: 3em;
+	min-width: 3em;
 }
 
 .mSort li, .mSort div {
-	width: 9em;
+	min-width: 9em;
+}
+
+.mRating li, .mRating div {
+	min-width: 6em;
 }
 
 .mRating svg.icon {
 	fill: url(../../layout/images/symbols.svg#gradient-vertical) #ffdb0b;
 	stroke-width: 0.5;
 	stroke: #578626;
+}
+
+#map svg.icon, .mRating svg.icon:not(:first-child) {
+	margin-left: 0.2em;
 }
 
 .toolbar {
@@ -211,7 +223,6 @@
 }
 
 svg.icon {
-	margin-left: 0.2em;
 	width: 1.5em;
 	height: 1.5em;
 	fill: #578626;
