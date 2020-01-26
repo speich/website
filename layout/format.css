@@ -258,16 +258,13 @@ main a:active, main a:hover {
 
 .menu2 {
 	cursor: pointer;
-	background: linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
-	border: solid #999999;
-	border-width: 1px 0 1px 0;
+	background: #fafafa linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
+	border: 1px solid #ccc;
+	box-sizing: content-box;
 }
 
 .menu2 li {
-	color: #555555;
 	position: relative;
-	display: inline-block;
-	vertical-align: top;
 }
 
 .menu2 ul {
@@ -278,7 +275,7 @@ main a:active, main a:hover {
 	visibility: hidden;
 	transition: opacity .5s ease-in-out;
 	box-shadow: #cccccc 4px 4px 4px;
-	width: 100%;
+	width: calc(100% + 2px);
 	white-space: nowrap;
 }
 
