@@ -1,6 +1,6 @@
 <?php
 
-use PhotoDb\Photo;
+use PhotoDb\PhotoList;
 use PhotoDb\PhotoDb;
 use WebsiteTemplate\Language;
 
@@ -68,6 +68,7 @@ $jsConfig = [
 $jsConfig = json_encode($jsConfig, JSON_NUMERIC_CHECK);
 $jsConfig = htmlspecialchars($jsConfig, ENT_COMPAT, $web->charset);
 
+
 /**
  * Print HTML to display photo detail.
  * @param $data
@@ -77,7 +78,7 @@ $jsConfig = htmlspecialchars($jsConfig, ENT_COMPAT, $web->charset);
  */
 function renderPhoto($data, $db, $lang, $i18n)
 {
-	$photo = new Photo($db->webroot);
+	$photo = new PhotoList($db->webroot);
     $query = new \WebsiteTemplate\QueryString();
 	$backPage = $lang->createPage('photo.php').$query->withString(null, ['imgId']);
 	if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {

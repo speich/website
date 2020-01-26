@@ -11,10 +11,11 @@ use PDOException;
  */
 class PhotoDb {
 	/** @var PDO|null */
-	public $db = null;
+	public $db;
 	// paths are always appended to webroot ('/' or a subfolder) and start therefore with a foldername
 	// and not with a slash, but end with a slash
-	private $dbName = "photodb.sqlite";
+    // TODO: use json config file instead as in fotodb
+	private $dbName = 'photodb.sqlite';
 	private $dbUserPrefs = 'user.sqlite'; 
 	private $pathDb = 'photo/photodb/dbfiles/';
 	private $pathImg = 'photo/photodb/images/';
@@ -38,17 +39,21 @@ class PhotoDb {
 	 */
 	public function connect() {
 		$path = __DIR__.'/../../../../'.$this->pathDb;
-		if (is_null($this->db)) {	// check if not already connected to db
+        $options = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ];
+		if ($this->db === null) {	// check if not already connected to db
 			try {
-				$this->db = new PDO('sqlite:'.$path.$this->dbName);
+				$this->db = new PDO('sqlite:'.$path.$this->dbName, null, null, $options);
 				// Do every time you connect since they are only valid during connection (not permanent)
-				$this->db->exec('PRAGMA full_column_names = 0');
-				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
+				$this->db->exec('PRAGMA full_column_names = 1');
+				$this->db->exec('PRAGMA short_column_names = 0');	// green hosting's sqlite older driver version does not support short column names = off
 				$this->db->sqliteCreateAggregate('GROUP_CONCAT', [$this, 'groupConcatStep'], [$this, 'groupConcatFinalize']);
 				//$this->db->sqliteCreateFunction('STRTOTIME', array($this, 'strToTime'));
 			}
-			catch (PDOException $Error) {
-				echo $Error->getMessage();
+			catch (PDOException $error) {
+				echo $error->getMessage();
 			}
 		}
 	}
