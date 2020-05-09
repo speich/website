@@ -6,10 +6,10 @@ namespace remoteFileExplorer\fs;
 class CacheStore {
 
 	/** @var string|null  */
-	private $dbName = 'store.sqlite';
+	private $dbName = 'cache.sqlite';
 
 	/** @var string|null */
-	private $dbPath = 'php/fs/cache/';
+	private $dbPath = '/fs/cache/';
 
 	/** @var null|\PDO  */
 	private $db = null;	// holds the PDO database resource
@@ -25,8 +25,8 @@ class CacheStore {
 			$this->dbPath = rtrim($dbPath, '/').'/';
 		}
 		else {
-			$this->dbPath = rtrim($_SERVER['DOCUMENT_ROOT'],'/').'/';
-		}
+		    $this->dbPath = __DIR__.'/..'.$this->dbPath;
+        }
 	}
 
 	/**
