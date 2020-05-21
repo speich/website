@@ -47,8 +47,8 @@ class PhotoDb {
 			try {
 				$this->db = new PDO('sqlite:'.$path.$this->dbName, null, null, $options);
 				// Do every time you connect since they are only valid during connection (not permanent)
-				$this->db->exec('PRAGMA full_column_names = 1');
-				$this->db->exec('PRAGMA short_column_names = 0');	// green hosting's sqlite older driver version does not support short column names = off
+				$this->db->exec('PRAGMA full_column_names = 0');
+				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
 				$this->db->sqliteCreateAggregate('GROUP_CONCAT', [$this, 'groupConcatStep'], [$this, 'groupConcatFinalize']);
 				//$this->db->sqliteCreateFunction('STRTOTIME', array($this, 'strToTime'));
 			}
