@@ -36,10 +36,11 @@ foreach ($arrVal as $key => $val) {
     }
 }
 
+// TODO: show title or image when sorting by it
 $arrVal = [
     SqlPhotoList::SORT_BY_IMGTITLE => $i18n['by title'],
     SqlPhotoList::SORT_BY_DATEADDED => $i18n['date added'],
-    SqlPhotoList::SORT_BY_DATECEATED => $i18n['date created'],
+    SqlPhotoList::SORT_BY_DATECREATED => $i18n['date created'],
     SqlPhotoList::SORT_BY_DATECHANGED => $i18n['last changed']
 ];
 $mSort = new Menu();

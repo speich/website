@@ -45,7 +45,7 @@ class SqlPhotoList extends SqlFull
 
     /** @var int sort list of photos by date created */
     public const SORT_BY_DATEADDED = 1;
-    public const SORT_BY_DATECEATED = 2;
+    public const SORT_BY_DATECREATED = 2;
     public const SORT_BY_DATECHANGED = 3;
     public const SORT_BY_IMGTITLE = 4;
 
@@ -97,7 +97,7 @@ class SqlPhotoList extends SqlFull
      */
     public function getGroupBy(): string
     {
-        return 'i.Id, i.ImgFolder, i.ImgName, i.ImgTitle, i.DateAdded';
+        return 'i.Id, i.ImgFolder, i.ImgName, i.ImgTitle, i.DateAdded, ImgDateOriginal, ImgDateManual';
     }
 
     /**
@@ -106,8 +106,8 @@ class SqlPhotoList extends SqlFull
     public function getOrderBy(): string
     {
         switch ($this->sort) {
-            case self::SORT_BY_DATECEATED:
-                $sql = 'date DESC';
+            case self::SORT_BY_DATECREATED:
+                $sql = 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC';
                 break;
             case self::SORT_BY_DATECHANGED:
                 $sql = 'lastChange DESC';

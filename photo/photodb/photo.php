@@ -6,7 +6,7 @@ use WebsiteTemplate\PagedNav;
 
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-require_once __DIR__.'/photoinc.php';
+require_once __DIR__.'/photo_inc.php';
 
 $photo = new PhotoList($db);
 $sql = new SqlPhotoList();
