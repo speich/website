@@ -78,7 +78,7 @@ $jsConfig = htmlspecialchars($jsConfig, ENT_COMPAT, $web->charset);
  */
 function renderPhoto($data, $db, $lang, $i18n)
 {
-	$photo = new PhotoList($db->webroot);
+	$photo = new PhotoList($db);
     $query = new \WebsiteTemplate\QueryString();
 	$backPage = $lang->createPage('photo.php').$query->withString(null, ['imgId']);
 	if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {
