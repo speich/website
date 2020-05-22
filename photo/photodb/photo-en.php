@@ -13,12 +13,12 @@ $pagedNav->renderText = false;
 $pagedNav->setWhitelist($web->getWhitelistQueryString());
 
 $word = 'photo'.($numRec > 1 ? 's' : '');
-$pagingBar = '<div class="pagingBar">'.
-	'<div class="barTxt">'.$numRec.' '.$i18n[$word].'</div>'.
-	'<div class="barVertSeparator"></div>'.
+$pagingBar = '<div class="bar-paging">'.
+	'<div class="bar-item">'.$numRec.' '.$i18n[$word].'</div>'.
+	'<div class="bar-sep-vert"></div>'.
 	$mRecPp->render().
-	'<div class="barTxt">'.$i18n['per page'].'</div>'.
-	'<div class="barVertSeparator"></div>'.
+	'<div class="bar-item">'.$i18n['per page'].'</div>'.
+	'<div class="bar-sep-vert"></div>'.
 	$pagedNav->render($params->page + 1, $web, $lang).
 	'</div>';
 ?>
@@ -36,16 +36,16 @@ $pagingBar = '<div class="pagingBar">'.
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
-<div class="barContainer">
+<div class="bar-cont">
 <form class="searchBar" method="GET" role="search"><label class="visuallyHidden" for="q"><?php echo $i18n['search photos']; ?></label><input type="text" id="q" name="q" value="" placeholder="<?php echo $i18n['search photos']; ?>">
 <button type="submit"><svg class="icon"><use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#magnifying-glass"></use></svg></button></form>
-<div class="barVertSeparator"></div>
-<div class="optionBar">
-<div class="barTxt"><label><?php echo $i18n['sorting']; ?></label><?php echo $mSort->render(); ?></div>
-<div class="barVertSeparator"></div>
-<div class="barTxt"><label><?php echo $i18n['rating']; ?></label><?php echo $mRating->render(); ?></div>
-<div class="barVertSeparator"></div>
-<button id="map" class="barTxt" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $query->getString(); ?>">
+<div class="bar-sep-vert"></div>
+<div class="bar-options">
+<div class="bar-item"><label><?php echo $i18n['sorting']; ?></label><?php echo $mSort->render(); ?></div>
+<div class="bar-sep-vert"></div>
+<div class="bar-item"><label><?php echo $i18n['rating']; ?></label><?php echo $mRating->render(); ?></div>
+<div class="bar-sep-vert"></div>
+<button id="map" class="bar-item" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $query->getString(); ?>">
 	<?php echo $i18n['map']; ?><svg class="icon"><use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#map-marker"></use></svg></a></button>
 </div>
 </div>

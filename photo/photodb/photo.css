@@ -7,6 +7,18 @@
 	margin-left: 0.5em;
 }
 
+.mRecPp {
+	z-index: 1;
+}
+
+.mRating {
+	z-index: 2;
+}
+
+.mSort {
+	z-index: 3;
+}
+
 @media screen and (min-width: 35em) {
 	body {
 		grid-template-columns: 0 minmax(8em, 16em) minmax(20em, 60em) 1fr;

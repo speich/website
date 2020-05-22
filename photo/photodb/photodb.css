@@ -134,12 +134,12 @@
 	color: #578626;
 }
 
-.optionBar .menu {
-	z-index: 99;
+.bar-options .menu {
+	/*z-index: 99;*/
 }
 
-.pagingBar .menu {
-	z-index: 98;
+.bar-paging .menu {
+	/*z-index: 98;*/
 }
 
 .mRecPp li, .mRecPp div {
@@ -171,6 +171,7 @@
 
 .frmSearch {
 	flex: auto;
+	margin: 0;
 }
 
 .frmSearch input[type=text] {
@@ -182,28 +183,28 @@
 	padding-left: 0.6em;
 }
 
-.pagingBar, .barContainer {
-	padding: 0.6em;
+.bar-paging, .bar-cont {
+	padding: 0.3em;
 }
 
-.pagingBar {
+.bar-paging {
 	border: solid #cccccc;
 	border-width: 1px 0 1px 0;
 	margin-bottom: 1em;
 }
 
-.barContainer, .pagingBar, .optionBar,
-.pagingBar .pages, .frmSearch,
-.toolbar .barVertSeparator, .toolbar label, .toolbar .barTxt,
-.optionBar a, .menu2 div {
+.bar-cont, .bar-paging, .bar-options,
+.bar-paging .pages, .frmSearch,
+.toolbar .bar-sep-vert, .toolbar label, .toolbar .bar-item,
+.bar-options a, .menu2 div {
 	display: flex;
 }
 
-.barContainer, .pagingBar, .pagingBar .pages, .optionBar  {
+.bar-cont, .bar-paging, .bar-paging .pages, .bar-options  {
 	flex-wrap: wrap;
 }
 
-.barTxt, .pages, button a {
+.bar-item, .pages, button a {
 	align-items: center;
 }
 
@@ -217,9 +218,13 @@
 	padding: 0.3em 0.6em;
 }
 
-.optionBar button a {
+.bar-item {
+	margin: 0.3em 0;
+}
+
+.bar-options button a {
 	text-decoration: none;
-	color: black;
+	color: #000000;
 }
 
 svg.icon {
@@ -228,9 +233,9 @@ svg.icon {
 	fill: #578626;
 }
 
-.barVertSeparator {
+.bar-sep-vert {
 	background-color: #ccc;
-	margin: -0.3em 1em;
+	margin: 0 1em;
 	width: 1px;
 	position: relative;
 }
