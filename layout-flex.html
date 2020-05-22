@@ -19,8 +19,9 @@ body {
 
 body > header, main, body > footer {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	flex-direction: row;
+	justify-content: center;
+	align-items: stretch;
 }
 
 header, main, body > footer, header .banner, main .content, footer .content {
@@ -28,7 +29,7 @@ header, main, body > footer, header .banner, main .content, footer .content {
 }
 
 header, main, footer {
-	min-width: 300px;
+	min-width: 320px;
 }
 
 header .banner, main > *, footer .content {
@@ -39,81 +40,74 @@ header .banner, main, footer .content {
 	flex: 1;
 }
 
-
-header nav > ul {
+.content nav.main > ul {
 	display: flex;
 }
-
-/* start flex version */
-/* display flex can only be used if nav has fixed width, if width is to be fluid, grid has to be used for correct positioning of  main nav above content */
-.nav-fixed > header, .nav-fixed .content {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-
-.nav-fixed header > div, .nav-fixed .content {
- flex: 1;
-}
-
-.nav-fixed > .content > nav:first-of-type, .nav-fixed > .content > div:last-child {
-	width: calc(100% - 220px - 8px);
-}
-
-.nav-fixed > .content > div:first-child, .nav-fixed > .content > nav:nth-of-type(2) {
-	width: 220px;
-}
-
-.nav-fixed > .content > div:last-child {
-
-}
-
-/* start grid version where nav can have a fluid width */
-.nav-fluid {
-
-}
-
 
 ul {
 	list-style: none;
+	padding: unset;
 }
 
-@media screen and (max-width: 600px) {
-	/*			.nav-fixed .content {
-					flex-direction: column-reverse;
-					justify-content: flex-end;
-				}*/
-	.nav-fixed > .content > nav:first-of-type, .nav-fixed > .content > nav:nth-of-type(2), .nav-fixed > .content div:last-child {
-		width: unset;
-	}
+/* start grid version where nav can have a fluid width */
+.nav-fluid .content {
+	display: grid;
+	grid-template: min-content 1fr / minmax(180px, 220px) 1fr;
+}
 
-	.nav-fixed .content > div:first-child {
+@media screen and (max-width: 1024px) {
+	.content > div:first-child {
 		display: none;
 	}
 
-	main .content nav > ul {
+	.nav-fluid .content {
+		grid-template: min-content 1fr min-content  / 1fr;
+	}
+
+	.nav-fluid nav.sub {
+		/*order: 3;*/
+	}
+
+	nav.sub > ul {
 		display: flex;
 	}
 }
 
+
+@media screen and (max-width: 768px) {
+
+	nav.main {
+	/*	display: none;*/
+	}
+
+	.nav-fluid .content {
+		grid-template: 1fr min-content / 1fr;
+	}
+
+	.nav-fluid nav.sub {
+		/*order: 2;*/
+	}
+
+}
+
 /* settings below are only there for the demo, can be deleted */
 body > footer {
-	height: 90px;
+	height: 80px;
 }
 
 body > header {
-	height: 150px;
+	height: 100px;
 }
 
 header, main, footer {
 	border: 2px solid black;
 }
 
-main header > div, main header nav, header .banner, main .content, footer .content {
+header .banner, main .content, footer .content {
 	border: 2px solid blue;
 }
 
-main > header nav, main .content nav, main .content > div {
+main .content nav, main .content > div {
 	border: 2px solid purple;
 }
 </style>
@@ -122,11 +116,11 @@ main > header nav, main .content nav, main .content > div {
 <header>
 	<div class="banner">banner</div>
 </header>
-<main class="nav-fixed">
+<main class="nav-fluid">
 	<div class="content">
 
 	<div></div>
-	<nav>
+	<nav class="main">
 		<ul>
 		<li>main menu link 1</li>
 		<li>main menu link 2</li>
@@ -135,7 +129,7 @@ main > header nav, main .content nav, main .content > div {
 		</ul>
 	</nav>
 
-	<nav>side navigation
+	<nav class="sub">side navigation
 		<ul>
 		<li>menu link 1</li>
 		<li>menu link 2 with very extra long text</li>

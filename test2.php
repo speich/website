@@ -4,6 +4,7 @@ use PhotoDb\PhotoDb;
 require_once 'scripts/php/inc_script.php';
 require_once 'photo/photodb/scripts/php/PhotoDb.php';
 
+// Test checks for unicode61 support in fts4
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
 $sql = "DROP TABLE data";
@@ -13,5 +14,5 @@ $db->db->exec($sql);
 var_dump($db->db->errorInfo());
 $db->db->exec("INSERT INTO data(keyword) VALUES ('Simon geht nach Hause einkaufen')");
 var_dump($db->db->errorInfo());
-$data = $db->db->query("SELECT * FROM data where keyword match 'haus'");
+$data = $db->db->query("SELECT * FROM data where keyword match 'Haus'");
 var_dump($data->fetchAll());
