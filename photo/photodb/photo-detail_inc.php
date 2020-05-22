@@ -6,7 +6,7 @@ use WebsiteTemplate\Language;
 
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-require_once 'photoinc.php';
+require_once 'photo_inc.php';
 
 if (isset($_GET['imgId'])) {
 	$imgId = $_GET['imgId'];
