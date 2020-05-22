@@ -113,7 +113,7 @@ class SqlPhotoList extends SqlFull
                 $sql = 'lastChange DESC';
                 break;
             case self::SORT_BY_IMGTITLE:
-                $sql = 'imgTitleC';
+                $sql = 'imgTitle';
                 break;
             case self::SORT_BY_DATEADDED:
             default:
