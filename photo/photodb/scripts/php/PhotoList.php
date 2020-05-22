@@ -2,6 +2,7 @@
 
 namespace PhotoDb;
 
+use PDO;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\QueryString;
 use WebsiteTemplate\Website;
@@ -23,11 +24,10 @@ class PhotoList
     public const NUMPERPAGE_HIGH = 56;
     public const NUMPERPAGE_VERYHIGH = 112;
 
-    /** @var \PDO|null */
+    /** @var PDO */
     private $db;
-    /**
-     * @var \PDO|null
-     */
+
+    /** @var PDO */
     private $cnn;
 
     /**

@@ -184,6 +184,4 @@ class SqlPhotoList extends SqlFull
     {
         $this->sort = $sort;
     }
-
-
 }
