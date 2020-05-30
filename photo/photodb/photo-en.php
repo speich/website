@@ -1,26 +1,7 @@
 <?php
-use WebsiteTemplate\PagedNav;
-
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-require_once 'photo_inc.php';
-
-$photos = $photo->loadPhotos($params);
-$numRec = $photo->getNumRec($params);
-
-$pagedNav = new PagedNav($numRec, $params->numRecPerPage);
-$pagedNav->renderText = false;
-$pagedNav->setWhitelist($web->getWhitelistQueryString());
-
-$word = 'photo'.($numRec > 1 ? 's' : '');
-$pagingBar = '<div class="bar-paging">'.
-	'<div class="bar-item">'.$numRec.' '.$i18n[$word].'</div>'.
-	'<div class="bar-sep-vert"></div>'.
-	$mRecPp->render().
-	'<div class="bar-item">'.$i18n['per page'].'</div>'.
-	'<div class="bar-sep-vert"></div>'.
-	$pagedNav->render($params->page + 1, $web, $lang).
-	'</div>';
+require_once __DIR__.'/photo_inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
@@ -29,16 +10,23 @@ $pagingBar = '<div class="bar-paging">'.
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.min.css" rel="stylesheet" type="text/css">
 <link href="photo.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../../library/PhotoSwipe/dist/photoswipe.css">
-<link rel="stylesheet" href="../../library/PhotoSwipe/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="../../library/node_modules/photoswipe/dist/photoswipe.css">
+<link rel="stylesheet" href="../../library/node_modules/photoswipe/dist/default-skin/default-skin.css">
 </head>
 
 <body>
 <?php require_once 'inc_body_begin.php'; ?>
 <div class="toolbar">
 <div class="bar-cont">
-<form class="searchBar" method="GET" role="search"><label class="visuallyHidden" for="q"><?php echo $i18n['search photos']; ?></label><input type="text" id="q" name="q" value="" placeholder="<?php echo $i18n['search photos']; ?>">
-<button type="submit"><svg class="icon"><use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#magnifying-glass"></use></svg></button></form>
+<form method="GET" role="search" class="bar-item frmSearch">
+<label class="visuallyHidden" for="q"><?php echo $i18n['search photos']; ?></label><input type="text" id="q" name="q"
+	value="<?php echo isset($_GET['q']) ? htmlentities($_GET['q'], ENT_QUOTES, $web->charset) : ''; ?>" placeholder="<?php echo $i18n['search photos']; ?>">
+<button type="submit">
+	<svg class="icon">
+		<use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#magnifying-glass"></use>
+	</svg>
+</button>
+</form>
 <div class="bar-sep-vert"></div>
 <div class="bar-options">
 <div class="bar-item"><label><?php echo $i18n['sorting']; ?></label><?php echo $mSort->render(); ?></div>
@@ -46,12 +34,18 @@ $pagingBar = '<div class="bar-paging">'.
 <div class="bar-item"><label><?php echo $i18n['rating']; ?></label><?php echo $mRating->render(); ?></div>
 <div class="bar-sep-vert"></div>
 <button id="map" class="bar-item" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $query->getString(); ?>">
-	<?php echo $i18n['map']; ?><svg class="icon"><use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#map-marker"></use></svg></a></button>
+        <?php echo $i18n['map']; ?>
+		<svg class="icon">
+			<use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#map-marker"></use>
+		</svg>
+	</a></button>
 </div>
 </div>
 <?php echo $pagingBar; ?>
 </div>
-<div><ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul></div>
+<div>
+<ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul>
+</div>
 <?php echo $pagingBar ?>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->

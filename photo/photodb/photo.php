@@ -1,40 +1,6 @@
 <?php
-
-use PhotoDb\PhotoList;
-use PhotoDb\SqlPhotoList;
-use WebsiteTemplate\PagedNav;
-
-
 require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once __DIR__.'/photo_inc.php';
-
-$photo = new PhotoList($db);
-$sql = new SqlPhotoList();
-$sql->qual = $params->qual;
-$sql->theme = $params->theme;
-$sql->country = $params->country;
-$sql->lat1 = $params->lat1;
-$sql->lng1 = $params->lng1;
-$sql->lat2 = $params->lat2;
-$sql->lng2 = $params->lng2;
-$numRec = $photo->getNumRec($sql);
-$sql->offset = $params->pg + $params->pg * $params->numPerPg;
-$sql->limit = $params->numPerPg;
-$sql->setSort($params->sort);
-$photos = $photo->loadPhotos($sql);
-$pagedNav = new PagedNav($numRec, $params->numPerPg);
-$pagedNav->cssClass = 'bar-item pgNav';
-$pagedNav->renderText = false;
-$pagedNav->setWhitelist($web->getWhitelistQueryString());
-$word = 'photo'.($numRec > 1 ? 's' : '');
-$pagingBar = '<div class="bar-paging">'.
-    '<div class="bar-item">'.$numRec.' '.$i18n[$word].'</div>'.
-    '<div class="bar-sep-vert"></div>'.
-    '<div class="bar-item">'.$i18n['per page'].'</div>'.
-		'<div class="bar-item">'.$mRecPp->render().'</div>'.
-    '<div class="bar-sep-vert"></div>'.
-    $pagedNav->render($params->pg + 1, $web).
-    '</div>';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang->get(); ?>">
@@ -43,8 +9,8 @@ $pagingBar = '<div class="bar-paging">'.
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.min.css" rel="stylesheet" type="text/css">
 <link href="photo.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../../library/PhotoSwipe/dist/photoswipe.css">
-<link rel="stylesheet" href="../../library/PhotoSwipe/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="../../library/node_modules/photoswipe/dist/photoswipe.css">
+<link rel="stylesheet" href="../../library/node_modules/photoswipe/dist/default-skin/default-skin.css">
 </head>
 
 <body>
@@ -78,6 +44,18 @@ $pagingBar = '<div class="bar-paging">'.
 </div>
 <div>
 <ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul>
+    <?php
+    /*
+    $sql = 'CREATE VIRTUAL TABLE Test_fts USING fts4(Keyword, tokenize=unicode61)';
+    try {
+       $db->db->exec($sql);
+    }
+    catch ($err) {
+        echo "test";
+
+    }
+    */
+    ?>
 </div>
 <div class="toolbar">
 <div class="bar-cont"><?php echo $pagingBar ?></div>

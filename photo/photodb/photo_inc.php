@@ -2,9 +2,10 @@
 
 use PhotoDb\PhotoDb;
 use PhotoDb\PhotoList;
-use PhotoDb\PhotoListBindings;
+use PhotoDb\PhotoBindings;
 use PhotoDb\SqlPhotoList;
 use WebsiteTemplate\Menu;
+use WebsiteTemplate\PagedNav;
 use WebsiteTemplate\QueryString;
 
 
@@ -14,7 +15,7 @@ $i18n = require __DIR__.'/nls/'.$lang->get().'/photo.php';
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
 $query = new QueryString();
-$params = new PhotoListBindings();
+$params = new PhotoBindings();
 $params->sanitizeInput((object)$_GET);
 
 // generate filter and sorting menus
@@ -70,3 +71,30 @@ foreach ($arrVal as $key => $val) {
         $mRating->arrItem[$key]->setActive();
     }
 }
+$photo = new PhotoList($db);
+$sql = new SqlPhotoList();
+$sql->qual = $params->qual;
+$sql->theme = $params->theme;
+$sql->country = $params->country;
+$sql->lat1 = $params->lat1;
+$sql->lng1 = $params->lng1;
+$sql->lat2 = $params->lat2;
+$sql->lng2 = $params->lng2;
+$numRec = $photo->getNumRec($sql);
+$sql->offset = $params->pg + $params->pg * $params->numPerPg;
+$sql->limit = $params->numPerPg;
+$sql->setSort($params->sort);
+$photos = $photo->loadPhotos($sql);
+$pagedNav = new PagedNav($numRec, $params->numPerPg);
+$pagedNav->cssClass = 'bar-item pgNav';
+$pagedNav->renderText = false;
+$pagedNav->setWhitelist($web->getWhitelistQueryString());
+$word = 'photo'.($numRec > 1 ? 's' : '');
+$pagingBar = '<div class="bar-paging">'.
+    '<div class="bar-item">'.$numRec.' '.$i18n[$word].'</div>'.
+    '<div class="bar-sep-vert"></div>'.
+    '<div class="bar-item">'.$i18n['per page'].'</div>'.
+		'<div class="bar-item">'.$mRecPp->render().'</div>'.
+    '<div class="bar-sep-vert"></div>'.
+    $pagedNav->render($params->pg + 1, $web).
+    '</div>';
