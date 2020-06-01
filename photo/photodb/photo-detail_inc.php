@@ -33,7 +33,7 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgTechIn
 	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
 	GROUP_CONCAT(DISTINCT T.Name".$ucLang.') themes,
 	GROUP_CONCAT(DISTINCT K.Name) categories,
-	N.NameDe wissNameDe, N.NameEn wissNameEn, N.NameLa wissNameLa,
+	GROUP_CONCAT(DISTINCT N.NameDe) wissNameDe, GROUP_CONCAT(DISTINCT N.NameEn) wissNameEn, GROUP_CONCAT(DISTINCT (N.NameLa wissNameLa),
 	S.Name'.$ucLang.' sex, S.Symbol symbol,
 	GROUP_CONCAT(DISTINCT L.Name) locations,
 	GROUP_CONCAT(DISTINCT C.Name'.$ucLang.') countries,
