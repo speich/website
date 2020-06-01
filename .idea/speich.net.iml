@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/photo/photodb/scripts/php" isTestSource="false" packagePrefix="PhotoDb\" />
+      <sourceFolder url="file://$MODULE_DIR$/scripts/php/class" isTestSource="false" packagePrefix="speich\" />
+      <sourceFolder url="file://$MODULE_DIR$/library/vendor/speich/websitetemplate/scripts/php" isTestSource="false" packagePrefix="WebsiteTemplate\" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="dojo" level="application" />
+    <orderEntry type="library" name="Google Maps API" level="project" />
+    <orderEntry type="library" name="dojo" level="application" />
+    <orderEntry type="library" name="photo-sphere-viewer" level="application" />
+  </component>
+</module>

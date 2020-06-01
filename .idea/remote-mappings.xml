@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="php@030b911b-2a13-413e-bd9d-2118a13f5705">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/speich.net" />
+            </list>
+          </settings>
+        </remote-mappings>
+        <remote-mappings server-id="php@0f0da601-0ba2-475c-9d3d-c53da32c24b1" />
+      </list>
+    </list>
+  </component>
+</project>

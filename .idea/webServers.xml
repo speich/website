@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9c65dfca-5e48-4a1b-90d4-dfb809a6e1ca" name="fotoxplorer.net" url="http://photoxplorer.net/fotodb/fotodb/">
+        <fileTransfer host="2a4.000.myftpupload.com" port="21" username="speich" password="dfdddfc1dfe8dfdbdfe4dfd2dfefdff9df93df8fdfdadfe1dfc4dff8">
+          <advancedOptions>
+            <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
