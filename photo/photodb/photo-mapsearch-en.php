@@ -8,8 +8,8 @@ $web->setLastPage();
 <head>
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
-<link href="photodb.css" rel="stylesheet" type="text/css">
-<link href="photo-mapsearch.css" rel="stylesheet" type="text/css">
+<link href="photodb.min.css" rel="stylesheet" type="text/css">
+<link href="photo-mapsearch.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="tundra">
@@ -28,7 +28,7 @@ $web->setLastPage();
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
 	]"></script>
-<script type="text/javascript" src="photo-mapsearch.js">
+<script type="text/javascript" src="photo-mapsearch.min.js">
 </script>
 </body>
 </html>

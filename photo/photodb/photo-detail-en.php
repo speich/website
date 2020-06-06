@@ -20,6 +20,6 @@ require_once 'inc_body_end.php';
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
 	]"></script>
-<script src="photo-detail.js"></script>
+<script src="photo-detail.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+{
+  "name": "speich.net",
+  "description": "Dependencies for the website speich.net",
+  "homepage": "https://www.speich.net",
+  "repository": "github:speich/website",
+  "version": "0.1.0",
+  "prefix": "library",
+  "dependencies": {
+    "@google/markerclustererplus": "^5.0.4",
+    "photoswipe": "^4.1.3",
+    "prismjs": "^1.20.0"
+  }
+}

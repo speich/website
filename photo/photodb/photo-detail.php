@@ -4,8 +4,8 @@
 <head>
 <title>Foto | <?php echo $web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
-<link href="photodb.css" rel="stylesheet" type="text/css">
-<link href="photo-detail.css" rel="stylesheet" type="text/css">
+<link href="photodb.min.css" rel="stylesheet" type="text/css">
+<link href="photo-detail.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body data-config="<?php echo $jsConfig; ?>">
@@ -20,6 +20,6 @@ require_once 'inc_body_end.php';
 	packages: [
 		{name: 'gmap', location: './../../../gmap'}
 	]"></script>
-<script src="photo-detail.js"></script>
+<script src="photo-detail.min.js"></script>
 </body>
 </html>

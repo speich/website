@@ -33,7 +33,7 @@ $sql = "SELECT I.Id imgId, I.ImgFolder imgFolder, I.ImgName imgName, I.ImgTechIn
 	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
 	GROUP_CONCAT(DISTINCT T.Name".$ucLang.') themes,
 	GROUP_CONCAT(DISTINCT K.Name) categories,
-	GROUP_CONCAT(DISTINCT N.NameDe) wissNameDe, GROUP_CONCAT(DISTINCT N.NameEn) wissNameEn, GROUP_CONCAT(DISTINCT (N.NameLa wissNameLa),
+	GROUP_CONCAT(DISTINCT N.NameDe) wissNameDe, GROUP_CONCAT(DISTINCT N.NameEn) wissNameEn, GROUP_CONCAT(DISTINCT N.NameLa) wissNameLa,
 	S.Name'.$ucLang.' sex, S.Symbol symbol,
 	GROUP_CONCAT(DISTINCT L.Name) locations,
 	GROUP_CONCAT(DISTINCT C.Name'.$ucLang.') countries,
@@ -99,7 +99,7 @@ function renderPhoto($data, $db, $lang, $i18n)
 		$datum = $data['ImgDateManual'];
 	}
 	echo '<h1>'.$data['imgTitle'].'</h1>';
-	echo $data['imgDesc'] ? '<p>'.$data['imgDesc'].'</p>' : '';
+	echo $data['imgDesc'] ? '<p>'.$photo->renderDescLinks($data['imgDesc']).'</p>' : '';
     echo '<figure>
         <a title="'.$i18n['photo'].': '.$data['imgTitle'].'" href="'.$imgFile.'">
         <img src="'.$imgFile.'" id="photo" alt="'.$data['imgTitle'].'"/></a>

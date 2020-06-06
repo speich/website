@@ -155,7 +155,7 @@
 }
 
 .mRating svg.icon {
-	fill: url(../../layout/images/symbols.svg#gradient-vertical) #ffdb0b;
+	fill: url(../../layout/images/symbols.svg#gradient-vertical) #ffa500;
 	stroke-width: 0.5;
 	stroke: #578626;
 }

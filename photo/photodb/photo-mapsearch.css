@@ -1,3 +1,7 @@
+#showPhotos svg.icon {
+	fill: url(../../layout/images/symbols.svg#gradient-vertical) orange;
+	stroke: #578626;
+}
 
 @media screen and (min-width: 35em) {
 	body {
@@ -11,19 +15,7 @@
 }
 
 #mapContainer {
-	position: relative;
-	display: none;
 	height: 100%;
-}
-
-#loading {
-	width: 200px;
-	margin: 150px auto;
-}
-
-#loading img {
-	vertical-align: middle;
-	margin-right: 5px;
 }
 
 #map-canvas {
@@ -37,8 +29,7 @@ img[id^=mtgt_unnamed] {
 }
 
 .mRating, #showPhotos {
-	margin: 6px;
-	display: none;
+	margin-right: 0.5em;
 }
 
 #mRating li:hover > ul {
