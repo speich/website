@@ -1,6 +1,15 @@
 {
   "require-dev": {
-    "speich/websitetemplate": "dev-php7"
+    "roave/security-advisories": "dev-master"
+  },
+  "require": {
+    "speich/websitetemplate": "dev-php7",
+    "vanderlee/syllable": "1.5.3",
+    "ext-sqlite3": "*",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-exif": "*",
+    "ext-intl": "*"
   },
   "autoload": {
     "psr-4": {
@@ -18,12 +27,5 @@
   ],
   "name": "speich.net/website",
   "description": "Dependencies for the website www.speich.net",
-  "license": ["CC-BY-NC-SA-4.0"],
-  "require": {
-    "ext-sqlite3": "*",
-    "ext-pdo": "*",
-    "ext-json": "*",
-    "ext-exif": "*",
-    "ext-intl": "*"
-  }
+  "license": ["CC-BY-NC-SA-4.0"]
 }
