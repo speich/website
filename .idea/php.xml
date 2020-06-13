@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="MessDetector">
-    <phpmd_settings>
-      <MessDetectorConfiguration tool_path="C:/Program Files (x86)/PHP/phpmd" />
-    </phpmd_settings>
-  </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <PhpCSConfiguration standards="MySource;PEAR;PHPCS;PSR1;PSR2;Squiz;Zend" tool_path="$USER_HOME$/.config/composer/vendor/squizlabs/php_codesniffer/scripts/phpcs" />
@@ -12,7 +7,6 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/library" />
       <path value="$PROJECT_DIR$/layout" />
     </include_path>
   </component>
@@ -128,7 +122,6 @@
       <extension name="imap" enabled="false" />
       <extension name="inotify" enabled="false" />
       <extension name="interbase" enabled="false" />
-      <extension name="intl" enabled="false" />
       <extension name="judy" enabled="false" />
       <extension name="ldap" enabled="false" />
       <extension name="libevent" enabled="false" />
@@ -190,7 +183,7 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/library/vendor/autoload.php" />
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/library/vendor/autoload.php" phpunit_phar_path="" />
     </phpunit_settings>
   </component>
 </project>
