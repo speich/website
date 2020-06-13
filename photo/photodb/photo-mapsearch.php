@@ -22,12 +22,6 @@ $web->setLastPage();
 </div>
 
 <?php require_once 'inc_body_end.php'; ?>
-<script type="text/javascript" src="../../library/dojo/1.13.0/dojo/dojo.js" data-dojo-config="async: true,
-	gmapsApiKey: 'AIzaSyBEPhZpv_OQYeJH_mVYEOubDgGLlY5aLWg',
-	locale: '<?php echo $locale = $lang->get(); ?>',
-	packages: [
-		{name: 'gmap', location: './../../../gmap'}
-	]"></script>
-<script type="text/javascript" src="photo-mapsearch.min.js"></script>
+<script src="photo-mapsearch.min.js" type="module"></script>
 </body>
 </html>

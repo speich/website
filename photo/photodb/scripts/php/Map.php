@@ -4,16 +4,13 @@ namespace PhotoDb;
 
 use PDO;
 use PDOStatement;
-use stdClass;
 
 
-require_once 'PhotoDb.php';
-require_once 'PhotoDbQuery.php';
 
 /**
  * Class Map
  */
-class Map extends PhotoDb implements PhotoDbQuery
+class Map extends PhotoDb
 {
 
     /**
@@ -26,33 +23,11 @@ class Map extends PhotoDb implements PhotoDbQuery
     }
 
     /**
-     * Create property bag from posted data.
-     * @param $postData
-     * @return stdClass
-     */
-    public function createObjectFromPost($postData)
-    {
-        if ($postData === null || !is_object($postData)) {
-            $postData = new stdClass();
-        }
-        $params = new stdClass();
-        $params->qual = property_exists($postData, 'qual') ? filter_var($postData->qual, FILTER_SANITIZE_NUMBER_INT) : 2;
-        $params->theme = property_exists($postData, 'theme') ? filter_var($postData->theme, FILTER_SANITIZE_NUMBER_INT) : null;
-        $params->country = property_exists($postData, 'country') ? filter_var($postData->country, FILTER_SANITIZE_NUMBER_INT) : null;
-        $params->lat1 = property_exists($postData, 'lat1') ? filter_var($postData->lat1, FILTER_SANITIZE_NUMBER_FLOAT) : null;
-        $params->lng1 = property_exists($postData, 'lng1') ? filter_var($postData->lng1, FILTER_SANITIZE_NUMBER_FLOAT) : null;
-        $params->lat2 = property_exists($postData, 'lat2') ? filter_var($postData->lat2, FILTER_SANITIZE_NUMBER_FLOAT) : null;
-        $params->lng2 = property_exists($postData, 'lng2') ? filter_var($postData->lng2, FILTER_SANITIZE_NUMBER_FLOAT) : null;
-
-        return $params;
-    }
-
-    /**
      * Return SQL to query database for marker data.
-     * @param stdClass $params
+     * @param PhotoQueryString $params
      * @return String SQL
      */
-    public function getSql($params): string
+    public function getSql(PhotoQueryString $params): string
     {
         // normal case
         if ($params->lat1 && $params->lng1 && $params->lat2 && $params->lng2) {
@@ -92,32 +67,30 @@ class Map extends PhotoDb implements PhotoDbQuery
     /**
      * Bind variables to SQL query.
      * @param PDOStatement $stmt
-     * @param stdClass $params
+     * @param PhotoQueryString $params
      */
-    public function bind($stmt, $params): void
+    public function bind($stmt, PhotoQueryString $params): void
     {
-        $bind = new MapBindings();
-
         if ($params->lat1 && $params->lng1 && $params->lat2 && $params->lng2) {
-            $stmt->bindValue($bind->lat1, $params->lat1);
-            $stmt->bindValue($bind->lng1, $params->lng1);
-            $stmt->bindValue($bind->lat2, $params->lat2);
-            $stmt->bindValue($bind->lng2, $params->lng2);
+            $stmt->bindValue(':lat1', $params->lat1);
+            $stmt->bindValue(':lng1', $params->lng1);
+            $stmt->bindValue(':lat2', $params->lat2);
+            $stmt->bindValue(':lng2', $params->lng2);
         }
         if ($params->theme) {
-            $stmt->bindValue($bind->theme, $params->theme);
+            $stmt->bindValue(':theme', $params->theme);
         } elseif ($params->country) {
-            $stmt->bindValue($bind->country, $params->country);
+            $stmt->bindValue(':country', $params->country);
         }
-        $stmt->bindValue($bind->qual, $params->qual);
+        $stmt->bindValue(':qual', $params->qual);
     }
 
     /**
      * Load marker data from database
-     * @param stdClass $params
+     * @param PhotoQueryString $params
      * @return string json
      */
-    public function loadMarkerData($params): string
+    public function loadMarkerData(PhotoQueryString $params): string
     {
         $sql = $this->getSql($params);
         $stmt = $this->db->prepare($sql);

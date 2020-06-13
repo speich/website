@@ -2,7 +2,6 @@
 
 namespace speich;
 
-
 /**
  * Class Sql defines a template to access different parts of an SQL.
  */

@@ -4,50 +4,47 @@ namespace PhotoDb;
 
 use ReflectionObject;
 use ReflectionProperty;
-use speich\SqlFull;
+use speich\SqlExtended;
 
 
 /**
  * Class SqlPhotoList
  * @package PhotoDb
  */
-class SqlPhotoList extends SqlFull
+class SqlPhotoList extends SqlExtended
 {
-    /** @var [String] latitude Northeast */
-    public $lat1;
+    /** @var String latitude Northeast */
+    public ?string $lat1;
 
     /** @var String longitude Northeast */
-    public $lng1;
+    public ?string $lng1;
 
     /** @var String latitude Southwest */
-    public $lat2;
+    public ?string $lat2;
 
     /** @var String longitude Southwest */
-    public $lng2;
+    public ?string $lng2;
 
     /** @var String quality of the photo */
-    public $qual;
+    public string $qual;
 
     /** @var String theme of the photo */
-    public $theme;
+    public ?string $theme;
 
     /** @var String country photo was taken in */
-    public $country;
+    public ?string $country;
 
-    /** @var String sort order */
-    private $sort;  // note: only binding vars should be public
-
-    /** @var null|int first number of rows to omit from the result set returned by the SELECT statement */
-    public $offset;
-
-    /** @var null|int upper bound on the number of rows returned by the entire SELECT statement */
-    public $limit;
+    /** @var string */
+    public ?string $search;
 
     /** @var int sort list of photos by date created */
     public const SORT_BY_DATEADDED = 1;
     public const SORT_BY_DATECREATED = 2;
     public const SORT_BY_DATECHANGED = 3;
     public const SORT_BY_IMGTITLE = 4;
+
+    /** @var String sort order */
+    private string $sort;  // note: only binding vars should be public
 
     /**
      * @inheritDoc
@@ -62,7 +59,26 @@ class SqlPhotoList extends SqlFull
      */
     public function getFrom(): string
     {
-        return 'Images i INNER JOIN Images_Themes it ON i.Id = it.ImgId';
+        if (isset($this->search)){
+            $search = 'LEFT JOIN (
+                    SELECT ImgId, SUM(SCORE(offsets) * Weight) Rank
+                    FROM (
+                         SELECT ImgId, OFFSETS(Images_fts) offsets, Weight
+                         FROM Images_fts
+                         WHERE (Keyword MATCH :search)
+                         LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
+                    )
+                    GROUP BY ImgId
+                    ORDER BY Rank DESC
+                ) fts ON i.Id = fts.ImgId';
+        }
+        else {
+            $search = '';
+        }
+
+        return 'Images i 
+            INNER JOIN Images_Themes it ON i.Id = it.ImgId '.
+            $search;
     }
 
     /**
@@ -73,20 +89,32 @@ class SqlPhotoList extends SqlFull
         // filtering
         // to avoid confusion only allow one restriction at a time, e.g. either theme or country.
         // filter by rating or coordinates (bounds) is always possible
-        $sql = 'it.ThemeId != 10 AND ratingId > :qual';
+        $sql = 'it.ThemeId != 10 AND RatingId > :qual';
         if ($this->theme !== null) {
-            $sql .= ' AND themeId = :theme';
+            $sql .= ' AND ThemeId = :theme';
         } elseif ($this->country !== null) {
-            $sql .= ' AND countryId = :country';
+            $sql .= ' AND CountryId = :country';
         }
         if ($this->lat1 !== null && $this->lng1 !== null && $this->lat2 !== null && $this->lng2 !== null) {
             if ($this->lng2 < $this->lng1) {
-                $sql .= ' AND (lat >= :lat2 AND lng >= :lng2) AND (lat <= :lat1 AND lng <= :lng1)'; // parentheses are just for readability
+                $sql .= ' AND (Imglat >= :lat2 AND Imglng >= :lng2) AND (Imglat <= :lat1 AND Imglng <= :lng1)'; // parentheses are just for readability
             } // special case lng2|lng1 <-> 180|-180
             else {
-                $sql .= ' AND ((lat >= :lng2 AND lng >= :lng2) OR (lat <= :lat1 AND lng <= :lng1))';
+                $sql .= ' AND ((Imglat >= :lng2 AND Imglng >= :lng2) OR (Imglat <= :lat1 AND Imglng <= :lng1))';
             }
-            $sql .= " AND lat NOT NULL AND lng NOT NULL AND lat != '' AND lng != ''";
+            $sql .= " AND Imglat NOT NULL AND Imglng NOT NULL AND Imglat != '' AND Imglng != ''";
+        }
+        if (isset($this->search)) {
+            $sql .= ' AND i.Id IN (SELECT ImgId FROM (
+                    SELECT ImgId, SUM(SCORE(offsets) * Weight) Rank FROM (
+                        SELECT ImgId, OFFSETS(Images_fts) offsets, Weight FROM Images_fts
+                        WHERE (Keyword MATCH :search)
+                        LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
+                    )
+                    GROUP BY ImgId            
+                    /*ORDER BY Rank DESC*/
+                )
+            )';
         }
 
         return $sql;
@@ -105,64 +133,28 @@ class SqlPhotoList extends SqlFull
      */
     public function getOrderBy(): string
     {
-        switch ($this->sort) {
-            case self::SORT_BY_DATECREATED:
-                $sql = 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC';
-                break;
-            case self::SORT_BY_DATECHANGED:
-                $sql = 'lastChange DESC';
-                break;
-            case self::SORT_BY_IMGTITLE:
-                $sql = 'imgTitle';
-                break;
-            case self::SORT_BY_DATEADDED:
-            default:
-                $sql = 'i.DateAdded DESC';
+
+        if (isset($this->search)) {
+            $sql = 'Rank DESC';
+        }
+        else {
+            switch ($this->sort) {
+                case self::SORT_BY_DATECREATED:
+                    $sql = 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC';
+                    break;
+                case self::SORT_BY_DATECHANGED:
+                    $sql = 'lastChange DESC';
+                    break;
+                case self::SORT_BY_IMGTITLE:
+                    $sql = 'imgTitle';
+                    break;
+                case self::SORT_BY_DATEADDED:
+                default:
+                    $sql = 'i.DateAdded DESC';
+            }
         }
 
         return $sql;
-    }
-
-    /**
-     * Bind the values to the placeholders in the SQL.
-     * @param callable $fnc
-     */
-    public function bind($fnc): void
-    {
-        foreach ($this->getPublicVars() as $name => $val) {
-            if ($val !== null && $val !== 'sort') {
-                // remember variable is passed by reference
-                $fnc($name, $this->{$name});
-            }
-        }
-    }
-
-    /**
-     * Returns an associative array of defined public non-static properties of this class no matter the scope. If a property has not been assigned a value, it will be returned with a NULL value.
-     * @see https://stackoverflow.com/questions/13124072/how-to-programatically-find-public-properties-of-a-class-from-inside-one-of-its#13124184
-     * @return array
-     */
-    public function getPublicVars(): array
-    {
-        $arr = [];
-        $refl = new ReflectionObject($this);
-        $props = $refl->getProperties(ReflectionProperty::IS_PUBLIC);
-        foreach ($props as $prop) {
-            $name = $prop->getName();
-            $arr[$name] = $this->{$name};
-        }
-
-        return $arr;
-    }
-
-    /**
-     * Return the SQL to query the data paged.
-     * Appends a LIMIT OFFSET to the SQL with the bind vars limit and offset.
-     * @return string SQL
-     */
-    public function getPaged(): string
-    {
-        return $this->get().' LIMIT :limit OFFSET :offset';
     }
 
     /**

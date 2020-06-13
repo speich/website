@@ -1,24 +1,29 @@
 {
-    "require": {
-      "speich.net/websitetemplate": "dev-master",
-        "ext-sqlite3": "*",
-        "ext-pdo": "*",
-        "ext-json": "*",
-        "ext-exif": "*"
+  "require-dev": {
+    "speich/websitetemplate": "dev-php7"
+  },
+  "autoload": {
+    "psr-4": {
+      "speich\\": "../scripts/php/class",
+      "PhotoDb\\": "../photo/photodb/scripts/php",
+      "WebsiteTemplate\\": "vendor/speich/websitetemplate/scripts/php"
     },
-    "autoload": {
-        "psr-4": {
-            "speich\\": "../scripts/php/class",
-            "PhotoDb\\": "../photo/photodb/scripts/php",
-            "WebsiteTemplate\\": "vendor/speich.net/websitetemplate/scripts/php"
-        }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/speich/WebsiteTemplate"
-        }
-    ],
-    "name": "",
-    "description": ""
+    "include-path": ["/layout/"]
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/speich/WebsiteTemplate"
+    }
+  ],
+  "name": "speich.net/website",
+  "description": "Dependencies for the website www.speich.net",
+  "license": ["CC-BY-NC-SA-4.0"],
+  "require": {
+    "ext-sqlite3": "*",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-exif": "*",
+    "ext-intl": "*"
+  }
 }

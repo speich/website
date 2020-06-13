@@ -11,7 +11,6 @@ abstract class SqlFull extends Sql
 {
     /**
      * Returns the WHERE clause of the SQL.
-
      * @return string SQL
      */
     abstract public function getWhere(): string;

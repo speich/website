@@ -82,7 +82,7 @@ class PhotoList
     public function renderData($photos, $web, $lang, $i18n): string
     {
         $str = '';
-        if (count($photos) === 0) {
+        if (\count($photos) === 0) {
             $str .= '<p>'.$i18n['not found'].'</p>';
 
             return $str;
@@ -148,7 +148,7 @@ class PhotoList
 
     /**
      * Renders the links in the image descriptions.
-     * Converts markup links into real links and adds the target blank property.
+     * Converts markup links [text](link) into real links and adds the target blank property.
      * @param $text
      * @return string|string[]|null
      */

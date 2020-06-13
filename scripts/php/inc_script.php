@@ -21,13 +21,13 @@ $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $lang->autoSet();
 
 $web = new WebsiteSpeich();
-$web->lastUpdate = '30.12.2019';
+$web->lastUpdate = '13.06.2030';
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 $isPhoto = strpos($_SERVER['REQUEST_URI'], '/photo') !== false;
 if ($lang->get() === 'de') {
-	$windowTitle = 'Fotografie und Webprogrammierung';
-	$htmlFooter['de'] = ($isPhoto ? '<div>' : '').'<p>© 2003-2019 speich.net, Konzept und Programmierung Simon Speich</p>';
+    $windowTitle = 'Fotografie und Webprogrammierung';
+    $htmlFooter['de'] = ($isPhoto ? '<div>' : '').'<p>© 2003-2019 speich.net, Konzept und Programmierung Simon Speich</p>';
     $htmlFooter['de'] .= '<p class="last-update">letzte Aktualisierung '.$web->lastUpdate.'</p>'.($isPhoto ? '</div>' : '');
     if ($isPhoto) {
         $htmlFooter['de'] .= '<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.de"><img alt="Creative Commons Lizenzvertrag" src="https://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>

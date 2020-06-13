@@ -60,7 +60,7 @@ $stmt = $photoDb->db->prepare($sql);
 $stmt->bindValue(':imgId', $imgId);
 $stmt->execute();
 $photo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+// pass data to js
 $jsConfig = [
 	'lat' => empty($photo[0]['imgLat']) ? null : $photo[0]['imgLat'],
 	'lng' => empty($photo[0]['imgLng']) ? null : $photo[0]['imgLng']

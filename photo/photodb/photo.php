@@ -44,18 +44,6 @@ require_once __DIR__.'/photo_inc.php';
 </div>
 <div>
 <ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul>
-    <?php
-    /*
-    $sql = 'CREATE VIRTUAL TABLE Test_fts USING fts4(Keyword, tokenize=unicode61)';
-    try {
-       $db->db->exec($sql);
-    }
-    catch ($err) {
-        echo "test";
-
-    }
-    */
-    ?>
 </div>
 <div class="toolbar">
 <div class="bar-cont"><?php echo $pagingBar ?></div>

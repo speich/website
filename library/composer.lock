@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35ed1100bd4a784638c64ed0825a7cef",
+    "content-hash": "4d9471af1af64af3026d9b44a7222739",
     "packages": [
         {
-            "name": "speich.net/websitetemplate",
-            "version": "dev-master",
+            "name": "speich/websitetemplate",
+            "version": "dev-php7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/speich/WebsiteTemplate.git",
-                "reference": "3c6fabf426e9cde0622bfc357624bf79682fa648"
+                "reference": "94f9178ddd98db3c15b03aac49a7198000592df0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/speich/WebsiteTemplate/zipball/3c6fabf426e9cde0622bfc357624bf79682fa648",
-                "reference": "3c6fabf426e9cde0622bfc357624bf79682fa648",
+                "url": "https://api.github.com/repos/speich/WebsiteTemplate/zipball/94f9178ddd98db3c15b03aac49a7198000592df0",
+                "reference": "94f9178ddd98db3c15b03aac49a7198000592df0",
                 "shasum": ""
             },
             "require": {
@@ -26,28 +26,34 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "websitetemplate\\": "../scripts/php"
+                    "WebsiteTemplate\\": "scripts/php"
                 }
             },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "A simple template for your website project when using PHP and JavaScript",
             "support": {
-                "source": "https://github.com/speich/WebsiteTemplate/tree/master",
+                "source": "https://github.com/speich/WebsiteTemplate/tree/php7",
                 "issues": "https://github.com/speich/WebsiteTemplate/issues"
             },
-            "time": "2019-08-31T14:48:22+00:00"
+            "time": "2020-05-24T13:49:46+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "speich.net/websitetemplate": 20
+        "speich/websitetemplate": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "ext-sqlite3": "*",
         "ext-pdo": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-exif": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

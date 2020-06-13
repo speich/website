@@ -1,6 +1,6 @@
 require([
-	'../../library/PhotoSwipe/dist/photoswipe',
-	'../../library/PhotoSwipe/dist/photoswipe-ui-default'
+	'../../library/node_modules/photoswipe/dist/photoswipe',
+	'../../library/node_modules/photoswipe/dist/photoswipe-ui-default'
 ], function(PhotoSwipe, PhotoSwipeUI_Default) {
 	var gallery, options, slides, items = [],
 		domNodeGallery = document.getElementById('gallery'),
