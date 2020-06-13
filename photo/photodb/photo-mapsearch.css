@@ -28,6 +28,10 @@ img[id^=mtgt_unnamed] {
 	border: 1px solid white !important;
 }
 
+.toolbar {
+	display: flex;
+}
+
 .mRating, #showPhotos {
 	margin-right: 0.5em;
 }
@@ -38,4 +42,9 @@ img[id^=mtgt_unnamed] {
 
 .gm-style {
 	font: unset;
+}
+
+div[title="photo"] {
+	opacity: 1 !important;
+	box-shadow: 0 0 0 1px black, 0 0 0 2px white;
 }

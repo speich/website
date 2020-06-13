@@ -1,16 +1,15 @@
 import { GoogleMapLoader } from '../../scripts/js/GoogleMapLoader.min.js';
-import { MarkerClusterer } from '../../library/node_modules/@google/markerclustererplus/dist/markerclustererplus.esm.js';
+import MarkerClusterer from '../../library/node_modules/@google/markerclustererplus/dist/markerclustererplus.esm.js';
 import { key } from '../../library/GoogleMapKey.js';
 
-let mapApp, d = document,
+let gmaps, mapApp, d = document,
   /**
    * Shortcut for document.getElementById
    * @param {String} id
    */
   byId = function(id) {
     return d.getElementById(id);
-  },
-  gmaps = google.maps;
+  };
 
 mapApp = {
   /** @property {URL} url of the map application */
@@ -28,7 +27,7 @@ mapApp = {
   mapDiv: byId('map-canvas'),
   mcOptions: {
     maxZoom: 11,
-    imagePath: '/library/node_modules/@google/markerclustererplus/images/m'
+    imagePath: '../../library/node_modules/@google/markerclustererplus/dist/' + MarkerClusterer.IMAGE_PATH
   },
   clusterer: null,
 
@@ -94,7 +93,7 @@ mapApp = {
   },
 
   initLinks: function() {
-    let pageExt = dojo.locale === 'de' ? '' : '-' + dojo.locale + '.php';
+    let pageExt = (document.documentElement.lang.indexOf('de') > -1 ? '' : '-en') + '.php';
 
     this.pageUrl = new URL(window.location);
     this.hrefPhoto = 'photo' + pageExt + this.pageUrl.search;
@@ -255,7 +254,6 @@ mapApp = {
       if (!this.isMarkerIdAlreadyAdded(item.id)) {
         marker = this.createMarker(this.map, item);
         mc.addMarker(marker);
-        console.log('adding marker', marker.id);
       }
     }, this);
   },
@@ -297,7 +295,7 @@ mapApp = {
    */
   createMarker: function(map, data) {
     let marker,
-      infoWindow = null,
+      infoWindow,
       latLng = new gmaps.LatLng(data.lat, data.lng),
       imgUrl = 'images/' + data.img,
       image = {
@@ -342,6 +340,7 @@ mapApp = {
     let loader = new GoogleMapLoader(key);
 
     loader.load().then(() => {
+      gmaps = google.maps;
       this.displayElement('.toolbar');
       this.initLinks();
       this.initMap();

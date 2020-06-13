@@ -1,5 +1,5 @@
 import {GoogleMapLoader} from '../../scripts/js/GoogleMapLoader.min.js';
-import {key} from '../../library/GoogleMapKey';
+import {key} from '../../library/GoogleMapKey.js';
 
 let loader = new GoogleMapLoader(key);
 
