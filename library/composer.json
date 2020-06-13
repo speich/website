@@ -4,7 +4,6 @@
   },
   "require": {
     "speich/websitetemplate": "dev-php7",
-    "vanderlee/syllable": "1.5.3",
     "ext-sqlite3": "*",
     "ext-pdo": "*",
     "ext-json": "*",
@@ -17,7 +16,7 @@
       "PhotoDb\\": "../photo/photodb/scripts/php",
       "WebsiteTemplate\\": "vendor/speich/websitetemplate/scripts/php"
     },
-    "include-path": ["/layout/"]
+    "include-path": ["/layout"]
   },
   "repositories": [
     {

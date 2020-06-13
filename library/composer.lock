@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4162744ce6059428565223574599e09d",
+    "content-hash": "0fcd66969ed2f10223a29524b195ff49",
     "packages": [
         {
             "name": "speich/websitetemplate",
@@ -38,58 +38,6 @@
                 "issues": "https://github.com/speich/WebsiteTemplate/issues"
             },
             "time": "2020-05-24T13:49:46+00:00"
-        },
-        {
-            "name": "vanderlee/syllable",
-            "version": "1.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vanderlee/phpSyllable.git",
-                "reference": "75410e1ccc1159f073f8671789df69c7f7d073cb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vanderlee/phpSyllable/zipball/75410e1ccc1159f073f8671789df69c7f7d073cb",
-                "reference": "75410e1ccc1159f073f8671789df69c7f7d073cb",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "codacy/coverage": "1.*",
-                "phpmd/phpmd": "2.6.0",
-                "phpunit/phpunit": "6.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Vanderlee\\Syllable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Text syllable splitting and hyphenation using Frank M. Liang's TeX algorithm.",
-            "homepage": "https://github.com/vanderlee/phpSyllable",
-            "keywords": [
-                "dash",
-                "hyphen",
-                "hyphenate",
-                "hyphenation",
-                "language",
-                "locale",
-                "split",
-                "syllable",
-                "syllables",
-                "text",
-                "words"
-            ],
-            "time": "2019-12-16T12:52:46+00:00"
         }
     ],
     "packages-dev": [
@@ -383,5 +331,6 @@
         "ext-exif": "*",
         "ext-intl": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
