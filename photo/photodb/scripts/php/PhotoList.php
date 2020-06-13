@@ -82,6 +82,8 @@ class PhotoList
     public function renderData($photos, $web, $lang, $i18n): string
     {
         $str = '';
+        $css = '';
+        $cssImg = '';
         if (\count($photos) === 0) {
             $str .= '<p>'.$i18n['not found'].'</p>';
 
@@ -97,14 +99,13 @@ class PhotoList
             $imgData = htmlspecialchars('{"w":'.$imgSize[0].',"h":'.$imgSize[1].'}', ENT_COMPAT, $web->charset);
             $link = str_replace('thumbs/', '', $imgFile);
             $detailLink = $lang->createPage('photo-detail.php').$query->withString(['imgId' => $row['imgId']]);
-
             if ($imgSize[0] > $imgSize[1]) {
                 $css = 'slideHorizontal';
                 $cssImg = 'slideImgHorizontal';
             } elseif ($imgSize[0] < $imgSize[1]) {
                 $css = 'slideVertical';
                 $cssImg = 'slideImgVertical';
-            } else {
+            } elseif ($imgSize[0] === $imgSize[1]) {
                 $css = 'slideQuadratic';
                 $cssImg = 'slideImgQuadratic';
             }
