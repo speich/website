@@ -361,6 +361,10 @@ main a:active, main a:hover {
   width: 1px;
 }
 
+.hidden {
+	display: none;
+}
+
 @media screen and (min-width: 35em) {
 	nav.main ul {
 		margin-left: -1em;

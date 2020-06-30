@@ -2,8 +2,6 @@
 
 namespace PhotoDb;
 
-use ReflectionObject;
-use ReflectionProperty;
 use speich\SqlExtended;
 
 
@@ -112,7 +110,6 @@ class SqlPhotoList extends SqlExtended
                         LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
                     )
                     GROUP BY ImgId            
-                    /*ORDER BY Rank DESC*/
                 )
             )';
         }

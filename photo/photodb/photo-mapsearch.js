@@ -119,7 +119,6 @@ mapApp = {
     };
     this.map = new gmaps.Map(this.mapDiv, mapOptions);
     this.mapLastZoom = this.map.zoom;
-    this.initMapEvents(this.map);
 
     // center map to coords from query string, has precedence over country
     if (lat1 && lng1 && lng2 && lng2) {
@@ -151,6 +150,8 @@ mapApp = {
 
     toolbar = d.getElementsByClassName('toolbar')[0];
     this.map.controls[gmaps.ControlPosition.TOP_RIGHT].push(toolbar);
+
+    this.initMapEvents(this.map);
   },
 
   /**
@@ -171,21 +172,23 @@ mapApp = {
       byId('showPhotos').style.display = 'block';*/
     });
     gmaps.event.addDomListener(map, 'idle', function() {
-      let url = self.updateQueryBounds(map);
-      self.updateUrl(url);
       if (self.mapLastEvent === 'dragend' || !self.mapLastEvent || map.zoom < self.mapLastZoom) {
         // update only on zoom out or drag
+        let url = self.updateQueryBounds(map);
+
+        self.updateHref(url);
         self.updateMarkers();
+        //this.displayElement('.toolbar');
       }
       self.mapLastZoom = map.zoom;
     });
   },
 
   /**
-   * Update urls of map controls.
+   * Update the href attribute of map controls.
    * @param {URL} url
    */
-  updateUrl: function(url) {
+  updateHref: function(url) {
     let nl, a, href,
       q = url.search;
 
@@ -218,7 +221,7 @@ mapApp = {
     q.set('lng2', sw.lng());
 
     if (hist) {
-      hist.pushState({}, 'map extent', this.pageUrl.href);
+      hist.replaceState({}, 'map extent', this.pageUrl.href);
     }
 
     return this.pageUrl;
@@ -322,12 +325,12 @@ mapApp = {
     return marker;
   },
 
-  displayElement: function(selector) {
+/*  displayElement: function(selector) {
     let el;
 
     el = d.querySelector(selector);
     el.classList.remove('hidden');
-  },
+  },*/
 
   hideElement: function(selector) {
     let el;
@@ -341,11 +344,9 @@ mapApp = {
 
     loader.load().then(() => {
       gmaps = google.maps;
-      this.displayElement('.toolbar');
       this.initLinks();
       this.initMap();
       this.initMarkerClusterer();
-      this.updateMarkers();
     });
   }
 };

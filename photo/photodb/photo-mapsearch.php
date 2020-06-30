@@ -1,6 +1,6 @@
 <?php
 require_once 'photo_inc.php';
-$i18n = require_once __DIR__.'/nls/'.$lang->get().'/photo-mapsearch.php';
+$i18n = require __DIR__.'/nls/'.$lang->get().'/photo-mapsearch.php';
 $web->setLastPage();
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ $web->setLastPage();
     <?php require_once 'inc_head.php' ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-mapsearch.min.css" rel="stylesheet" type="text/css">
-    <script src="photo-mapsearch.js" type="module" defer></script>
+    <script src="photo-mapsearch.min.js" type="module" defer></script>
 </head>
 
 <body>
