@@ -132,7 +132,7 @@ class SqlPhotoList extends SqlExtended
     {
 
         if (isset($this->search)) {
-            $sql = 'Rank DESC';
+            $sql = 'Rank DESC, lastChange DESC';
         }
         else {
             switch ($this->sort) {
