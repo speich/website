@@ -14,6 +14,6 @@ require_once 'inc_body_begin.php';
 renderPhoto($photo[0], $photoDb, $lang, $i18n);
 require_once 'inc_body_end.php';
 ?>
-<script src="./photo-detail.min.js" type="module"></script>
+<script src="photo-detail.min.js" type="module"></script>
 </body>
 </html>
