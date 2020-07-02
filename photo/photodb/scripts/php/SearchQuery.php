@@ -3,6 +3,7 @@
 namespace PhotoDb;
 
 use PDO;
+use WebsiteTemplate\Language;
 
 
 /**
@@ -12,7 +13,7 @@ use PDO;
 class SearchQuery
 {
 
-    public $db;
+    public PDO $db;
 
     /**
      * SearchKeywords constructor.
@@ -44,15 +45,18 @@ class SearchQuery
     }
 
     /**
-     * Creates the search query.
-     * Postfixes each word with an asterix if an exact match is not wanted (e.g. wrapped in paranthesis)
-     * @param $words
+     * Creates the FTS4 search query.
+     * Postfixes each word with an asterix if an exact match is not wanted (e.g. not wrapped in parenthesis).
+     * @param array $words
+     * @param string $lang
      * @return string
      */
-    public static function createQuery($words): string
+    public static function createQuery($words, $lang): string
     {
         $search = '';
         $len = \count($words);
+        $language = new Language();
+        $lang = $language->isValid($lang) === true ? $lang : $language->getDefault();
         foreach ($words as $i => $val) {
             if (strpos($val, '"') !== false) {
                 $search .= $val;
@@ -63,7 +67,6 @@ class SearchQuery
             $search .= $i < $len - 1 ? ' OR ' : '';
         }
 
-        return $search;
+        return 'Language:'.$lang.' AND ('.$search.')';
     }
-
 }

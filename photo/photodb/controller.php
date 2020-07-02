@@ -30,8 +30,9 @@ if ($controller === 'marker') {
     $sql->lat2 = $params->lat2;
     $sql->lng2 = $params->lng2;
     if (isset($params->search)) {
-        $words = SearchQuery::extractWords($params->search);
-        $sql->search = SearchQuery::createQuery($words);
+        $search = str_replace('&#34;', '"', $params->search);
+        $words = SearchQuery::extractWords($search);
+        $sql->search = SearchQuery::createQuery($words, $lang->get());
     }
     $response = $db->loadMarkerData($sql);
 }

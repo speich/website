@@ -58,12 +58,12 @@ class SqlPhotoList extends SqlExtended
     public function getFrom(): string
     {
         if (isset($this->search)){
-            $search = 'LEFT JOIN (
+            $search = ' LEFT JOIN (
                     SELECT ImgId, SUM(SCORE(offsets) * Weight) Rank
                     FROM (
                          SELECT ImgId, OFFSETS(Images_fts) offsets, Weight
                          FROM Images_fts
-                         WHERE (Keyword MATCH :search)
+                         WHERE Keyword MATCH :search
                          LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
                     )
                     GROUP BY ImgId
@@ -75,8 +75,7 @@ class SqlPhotoList extends SqlExtended
         }
 
         return 'Images i 
-            INNER JOIN Images_Themes it ON i.Id = it.ImgId '.
-            $search;
+            INNER JOIN Images_Themes it ON i.Id = it.ImgId'.$search;
     }
 
     /**
@@ -106,7 +105,7 @@ class SqlPhotoList extends SqlExtended
             $sql .= ' AND i.Id IN (SELECT ImgId FROM (
                     SELECT ImgId, SUM(SCORE(offsets) * Weight) Rank FROM (
                         SELECT ImgId, OFFSETS(Images_fts) offsets, Weight FROM Images_fts
-                        WHERE (Keyword MATCH :search)
+                        WHERE Keyword MATCH :search
                         LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
                     )
                     GROUP BY ImgId            
@@ -132,7 +131,7 @@ class SqlPhotoList extends SqlExtended
     {
 
         if (isset($this->search)) {
-            $sql = 'Rank DESC, lastChange DESC';
+            $sql = 'Rank DESC, LastChange DESC';
         }
         else {
             switch ($this->sort) {
@@ -140,10 +139,10 @@ class SqlPhotoList extends SqlExtended
                     $sql = 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC';
                     break;
                 case self::SORT_BY_DATECHANGED:
-                    $sql = 'lastChange DESC';
+                    $sql = 'LastChange DESC';
                     break;
                 case self::SORT_BY_IMGTITLE:
-                    $sql = 'imgTitle';
+                    $sql = 'ImgTitle';
                     break;
                 case self::SORT_BY_DATEADDED:
                 default:

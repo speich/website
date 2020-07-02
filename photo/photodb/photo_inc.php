@@ -73,7 +73,6 @@ foreach ($arrVal as $key => $val) {
 }
 $photo = new PhotoList($db);
 $sql = new SqlPhotoList();
-
 $sql->qual = $params->qual;
 $sql->theme = $params->theme;
 $sql->country = $params->country;
@@ -82,8 +81,9 @@ $sql->lng1 = $params->lng1;
 $sql->lat2 = $params->lat2;
 $sql->lng2 = $params->lng2;
 if (isset($params->search)) {
-    $words = SearchQuery::extractWords($params->search);
-    $sql->search = SearchQuery::createQuery($words);
+    $search = str_replace('&#34;', '"', $params->search);
+    $words = SearchQuery::extractWords($search);
+    $sql->search = SearchQuery::createQuery($words, $lang->get());
 }
 $numRec = $photo->getNumRec($sql);
 $sql->offset = $params->pg + $params->pg * $params->numPerPg;
