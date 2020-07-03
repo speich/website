@@ -13,7 +13,7 @@ add_action('wp_footer', static function() use ($htmlFooter, $lang) {
 });
 add_action('wp_enqueue_scripts', static function() {
     wp_enqueue_style('style', get_stylesheet_directory_uri().'/style2.min.css');
-    wp_enqueue_style('prismjs', '/../library/prismjs-1.20.0/prism.css');
+    wp_enqueue_style('prismjs', '/../library/prismjs-1.20.0/prism.min.css');
     wp_enqueue_script('prismjs', '/../library/prismjs-1.20.0/prism.min.js');
 });
 add_filter( 'wp_nav_menu_args', function($args) {
