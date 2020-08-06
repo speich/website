@@ -6,7 +6,8 @@
     <meta name="description" content="Website von Simon Speich über Fotografie und Webprogrammierung">
     <meta name="keywords" content="Fotografie, Webprogrammierung, JavaScript">
     <?php require_once '../../layout/inc_head.php' ?>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.0.6/dist/photo-sphere-viewer.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.0.6/dist/photo-sphere-viewer.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.0.6/dist/plugins/markers.min.css">
     <style>
         .psv-marker--normal {
@@ -44,11 +45,51 @@
           fontSize: '2em',
           textAlign: 'center'
         },
+        exampleData: [
+          {
+            photo: '../images/img1-41790.jpg',
+            // correct that camera is facing W instead of N + individual correction
+            sphereCorrection: { pan: -Math.PI / 2 + 0.11, tilt: 0, roll: 0 },
+            data: [
+              /* exported from LFI database with BANR, BART, BHD, AZI, DIST */
+              '263718', 'Fagus sylvatica', '15.8', '19', '6.00',
+              '471287', 'Acer pseudoplatanus', '37.1', '24', '12.15',
+              '27773', 'Abies alba', '', '41', '6.30',
+              '27775', 'Abies alba', '49.8', '81', '7.80',
+              '27774', 'Pinus sylvestris', '', '109', '6.70',
+              '27776', 'Abies alba', '56.4', '120', '9.30',
+              '27777', 'Abies alba', '', '128', '12.50',
+              '27771', 'Abies alba', '18.1', '182', '3.70',
+              '27769', 'Picea abies', '', '190', '2.80',
+              '391363', 'Acer pseudoplatanus', '21.6', '219', '6.10',
+              '27768', 'Abies alba', '37.9', '222', '1.60',
+              '27770', 'Abies alba', '', '241', '3.30',
+              '420219', 'Acer pseudoplatanus', '14.2', '299', '7.94',
+              '27772', 'Fagus sylvatica', '53.5', '319', '4.80'
+            ]
+          },
+          {
+            photo: '../images/439002_6.jpg',
+            sphereCorrection: { pan: Math.PI / 2, tilt: 0, roll: 0 },
+            data: [
+              // AZI is manually corrected to fit photo
+              476457, 'Pinus sylvestris', 38.1, 391, 2.25,
+              476459, 'Pinus sylvestris', 18.2, 273, 7.35,
+              476460, 'Pinus sylvestris', 26.7, 295, 7.45,
+              476461, 'Pinus sylvestris', 37.7, 120, 7.63,
+              476462, 'Pinus sylvestris', 25.3, 374, 4.27,
+              476463, 'Pinus sylvestris', 45.9, 244, 8.50,
+              476464, 'Pinus sylvestris', 26.0, 328.5, 7.53,
+              476467, 'Pinus sylvestris', 40.6, 124, 8.10,
+              476468, 'Pinus sylvestris', 25.8, 282, 5.60,
+              476469, 'Pinus sylvestris', 15.8, 291, 7.04
+            ]
+          }
+        ],
 
         /**
          * Limit a positive number from a range to fall into a new range.
-         * The rang includes min and max.
-         * @example
+         * The range includes min and max.
          * @param num number
          * @param maxOrig maximum of original range
          * @param minNew minimum of new range
@@ -65,7 +106,7 @@
         },
 
         /**
-         * Created coordinates for edges to draw the sample plot polygon.
+         * Creates the plot circle overlay.
          * @param numEdges number of edges to draw
          */
         createPlotCircle(numEdges) {
@@ -87,7 +128,7 @@
         },
 
         /**
-         * Creates the polylines and labels for the cardinal directions.
+         * Creates the polylines and labels for the cardinal directions overlay.
          * @return {{polyline_rad: [number[], [*, *]], id: *, svgStyle: (app.svgStyle1|{strokeWidth, stroke})}[]}
          */
         createCardinals() {
@@ -125,28 +166,15 @@
         },
 
         /**
-         *
+         * Creates the tree overlays.
+         * Data used is real world data exported from the NFI database.
+         * @param {array} data
          * @param corr correction factor of deviation from north
          * @return {[]}
          */
-        createTrees(corr) {
-          /* exported from LFI database with BANR, BART, BHD, AZI, DIST */
-          let markers = [], lat, data = [
-            '263718', 'Fagus sylvatica', '15.8', '19', '6.00',
-            '471287', 'Acer pseudoplatanus', '37.1', '24', '12.15',
-            '27773', 'Abies alba', '', '41', '6.30',
-            '27775', 'Abies alba', '49.8', '81', '7.80',
-            '27774', 'Pinus sylvestris', '', '109', '6.70',
-            '27776', 'Abies alba', '56.4', '120', '9.30',
-            '27777', 'Abies alba', '', '128', '12.50',
-            '27771', 'Abies alba', '18.1', '182', '3.70',
-            '27769', 'Picea abies', '', '190', '2.80',
-            '391363', 'Acer pseudoplatanus', '21.6', '219', '6.10',
-            '27768', 'Abies alba', '37.9', '222', '1.60',
-            '27770', 'Abies alba', '', '241', '3.30',
-            '420219', 'Acer pseudoplatanus', '14.2', '299', '7.94',
-            '27772', 'Fagus sylvatica', '53.5', '319', '4.80'
-          ];
+        createTrees(data, corr = null) {
+          let markers = [], lat;
+
           data.forEach((val, i, arr) => {
             let long, size, marker, dist;
 
@@ -154,7 +182,7 @@
               dist = arr[i + 4];
               lat = -0.15 + this.calcRange(dist, 12, 0, 0.1);
               // correct that camera is facing W instead of N + individual correction
-              long = arr[i + 3] / 400 * Math.PI * 2 - Math.PI / 2 + corr;
+              long = arr[i + 3] / 400 * Math.PI * 2; // - Math.PI / 2 + (corr || 0);
               // sizes should be larger the closer the trees are
               size = this.calcRange(dist, 12, 0, 2);
               size = (2 - size) + 'em';
@@ -190,23 +218,40 @@
           return markers;
         },
 
-        createMarkers() {
-          let markers;
+        /**
+         * Creates all photo overlays.
+         * Creates all overlay info for the spherical photo viewer to draw them with SVG.
+         * @param {number} exampleNr number of the example to use
+         * @return {{polyline_rad: (number[]|*[])[], id: *, svgStyle: (app.svgStyle1|{strokeWidth, stroke})}[]}
+         */
+        createOverlays(exampleNr) {
+          let markers,
+            example = this.exampleData[exampleNr];
 
           markers = this.createCardinals();
           markers.push(this.createPlotCircle(24));
-          markers.push(...this.createTrees(0.11));
+          markers.push(...this.createTrees(example.data));
 
           return markers;
         },
 
-        initViewer(markers) {
+        /**
+         * Initializes the spherical photo viewer
+         * @param {number} exampleNr number of the example to use
+         * @param {array} markers
+         * @return {PhotoSphereViewer.Viewer}
+         */
+        initViewer(exampleNr, markers) {
+          let example = this.exampleData[exampleNr];
+
           return new PhotoSphereViewer.Viewer({
             container: 'viewer',
-            panorama: '../images/img1-41790.jpg',
-            autorotateDelay: false,
+            panorama: example.photo,
+            sphereCorrection: example.sphereCorrection,
+            autorotateDelay: 500,
+            autorotateSpeed: '1.2rpm',
             touchmoveTwoFingers: true,
-            defaultZoomLvl: 1, // initial zoom
+            defaultZoomLvl: 30, // initial zoom
             defaultLong: 0,
             defaultLat: 0,
             plugins: [
@@ -221,9 +266,10 @@
       };
 
       window.onload = function() {
-        let markers = app.createMarkers();
+        let exampleNr = 1,
+          markers = app.createOverlays(exampleNr);
 
-        app.initViewer(markers);
+        app.initViewer(exampleNr, markers);
       };
     </script>
 </head>
@@ -231,9 +277,9 @@
 <body>
 <?php require_once '../../layout/inc_body_begin.php'; ?>
 <h1>Demo of Photo Sphere Viewer</h1>
-<p>This demo shows the photo sphere viewer in action with markers. If you are on a mobile device, the gryroscop is
+<p>This demo shows the photo sphere viewer in action with markers. If you are on a mobile device, the gryroscope is
     enabled.</p>
-<p>The photo was taken for the Nation Forest Inventor of Switzerland with a Ricoh Theta </p>
+<p>The photo was taken for the Nation Forest Inventory of Switzerland with a Ricoh Theta.</p>
 <div id="viewer" style="width: 1200px; height: 700px"></div>
 <?php require_once '../../layout/inc_body_end.php'; ?>
 </body>
