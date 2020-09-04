@@ -30,8 +30,6 @@
 .slideCanvas img {
 	display: block;
 	cursor: pointer;
-	max-width: 180px;
-	max-height: 120px;
 }
 
 .slideText {
@@ -50,9 +48,19 @@
 	border-bottom-width: 50px;
 }
 
+.slideHorizontal img {
+	max-width: 180px;
+	max-height: 120px;
+}
+
 .slideVertical {
 	border-left-width: 50px;
 	border-right-width: 50px;
+}
+
+.slideVertical img {
+	max-width: 120px;
+	max-height: 180px;
 }
 
 #slideFullScreenCont {
@@ -126,11 +134,9 @@
 	background-color: #e6e6e6;
 }
 
-
 .menu2 a:visited {
 	color: black;
 }
-
 
 .menu2 a:hover {
 	color: #578626;
