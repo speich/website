@@ -1,13 +1,40 @@
 {
-  "name": "speich.net",
-  "description": "Dependencies for the website speich.net",
-  "homepage": "https://www.speich.net",
-  "repository": "github:speich/website",
-  "version": "0.1.0",
-  "prefix": "library",
-  "dependencies": {
-    "@google/markerclustererplus": "^5.0.4",
-    "photoswipe": "^4.1.3",
-    "corejs-typeahead": "^1.3.1"
-  }
+	"name": "speich.net",
+	"description": "Dependencies for the website speich.net",
+	"homepage": "https://www.speich.net",
+	"repository": "github:speich/website",
+	"version": "0.1.0",
+	"prefix": "library",
+	"dependencies": {
+		"dojo": "^1.16.3",
+		"@google/markerclustererplus": "5.x",
+		"photoswipe": "4.x",
+		"corejs-typeahead": "1.x"
+	},
+	"devDependencies": {
+		"copyfiles": "2.x",
+		"csso-cli": "3.x",
+		"rimraf": "3.x",
+		"uglifyjs-folder": "2.x"
+	},
+	"scripts": {
+		"dojo:del": "VERSION=$(node -p \"require('dojo/package.json').version\") && rimraf dojo/$VERSION/dojo",
+		"dojo:copy": "VERSION=$(node -p \"require('dojo/package.json').version\") && copyfiles -u 2 -e \"**/tests/**\" -e \"**/testsDOH/**\" \"node_modules/dojo/**/*\" dojo/$VERSION/dojo",
+		"dojo:js": "VERSION=$(node -p \"require('dojo/package.json').version\") && uglifyjs-folder dojo/$VERSION/dojo -eo dojo/$VERSION/dojo -x .js",
+		"dojo:build": "npm run dojo:del && npm run dojo:copy && npm run dojo:js",
+		"markerclustererplus:del": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && rimraf markerclustererplus/$VERSION",
+		"markerclustererplus:copy": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && copyfiles -u 3 \"node_modules/@google/markerclustererplus/dist/*.js\" \"node_modules/@google/markerclustererplus/images/*\" markerclustererplus/$VERSION",
+		"markerclustererplus:js": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && uglifyjs-folder markerclustererplus/$VERSION -eo markerclustererplus/$VERSION -x .min.js",
+		"markerclustererplus:build": "npm run markerclustererplus:del && npm run markerclustererplus:copy && npm run markerclustererplus:js",
+		"photoswipe:del": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && rimraf photoswipe/$VERSION",
+		"photoswipe:copy": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && copyfiles -u 3 \"node_modules/photoswipe/dist/*\" photoswipe/$VERSION",
+		"photoswipe:css": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && csso photoswipe/$VERSION/photoswipe.css -o photoswipe/$VERSION/photoswipe.min.css",
+		"photoswipe:build": "npm run photoswipe:del && npm run photoswipe:copy && npm run photoswipe:css",
+		"typeahead:del": "VERSION=$(node -p \"require('corejs-typeahead/package.json').version\") && rimraf typeahead/$VERSION/typeahead",
+		"typeahead:copy": "VERSION=$(node -p \"require('corejs-typeahead/package.json').version\") && copyfiles -u 2 \"node_modules/corejs-typeahead/dist/*\" typeahead/$VERSION/typeahead",
+		"typeahead:build": "npm run typeahead:del && npm run typeahead:copy",
+		"cleanup": "rimraf node_modules",
+		"build:keep": "npm run dojo:build && npm run markerclustererplus:build && npm run photoswipe:build && npm run typeahead:build",
+		"build": "npm run dojo:build && npm run markerclustererplus:build && npm run photoswipe:build && npm run typeahead:build && npm run cleanup"
+	}
 }
