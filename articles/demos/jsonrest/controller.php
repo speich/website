@@ -4,15 +4,15 @@ session_start();
 $resource = isset($_SERVER['PATH_INFO']) ? ltrim($_SERVER['PATH_INFO'], '/') : null;
 $method = $_SERVER['REQUEST_METHOD'];
 $status = null;
-$protocol = $_SERVER["SERVER_PROTOCOL"];
+$protocol = $_SERVER['SERVER_PROTOCOL'];
 $moduleType = 'session';
 $json = false;
 
-if ($method == 'POST' || $method == 'PUT') {
+if ($method === 'POST' || $method === 'PUT') {
 	$_DATA = file_get_contents('php://input');
 	$_DATA = json_decode($_DATA);
 }
-else if ($method == 'GET') {
+elseif ($method === 'GET') {
 	$_DATA = (object) $_GET;	// note: + signs form sorted are converted to _
 }
 else {
@@ -23,7 +23,7 @@ switch($moduleType) {
 	case 'session':
 		// use session to store the user's filesystem
 		// root dir is used for the session's name 
-		require_once 'ModuleSession.php';
+        require_once __DIR__.'/ModuleSession.php';
 		$rootDir ='virtFileSystem';
 		$rfe = new ModuleSession($rootDir);
 		break;
@@ -54,8 +54,8 @@ switch($method) {
 }
 
 if ($json) {
-	$method == 'POST' ? header($protocol.' 201 Created') : header($protocol.' 200 OK');
-	header("Content-Type", "application/json");
+	$method === 'POST' ? header($protocol.' 201 Created') : header($protocol.' 200 OK');
+	header('Content-Type: application/json');
 	echo $json;
 }
 	// resource not found
@@ -63,6 +63,3 @@ else {
 	header($protocol.' 404 Not Found');
 	echo '[{"msg": "Ressource nicht gefunden."}]';
 }
-
-
-?>
