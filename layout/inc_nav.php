@@ -188,22 +188,21 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
         $lastMenuId = $row['menuId'];
         $row = $themes->fetch(PDO::FETCH_ASSOC);
     }
-/*
-    if ($web->page === $lang->createPage('photo-detail.php')) {
-        $sideNav->setActive($lang->createPage('photo-detail.php').$query->withString(null, $arrQueryDel));
-    }
-    // unset item ('Alle Fotos'), otherwise it would always be active
-    if (isset($_GET['theme']) || isset($_GET['country'])) {
-        $sideNav->arrItem[1]->setActive(false);
-    }
-    if ($web->page === $lang->createPage('ausruestung.php')) {
-        $sideNav->arrItem[1]->setActive(false);
-        $sideNav->arrItem[2]->setActive(false);
-    }
-*/
+    /*
+        if ($web->page === $lang->createPage('photo-detail.php')) {
+            $sideNav->setActive($lang->createPage('photo-detail.php').$query->withString(null, $arrQueryDel));
+        }
+        // unset item ('Alle Fotos'), otherwise it would always be active
+        if (isset($_GET['theme']) || isset($_GET['country'])) {
+            $sideNav->arrItem[1]->setActive(false);
+        }
+        if ($web->page === $lang->createPage('ausruestung.php')) {
+            $sideNav->arrItem[1]->setActive(false);
+            $sideNav->arrItem[2]->setActive(false);
+        }
+    */
 }
 
 $langNav = new LanguageMenu($lang, $web);
-$langNav->ulClass = '';
 $langNav->useLabel = true;
 $langNav->setWhitelist($web->getWhitelistQueryString());

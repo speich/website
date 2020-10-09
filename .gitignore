@@ -1,4 +1,4 @@
-/library/vendor/speich.net/websitetemplate/
+/library/
 /googledd7a111476a03cfb.html
 /wp/wp-admin/
 /wp/wp-includes/
@@ -20,18 +20,8 @@
 /wp/wp-signup.php
 /wp/wp-trackback.php
 /wp/xmlrpc.php
-/library/prismjs-1.17.1/
-/library/jquery/jquery-3.3.1.min.js
-/library/jqplot.1.0.9.d96a669/
-/library/vendor/
-/library/speich.net/
-/library/remoteFileExplorer/
-/library/jsviz/
-/library/gmap/
-/library/node_modules/
 /photo/photodb/dbfiles/
 /photo/photodb/images/
 # you can't commit empty folders in git. You need to put at least an empty file in it.
 !/photo/photodb/dbfiles/.gitkeep
 !/photo/photodb/images/.gitkeep
-/library/GoogleMapKey.js
