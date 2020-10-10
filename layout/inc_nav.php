@@ -105,6 +105,10 @@ $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
 
+$langNav = new LanguageMenu($lang, $web);
+$langNav->useLabel = true;
+$langNav->setWhitelist($web->getWhitelistQueryString());
+
 /* render different side navigation depending on active main navigation */
 switch ($mainNav->getActive()) {
     case 1:
@@ -202,7 +206,3 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
         }
     */
 }
-
-$langNav = new LanguageMenu($lang, $web);
-$langNav->useLabel = true;
-$langNav->setWhitelist($web->getWhitelistQueryString());
