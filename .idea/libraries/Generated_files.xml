@@ -5,6 +5,7 @@
         <item url="file://$PROJECT_DIR$/photo/photodb/photo-detail.min.js" />
         <item url="file://$PROJECT_DIR$/photo/photodb/photo-mapsearch.min.js" />
         <item url="file://$PROJECT_DIR$/photo/photodb/photo.min.js" />
+        <item url="file://$PROJECT_DIR$/photo/photodb/photo.min.min.js" />
         <item url="file://$PROJECT_DIR$/scripts/js/GoogleMapLoader.min.js" />
         <item url="file://$PROJECT_DIR$/wp/wp-admin/js/accordion.min.js" />
         <item url="file://$PROJECT_DIR$/wp/wp-admin/js/accordion.min.min.js" />
@@ -538,6 +539,7 @@
       <root url="file://$PROJECT_DIR$/photo/photodb/photo-detail.min.js" />
       <root url="file://$PROJECT_DIR$/photo/photodb/photo-mapsearch.min.js" />
       <root url="file://$PROJECT_DIR$/photo/photodb/photo.min.js" />
+      <root url="file://$PROJECT_DIR$/photo/photodb/photo.min.min.js" />
       <root url="file://$PROJECT_DIR$/scripts/js/GoogleMapLoader.min.js" />
       <root url="file://$PROJECT_DIR$/wp/wp-admin/js/accordion.min.js" />
       <root url="file://$PROJECT_DIR$/wp/wp-admin/js/accordion.min.min.js" />

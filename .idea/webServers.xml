@@ -7,7 +7,20 @@
           <advancedOptions>
             <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" passiveMode="true" />
           </advancedOptions>
-          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="40588f55-b54e-402f-8e52-e131dc6fb578" name="speichne@speich.net" url="https://www.speich.net">
+        <fileTransfer rootFolder="/home/speichne/www" accessType="SFTP" host="speich.net" port="22" sshConfigId="293792cb-32af-47bc-bed6-5b50d40196a4" sshConfig="speichne@speich.net">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="f8a813f1-2320-4b5b-8819-2db37ec25942" name="speich.localhost" url="https://speich.localhost">
+        <fileTransfer rootFolder="/var/www/html/speich.net" accessType="SFTP" host="speich.localhost" port="22" sshConfigId="1fd0726d-45d2-4d67-916e-b4e7ab9e02ff" sshConfig="developer@speich.localhost:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
         </fileTransfer>
       </webServer>
     </option>
