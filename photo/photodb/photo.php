@@ -9,8 +9,8 @@ require_once __DIR__.'/photo_inc.php';
 <?php require_once 'inc_head.php' ?>
 <link href="photodb.min.css" rel="stylesheet" type="text/css">
 <link href="photo.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../../library/node_modules/photoswipe/dist/photoswipe.css">
-<link rel="stylesheet" href="../../library/node_modules/photoswipe/dist/default-skin/default-skin.css">
+<link rel="stylesheet" href="../../library/photoswipe/4.1.3/photoswipe.css">
+<link rel="stylesheet" href="../../library/photoswipe/4.1.3/default-skin/default-skin.css">
 </head>
 
 <body>
