@@ -8,13 +8,27 @@ use WebsiteTemplate\Website;
 class WebsiteSpeich extends Website
 {
     /** @var array keys that are allowed in the query string */
-    protected $whitelistQueryString = ['pg', 'theme', 'country', 'qual', 'lang', 'sort', 'imgId', 'numPerPg', 'lat1', 'lat2', 'lng1', 'lng2', 'q'];
+    protected array $whitelistQueryString = [
+        'pg',
+        'theme',
+        'country',
+        'qual',
+        'lang',
+        'sort',
+        'imgId',
+        'numPerPg',
+        'lat1',
+        'lat2',
+        'lng1',
+        'lng2',
+        'q'
+    ];
 
     /** @var array whitelisted public domains */
-    private $domains = ['speich.net', 'www.speich.net'];
+    private array $domains = ['speich.net', 'www.speich.net'];
 
     /** @var array whitelisted developer domains */
-    private $domainsDev = ['speich', 'localhost'];
+    private array $domainsDev = ['speich.localhost'];
 
     /**
      * Constructs the class.
