@@ -24,7 +24,7 @@ class LanguageMenu extends \WebsiteTemplate\LanguageMenu
         }
         $language = $this->lang;
         $str = '';
-        $str .= '<ul id="'.$this->ulId.'" class="'.$this->ulClass.'">';
+        $str .= '<ul id="'.$this->cssId.'" class="'.$this->cssClass.'">';
         foreach ($language->arrLang as $lang => $label) {
             if ($lang === $language->get()) {
                 $str .= '<li class="'.$this->liClassActive.'">'.$label.'</li>';

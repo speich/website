@@ -7,8 +7,8 @@ $lang = $lang->get();
 <head>
 <title><?php echo $web->pageTitle.': Dojo BorderContainer '.($lang === 'en' ? 'Example' : 'Beispiel'); ?></title>
 <?php require_once '../layout/inc_head.php' ?>
-<link rel="stylesheet" type="text/css" href="../library/dojo/1.13.0/dojo/resources/dojo.css"/>
-<link href="../library/dojo/1.13.0/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="../library/dojo/1.16.3/dojo/resources/dojo.css"/>
+<link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #layoutCont {
 	position: absolute;
@@ -82,7 +82,7 @@ $lang = $lang->get();
 </div>
 </body>
 
-<script type="text/javascript" src="../library/dojo/1.13.0/dojo/dojo.js"
+<script type="text/javascript" src="../library/dojo/1.16.3/dojo/dojo.js"
         data-dojo-config="async: true,	isDebug: false,	parseOnLoad: false"></script>
 <script type="text/javascript">
 require(['dijit/layout/ContentPane', 'dijit/layout/BorderContainer', 'dijit/layout/TabContainer'], function(ContentPane, BorderContainer, TabContainer) {

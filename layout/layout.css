@@ -94,6 +94,10 @@ nav.lang > ul {
 		grid-area: 3 / 3 / 3 / 4;
 	}
 
+	nav.sub:empty {
+		z-index: -1;	/* otherwise its layed over main in FF */
+	}
+
 	nav.sub:empty ~ main {
 		grid-area: 3 / 2 / 3 / 4;
 	}

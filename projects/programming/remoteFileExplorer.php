@@ -6,7 +6,7 @@
 <title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
 <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/document.css">
 <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/claro.css">
-<link rel="stylesheet" href="/library/dgrid/v0.3.16/css/skins/claro.css">
+<link rel="stylesheet" href="/library/dgrid/0.3.21/css/skins/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <style type="text/css">
@@ -38,9 +38,9 @@
 var dojoConfig = {
 	async: true,
 	packages: [
-		{name: 'dgrid', location: '/library/dgrid/v0.3.16'},
-		{name: 'xstyle', location: '/library/xstyle'},
-		{name: 'put-selector', location: '/library/put-selector'},
+		{name: 'dgrid', location: '/library/dgrid/0.3.21'},
+		{name: 'xstyle', location: '/library/xstyle/0.3.3'},
+		{name: 'put-selector', location: '/library/put-selector/0.3.6'},
 		{name: 'rfe', location: '/library/remoteFileExplorer/js'},
 		{name: 'rfe-php', location: '/library/remoteFileExplorer/php'}
 	],

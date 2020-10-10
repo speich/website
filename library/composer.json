@@ -3,7 +3,7 @@
     "roave/security-advisories": "dev-master"
   },
   "require": {
-    "speich/websitetemplate": "dev-php7",
+    "speich/websitetemplate": "0.8.*",
     "ext-sqlite3": "*",
     "ext-pdo": "*",
     "ext-json": "*",

@@ -10,7 +10,7 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 	$resource = $_SERVER['PATH_INFO'];
 	$method = $_SERVER['REQUEST_METHOD'];	
 
-	if ($method == 'POST' || $method == 'PUT') {
+	if ($method === 'POST' || $method === 'PUT') {
 		parse_str(file_get_contents('php://input'), $_DATA);
 	}
 	else {
@@ -26,7 +26,7 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 // GET = load all tree items
 // in a real world example you would generate the tree items
 // from a database or from the filesystem.
-if ($method == 'GET') {
+if ($method === 'GET') {
 	switch($resource) {
 		case '/':
 			$arr = [
@@ -59,7 +59,7 @@ if ($method == 'GET') {
 }
 
 // POST = create new item 6 and append it to node 5
-else if ($method == 'POST') {
+else if ($method === 'POST') {
 	$arr = [
 		['id' => 'node6', '$ref' => 'node5', 'name' => 'node6']
   ];
@@ -67,14 +67,14 @@ else if ($method == 'POST') {
 }
 
 // PUT = update item 2 (e.g. rename)
-else if ($method == 'PUT') {
+else if ($method === 'PUT') {
 	// You would use $resource to decide which item to update
 	$status = 'HTTP/1.1 200 OK';
 	// $status = 'HTTP/1.1 404 Not Found';	// returning this would prevent renaming
 }
 
 // DELETE
-else if ($method == 'DELETE') {
+else if ($method === 'DELETE') {
 	// You would use $resource to decide which item to delete
 	
 	/* HTTP status
@@ -98,7 +98,7 @@ else {
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
 <?php require_once '../layout/inc_head.php' ?>
-<link href="../library/dojo/1.13.0/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.16.3/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #log {
 	padding: 8px;
@@ -128,7 +128,7 @@ server response does not contain these previous changes (in this demo they are s
 <div id="log"></div>
 <p>Download the zipped demo file of part 1 <a href="downloads/dojo-jsonreststore.zip">dojo-jsonreststore.zip</a></p>
 <?php require_once 'inc_body_end.php'; ?>
-<script src="../library/dojo/1.13.0/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $lang->get(); ?>'"></script>
+<script src="../library/dojo/1.16.3/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $lang->get(); ?>'"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/lang',
