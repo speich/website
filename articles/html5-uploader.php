@@ -54,7 +54,6 @@ require(['dojo/dom', 'dojo/ready', 'snet/fileUploader/Uploader'], function(dom, 
 			maxKBytes: 50000,
 			maxNumFiles: 10
 		});
-		dom.byId('layoutMain').style.display = 'block';
 	});
 });
 </script>
