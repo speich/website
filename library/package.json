@@ -4,7 +4,6 @@
 	"homepage": "https://www.speich.net",
 	"repository": "github:speich/website",
 	"version": "0.1.0",
-	"prefix": "library",
 	"dependencies": {
 		"corejs-typeahead": "1.x",
 		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
@@ -48,8 +47,8 @@
 		"markerclustererplus:js": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && uglifyjs-folder markerclustererplus/$VERSION -eo markerclustererplus/$VERSION -x .min.js",
 		"markerclustererplus:build": "npm run markerclustererplus:del && npm run markerclustererplus:copy && npm run markerclustererplus:js",
 		"photoswipe:del": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && rimraf photoswipe/$VERSION",
-		"photoswipe:copy": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && copyfiles -u 3 \"node_modules/photoswipe/dist/*\" photoswipe/$VERSION",
-		"photoswipe:css": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && csso photoswipe/$VERSION/photoswipe.css -o photoswipe/$VERSION/photoswipe.min.css",
+		"photoswipe:copy": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && copyfiles -u 3 \"node_modules/photoswipe/dist/**/*\" photoswipe/$VERSION",
+		"photoswipe:css": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && csso photoswipe/$VERSION/photoswipe.css -o photoswipe/$VERSION/photoswipe.min.css && csso photoswipe/$VERSION/default-skin/default-skin.css -o photoswipe/$VERSION/default-skin/default-skin.min.css",
 		"photoswipe:build": "npm run photoswipe:del && npm run photoswipe:copy && npm run photoswipe:css",
 		"put-selector:build": "VERSION=$(node -p \"require('put-selector/package.json').version\") && copyfiles -u 2 node_modules/put-selector/LICENSE node_modules/put-selector/package.json put-selector/$VERSION && terser node_modules/put-selector/put.js -mc -o put-selector/$VERSION/put.js",
 		"xstyle:del": "VERSION=$(node -p \"require('xstyle/package.json').version\") && rimraf xstyle/$VERSION",
@@ -61,6 +60,6 @@
 		"typeahead:copy": "VERSION=$(node -p \"require('corejs-typeahead/package.json').version\") && copyfiles -u 2 \"node_modules/corejs-typeahead/dist/*\" typeahead/$VERSION",
 		"typeahead:build": "npm run typeahead:del && npm run typeahead:copy",
 		"cleanup": "rimraf node_modules",
-		"build:keep": "npm run dialog-confirm:build && npm run dgrid:build && npm run dojo:build && npm run dijit:build && npm run dojox:build && npm run markerclustererplus:build && npm run photoswipe:build && npm run tinyamd:build && npm run typeahead:build"
+		"build:keep": "npm run dialog-confirm:build && npm run dgrid:build && npm run dojo:build && npm run dijit:build && npm run dojox:build && npm run markerclustererplus:build && npm run photoswipe:build && npm run put-selector:build && npm run xstyle:build && npm run tinyamd:build && npm run typeahead:build"
 	}
 }
