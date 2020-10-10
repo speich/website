@@ -1,4 +1,6 @@
-<?php require_once '../../scripts/php/inc_script.php'; ?>
+<?php require_once '../../scripts/php/inc_script.php';
+$sideNav->arrItem[1]->setActive();
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
