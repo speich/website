@@ -13,10 +13,10 @@ use ReflectionProperty;
  */
 abstract class SqlExtended extends SqlFull
 {
-    /** @var int limit upper bound of number of records returned */
+    /** @var ?int limit upper bound of number of records returned */
     public ?int $limit;
 
-    /** @var int offset number of records to omit from the result set */
+    /** @var ?int offset number of records to omit from the result set */
     public ?int $offset;
 
     /** @var string character used to prefix placeholders */
@@ -31,6 +31,7 @@ abstract class SqlExtended extends SqlFull
     {
         $vars = $this->getPublicVars();
         foreach ($vars as $name => $val) {
+            // TODO: make sort private
             if ($val !== null && $val !== 'sort') {
                 // remember variable is passed by reference
                 $fnc($name, $this->{$name});
