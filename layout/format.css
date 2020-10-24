@@ -244,6 +244,11 @@ main a:active, main a:hover {
     color: #ff4b33;
 }
 
+ul.main, .entry-content ul {
+    list-style: disc;
+    padding-left: 1em;
+}
+
 .imgFrame {
     border: 10px solid #f1f1f1;
     box-shadow: inset 2px 2px 3px rgba(150, 150, 150, 0.5), 2px 2px 3px rgba(150, 150, 150, 0.5);
