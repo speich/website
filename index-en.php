@@ -19,8 +19,8 @@ require_once 'index_inc.php';
 <figure><a href="<?php echo $url; ?>" title="random photo from the image database"><img class="imgFrame" src="<?php echo $src; ?>" alt="photo: <?php echo $photo->ImgTitle ?>"></a>
 	<figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
-<p>If you enjoy looking at beautiful nature photos, especially <a href="photo/photodb/photo-en.php?theme=1">birds</a>,
-	then my <a href="photo/photodb/photo-en.php">photo archive</a> should be exactly right for you.</p>
+<p>If you enjoy looking at beautiful nature photos, especially <a href="photo/photodb/photo-en.php?theme=1" title="photos of birds">birds</a>,
+	then my <a href="photo/photodb/photo-en.php" title="photos of animals and landscapes">photo database</a> should be exactly right for you.</p>
 <p>If you are more interested in web programming or other IT topics, why not read one of my articles about
 	<a href="articles/en/category/php/">PHP</a>, <a href="articles/en/category/javascript/">JavaScript</a> or <a href="articles/en/tag/sql/">SQL</a>.</p>
 <?php require_once 'inc_body_end.php'; ?>
