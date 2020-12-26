@@ -11,28 +11,28 @@ use speich\SqlExtended;
  */
 class SqlPhotoList extends SqlExtended
 {
-    /** @var String latitude Northeast */
+    /** @var string|null latitude Northeast */
     public ?string $lat1;
 
-    /** @var String longitude Northeast */
+    /** @var string|null longitude Northeast */
     public ?string $lng1;
 
-    /** @var String latitude Southwest */
+    /** @var string|null latitude Southwest */
     public ?string $lat2;
 
-    /** @var String longitude Southwest */
+    /** @var string|null longitude Southwest */
     public ?string $lng2;
 
     /** @var String quality of the photo */
     public string $qual;
 
-    /** @var String theme of the photo */
+    /** @var string|null theme of the photo */
     public ?string $theme;
 
-    /** @var String country photo was taken in */
+    /** @var string|null country photo was taken in */
     public ?string $country;
 
-    /** @var string */
+    /** @var string|null */
     public ?string $search;
 
     /** @var int sort list of photos by date created */
