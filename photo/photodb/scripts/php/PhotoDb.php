@@ -3,6 +3,7 @@ namespace PhotoDb;
 
 use PDO;
 use PDOException;
+use PhotoDb\FtsFunctions;
 
 
 /**
@@ -50,7 +51,7 @@ class PhotoDb {
 				$this->db->exec('PRAGMA full_column_names = 0');
 				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
 				$this->db->sqliteCreateAggregate('GROUP_CONCAT', [$this, 'groupConcatStep'], [$this, 'groupConcatFinalize']);
-                $this->db->sqliteCreateFunction('SCORE', ['PhotoDb\FtsFunctions', 'score']);
+                $this->db->sqliteCreateFunction('SCORE', [FtsFunctions::class, 'score']);
 			}
 			catch (PDOException $error) {
 				echo $error->getMessage();
