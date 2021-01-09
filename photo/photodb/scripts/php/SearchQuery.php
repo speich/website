@@ -4,11 +4,12 @@ namespace PhotoDb;
 
 use PDO;
 use WebsiteTemplate\Language;
+use function array_slice;
+use function count;
 
 
 /**
  * Class Search
- * @package PhotoDatabase\Database
  */
 class SearchQuery
 {
@@ -35,11 +36,11 @@ class SearchQuery
      * @param int $minWordLength
      * @return array
      */
-    public static function extractWords($text, $maxWords = 6, $minWordLength = 3): array
+    public static function extractWords(string $text, $maxWords = 6, $minWordLength = 3): array
     {
         $pattern = '/".{'.$minWordLength.',}?"|\S{'.$minWordLength.',}/iu'; // matches whole words or several words encompassed with double quotations
         preg_match_all($pattern, $text, $words);
-        $words = \array_slice($words[0], 0, $maxWords); // throw away words exceeding limit
+        $words = array_slice($words[0], 0, $maxWords); // throw away words exceeding limit
 
         return $words;
     }
@@ -54,7 +55,7 @@ class SearchQuery
     public static function createQuery($words, $lang): string
     {
         $search = '';
-        $len = \count($words);
+        $len = count($words);
         $language = new Language();
         $lang = $language->isValid($lang) === true ? $lang : $language->getDefault();
         foreach ($words as $i => $val) {
@@ -67,6 +68,8 @@ class SearchQuery
             $search .= $i < $len - 1 ? ' OR ' : '';
         }
 
-        return 'Language:'.$lang.' AND ('.$search.')';
+        //return 'Language:'.$lang.' OR Language:-'.$lang.' '.$search;   // on server only standard query syntax is enabled
+        return $search;   // on server only standard query syntax is enabled
+        //return '('.$search.')';
     }
 }

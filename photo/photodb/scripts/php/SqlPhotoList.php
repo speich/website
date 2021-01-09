@@ -57,20 +57,16 @@ class SqlPhotoList extends SqlExtended
      */
     public function getFrom(): string
     {
-        if (isset($this->search)){
-            $search = ' LEFT JOIN (
-                    SELECT ImgId, SUM(SCORE(offsets) * Weight) Rank
-                    FROM (
-                         SELECT ImgId, OFFSETS(Images_fts) offsets, Weight
-                         FROM Images_fts
-                         WHERE Keyword MATCH :search
-                         LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
-                    )
-                    GROUP BY ImgId
+        if (isset($this->search)) {
+            // @see https://sqlite.org/fts3.html#appendix_a as to why we should use a subquery
+            $search = ' INNER JOIN (
+                    SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\')) Rank 
+                    FROM Images_fts
+                    WHERE Images_fts MATCH :search
                     ORDER BY Rank DESC
+                    LIMIT -1 OFFSET 0 
                 ) fts ON i.Id = fts.ImgId';
-        }
-        else {
+        } else {
             $search = '';
         }
 
@@ -101,17 +97,6 @@ class SqlPhotoList extends SqlExtended
             }
             $sql .= " AND Imglat NOT NULL AND Imglng NOT NULL AND Imglat != '' AND Imglng != ''";
         }
-        if (isset($this->search)) {
-            $sql .= ' AND i.Id IN (SELECT ImgId FROM (
-                    SELECT ImgId, SUM(SCORE(offsets) * Weight) Rank FROM (
-                        SELECT ImgId, OFFSETS(Images_fts) offsets, Weight FROM Images_fts
-                        WHERE Keyword MATCH :search
-                        LIMIT -1 OFFSET 0 -- otherwise will get an error because of subquery flattening
-                    )
-                    GROUP BY ImgId            
-                )
-            )';
-        }
 
         return $sql;
     }
@@ -132,8 +117,7 @@ class SqlPhotoList extends SqlExtended
 
         if (isset($this->search)) {
             $sql = 'Rank DESC, LastChange DESC';
-        }
-        else {
+        } else {
             switch ($this->sort) {
                 case self::SORT_BY_DATECREATED:
                     $sql = 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC';
@@ -168,7 +152,7 @@ class SqlPhotoList extends SqlExtended
     /**
      * @param String $sort
      */
-    public function setSort(String $sort): void
+    public function setSort(string $sort): void
     {
         $this->sort = $sort;
     }
