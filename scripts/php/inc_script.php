@@ -21,13 +21,13 @@ $lang->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $lang->autoSet();
 
 $web = new WebsiteSpeich();
-$web->setLastUpdate('2020-10-10');
+$web->setLastUpdate('2021-01-10');
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 $isPhoto = strpos($_SERVER['REQUEST_URI'], '/photo') !== false;
 if ($lang->get() === 'de') {
     $windowTitle = 'Fotografie und Webprogrammierung';
-    $htmlFooter['de'] = ($isPhoto ? '<div>' : '').'<p>© 2003-2020 speich.net, Konzept und Programmierung Simon Speich</p>';
+    $htmlFooter['de'] = ($isPhoto ? '<div>' : '').'<p>© 2003-2021 speich.net, Konzept und Programmierung Simon Speich</p>';
     $htmlFooter['de'] .= '<p class="last-update">letzte Aktualisierung '.$web->getLastUpdate('d.m.Y').'</p>'.($isPhoto ? '</div>' : '');
     if ($isPhoto) {
         $htmlFooter['de'] .= '<p><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.de"><img alt="Creative Commons Lizenzvertrag" src="https://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
@@ -39,7 +39,7 @@ if ($lang->get() === 'de') {
 }
 else {
 	$windowTitle = 'Photography and web programming';
-    $htmlFooter['en'] = ($isPhoto ? '<div>' : '').''.'<p>© 2003-2020 speich.net, concept und programming Simon Speich</p>';
+    $htmlFooter['en'] = ($isPhoto ? '<div>' : '').''.'<p>© 2003-2021 speich.net, concept und programming Simon Speich</p>';
     $htmlFooter['en'] .= '<p class="last-update">last update '.$web->getLastUpdate('d.m.Y').'</p>'.($isPhoto ? '</div>' : '');
     if ($isPhoto) {
         $htmlFooter['en'] .= '<p><a rel="license" href="https://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons licence" src="https://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png"></a>
