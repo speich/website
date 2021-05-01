@@ -1,9 +1,9 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?></title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 <meta name="keywords" content="visualization, jsviz, javascript, svg">
 
 <!--
@@ -324,7 +324,7 @@ text {
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Visualisierung mit JsViz</h1>
 <p>Beispiel einer Visualisierung von Datenbankvariablen mit <a href="http://www.jsviz.org">JsViz</a>. Ursprünglich entwickelt 
 für die Auswertesoftware NAFIDAS des <a href="http://www.lfi.ch">Schweizerischen Landesforstinventars LFI</a>.</p>
@@ -339,6 +339,6 @@ für die Auswertesoftware NAFIDAS des <a href="http://www.lfi.ch">Schweizerische
 <!-- <img src="images/IconLimit2.gif" id="ButtToggleLimit2" class="ButtToggle" title="Limitierung 2 ein/aus" alt="Icon toggle graph limit 2"/> -->
 </div>
 <div id="NodeToolTip"></div>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

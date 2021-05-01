@@ -11,7 +11,7 @@ use WebsiteTemplate\QueryString;
 
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-$i18n = require __DIR__.'/nls/'.$lang->get().'/photo.php';
+$i18n = require __DIR__.'/nls/'.$language->get().'/photo.php';
 
 $db = new PhotoDb($web->getWebRoot());
 $db->connect();
@@ -83,7 +83,7 @@ $sql->lng2 = $params->lng2;
 if (isset($params->search)) {
     $search = str_replace('&#34;', '"', $params->search);
     $words = SearchQuery::extractWords($search);
-    $sql->search = SearchQuery::createQuery($words, $lang->get());
+    $sql->search = SearchQuery::createQuery($words, $language->get());
 }
 $numRec = $photo->getNumRec($sql);
 $sql->offset = $params->pg + $params->pg * $params->numPerPg;

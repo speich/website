@@ -32,20 +32,13 @@ if ($controller === 'marker') {
     if (isset($params->search)) {
         $search = str_replace('&#34;', '"', $params->search);
         $words = SearchQuery::extractWords($search);
-        $sql->search = SearchQuery::createQuery($words, $lang->get());
+        $sql->search = SearchQuery::createQuery($words, $language->get());
     }
     $response = $db->loadMarkerData($sql);
 }
-else if ($controller === 'country') {
+elseif ($controller === 'country') {
 	$db = new Map($web->getWebRoot());
 	$response = $db->loadCountry($resources[0]);
-}
-
-// resource found and processed
-if ($response) {
-	if ($header) {
-		header($header);
-	}
 }
 else {
 	$ctrl->notFound = true;

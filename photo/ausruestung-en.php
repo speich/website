@@ -1,13 +1,13 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Equipment | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photo Equipment</h1>
 <figure class="photoContainer"><img src="images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action"
 											class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">
@@ -73,6 +73,6 @@ For more information read my post <a href="/articles/en/2013/05/10/best-way-to-t
 <li>GPS Solmeta Geotagger N2 (23.05.2009–2011)</li>
 <li>Gymbal head <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>
 </ul>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

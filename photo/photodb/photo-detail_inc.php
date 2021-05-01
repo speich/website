@@ -14,7 +14,7 @@ if (isset($_GET['imgId'])) {
 	header('Location: http://www.speich.net/photo/photodb/photo.php');
 }
 
-$ucLang = ucfirst($lang->get());
+$ucLang = ucfirst($language->get());
 // TODO: move date scanned out of Images?
 $photoDb = new PhotoDb($web->getWebRoot());
 $photoDb->connect();
@@ -71,7 +71,7 @@ $jsConfig = htmlspecialchars($jsConfig, ENT_COMPAT, $web->charset);
 
 /**
  * Print HTML to display photo detail.
- * @param $data
+ * @param array $data
  * @param PhotoDb $db
  * @param Language $lang
  * @param array $i18n internationalization

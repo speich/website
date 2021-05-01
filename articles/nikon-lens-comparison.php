@@ -1,6 +1,6 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Teleobjektive</title>
 <?php require_once 'inc_head.php' ?>
@@ -10,7 +10,7 @@
 </head>
 
 <body class="claro">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Canon vs. Nikon Teleobjektive: Wenn das Gewicht eine Hauptrolle spielt</h1>
 <p>Um Tiere von Nahe fotografieren zu können, braucht es meistens Teleobjektive mit Brennweiten zwischen 300mm und 800mm.
 	Diese sind entsprechend schwer und müssen oft erst noch lange herumgetragen werden. Die Grafiken und Tabelle auf dieser
@@ -413,6 +413,6 @@ require([
 });
 
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

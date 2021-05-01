@@ -7,12 +7,12 @@ if (isset($_GET['fnc']) && $_GET['fnc'] === 'loadImg') {
     exit();
 }
 ?>
-<?php require_once '../../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
 <title>CSS loading animation demo | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 <style type="text/css">
 .loading {
 	position: relative;
@@ -86,7 +86,7 @@ if (isset($_GET['fnc']) && $_GET['fnc'] === 'loadImg') {
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Demo of a CSS loading animation</h1>
 <h2>Pure CSS solution with no JavaScript</h2>
 <p>The image below takes several seconds to load. While it is downloading a CSS loading animation is displayed, which
@@ -106,6 +106,6 @@ button.addEventListener('click', () => {
 
 });
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 	<title>Temporal and Spatial Pattern of Nocturnal Bird Migration | <?php echo $web->pageTitle; ?></title>
-    <?php require_once '../layout/inc_head.php' ?>
+    <?php echo $head->render(); ?>
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Diploma Thesis</h1>
 <h2>Temporal and Spatial Pattern of Nocturnal Bird Migration across the Western
 	Mediterranean Sea Studied by Radar</h2>
@@ -53,6 +53,6 @@
 <p>1) the temporal and seasonal schedule of the migration intensities and<br/>
 	2) the direction, speed, and potential recruiting areas of the migrants.</p>
 <p>The thesis can be <a href="diplomarbeit.pdf">downloaded as a pdf</a> (1.6 MB).</p>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

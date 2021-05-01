@@ -1,6 +1,6 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
 <?php require_once 'inc_head.php' ?>
@@ -9,7 +9,7 @@
 </head>
 
 <body class="claro">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Canon vs. Nikon telephoto lenses: If weight plays a major role</h1>
 <p>In order to photograph wildlife, you generally need telephoto lenses with a focal length between 300mm and 800mm.
 	These lenses are also heavy, especially when carrying around on foot. The charts and table on this page may help you
@@ -390,6 +390,6 @@ require([
 });
 
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

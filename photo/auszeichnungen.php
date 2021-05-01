@@ -1,14 +1,14 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Fotowettbewerbe | <?php echo $web->pageTitle; ?></title>
-    <?php require_once '../layout/inc_head.php' ?>
+    <?php echo $head->render(); ?>
     <link rel="stylesheet" href="auszeichnungen.css">
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Auszeichnungen Fotowettbewerbe</h1>
 <ul class="awards">
     <li><h3>NFS-Wettbewerb 2020</h3>
@@ -108,6 +108,6 @@
         <a href="images/016-009.jpg"><img src="images/016-009-thumb.jpg" width="180" height="117" alt="hot love story"></a>
     </li>
 </ul>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

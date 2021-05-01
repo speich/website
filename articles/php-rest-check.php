@@ -62,10 +62,10 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 } else {
     ?>
 	<!DOCTYPE html>
-	<html lang="<?php echo $lang->get(); ?>">
+	<html lang="<?php echo $language->get(); ?>">
 	<head>
 	<title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
-  <?php require_once '../layout/inc_head.php' ?>
+  <?php echo $head->render(); ?>
 	<style type="text/css">
 	#log {
 		padding: 8px;
@@ -77,7 +77,7 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 	</head>
 
 	<body>
-  <?php require_once 'inc_body_begin.php'; ?>
+  <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 	<h1>Check availability of HTTP request methods</h1>
 	<p>To be able to use a REST API with apache and PHP you need to know if your ISP allows the different HTTP request
 		methods POST, GET, PUT and DELETE.
@@ -109,9 +109,9 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 	<div id="log"></div>
 	<p>Note: DELETE and GET use the request querystring to send additional data, POST and PUT use the request body.</p>
 	<p>Download the zipped demo file <a href="downloads/php-rest-check.zip">php-rest-check.zip</a></p>
-  <?php require_once 'inc_body_end.php'; ?>
+  <?php echo $bodyEnd->render(); ?>
 	</body>
-	<script src="../library/dojo/1.16.3/dojo/dojo.js" data-dojo-config="async: true, locale: '<?php echo $locale = $lang->get(); ?>'"></script>
+	<script src="../library/dojo/1.16.3/dojo/dojo.js" data-dojo-config="async: true, locale: '<?php echo $locale = $language->get(); ?>'"></script>
 	<script type="text/javascript">
 	require(['dojo/_base/lang', 'dojo/dom', 'dojo/request/xhr', 'dojo/on', 'dojo/query', 'dojo/io-query'], function(lang, dom, xhr, on, query, ioQuery) {
 		var demo = {

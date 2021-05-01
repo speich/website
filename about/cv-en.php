@@ -1,14 +1,14 @@
-<?php include '../scripts/php/inc_script.php'; ?>
+<?php include __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../layout/inc_head.php' ?>
-	<link rel="stylesheet" href="cv.css">
+<?php echo $head->render(); ?>
+<link rel="stylesheet" href="cv.css">
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Simon Speich's Curriculum Vitae</h1>
 <p>For a more complete CV head over to the <a href="cv.php">German version</a>.</p>
 <table class="tblCv">
@@ -53,6 +53,6 @@ Computers and Electronics in Agriculture Volume 132</li>
 </tr>
 </table>
 <p>For a more complete CV head over to the <a href="cv.php">German version</a>.</p>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

@@ -1,13 +1,13 @@
-<?php require_once '../../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Songs | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Songs and Sounds</h1>
 <p>Alle Songs wurden mit <a href="http://en.wikipedia.org/wiki/Impulse_Tracker">Impulse Tracker</a> komponiert (kennt noch jemand die guten alten Mod 
 Zeiten ?) und mit <a href="http://www.winmap.com">Winamp</a> zu mp3 konvertiert.</p>
@@ -30,6 +30,6 @@ unvollendet, Samples Korg M1, u.a.</li>
 Mein erstes Impuls Tracker Projekt, unvollendet. An die beklauten Opfer (Samples) 
 kann ich mich nicht mehr erinnern.</li>
 </ul>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

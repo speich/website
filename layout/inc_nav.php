@@ -28,7 +28,7 @@ $arrNav['en'] = [
     [6, 'N', 'Contact', $path.'contact/contact-en.php']
 ];
 
-$mainNav = new Menu($arrNav[$lang->get()]);
+$mainNav = new Menu($arrNav[$language->get()]);
 $mainNav->cssClass = 'menu';
 
 
@@ -105,7 +105,7 @@ $sideNav = new Menu();
 $sideNav->cssClass = 'sideMenu';
 $sideNav->setAutoActiveMatching(3);
 
-$langNav = new LanguageMenu($lang, $web);
+$langNav = new LanguageMenu($language, $web);
 $langNav->useLabel = true;
 $langNav->setWhitelist($web->getWhitelistQueryString());
 
@@ -113,17 +113,17 @@ $langNav->setWhitelist($web->getWhitelistQueryString());
 switch ($mainNav->getActive()) {
     case 1:
         // do not render side navigation on map page
-        if ($lang->createPage($web->page) !== $lang->createPage('photo-mapsearch.php')) {
-            createSideMenuPhoto($web, $sideNav, $arrPhotoNav[$lang->get()], $lang);
+        if ($language->createPage($web->page) !== $language->createPage('photo-mapsearch.php')) {
+            createSideMenuPhoto($web, $sideNav, $arrPhotoNav[$language->get()], $language);
         }
         break;
     case 3:
-        foreach ($arrProjectNav[$lang->get()] as $item) {
+        foreach ($arrProjectNav[$language->get()] as $item) {
             $sideNav->add($item);
         }
         break;
     case 5:
-        foreach ($arrPersonNav[$lang->get()] as $item) {
+        foreach ($arrPersonNav[$language->get()] as $item) {
             $sideNav->add($item);
         }
         break;

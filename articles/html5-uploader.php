@@ -1,6 +1,6 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>speich.net HTML5 demo: multiple file upload with drag and drop</title>
 <?php require_once 'inc_head.php' ?>
@@ -26,7 +26,7 @@
 </head>
 
 <body class="claro">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>HTML5 demo: Multiple file upload with dojo and PHP</h1>
 <p>This demo uses the dojotoolkit and PHP to handle multiple file upload with drag and drop. It lets you pause/resume your upload even after an error.
 Works with Mozilla Firefox 3.6 and Google Chrome 7.</p>
@@ -57,6 +57,6 @@ require(['dojo/dom', 'dojo/ready', 'snet/fileUploader/Uploader'], function(dom, 
 	});
 });
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

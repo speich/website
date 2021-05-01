@@ -1,6 +1,6 @@
-<?php require_once '../../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,11 +38,11 @@ window.addEventListener('load', function() {
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Firebug Test Case</h1>
 <p>Test case for issue 2285 <a href="http://code.google.com/p/fbug/issues/detail?id=2285">support for content-type: multipart/x-mixed-replace</a></p>
 <p><a href="#" id="start">start test</a></p>
 <div id="logWindow"></div>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

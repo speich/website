@@ -1,11 +1,11 @@
-<?php require_once '../../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="de-ch">
 <head>
     <title><?php echo $web->pageTitle; ?></title>
     <meta name="description" content="Website von Simon Speich über Fotografie und Webprogrammierung">
     <meta name="keywords" content="Fotografie, Webprogrammierung, JavaScript">
-    <?php require_once '../../layout/inc_head.php' ?>
+    <?php echo $head->render(); ?>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.0.6/dist/photo-sphere-viewer.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.0.6/dist/plugins/markers.min.css">

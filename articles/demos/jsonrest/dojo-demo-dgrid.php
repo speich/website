@@ -1,6 +1,6 @@
 <?php require_once '../../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
 <?php require_once 'inc_head.php' ?>
@@ -27,7 +27,7 @@
 </head>
 
 <body class="claro">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>REST with dojo and PHP: Demo of a dgrid observing changes to the JsonRest store</h1>
 <p>This demo shows <a href="http://www.sitepen.com">sitepen</a>'s new <a href="https://github.com/SitePen/dgrid/">dgrid</a> hooked up to a caching store and listening to changes to the store.
 	The caching store combines a <a href="http://dojotoolkit.org/reference-guide/dojo/store/JsonRest.html">JsonRest store</a> as the master with a <a href="http://dojotoolkit.org/reference-guide/dojo/store/Memory.html">Memory store</a> as the slave. The master store communicates with a PHP controller script on the server.
@@ -270,6 +270,6 @@ require([
 });
 
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

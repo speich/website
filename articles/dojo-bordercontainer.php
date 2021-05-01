@@ -6,7 +6,7 @@ $lang = $lang->get();
 <html lang="<?php echo $lang; ?>">
 <head>
 <title><?php echo $web->pageTitle.': Dojo BorderContainer '.($lang === 'en' ? 'Example' : 'Beispiel'); ?></title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link rel="stylesheet" type="text/css" href="../library/dojo/1.16.3/dojo/resources/dojo.css"/>
 <link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <style type="text/css">

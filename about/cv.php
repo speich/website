@@ -1,14 +1,14 @@
-<?php include '../scripts/php/inc_script.php'; ?>
+<?php include __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link rel="stylesheet" href="cv.css">
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Curriculum Vitae von Simon Speich</h1>
 <table class="tblCv">
 <tr> 
@@ -147,6 +147,6 @@ Mediterranean Sea Studied by Radar</a> bei Prof. Bruno Bruderer</li>
 </tr>
 </table>
 <p>Weitere Details auf Anfrage</p>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

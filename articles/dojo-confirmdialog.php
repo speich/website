@@ -1,9 +1,9 @@
 <?php require_once '../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: dojo confirm dialog</title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .dijitDialog {
@@ -20,7 +20,7 @@
 </head>
 
 <body class="claro">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Confirm dialog with dojo</h1>
 <p>The demo on this page simulates the blocking behavior of JavaScript's native
 <a href="https://developer.mozilla.org/en/DOM/window.confirm" target="_blank">window.confirm()</a> method by using a
@@ -83,6 +83,6 @@ require([
 	}, dom.byId('startLink'));
 });
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

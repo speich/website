@@ -1,6 +1,6 @@
 <?php
 require_once 'photo_inc.php';
-$i18n = require __DIR__.'/nls/'.$lang->get().'/photo-mapsearch.php';
+$i18n = require __DIR__.'/nls/'.$language->get().'/photo-mapsearch.php';
 $web->setLastPage();
 ?>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ $web->setLastPage();
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <div id="mapContainer">
     <div id="map-canvas"></div>
 </div>
@@ -27,6 +27,6 @@ $web->setLastPage();
         </a></button>
 </div>
 
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

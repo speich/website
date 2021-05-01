@@ -1,13 +1,13 @@
-<?php include '../scripts/php/inc_script.php'; ?>
+<?php include __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Contact | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Contact</h1>
 <figure class="photoContainer"><img src="guyana-simon2.jpg" alt="Photo of Simon Speich" title="Simon with 30mm in Action"
 	class="imgFrame" style="background-image: url(guyana-simon2.jpg)">
@@ -24,6 +24,6 @@ or find me on <a href="https://github.com/speich" target="_blank">GitHub</a>.</p
 <li><a href="https://naturfotografen.ch/bilder/mitgliedergalerien/mitglied/simon-speich.html" target="_blank">Naturfotografen Schweiz</a> (in German)</li>
 <li><a href="https://www.gdtfoto.de/mitglied/1001285/Simon-Speich" target="_blank">GDT Society of German Wildlife Photographers</a> (in German)</li>
 </ul>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

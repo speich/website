@@ -1,4 +1,4 @@
-<?php require_once '../../scripts/php/inc_script.php';
+<?php require_once __DIR__.'/../../scripts/php/inc_script.php';
 $sideNav->arrItem[1]->setActive();
 ?>
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ $sideNav->arrItem[1]->setActive();
 </head>
 
 <body class="claro rfe">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>remoteFileExplorer - a Windows Explorer like web application</h1>
 <p>This is a running demo of a <a href="http://dojotoolkit.org/reference-guide/dijit/Tree.html" target="_blank">dijit tree</a>
 	combined with a <a href="http://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="http://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
@@ -70,6 +70,6 @@ require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
 	});
 });
 </script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

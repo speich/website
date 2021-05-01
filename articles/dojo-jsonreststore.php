@@ -94,10 +94,10 @@ echo json_encode($arr);
 else {
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
-<?php require_once '../layout/inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link href="../library/dojo/1.16.3/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #log {
@@ -110,7 +110,7 @@ else {
 </head>
 
 <body class="soria">
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Lazy load, update, create and delete dijit tree items</h1>
 <p>The root of the tree (images) is loaded with a GET request on page load. When the users expands a folder, a new GET request is issued
 to fetch its contents and the response is cached. Creating/deleting a tree item will revert all changes in the tree, because the JsonRestStore sends a GET first and the
@@ -127,8 +127,8 @@ server response does not contain these previous changes (in this demo they are s
 <div>log window</div>
 <div id="log"></div>
 <p>Download the zipped demo file of part 1 <a href="downloads/dojo-jsonreststore.zip">dojo-jsonreststore.zip</a></p>
-<?php require_once 'inc_body_end.php'; ?>
-<script src="../library/dojo/1.16.3/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $lang->get(); ?>'"></script>
+<?php echo $bodyEnd->render(); ?>
+<script src="../library/dojo/1.16.3/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $language->get(); ?>'"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/lang',

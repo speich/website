@@ -1,23 +1,14 @@
-<?php require_once '../../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Programmierung | <?php echo $web->pageTitle; ?></title>
-<?php require_once '../../layout/inc_head.php' ?>
-<script type="text/javascript">
-var remote = null;
-function openWin(url, title, x, y) {
-  if (remote && remote.open && !remote.closed) {
-		remote.close();
-	}
-  remote = window.open(url, title, 'width=' + x +',height=' + y + ',toolbar=no,menubar=no,location=no,scrollbars=no,resizable=yes');
-	return false;
-}
-</script>
+<?php echo $head->render(); ?>
+<script src="progs.js"></script>
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Programmierung</h1>
 <h2>06. Juli 2013, <a href="remoteFileExplorer.php" title="eine Windows Explorer ähnliche Webapplikation">remoteFileExplorer</a></h2>
 <p>Eine Windows Explorer ähnliche Webapplikation zur Verwaltung von Dateien und Verzeichnissen direkt im Browser.</p>
@@ -36,6 +27,6 @@ function openWin(url, title, x, y) {
 <ul>
 <li>Browser: Opera 8.5 (empfohlen)</li>
 </ul>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

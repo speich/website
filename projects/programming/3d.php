@@ -3,7 +3,7 @@ require_once __DIR__.'/../../scripts/php/inc_script.php';
 $sideNav->arrItem[1]->setActive();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
     <title><?php echo $web->pageTitle; ?>: 3D(HTML) cube in pure JavaScript</title>
     <?php require_once __DIR__.'/../../layout/inc_head.php' ?>
@@ -511,6 +511,6 @@ $sideNav->arrItem[1]->setActive();
     </div>
 </div>
 <script language="JavaScript" type="text/JavaScript">Start();</script>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 </body>
 </html>

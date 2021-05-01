@@ -4,7 +4,7 @@ require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once __DIR__.'/photo_inc.php';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang->get(); ?>">
+<html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
 <?php require_once 'inc_head.php' ?>
@@ -15,7 +15,7 @@ require_once __DIR__.'/photo_inc.php';
 </head>
 
 <body>
-<?php require_once 'inc_body_begin.php'; ?>
+<?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <div class="toolbar">
 <div class="bar-cont">
 <form method="GET" role="search" class="bar-item frmSearch">
@@ -44,7 +44,7 @@ require_once __DIR__.'/photo_inc.php';
 <?php echo $pagingBar; ?>
 </div>
 <div>
-<ul id="slides"><?php echo $photo->renderData($photos, $web, $lang, $i18n); ?></ul>
+<ul id="slides"><?php echo $photo->renderData($photos, $web, $language, $i18n); ?></ul>
 </div>
 <?php echo $pagingBar ?>
 
@@ -82,7 +82,7 @@ require_once __DIR__.'/photo_inc.php';
 </div>
 </div>
 </div>
-<?php require_once 'inc_body_end.php'; ?>
+<?php echo $bodyEnd->render(); ?>
 <script src="../../library/tinyamd.min.js" type="text/javascript"></script>
 <script type="text/javascript">require(['photo']);</script>
 </body>
