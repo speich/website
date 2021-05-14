@@ -9,13 +9,13 @@ use PhotoDb\PhotoDb;
 
 require_once __DIR__.'/../../../photo/photodb/scripts/php/PhotoDb.php';
 $photoDb = new PhotoDb('/');
-$sql = "SELECT i.ImgFolder, i.ImgName, i.Id, n.NameEn 
+$sql = 'SELECT i.ImgFolder, i.ImgName, i.Id, n.NameEn 
     FROM Images i
     INNER JOIN Images_ScientificNames sn ON i.Id = sn.ImgId
     INNER JOIN ScientificNames n ON sn.ScientificNameId = n.Id
     WHERE i.RatingId = 3 AND n.NameEn NOT NULL 
     ORDER BY n.NameEn ASC
-    LIMIT 100";
+    LIMIT 100';
 $photoDb->connect();
 $stmt = $photoDb->db->prepare($sql);
 $stmt->execute();

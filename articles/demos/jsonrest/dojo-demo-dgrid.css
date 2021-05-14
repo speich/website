@@ -1,0 +1,27 @@
+.claro .dgrid {
+    border-width: 1px 0 0 0;
+}
+
+#grid.dgrid {
+    margin: 24px 0;
+    height: 230px;
+}
+
+#grid .dgrid-header {
+    right: 0;
+    font-size: 10px;
+}
+
+#grid .dgrid-header-scroll {
+    display: none;
+}
+
+#grid .dgrid, #grid .dgrid-scroller {
+    overflow: auto;
+}
+
+.button {
+    display: none;
+    margin: 8px 0 16px 0;
+    padding: 2px 8px;
+}

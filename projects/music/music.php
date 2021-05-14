@@ -9,8 +9,8 @@
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Songs and Sounds</h1>
-<p>Alle Songs wurden mit <a href="http://en.wikipedia.org/wiki/Impulse_Tracker">Impulse Tracker</a> komponiert (kennt noch jemand die guten alten Mod 
-Zeiten ?) und mit <a href="http://www.winmap.com">Winamp</a> zu mp3 konvertiert.</p>
+<p>Alle Songs wurden mit <a href="https://en.wikipedia.org/wiki/Impulse_Tracker">Impulse Tracker</a> komponiert (kennt noch jemand die guten alten Mod
+Zeiten ?) und mit <a href="https://www.winmap.com">Winamp</a> zu mp3 konvertiert.</p>
 <ul class="main">
 <li><a href="junglebase.mp3">Funky</a> (3.8 mb)<br>
 Samples: Red Hot Chilli Peppers, Korg M1, Jazz</li>

@@ -1,5 +1,5 @@
 <?php
-require_once '../scripts/php/inc_script.php';
+require_once __DIR__.'/../scripts/php/inc_script.php';
 
 /*
  * Simple PHP page that checks if all HTTP request methods are supported by your apache installation

@@ -19,7 +19,7 @@ switch($method) {
 }
 
 if ($json) {
-	$method == 'POST' ? header($protocol.' 201 Created') : header($protocol.' 200 OK');
+	$method === 'POST' ? header($protocol.' 201 Created') : header($protocol.' 200 OK');
 	header("Content-Type", "application/json");
 	echo $json;
 }

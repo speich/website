@@ -26,7 +26,7 @@ $sideNav->arrItem[1]->setActive();
 	margin-right: 0.5em;
 }
 </style>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 </head>
 
 <body class="claro rfe">

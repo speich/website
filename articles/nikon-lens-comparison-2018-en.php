@@ -3,7 +3,7 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link rel="stylesheet" href="../library/dgrid/0.3.21/css/skins/claro.css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">

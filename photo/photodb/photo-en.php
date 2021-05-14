@@ -7,7 +7,7 @@ require_once __DIR__.'/photo_inc.php';
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link href="photodb.min.css" rel="stylesheet" type="text/css">
 <link href="photo.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../../library/photoswipe/4.1.3/photoswipe.css">

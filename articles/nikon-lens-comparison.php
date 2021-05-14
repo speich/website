@@ -1,9 +1,9 @@
-<?php require_once '../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Teleobjektive</title>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/library/dgrid/0.3.21/css/skins/claro.css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">
@@ -14,7 +14,7 @@
 <h1>Canon vs. Nikon Teleobjektive: Wenn das Gewicht eine Hauptrolle spielt</h1>
 <p>Um Tiere von Nahe fotografieren zu können, braucht es meistens Teleobjektive mit Brennweiten zwischen 300mm und 800mm.
 	Diese sind entsprechend schwer und müssen oft erst noch lange herumgetragen werden. Die Grafiken und Tabelle auf dieser
-	Seite können als Entscheidungshilfe beim Kauf eines Teleobjektivs	dienen, wenn das Gewicht eine Hauptrolle spielt.</p>
+	Seite können als Entscheidungshilfe beim Kauf eines Teleobjektivs dienen, wenn das Gewicht eine Hauptrolle spielt.</p>
 <p>Mein Beitrag <a href="https://photographylife.com/canon-vs-nikon-telephoto-lenses" target="_blank">Canon vs Nikon Telephoto Lenses</a> auf photographylife.com liefert weitere Informationen.</p>
 <h2>Vergleich 2011/2013</h2>
 <ul class="legend"><li class="canon"></li><li>Canon</li><li class="nikon"></li><li>Nikon</li></ul>

@@ -1,9 +1,9 @@
-<?php require_once '../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title>speich.net HTML5 demo: multiple file upload with drag and drop</title>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link href="../library/speich.net/fileUploader/resources/uploader.css" rel="stylesheet" type="text/css">
 <style type="text/css">

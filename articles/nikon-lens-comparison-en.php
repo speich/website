@@ -1,9 +1,9 @@
-<?php require_once '../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link rel="stylesheet" href="/library/dgrid/0.3.21/css/skins/claro.css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">
 </head>

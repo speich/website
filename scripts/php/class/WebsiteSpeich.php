@@ -25,10 +25,10 @@ class WebsiteSpeich extends Website
     ];
 
     /** @var array whitelisted public domains */
-    private array $domains = ['speich.net', 'www.speich.net'];
+    protected array $domains = ['speich.net', 'www.speich.net'];
 
     /** @var array whitelisted developer domains */
-    private array $domainsDev = ['speich.localhost'];
+    protected array $domainsDev = ['speich.test', 'speich.localhost'];
 
     /**
      * Constructs the class.
@@ -46,23 +46,13 @@ class WebsiteSpeich extends Website
      * @param string $type
      * @return array
      */
-    public function getDomains($type = 'public'): array
+    public function getDomains(string $type = 'public'): array
     {
-        switch ($type) {
-            case 'dev':
-                $domains = $this->domainsDev;
-                break;
-            case 'all':
-                $domains = array_merge($this->domainsDev, $this->domains);
-                break;
-            case 'public':
-                $domains = $this->domains;
-                break;
-            default:
-                $domains = $this->domains;
-        }
-
-        return $domains;
+        return match ($type) {
+            'dev' => $this->domainsDev,
+            'all' => array_merge($this->domainsDev, $this->domains),
+            default => $this->domains,
+        };
     }
 
     /**

@@ -1,29 +1,12 @@
-<?php require_once '../../../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../../../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
-<?php require_once 'inc_head.php' ?>
+<?php echo $head->render(); ?>
 <link href="../../../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet"	type="text/css">
 <link rel="stylesheet" href="../../../library/dgrid/0.3.21/css/skins/claro.css">
-<style type="text/css">
-.claro .dgrid { border-width: 1px 0 0 0; }
-#grid.dgrid {
-	margin: 24px 0;
-  height: 230px;
-}
-#grid .dgrid-header {
-	right: 0;
-	font-size: 10px;
-}
-#grid .dgrid-header-scroll { display: none; }
-#grid .dgrid, #grid .dgrid-scroller { overflow: auto; }
-.button {
-	display: none;
-	margin: 8px 0 16px 0;
-	padding: 2px 8px;
-}
-</style>
+<link rel="stylesheet" href="dojo-demo-dgrid.css">
 </head>
 
 <body class="claro">

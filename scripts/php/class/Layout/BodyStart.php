@@ -7,7 +7,6 @@ namespace speich\Layout;
 use speich\LanguageMenu;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Menu;
-use function function_exists;
 
 class BodyStart
 {
@@ -37,9 +36,7 @@ class BodyStart
         	    <nav class="lang">'.$langNav->render().'</nav>
             </div>
             <div class="row2 nav-after layout-wide"></div>
-            <nav class="sub">'.$sideNav->render().
-                (function_exists('get_template_part') ? get_template_part('template-parts/content/sidemenu') : '').
-            '</nav>
+            <nav class="sub">'.$sideNav->render().'</nav>
             <main>';
         return $bodyStart;
     }

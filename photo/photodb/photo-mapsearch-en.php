@@ -1,5 +1,5 @@
 <?php
-require_once 'photo_inc.php';
+require_once __DIR__.'/photo_inc.php';
 $i18n = require_once __DIR__.'/nls/'.$language->get().'/photo-mapsearch.php';
 $web->setLastPage();
 ?>
@@ -7,7 +7,7 @@ $web->setLastPage();
 <html lang="en-us">
 <head>
     <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
-    <?php require_once 'inc_head.php' ?>
+    <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-mapsearch.min.css" rel="stylesheet" type="text/css">
 </head>

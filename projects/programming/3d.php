@@ -510,7 +510,7 @@ $sideNav->arrItem[1]->setActive();
         Click me to start/stop.
     </div>
 </div>
-<script language="JavaScript" type="text/JavaScript">Start();</script>
+<script type="text/JavaScript">Start();</script>
 <?php echo $bodyEnd->render(); ?>
 </body>
 </html>
