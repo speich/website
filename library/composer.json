@@ -1,6 +1,6 @@
 {
   "require-dev": {
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-latest"
   },
   "require": {
     "speich/websitetemplate": "0.8.*",

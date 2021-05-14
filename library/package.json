@@ -5,17 +5,17 @@
 	"repository": "github:speich/website",
 	"version": "0.1.0",
 	"dependencies": {
+		"@google/markerclustererplus": "5.x",
 		"corejs-typeahead": "1.x",
-		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
 		"dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
+		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
 		"dijit": "1.x",
 		"dojo": "1.x",
 		"dojox": "1.x",
 		"photoswipe": "4.x",
 		"put-selector": "^0.3.6",
 		"tinyamd": "https://github.com/speich/tinyamd",
-		"xstyle": "^0.3.3",
-		"@google/markerclustererplus": "5.x"
+		"xstyle": "^0.3.3"
 	},
 	"devDependencies": {
 		"copyfiles": "2.x",
