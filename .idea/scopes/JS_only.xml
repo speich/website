@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="JS only" pattern="file:*.js&amp;&amp;!file[speich.net]:library//*" />
+  <scope name="JS only" pattern="file:*.js&amp;&amp;!file[speich.net]:library//*&amp;&amp;!file[speich.net]:wp//*" />
 </component>

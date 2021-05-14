@@ -16,10 +16,10 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
-      <webServer id="f8a813f1-2320-4b5b-8819-2db37ec25942" name="speich.localhost" url="https://speich.localhost">
-        <fileTransfer rootFolder="/var/www/html/speich.net" accessType="SFTP" host="speich.localhost" port="22" sshConfigId="1fd0726d-45d2-4d67-916e-b4e7ab9e02ff" sshConfig="developer@speich.localhost:22 password">
+      <webServer id="9d377f4c-6ef3-47b6-8bf5-180a65c8c4a0" name="speich.test" url="https://speich.test">
+        <fileTransfer rootFolder="/var/www/html/speich.net" accessType="SFTP" host="192.168.1.52" port="22" sshConfigId="e3c3e14e-11d2-49f7-9a47-7376b31e9801" sshConfig="developer@192.168.1.52:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
