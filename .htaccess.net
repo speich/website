@@ -1,16 +1,15 @@
 RewriteEngine On
-# RewriteCond %{HTTPS} =off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
-
-#Header Strict-Transport-Security: max-age=10886400; includeSubDomains; preload
+AddHandler application/x-httpd-php80 .php
+Header Strict-Transport-Security: max-age=10886400; includeSubDomains; preload
 
 DirectoryIndex index.php index.html index.htm default.php
+
 Redirect 301 /computer/visualization.php https://www.speich.net/articles/visualization.php
 Redirect 301 /computer/3d.php https://www.speich.net/projects/programming/3d.php
 Redirect 301 /computer/moztesting/3d.htm https://www.speich.net/projects/programming/3d.htm
 Redirect 301 /computer/moztesting.php https://www.speich.net/projects/programming/3d.htm
 Redirect 301 /computer/artikel/integration-phpdocumentor-eclipse-en.php https://www.speich.net/articles/?p=8
 Redirect 301 /birds/fotos.php https://www.speich.net/photo/photodb/photo.php?theme=1
-RewriteRule ^/(.*)$ /photo/photodb/photo.php$1 [L]
 
-AddHandler application/x-httpd-php73 .php
+RewriteCond %{HTTP_HOST} ^(f|ph)oto.speich.net$ [NC]
+RewriteRule ^(.*) https://www.speich.net/photo/photodb/photo.php [R=301,L]
