@@ -27,12 +27,12 @@
 </ul>
 <h3>Projekte:</h3>
 <ul class="main">
-<li>Webapplikation: <a href="https://www.sciencedirect.com/science/article/pii/S016816991630792X" target="_blank">The data storage and analysis system of the Swiss National Forest Inventory</a><br>
+<li>Webapplikation: <a href="https://doi.org/10.1016/j.compag.2016.11.016" target="_blank">The data storage and analysis system of the Swiss National Forest Inventory</a><br>
 Computers and Electronics in Agriculture Volume 132</li>
 <li>Webapplikation <a href="https://www.lfi.ch/resultate/anleitung.php" target="_blank">interaktive Abfrage zu Ergebnissen</a> (Tabellen und Karten) des Schweizerischen Landesforstinventars LFI</li>
 <li>Website <a href="https://www.lfi.ch" target="_blank">Schweizerisches Landesforstinventar</a></li>
-<li>Website mit Bilddatenbank des <a href="http://www.forstmuseum.ch" target="_blank">Förderverein Forstmuseum Ballenberg</a></li>
-<li>Fotografie und Layout <a href="https://www.lfi.ch/publikationen/publ/kalender/LFI_Kalender_2018_de.pdf" target="_blank">LFI-Kalender</a> und <a href="http://www.lfi.ch/publikationen/publ_lfiinfo.php" target="_blank">LFI info</a> (eingestellt)</li>
+<li>Website mit Bilddatenbank des <a href="https://www.forstmuseum.ch" target="_blank">Förderverein Forstmuseum Ballenberg</a></li>
+<li>Fotografie und Layout <a href="https://www.lfi.ch/publikationen/publ/kalender/LFI_Kalender_2018_de.pdf" target="_blank">LFI-Kalender</a> und <a href="https://www.lfi.ch/publikationen/publ_lfiinfo.php" target="_blank">LFI info</a> (eingestellt)</li>
 </ul></td>
 </tr>
 <tr>
@@ -46,14 +46,14 @@ Computers and Electronics in Agriculture Volume 132</li>
 </ul>
 <h3>Projekt:</h3>
 <ul class="main">
-<li>E-learning Platform <a href="http://www.gitta.info" target="_blank">GITTA</a> (Geographic Information Technology Training Alliance)</li>
+<li>E-learning Platform <a href="https://www.gitta.info" target="_blank">GITTA</a> (Geographic Information Technology Training Alliance)</li>
 </ul></td>
 </tr>
 <tr> 
 <td>08.1998—05.2003</td>
 <td></td>
 <td><p><strong>IT Consultant</strong><br>
-	Webentwickler <a href="http://www.vectoris.ch/" target="_blank">Vectoris AG</a>, Basel</p>
+	Webentwickler <a href="https://www.vectoris.ch/" target="_blank">Vectoris AG</a>, Basel</p>
 <h3>Aufgaben:</h3>
 <ul class="main">
 <li>Webprogrammierung und Webdesign (JavaScript, CSS, HTML und Flash)</li>
@@ -73,7 +73,7 @@ Computers and Electronics in Agriculture Volume 132</li>
 <td>1999</td>
 <td></td>
 <td><p><strong>Vertretung</strong> Bildarchiv<br>
-	<a href="http://www.beat-ernst-basel.ch/" target="_blank">Beat Ernst</a>, Basel</p>
+	<a href="https://www.beat-ernst-basel.ch/" target="_blank">Beat Ernst</a>, Basel</p>
 <h3>Aufgaben (Teilzeit):</h3>
 <ul class="main">
 <li>Betreuung Bildarchiv Nutzpflanzen infolge Ferienabwesenheit</li>
@@ -81,7 +81,7 @@ Computers and Electronics in Agriculture Volume 132</li>
 </ul>
 <h3>Projekte:</h3>
 <ul class="main">
-<li>Digitale Bildbearbeitung für Multimediaprogramm &quot;<a href="http://www.christoph-merian-verlag.ch/buecher/detail.cfm?ObjectID=3A9F99BA-FEF4-F4E1-0FE0345F6E1A58B4" target="_blank">Natur und Landschaft
+<li>Digitale Bildbearbeitung für Multimediaprogramm &quot;<a href="https://www.regionatur.ch" target="_blank">Natur und Landschaft
 der Region Basel</a>&quot;</li>
 </ul></td>
 </tr>
@@ -89,14 +89,14 @@ der Region Basel</a>&quot;</li>
 <td>05.1998—07.1998</td>
 <td></td>
 <td><p><strong>Biologe</strong><br>
-	Wissenschaftlicher Mitarbeiter <a href="http://www.vogelwarte.ch/" target="_blank">Schweizerische Vogelwarte</a>, Sempach.</p>
+	Wissenschaftlicher Mitarbeiter <a href="https://www.vogelwarte.ch/" target="_blank">Schweizerische Vogelwarte</a>, Sempach.</p>
 <h3>Aufgaben:</h3>
 <ul class="main">
 <li>Bearbeitung und Auswertung von digitalen Radardaten</li>
 </ul>
 <h3>Projekt:</h3>
 <ul class="main">
-<li><a href="http://www.vogelwarte.ch/de/projekte/vogelzug/radarornithologie.html" target="_blank">Radar-Zugforschung</a> im Mittelmeerraum</li>
+<li><a href="https://www.vogelwarte.ch/de/projekte/vogelzug/radarornithologie.html" target="_blank">Radar-Zugforschung</a> im Mittelmeerraum</li>
 </ul></td>
 </tr>
 <tr> 
@@ -121,17 +121,17 @@ Teilzeit während dem Gymnasium</p></td>
 <tr>
 <td>11.2005</td>
 <td></td>
-<td>Anwendungsorientiertes Programmieren für GIS (ArcGIS) <a href="http://www.geoit.ethz.ch/" target="_blank">GeoIT ETH Zürich</a>, Hönggerberg</td>
+<td>Anwendungsorientiertes Programmieren für GIS (ArcGIS) <a href="https://baug.ethz.ch/" target="_blank">GeoIT ETH Zürich</a>, Hönggerberg</td>
 </tr>
 <tr>
 <td>11.2003—04.2004</td>
 <td></td>
-<td>Nachdiplomkurs räumliche Informationssysteme <a href="http://www.igp.ethz.ch/" target="_blank">igp ETH Zürich</a>, Hönggerberg</td>
+<td>Nachdiplomkurs räumliche Informationssysteme <a href="https://baug.ethz.ch/" target="_blank">igp ETH Zürich</a>, Hönggerberg</td>
 </tr>
 <tr> 
 <td>11.1993—10.1999</td>
 <td></td>
-<td><p>Dipl. Biologe <a href="http://www.unibas.ch/" target="_blank">Universität Basel</a>, Basel<br>
+<td><p>Dipl. Biologe <a href="https://www.unibas.ch/" target="_blank">Universität Basel</a>, Basel<br>
 Studium der Zoologie, Evolution und Ökologie sowie wissenschaftlicher Fotografie</p>
 <h3>Diplomarbeit:</h3>
 <ul class="main">
@@ -143,7 +143,7 @@ Mediterranean Sea Studied by Radar</a> bei Prof. Bruno Bruderer</li>
 <tr> 
 <td>1984—1992</td>
 <td></td>
-<td>Matura Typus B <a href="http://www.gyml.unibas.ch/" target="_blank">Gymnasium am Kohlenberg</a>, Basel</td>
+<td>Matura Typus B <a href="https://www.gymnasium-leonhard.ch/" target="_blank">Gymnasium am Kohlenberg</a>, Basel</td>
 </tr>
 </table>
 <p>Weitere Details auf Anfrage</p>

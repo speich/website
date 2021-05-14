@@ -28,11 +28,11 @@
 </ul>
 <h3>Projects:</h3>
 <ul class="main">
-<li>Web application: <a href="http://www.sciencedirect.com/science/article/pii/S016816991630792X" target="_blank">The data storage and analysis system of the Swiss National Forest Inventory</a><br>
+<li>Web application: <a href="https://doi.org/10.1016/j.compag.2016.11.016" target="_blank">The data storage and analysis system of the Swiss National Forest Inventory</a><br>
 Computers and Electronics in Agriculture Volume 132</li>
 <li>Web application to <a href="https://www.lfi.ch/resultate/anleitung-en.php" target="_blank">query and display results</a> (tables and maps) of the Swiss NFI</li>
-<li>Website of the <a href="https://www.lfi.ch/index.en.php" target="_blank">Swiss National Forest Inventory</a></li>
-<li>Website with photo archive of the <a href="http://www.forstmuseum.ch" target="_blank">Förderverein Forstmuseum Ballenberg</a></li>
+<li>Website of the <a href="https://www.lfi.ch/index-en.php" target="_blank">Swiss National Forest Inventory</a></li>
+<li>Website with photo archive of the <a href="https://www.forstmuseum.ch" target="_blank">Förderverein Forstmuseum Ballenberg</a></li>
 <li>Photography and design of <a href="https://www.lfi.ch/publikationen/publ/kalender/LFI_Kalender_2018_de.pdf" target="_blank">NFI-calendar</a></li>
 <li>Redaction of <a href="https://www.lfi.ch/publikationen/publ_lfiinfo.php" target="_blank">LFI info</a> (discontinued)</li>
 </ul></td>
@@ -48,7 +48,7 @@ Computers and Electronics in Agriculture Volume 132</li>
 </ul>
 <h3>Projects:</h3>
 <ul class="main">
-<li>Chapter for e-learning platform <a href="http://www.gitta.info" target="_blank">GITTA</a> (Geographic Information Technology Training Alliance)</li>
+<li>Chapter for e-learning platform <a href="https://www.gitta.info" target="_blank">GITTA</a> (Geographic Information Technology Training Alliance)</li>
 </ul></td>
 </tr>
 </table>

@@ -1,4 +1,4 @@
-<?php require_once '../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
@@ -13,12 +13,11 @@
 	auf Englisch verfügbar (<a href="diplomarbeit.pdf">Diplomarbeit</a>, pdf 1.6 MB).</p>
 <h2>Temporal and Spatial Pattern of Nocturnal Bird Migration across the Western
 	Mediterranean Sea Studied by Radar</h2>
-<p><strong>General Introduction</strong></p>
-<p>
-	<figure><img src="images/bruchwasserlaeufer.jpg" alt="Foto eines Bruchwasserläufers">
-		<figcaption>Bruchwasserläufer <span class="spec">(Tringa glareola)</span>, Nikon F90x</figcaption>
-	</figure>
-	Migratory
+<figure><img src="images/bruchwasserlaeufer.jpg" alt="Foto eines Bruchwasserläufers">
+	<figcaption>Bruchwasserläufer <span class="spec">(Tringa glareola)</span>, Nikon F90x</figcaption>
+</figure>
+<h3><strong>General Introduction</strong></h3>
+<p>Migratory
 	birds have to cross or circumvent two vast areas, the Sahara Desert and the Mediterreanean
 	Sea, during their migratory journey between their breeding areas in Europe and
 	their wintering areas in Africa. A lot of day migrants such as raptors, herons
@@ -38,8 +37,8 @@
 	It was argued that at least some of the birds maintained their temporal pattern
 	of flying by night and resting during the day even over a large ecological barrier
 	such as the Sahara (Biebach et al. 1986, Bairlein 1988). </p>
-<p>Therefore, the <a href="http://www.vogelwarte.ch">Swiss Ornithological
-		Institute</a> carried out a study supported by the <a href="http://www.snf.ch/">Swiss
+<p>Therefore, the <a href="https://www.vogelwarte.ch" target="_blank">Swiss Ornithological
+		Institute</a> carried out a study supported by the <a href="https://www.snf.ch/" target="_blank">Swiss
 		National Science Foundation</a>, where bird migration across the western Mediterranean
 	was investigated in autumn 1996 and spring 1997. The aim of this study was to
 	find out if the the migratory stream occurs over a broad front across the Mediterranean
