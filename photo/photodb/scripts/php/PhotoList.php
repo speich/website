@@ -24,11 +24,11 @@ class PhotoList
     public const NUMPERPAGE_HIGH = 56;
     public const NUMPERPAGE_VERYHIGH = 112;
 
-    /** @var PDO */
-    private $db;
+    /** @var PDO|PhotoDb */
+    private PDO|PhotoDb $db;
 
-    /** @var PDO */
-    private $cnn;
+    /** @var PDO|null */
+    private ?PDO $cnn;
 
     /**
      * @param PhotoDb $db
@@ -59,7 +59,7 @@ class PhotoList
      * @param SqlPhotoList $sql
      * @return int|bool number of records or false
      */
-    public function getNumRec(SqlPhotoList $sql)
+    public function getNumRec(SqlPhotoList $sql): bool|int
     {
         $strSql = $sql->getNumRecord();
         $stmt = $this->cnn->prepare($strSql);
@@ -79,7 +79,7 @@ class PhotoList
      * @param array $i18n
      * @return string HTML
      */
-    public function renderData($photos, $web, $lang, $i18n): string
+    public function renderData(array $photos, Website $web, Language $lang, array $i18n): string
     {
         $str = '';
         $css = '';
@@ -153,7 +153,7 @@ class PhotoList
      * @param $text
      * @return string|string[]|null
      */
-    public function renderDescLinks($text)
+    public function renderDescLinks($text): array|string|null
     {
         return preg_replace_callback(
             '/\[(.*?)\]\((.*?)\)/',
