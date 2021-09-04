@@ -41,5 +41,9 @@
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
+    <enabled-global>
+      <option value="Terser (JavaScript Minifier)" />
+      <option value="CSSO (CSS Optimizer)" />
+    </enabled-global>
   </component>
 </project>
