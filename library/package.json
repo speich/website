@@ -13,15 +13,16 @@
 		"dojo": "1.x",
 		"dojox": "1.x",
 		"photoswipe": "4.x",
-		"put-selector": "^0.3.6",
+		"prismjs": "^1.x",
+		"put-selector": "^0.3",
 		"tinyamd": "https://github.com/speich/tinyamd",
-		"xstyle": "^0.3.3"
+		"xstyle": "^0.3"
 	},
 	"devDependencies": {
 		"copyfiles": "2.x",
 		"csso-cli": "3.x",
 		"rimraf": "3.x",
-		"uglifyjs-folder": "2.x"
+		"uglifyjs-folder": "3.x"
 	},
 	"scripts": {
 		"dialog-confirm:build": "cp node_modules/dialog-confirm/DialogConfirm.js speich.net/DialogConfirm/DialogConfirm.js && uglifyjs-folder speich.net/DialogConfirm -eo speich.net/DialogConfirm -x .js",
@@ -50,6 +51,11 @@
 		"photoswipe:copy": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && copyfiles -u 3 \"node_modules/photoswipe/dist/**/*\" photoswipe/$VERSION",
 		"photoswipe:css": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && csso photoswipe/$VERSION/photoswipe.css -o photoswipe/$VERSION/photoswipe.min.css && csso photoswipe/$VERSION/default-skin/default-skin.css -o photoswipe/$VERSION/default-skin/default-skin.min.css",
 		"photoswipe:build": "npm run photoswipe:del && npm run photoswipe:copy && npm run photoswipe:css",
+		"prismjs:del": "VERSION=$(node -p \"require('prismjs/package.json').version\") && rimraf prismjs/$VERSION",
+		"prismjs:copy": "VERSION=$(node -p \"require('prismjs/package.json').version\") && copyfiles -u 2 \"node_modules/prismjs/**/*\" prismjs/$VERSION",
+		"prismjs:js": "VERSION=$(node -p \"require('prismjs/package.json').version\") && terser prismjs/$VERSION/prism.js -o prismjs/$VERSION/prism.min.js",
+		"prismjs:css": "VERSION=$(node -p \"require('prismjs/package.json').version\") && csso prismjs/$VERSION/themes/prism.css -o prismjs/$VERSION/themes/prism.min.css",
+		"prismjs:build": "npm run prismjs:del && npm run prismjs:copy && npm run prismjs:js && npm run prismjs:css",
 		"put-selector:build": "VERSION=$(node -p \"require('put-selector/package.json').version\") && copyfiles -u 2 node_modules/put-selector/LICENSE node_modules/put-selector/package.json put-selector/$VERSION && terser node_modules/put-selector/put.js -mc -o put-selector/$VERSION/put.js",
 		"xstyle:del": "VERSION=$(node -p \"require('xstyle/package.json').version\") && rimraf xstyle/$VERSION",
 		"xstyle:copy": "VERSION=$(node -p \"require('xstyle/package.json').version\") && copyfiles -u 2 -e **/build/** 'node_modules/xstyle/**/*' xstyle/$VERSION",
@@ -60,6 +66,6 @@
 		"typeahead:copy": "VERSION=$(node -p \"require('corejs-typeahead/package.json').version\") && copyfiles -u 2 \"node_modules/corejs-typeahead/dist/*\" typeahead/$VERSION",
 		"typeahead:build": "npm run typeahead:del && npm run typeahead:copy",
 		"cleanup": "rimraf node_modules",
-		"build:keep": "npm run dialog-confirm:build && npm run dgrid:build && npm run dojo:build && npm run dijit:build && npm run dojox:build && npm run markerclustererplus:build && npm run photoswipe:build && npm run put-selector:build && npm run xstyle:build && npm run tinyamd:build && npm run typeahead:build"
+		"build:keep": "npm run dialog-confirm:build && npm run dgrid:build && npm run dojo:build && npm run dijit:build && npm run dojox:build && npm run markerclustererplus:build && npm run photoswipe:build && npm run prismjs:build && npm run put-selector:build && npm run xstyle:build && npm run tinyamd:build && npm run typeahead:build"
 	}
 }
