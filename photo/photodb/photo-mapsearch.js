@@ -1,5 +1,5 @@
 import { GoogleMapLoader } from '../../scripts/js/GoogleMapLoader.min.js';
-import MarkerClusterer from '../../library/markerclustererplus/5.0.4/dist/markerclustererplus.esm.min.js';
+import MarkerClusterer from '../../library/markerclustererplus/1.2.0/dist/index.esm.min.js';
 import { key } from '../../library/GoogleMapKey.js';
 
 let gmaps, mapApp, d = document,
@@ -27,7 +27,7 @@ mapApp = {
   mapDiv: byId('map-canvas'),
   mcOptions: {
     maxZoom: 11,
-    imagePath: '../../library/markerclustererplus/5.0.4/dist/' + MarkerClusterer.IMAGE_PATH
+    imagePath: '../../library/markerclustererplus/1.2.0/dist/' + MarkerClusterer.IMAGE_PATH
   },
   clusterer: null,
 

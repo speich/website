@@ -5,7 +5,7 @@
 	"repository": "github:speich/website",
 	"version": "0.1.0",
 	"dependencies": {
-		"@google/markerclustererplus": "5.x",
+		"@googlemaps/markerclustererplus": "^1.2.0",
 		"corejs-typeahead": "1.x",
 		"dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
 		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
@@ -13,16 +13,16 @@
 		"dojo": "1.x",
 		"dojox": "1.x",
 		"photoswipe": "4.x",
-		"prismjs": "^1.x",
+		"prismjs": "^1.24.1",
 		"put-selector": "^0.3",
 		"tinyamd": "https://github.com/speich/tinyamd",
 		"xstyle": "^0.3"
 	},
 	"devDependencies": {
-		"copyfiles": "2.x",
-		"csso-cli": "3.x",
-		"rimraf": "3.x",
-		"uglifyjs-folder": "3.x"
+		"copyfiles": "^2.4.1",
+		"csso-cli": "^3.0.0",
+		"rimraf": "^3.0.2",
+		"uglifyjs-folder": "^3.0.0"
 	},
 	"scripts": {
 		"dialog-confirm:build": "cp node_modules/dialog-confirm/DialogConfirm.js speich.net/DialogConfirm/DialogConfirm.js && uglifyjs-folder speich.net/DialogConfirm -eo speich.net/DialogConfirm -x .js",
@@ -43,9 +43,9 @@
 		"dojox:copy": "VERSION=$(node -p \"require('dojox/package.json').version\") && copyfiles -u 2 -e \"**/tests/**\" -e \"**/tests/**\" \"node_modules/dojox/**/*\" dojo/$VERSION/dojox",
 		"dojox:js": "VERSION=$(node -p \"require('dojox/package.json').version\") && uglifyjs-folder dojo/$VERSION/dojox -eo dojo/$VERSION/dojox -x .js",
 		"dojox:build": "npm run dojox:del && npm run dojox:copy && npm run dojox:js",
-		"markerclustererplus:del": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && rimraf markerclustererplus/$VERSION",
-		"markerclustererplus:copy": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && copyfiles -u 3 \"node_modules/@google/markerclustererplus/dist/*.js\" \"node_modules/@google/markerclustererplus/images/*\" markerclustererplus/$VERSION",
-		"markerclustererplus:js": "VERSION=$(node -p \"require('@google/markerclustererplus/package.json').version\") && uglifyjs-folder markerclustererplus/$VERSION -eo markerclustererplus/$VERSION -x .min.js",
+		"markerclustererplus:del": "VERSION=$(node -p \"require('@googlemaps/markerclustererplus/package.json').version\") && rimraf markerclustererplus/$VERSION",
+		"markerclustererplus:copy": "VERSION=$(node -p \"require('@googlemaps/markerclustererplus/package.json').version\") && copyfiles -u 3 \"node_modules/@googlemaps/markerclustererplus/dist/*.*\" \"node_modules/@googlemaps/markerclustererplus/images/*\" markerclustererplus/$VERSION",
+		"markerclustererplus:js": "VERSION=$(node -p \"require('@googlemaps/markerclustererplus/package.json').version\") && uglifyjs-folder markerclustererplus/$VERSION -eo markerclustererplus/$VERSION -x .min.js",
 		"markerclustererplus:build": "npm run markerclustererplus:del && npm run markerclustererplus:copy && npm run markerclustererplus:js",
 		"photoswipe:del": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && rimraf photoswipe/$VERSION",
 		"photoswipe:copy": "VERSION=$(node -p \"require('photoswipe/package.json').version\") && copyfiles -u 3 \"node_modules/photoswipe/dist/**/*\" photoswipe/$VERSION",
