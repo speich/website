@@ -1,6 +1,5 @@
 RewriteEngine On
 AddHandler application/x-httpd-php80 .php
-Header Strict-Transport-Security: max-age=10886400; includeSubDomains; preload
 
 DirectoryIndex index.php index.html index.htm default.php
 
