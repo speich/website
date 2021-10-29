@@ -26,7 +26,6 @@ $web->pageTitle = 'Simon Speich - '.$windowTitle;
 
 require_once __DIR__.'/../../layout/inc_nav.php';
 
-header('Strict-Transport-Security: max-age=63072000; includeSubdomains; preload');
 $head = new Head($web->getWebRoot());
 $bodyStart = new BodyStart($web->getWebRoot(), $language);
 $bodyEnd = new BodyEnd($web, $language);

@@ -1,7 +1,20 @@
 RewriteEngine On
+
+# ensure https
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# ensure www., hsts requires this to be done after https
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L,E=HTTPS:1]
+
+# set hsts header
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+# required for cyon hosting
 AddHandler application/x-httpd-php80 .php
 
-DirectoryIndex index.php index.html index.htm default.php
+DirectoryIndex index.php index.html index.htm
 
 Redirect 301 /computer/visualization.php https://www.speich.net/articles/visualization.php
 Redirect 301 /computer/3d.php https://www.speich.net/projects/programming/3d.php
