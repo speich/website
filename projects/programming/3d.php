@@ -7,7 +7,7 @@ $sideNav->arrItem[1]->setActive();
 <head>
     <title><?php echo $web->pageTitle; ?>: 3D(HTML) cube in pure JavaScript</title>
     <?php echo $head->render(); ?>
-    <script src="./3d.js" type="text/javascript"></script>
+    <script src="./3d.min.js" type="text/javascript"></script>
     <link href="3d.min.css" rel="stylesheet">
 </head>
 
