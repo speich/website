@@ -1,0 +1,28 @@
+#viewAreaCont {
+    position: relative;
+    min-width: 300px;
+    min-height: 300px;
+}
+
+#viewArea {
+    position: absolute;
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.pixel {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 1px;
+    width: 1px;
+    border: 0;
+    background-color: #000000;
+    visibility: visible;
+    overflow: hidden;
+}
