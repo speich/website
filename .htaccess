@@ -1,12 +1,8 @@
 RewriteEngine On
 
-# ensure https
+# ensure https, be carefull that the rewrite does not messup subdomains suchs as photo.speich.net
 RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
-
-# ensure www., hsts requires this to be done after https
-RewriteCond %{HTTP_HOST} !^www\.
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L,E=HTTPS:1]
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=301,L]
 
 # set hsts header
 Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
