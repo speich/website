@@ -9,7 +9,7 @@
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Contact</h1>
-<figure class="photoContainer"><img src="guyana-simon2.jpg" alt="Photo of Simon Speich" title="Simon with 30mm in Action"
+<figure class="photoContainer"><img src="guyana-simon2.jpg" alt="Photo of Simon Speich" title="Simon with Nikon D800 and the AF-S 300mm/2.8 in Action"
 	class="imgFrame" style="background-image: url(guyana-simon2.jpg)">
 	<figcaption>Simon on a photo expedition to the
 		<a href="../articles/guyanas-wildlife-along-the-rewa-river/">rainforest of Guyana</a>.
