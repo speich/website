@@ -18,7 +18,7 @@ $language->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $language->autoSet();
 
 $web = new WebsiteSpeich();
-$web->setLastUpdate('2021-10-29');
+$web->setLastUpdate('2022-12-02');
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 $windowTitle = $language->get() === 'de' ? 'Fotografie und Webprogrammierung' : 'Photography and web programming';
