@@ -45,6 +45,18 @@ class SqlPhotoList extends SqlExtended
     private string $sort;  // note: only binding vars should be public
 
     /**
+     * Weights to be used for each column for the SCORE function.
+     * Order corresponds with the order in the virtual table Images_fts:
+     * ImgId, ImgFolder, ImgName, ImgTitle, ImgDesc, Theme, Country, Keywords, Locations, CommonName, ScientificName,
+     * Subject, ImgTitlePrefixes, ImgDescPrefixes, KeywordsPrefixes, CommonNamePrefixes.
+     *
+     * Note: Folder and file names are often locations. Weighing them too high, can lead to undesired results, such
+     * as searching for Winter (winter) and ending up with Winterthur!
+     * @var array
+     */
+    private array $colWeights = [2, 1, 1, 4, 2, 4, 1, 1, 1, 1, 1, 8, 1, 1, 1, 1];
+
+    /**
      * @inheritDoc
      */
     public function getList(): string
@@ -60,7 +72,7 @@ class SqlPhotoList extends SqlExtended
         if (isset($this->search)) {
             // @see https://sqlite.org/fts3.html#appendix_a as to why we should use a subquery
             $search = ' INNER JOIN (
-                    SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\'), \'10,8,9,5,2,1,1,1,1,6,8,1,2.5,1,0.5,4\') Rank 
+                    SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\'), \''.implode(',', $this->colWeights).'\') Rank 
                     FROM Images_fts
                     WHERE Images_fts MATCH :search
                     ORDER BY Rank DESC
