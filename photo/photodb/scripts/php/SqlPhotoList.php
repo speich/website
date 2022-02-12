@@ -54,7 +54,7 @@ class SqlPhotoList extends SqlExtended
      * as searching for Winter (winter) and ending up with Winterthur!
      * @var array
      */
-    private array $colWeights = [2, 1, 1, 4, 2, 4, 1, 1, 1, 1, 1, 8, 1, 1, 1, 1];
+    private array $colWeights = [2, 1, 1, 4, 2, 4, 1, 1, 1, 1, 1, 4, 0, 1, 1, 1, 1];
 
     /**
      * @inheritDoc
@@ -72,12 +72,12 @@ class SqlPhotoList extends SqlExtended
         if (isset($this->search)) {
             // @see https://sqlite.org/fts3.html#appendix_a as to why we should use a subquery
             $search = ' INNER JOIN (
-                    SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\'), \''.implode(',', $this->colWeights).'\') Rank 
-                    FROM Images_fts
-                    WHERE Images_fts MATCH :search
-                    ORDER BY Rank DESC
-                    LIMIT -1 OFFSET 0 
-                ) fts ON i.Id = fts.ImgId';
+                SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\'), \''.implode(',', $this->colWeights).'\', Rating - 1) Rank 
+                FROM Images_fts
+                WHERE Images_fts MATCH :search
+                ORDER BY Rank DESC
+                LIMIT -1 OFFSET 0 
+            ) fts ON i.Id = fts.ImgId';
         } else {
             $search = '';
         }

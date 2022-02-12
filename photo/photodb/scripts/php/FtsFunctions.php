@@ -64,7 +64,7 @@ class FtsFunctions
      * @param string $colWeights comma separated column weights
      * @return float|int
      */
-    public static function tfIdfWeighted(string $matchinfoOut, string $colWeights)
+    public static function tfIdfWeighted(string $matchinfoOut, string $colWeights, int $rating)
     {
         $arrInt32 = unpack('L*', $matchinfoOut);
         /** @var array $weights */
@@ -87,7 +87,7 @@ class FtsFunctions
             } elseif ($remainder === 2) {
                 $df = $int;   // document frequency
                 $idf = $df > 0 ? log10($numCols * $numRows / $df) : 0;
-                $score += $tf * $idf * $colWeight;
+                $score += $tf * $idf * $colWeight * $rating;
             }
         }
 
