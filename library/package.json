@@ -13,7 +13,7 @@
 		"dojo": "1.x",
 		"dojox": "1.x",
 		"photoswipe": "4.x",
-		"prismjs": "^1.25.0",
+		"prismjs": "^1.27.0",
 		"put-selector": "^0.3",
 		"tinyamd": "https://github.com/speich/tinyamd",
 		"xstyle": "^0.3"
