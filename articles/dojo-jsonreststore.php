@@ -98,7 +98,7 @@ else {
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with Dojo and PHP</title>
 <?php echo $head->render(); ?>
-<link href="../library/dojo/1.16.3/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.17.2/dijit/themes/soria/soria.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #log {
 	padding: 8px;
@@ -128,7 +128,7 @@ server response does not contain these previous changes (in this demo they are s
 <div id="log"></div>
 <p>Download the zipped demo file of part 1 <a href="downloads/dojo-jsonreststore.zip">dojo-jsonreststore.zip</a></p>
 <?php echo $bodyEnd->render(); ?>
-<script src="../library/dojo/1.16.3/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $language->get(); ?>'"></script>
+<script src="../library/dojo/1.17.2/dojo/dojo.js" dojo-data-config="async: true, locale: '<?php echo $locale = $language->get(); ?>'"></script>
 <script type="text/javascript">
 require([
 	'dojo/_base/lang',

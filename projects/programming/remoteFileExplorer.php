@@ -6,9 +6,9 @@ $sideNav->arrItem[1]->setActive();
 <head>
 <meta charset="UTF-8">
 <title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
-<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/document.css">
-<link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dijit/themes/claro/claro.css">
-<link rel="stylesheet" href="/library/dgrid/0.3.21/css/skins/claro.css">
+<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.2/dijit/themes/claro/document.css">
+<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.2/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="/library/dgrid/1.3.3/css/skins/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <style type="text/css">
@@ -32,8 +32,8 @@ $sideNav->arrItem[1]->setActive();
 <body class="claro rfe">
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>remoteFileExplorer - a Windows Explorer like web application</h1>
-<p>This is a running demo of a <a href="http://dojotoolkit.org/reference-guide/dijit/Tree.html" target="_blank">dijit tree</a>
-	combined with a <a href="http://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="http://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
+<p>This is a running demo of a <a href="https://dojotoolkit.org/reference-guide/dijit/Tree.html" target="_blank">dijit tree</a>
+	combined with a <a href="https://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="https://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
 <p>You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
 <div id="remoteFileExplorer"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
 <script type="text/javascript">
@@ -58,7 +58,7 @@ var dojoConfig = {
 	}
 };
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"></script>
+<script src="/library/dojo/1.17.2/dojo/dojo.js"></script>
 <script type="text/javascript">
 require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
 	ready(function() {

@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Teleobjektive</title>
 <?php echo $head->render(); ?>
-<link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.17.2/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/library/dgrid/0.3.21/css/skins/claro.css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">
 </head>
@@ -31,7 +31,7 @@
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: '../library/dojo/1.16.3/',
+	baseUrl: '../library/dojo/1.17.2/',
 	packages: [
 		{name: 'dojo', location: 'dojo'},
 		{name: 'dijit', location: 'dijit'},
@@ -43,7 +43,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="../library/dojo/1.16.3/dojo/dojo.js" type="text/javascript"></script>
+<script src="../library/dojo/1.17.2/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',

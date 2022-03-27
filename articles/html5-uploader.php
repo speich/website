@@ -4,7 +4,7 @@
 <head>
 <title>speich.net HTML5 demo: multiple file upload with drag and drop</title>
 <?php echo $head->render(); ?>
-<link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.17.2/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <link href="../library/speich.net/fileUploader/resources/uploader.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #dropTarget {
@@ -34,9 +34,9 @@ Works with Mozilla Firefox 3.6 and Google Chrome 7.</p>
 <form><input type="file" id="fldFiles" multiple></form>
 <p>Note: pause/resume only works with Firefox 4.</p>
 <p>Download the <a href="https://github.com/speich/fileUploader/" target="_blank">demo code from github</a> or <a href="http://www.speich.net/articles/?p=308#more-308">leave a comment</a>.</p>
-<script src="../library/dojo/1.16.3/dojo/dojo.js" type="text/javascript" data-dojo-config="async: true,
+<script src="../library/dojo/1.17.2/dojo/dojo.js" type="text/javascript" data-dojo-config="async: true,
 	locale: 'en-us',
-	baseUrl: '../library/dojo/1.16.3',
+	baseUrl: '../library/dojo/1.17.2',
 	packages: [
 		{ name: 'dojo', location: 'dojo' },
 		{ name: 'dijit', location: 'dijit' },

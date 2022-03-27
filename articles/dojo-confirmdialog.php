@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: dojo confirm dialog</title>
 <?php echo $head->render(); ?>
-<link href="../library/dojo/1.16.3/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+<link href="../library/dojo/1.17.2/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .dijitDialog {
 	width: 300px;
@@ -30,7 +30,7 @@ dialog or tick the checkbox and the remaining dialogs will be skipped.</p>
 <p id="startLink">Wait for dojo to load...</p>
 <p>For more information read my short article about the <a href="../articles/?p=291">DialogConfirm widget</a>
 or get the <a href="https://github.com/speich/dialogconfirm">code on github</a>.</p>
-<script src="../library/dojo/1.16.3/dojo/dojo.js" type="text/javascript" data-dojo-config="async: true,
+<script src="../library/dojo/1.17.2/dojo/dojo.js" type="text/javascript" data-dojo-config="async: true,
 	packages: [
 		{ 'name': 'speich', 'location': '/library/speich.net' }
 	]"></script>
