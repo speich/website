@@ -10,9 +10,9 @@
         </fileTransfer>
       </webServer>
       <webServer id="40588f55-b54e-402f-8e52-e131dc6fb578" name="speichne@speich.net" url="https://www.speich.net">
-        <fileTransfer rootFolder="/home/speichne/www" accessType="SFTP" host="speich.net" port="22" sshConfigId="293792cb-32af-47bc-bed6-5b50d40196a4" sshConfig="speichne@speich.net">
+        <fileTransfer rootFolder="/home/speichne/www" accessType="SFTP" host="speich.net" port="22" sshConfigId="293792cb-32af-47bc-bed6-5b50d40196a4" sshConfig="speichne@speich.net:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
