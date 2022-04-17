@@ -11,11 +11,12 @@
 <h1>Foto-Ausrüstung</h1>
 <figure class="photoContainer"><img src="images/guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit Nikon 300mm in Aktion"
 											class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">
-	<figcaption>Simon beim
-		Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> im Regenwald
-		von Guyana.
+	<figcaption>Simon beim Fotografieren eines <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.
 	</figcaption></figure>
 <h2>Kameras</h2>
+<ul class="main">
+<li>Nikon Z9 (27.12.2021)</li>
+</ul>
 <ul class="main">
 <li>Nikon D850 (19.04.2018)</li>
 <li>Nikon D500 (15.12.2016)</li>
@@ -24,6 +25,10 @@
 <li>Minox 35 GL </li>
 </ul>
 <h2>Objektive</h2>
+<ul class="main">
+<li>Nikon Z 70-200mm f/2.8 VR S (11.01.2022)</li>
+<li>Nikon Z 24mm f/1.8 S (11.01.2022)</li>
+</ul>
 <ul class="main">
 <li>Nikon 600mm f/4E FL ED VR (12.08.2015)</li>
 <li>Nikon 500mm f/5.6E PF ED VR 20.02.2020</li>
@@ -39,10 +44,13 @@
 </ul>
 <h2>Zubehör</h2>
 <ul class="main">
-<li>Schwenkkopf <a href="http://www.jobu-design.com/Jobu-Heavy-Duty-MK-IV_p_126.html" target="_blank">Jobu Heavy Duty MK IV</a><br>
+<li>Nikon FTZ II Objektivadapter (01.12.2021)</li>
+</ul>
+<ul class="main">
+<li>Schwenkkopf <a href="https://www.jobu-design.com/product-page/jobu-heavy-duty-mk-iv" target="_blank">Jobu Heavy Duty MK IV</a><br>
 Weitere Informationen <a href="/articles/en/2016/04/23/replacement-foot-for-the-nikon-600mm-fl/">Gimbal and replacement foot for the Nikon 600mm FL/</a></li>
-<li>Kugelkopf <a href="http://www.reallyrightstuff.com/Heads/Ballheads/BH-55-Full-Size-Ballhead" target="_blank">Really Right Stuff BH-55 LR</a> (21.06.2008)</li>
-<li>Kugelkopf <a href="http://www.reallyrightstuff.com/Heads/Ballheads/BH-30-Compact-Ballhead" target="_blank">Really Right Stuff BH-30-LR</a> (23.06.2012)</li>
+<li>Kugelkopf <a href="https://www.reallyrightstuff.com/bh55-ball-head" target="_blank">Really Right Stuff BH-55 LR</a> (21.06.2008)</li>
+<li>Kugelkopf <a href="https://www.reallyrightstuff.com/bh30-ball-head" target="_blank">Really Right Stuff BH-30-LR</a> (23.06.2012)</li>
 <li>Stativ <a href="https://www.manfrotto.us/gitzo/tripods/systematic" target="_blank">Gitzo GT5541LS</a> (22.07.2008)</li>
 <li>Stativ <a href="https://www.manfrotto.us/gitzo/tripods/systematic" target="_blank">Gitzo GT4552TS</a> (22.10.2012)</li>
 <li>Stativ <a href="https://www.manfrotto.us/gitzo/tripods/systematic" target="_blank">Gitzo GT3541LS</a> (10.11.2008)</li>
@@ -51,7 +59,7 @@ Weitere Informationen <a href="/articles/en/2013/11/23/comparison-of-nikon-300mm
 <li>GPS <a href="http://di-gps.com/shop/di-GPS-Eco-ProFessional-M-PF1-M" target="_blank">Dawntec di-GPS Eco ProF M</a> (07.2014)</li>
 <li>Solar panel <a href="http://www.sistech.com/products-9171-0/default.asp" target="_blank">CHEPRE 18V/18Wp</a> by SIStech (18.08.2012)<br>
 Weitere Informationen <a href="/articles/en/2012/11/25/how-to-recharge-your-camera-batteries-in-the-amazonian-jungle/">How to recharge your camera batteries in the Amazonian jungle</a></li>
-<li>Kameratasche <a href="http://www.tenba.com/Products/Vector-Top-Load-2-Krypton-Green.aspx" target="_blank">Tenba Vector Topload 2</a> (29.10.2012)</li>
+<li>Kameratasche <a href="https://www.tenba.com/" target="_blank">Tenba Vector Topload 2</a> (29.10.2012)</li>
 <li>Koffer <a href="http://www.peli.com/eu/en/product/watertight-storm-hard-cases/large-case/travel-case/iM2875/" target="_blank">Peli Storm Case iM2875</a> (14.09.2012)<br>
 Weitere Informationen <a href="/articles/en/2013/05/10/best-way-to-transport-your-photo-equipment-including-the-600mm-vr/">Best way to transport your photo equipment including a 600mm/f4 lens</a></li>
 <li>Dia-/Filmscanner <a href="http://www.nikon.ch/de_CH/product/discontinued/film-scanners/2009/super-coolscan-5000" target="_blank">Nikon Super Coolscan 5000ED</a> (28.05.2004)</li>
@@ -73,7 +81,7 @@ Weitere Informationen <a href="/articles/en/2013/05/10/best-way-to-transport-you
 <li>Teleconverter Nikon TC-14E II (20.10.2008)<br>
 <li>GPS Dawntec di-GPS Pro (17.06.2011)</li>
 <li>GPS Solmeta Geotagger N2 (23.05.2009–2011)</li>
-<li>Schwenkkopf von <a href="http://www.dietmar-nill.de/Stativkopf">Dietmar Nill</a></li>
+<li>Schwenkkopf von <a href="https://www.dietmar-nill.de/content/Stativkopf.html">Dietmar Nill</a></li>
 </ul>
 <?php echo $bodyEnd->render(); ?>
 </body>
