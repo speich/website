@@ -11,6 +11,13 @@
           </settings>
         </remote-mappings>
         <remote-mappings server-id="php@0f0da601-0ba2-475c-9d3d-c53da32c24b1" />
+        <remote-mappings server-id="php@9a585d33-8dd6-42a9-9808-9660b365103f">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/speich.net" />
+            </list>
+          </settings>
+        </remote-mappings>
       </list>
     </list>
   </component>
