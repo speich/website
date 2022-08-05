@@ -6,9 +6,9 @@ use speich\Layout\Head;
 use speich\WebsiteSpeich;
 use WebsiteTemplate\Language;
 
-
-
-date_default_timezone_set('Europe/Zurich');
+if (!str_contains($_SERVER['REQUEST_URI'], '/wp/')) {  // php needs to set this by itself
+    date_default_timezone_set('Europe/Zurich');
+}
 
 
 require_once __DIR__.'/../../library/vendor/autoload.php';
