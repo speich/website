@@ -15,7 +15,7 @@ require_once __DIR__.'/index_inc.php';
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Insights and views</h1>
-<h2>Simon Speich's website about photography and web programming</h2>
+<h2>Simon Speich's website about nature photography and web programming</h2>
 <figure><a href="<?php echo $url; ?>" title="random photo from the image database"><img class="imgFrame" src="<?php echo $src; ?>" alt="photo: <?php echo $photo->ImgTitle ?>" width="100%" height="100%"></a>
 	<figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
