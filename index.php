@@ -21,7 +21,7 @@ if ($language->get() !== $language->getDefault()) {
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
-<h1>Ein- und Aussichten</h1>
+<h1>Fotografische Ein- und Aussichten</h1>
 <h2>Website von Simon Speich über Naturfotografie und Webprogrammierung</h2>
 <figure><a href="<?php echo $url; ?>" title="zufällig gewähltes Foto aus der Bildatenbank"><img class="imgFrame" src="<?php echo $src; ?>" alt="Foto: <?php echo $photo->ImgTitle ?>" width="100%" height="100%"></a>
 <figcaption><?php echo $photo->ImgTitle; ?></figcaption>
