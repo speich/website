@@ -13,8 +13,8 @@ if ($language->get() !== $language->getDefault()) {
 <html lang="de-ch">
 <head>
 <title><?php echo $web->pageTitle; ?></title>
-<meta name="description" content="Website von Simon Speich über Fotografie und Webprogrammierung">
-<meta name="keywords" content="Simon Speich, Foto, Fotografie, Webprogrammierung, Bilddatenbank, dojo, dojotoolkit, JavaScript, PHP, Natur, Tiere, Vögel, Flora und Fauna">
+<meta name="description" content="Website von Simon Speich über Naturfotografie und Webprogrammierung">
+<meta name="keywords" content="Simon Speich, Naturfotografie, Foto, Fotografie, Webprogrammierung, Bilddatenbank, JavaScript, PHP, Natur, Tiere, Vögel, Flora und Fauna">
 <?php echo $head->render(); ?>
 <link rel="stylesheet" href="index.css">
 </head>

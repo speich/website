@@ -6,8 +6,8 @@ require_once __DIR__.'/index_inc.php';
 <html lang="en-us">
 <head>
 <title><?php echo $web->pageTitle; ?></title>
-<meta name="description" content="Simon Speich's website about photography and web programming">
-<meta name="keywords" content="Simon Speich, photo, photography, web programming, photo archive, dojo, dojotoolkit, JavaScript, PHP, nature, animals, birds, wildlife">
+<meta name="description" content="Simon Speich's website about nature photography and web programming">
+<meta name="keywords" content="Simon Speich, nature photography, photo, photography, web programming, photo archive, JavaScript, PHP, nature, animals, birds, wildlife">
 <?php echo $head->render(); ?>
 <link rel="stylesheet" href="index.css">
 </head>
