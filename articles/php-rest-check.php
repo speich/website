@@ -111,7 +111,7 @@ if (array_key_exists('PATH_INFO', $_SERVER)) {
 	<p>Download the zipped demo file <a href="downloads/php-rest-check.zip">php-rest-check.zip</a></p>
   <?php echo $bodyEnd->render(); ?>
 	</body>
-	<script src="../library/dojo/1.17.2/dojo/dojo.js" data-dojo-config="async: true, locale: '<?php echo $locale = $language->get(); ?>'"></script>
+	<script src="../library/dojo/1.17.3/dojo/dojo.js" data-dojo-config="async: true, locale: '<?php echo $locale = $language->get(); ?>'"></script>
 	<script type="text/javascript">
 	require(['dojo/_base/lang', 'dojo/dom', 'dojo/request/xhr', 'dojo/on', 'dojo/query', 'dojo/io-query'], function(lang, dom, xhr, on, query, ioQuery) {
 		var demo = {

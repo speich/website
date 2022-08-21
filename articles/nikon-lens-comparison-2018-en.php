@@ -30,7 +30,7 @@
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: '../library/dojo/1.17.2/',
+	baseUrl: '../library/dojo/1.17.3/',
 	packages: [
 		{name: 'dojo', location: 'dojo'},
 		{name: 'dijit', location: 'dijit'},
@@ -44,7 +44,7 @@ var dojoConfig = {
 	]
 };
 </script>
-<script src="../library/dojo/1.17.2/dojo/dojo.js" type="text/javascript"></script>
+<script src="../library/dojo/1.17.3/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',

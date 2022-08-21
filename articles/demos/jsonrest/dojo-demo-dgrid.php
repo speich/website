@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
 <?php echo $head->render(); ?>
-<link href="../../../library/dojo/1.17.2/dijit/themes/claro/claro.css" rel="stylesheet"	type="text/css">
+<link href="../../../library/dojo/1.17.3/dijit/themes/claro/claro.css" rel="stylesheet"	type="text/css">
 <link rel="stylesheet" href="../../../library/dgrid/0.3.21/css/skins/claro.css">
 <link rel="stylesheet" href="dojo-demo-dgrid.css">
 </head>
@@ -40,7 +40,7 @@
 	  ]
  };
 </script>
-<script src="../../../library/dojo/1.17.2/dojo/dojo.js" type="text/javascript"></script>
+<script src="../../../library/dojo/1.17.3/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/when',

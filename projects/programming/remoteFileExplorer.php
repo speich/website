@@ -6,9 +6,8 @@ $sideNav->arrItem[1]->setActive();
 <head>
 <meta charset="UTF-8">
 <title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
-<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.2/dijit/themes/claro/document.css">
-<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.2/dijit/themes/claro/claro.css">
-<link rel="stylesheet" href="/library/dgrid/1.3.3/css/skins/claro.css">
+<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.3/dijit/themes/claro/document.css">
+<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.3/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <style type="text/css">
@@ -58,7 +57,7 @@ var dojoConfig = {
 	}
 };
 </script>
-<script src="/library/dojo/1.17.2/dojo/dojo.js"></script>
+<script src="/library/dojo/1.17.3/dojo/dojo.js"></script>
 <script type="text/javascript">
 require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
 	ready(function() {
