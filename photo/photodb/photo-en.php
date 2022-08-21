@@ -10,8 +10,7 @@ require_once __DIR__.'/photo_inc.php';
 <?php echo $head->render(); ?>
 <link href="photodb.min.css" rel="stylesheet" type="text/css">
 <link href="photo.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="../../library/photoswipe/4.1.3/photoswipe.css">
-<link rel="stylesheet" href="../../library/photoswipe/4.1.3/default-skin/default-skin.css">
+<link rel="stylesheet" href="../../library/photoswipe/5.3.0/photoswipe.css">
 </head>
 
 <body>

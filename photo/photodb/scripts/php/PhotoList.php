@@ -96,7 +96,6 @@ class PhotoList
             $imgFile = $web->getWebRoot().$this->db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
             $imgSize = getimagesize(__DIR__.'/../../../..'.$web->getWebRoot().$this->db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
             $imgTitle = $row['imgTitle'];
-            $imgData = htmlspecialchars('{"w":'.$imgSize[0].',"h":'.$imgSize[1].'}', ENT_COMPAT, $web->charset);
             $link = str_replace('thumbs/', '', $imgFile);
             $detailLink = $lang->createPage('photo-detail.php').$query->withString(['imgId' => $row['imgId']]);
             if ($imgSize[0] > $imgSize[1]) {
@@ -111,8 +110,8 @@ class PhotoList
             }
 
             $str .= '<li class="slide">';
-            $str .= '<div class="slideCanvas '.$css.'" data-slide="'.$imgData.'">';
-            $str .= '<a href="'.$link.'" title="'.$imgTitle.'">';
+            $str .= '<div class="slideCanvas '.$css.'">';
+            $str .= '<a href="'.$link.'" title="'.$imgTitle.'" data-pswp-width="'.$imgSize[0].'" data-pswp-height="'.$imgSize[1].'">';
             $str .= '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'">';
             $str .= '</a></div>';
             $title = $i18n['zoom photo'].': '.$imgTitle;
