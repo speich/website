@@ -3,6 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Contact | <?php echo $web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/contact/contact-en.php"/>
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/contact/contact.php"/>
 <?php echo $head->render(); ?>
 </head>
 

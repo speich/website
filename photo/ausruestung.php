@@ -8,6 +8,8 @@
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
+<link rel="alternate" hreflang="en" href="https://www.speich.net/photo/ausruestung-en.php"/>
+<link rel="alternate" hreflang="de" href="https://www.speich.net/photo/ausruestung.php"/>
 <h1>Foto-Ausrüstung</h1>
 <figure class="photoContainer"><img src="images/guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit Nikon 300mm in Aktion"
             class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">

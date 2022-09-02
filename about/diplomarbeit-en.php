@@ -3,6 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
 	<title>Temporal and Spatial Pattern of Nocturnal Bird Migration | <?php echo $web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/diplomarbeit-en.php"/>
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/diplomarbeit.php"/>
     <?php echo $head->render(); ?>
 </head>
 

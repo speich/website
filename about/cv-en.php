@@ -3,6 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
 <title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/cv-en.php"/>
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/cv.php"/>
 <?php echo $head->render(); ?>
 <link rel="stylesheet" href="cv.css">
 </head>

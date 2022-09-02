@@ -3,6 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Fotowettbewerbe | <?php echo $web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/auszeichnungen-en.php"/>
+        <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/auszeichnungen.php"/>
     <?php echo $head->render(); ?>
     <link rel="stylesheet" href="auszeichnungen.css">
 </head>

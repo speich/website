@@ -3,6 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Equipment | <?php echo $web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/ausruestung-en.php"/>
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/ausruestung.php"/>
     <?php echo $head->render(); ?>
 </head>
 
