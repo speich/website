@@ -1,8 +1,10 @@
 import PhotoSwipeLightbox from '../../library/photoswipe/5.3.0/photoswipe-lightbox.esm.js';
 
 const lightbox = new PhotoSwipeLightbox({
-  gallery: 'ul#slides li',
-	children: 'a',
+  gallery: '#slides',
+	children: '.slideCanvas a',
+  thumbSelector: 'a',
   pswpModule: () => import('../../library/photoswipe/5.3.0/photoswipe.esm.js')
 });
+
 lightbox.init();
