@@ -10,7 +10,7 @@ require_once __DIR__.'/photo_inc.php';
 <link href="photodb.min.css" rel="stylesheet" type="text/css">
 <link href="photo.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="../../library/photoswipe/5.3.0/photoswipe.css">
-<script src="photo.js" type="module"></script>
+<script src="photo.min.js" type="module"></script>
 </head>
 
 <body>
