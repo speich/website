@@ -12,7 +12,6 @@
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Simon Speich's Curriculum Vitae</h1>
-<p>For a more complete CV head over to the <a href="cv.php">German version</a>.</p>
 <table class="tblCv">
 <tr> 
 <td colspan="3" class="tdCvHead">Experience</td>
