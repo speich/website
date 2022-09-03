@@ -1,18 +1,17 @@
 <?php
-
 require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once __DIR__.'/photo_inc.php';
+$canonical = '?qual=0';
+$canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo.php"/>
+    <link rel="canonical" href="https://www.speich.net/photo/photodb/photo.php<?php echo $canonical; ?>"/>
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../library/photoswipe/5.3.0/photoswipe.css">
     <link rel="stylesheet" href="../../library/photoswipe/5.3.0/photoswipe.css">
     <script src="photo.min.js" type="module"></script>
 </head>
