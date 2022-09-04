@@ -19,8 +19,8 @@ require_once __DIR__.'/index_inc.php';
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photographic insights and perspectives</h1>
 <h2>Simon Speich's website about nature photography and web programming</h2>
-<figure><a href="<?php echo $url; ?>" title="random photo from the image database"><img class="imgFrame" src="<?php echo $src; ?>"
-                alt="photo: <?php echo $photo->ImgTitle ?>" width="100%" height="100%"></a>
+<figure><a href="<?php echo $url; ?>" title="random photo from the image database"><img class="imgFrame" src="<?php echo $photo->src; ?>"
+                alt="photo: <?php echo $photo->ImgTitle ?>" width="<?php echo $photo->size[0]; ?>" height="<?php echo $photo->size[1]; ?>"></a>
     <figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
 <p>Do you enjoy looking at beautiful, high-resolution photos of wildlife and nature, especially of <a href="photo/photodb/photo-en.php?theme=1">birds</a> and of

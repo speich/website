@@ -26,7 +26,7 @@ if ($language->get() !== $language->getDefault()) {
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Fotografische Ein- und Aussichten</h1>
 <h2>Website von Simon Speich über Naturfotografie und Webprogrammierung</h2>
-<figure><a href="<?php echo $url; ?>"><img class="imgFrame" src="<?php echo $src; ?>" alt="Foto: <?php echo $photo->ImgTitle ?>" width="100%" height="100%"></a>
+<figure><a href="<?php echo $url; ?>"><img class="imgFrame" src="<?php echo $photo->src; ?>" alt="Foto: <?php echo $photo->ImgTitle ?>" width="<?php echo $photo->size[0]; ?>" height="<?php echo $photo->size[1]; ?>"></a>
     <figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
 <p>Haben Sie Freude an schönen, hochaufgelösten Fotos von der Natur, insbesondere von <a href="photo/photodb/photo.php?theme=1">Vögeln</a> und

@@ -9,8 +9,9 @@ $sql = 'SELECT i.Id, i.ImgFolder, i.ImgName, i.ImgTitle FROM Images i
 $db->connect();
 $stmt = $db->db->query($sql);
 $photo = $stmt->fetchObject();
-$src = $db->getPath('img').$photo->ImgFolder.'/'.$photo->ImgName;
+$photo->src = $db->getPath('img').$photo->ImgFolder.'/'.$photo->ImgName;
 $url = '/photo/photodb/photo-detail.php?imgId='.$photo->Id;
+$photo->size = getimagesize($photo->src);
 
 // query number of bird species
 $sql = 'SELECT COUNT(ScientificNameId) numRec FROM (
