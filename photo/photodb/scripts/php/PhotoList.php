@@ -94,6 +94,7 @@ class PhotoList
         foreach ($photos as $row) {
             // get image dimensions
             $imgFile = $web->getWebRoot().$this->db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
+            $thumbSize = getimagesize(__DIR__.'/../../../..'.$imgFile);
             $imgSize = getimagesize(__DIR__.'/../../../..'.$web->getWebRoot().$this->db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
             $imgTitle = $row['imgTitle'];
             $link = str_replace('thumbs/', '', $imgFile);
@@ -112,7 +113,7 @@ class PhotoList
             $str .= '<li class="slide">';
             $str .= '<div class="slideCanvas '.$css.'">';
             $str .= '<a href="'.$link.'" title="'.$imgTitle.'" data-pswp-width="'.$imgSize[0].'" data-pswp-height="'.$imgSize[1].'">';
-            $str .= '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'">';
+            $str .= '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'">';
             $str .= '</a></div>';
             $title = $i18n['zoom photo'].': '.$imgTitle;
             $str .= '<div class="slideText"><a title="'.$title.'" href="'.$link.'">'.$i18n['zoom'].'</a> | ';
