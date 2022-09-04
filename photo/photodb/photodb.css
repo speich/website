@@ -50,7 +50,8 @@
 
 .slideHorizontal img {
 	max-width: 180px;
-	max-height: 120px;
+	height: auto;
+ 	aspect-ratio: attr(width) / attr(height);
 }
 
 .slideVertical {
@@ -59,8 +60,9 @@
 }
 
 .slideVertical img {
-	max-width: 120px;
+	width: auto;
 	max-height: 180px;
+ 	aspect-ratio: attr(width) / attr(height);
 }
 
 #slideFullScreenCont {
