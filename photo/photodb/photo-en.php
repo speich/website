@@ -24,7 +24,7 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
             <label class="visuallyHidden" for="q"><?php echo $i18n['search photos']; ?></label><input type="text" id="q" name="q"
                     value="<?php echo isset($_GET['q']) ? htmlentities($_GET['q'], ENT_QUOTES, $web->charset) : ''; ?>"
                     placeholder="<?php echo $i18n['search photos']; ?>">
-            <button type="submit">
+            <button type="submit" aria-label="search">
                 <svg class="icon">
                     <use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#magnifying-glass"></use>
                 </svg>
