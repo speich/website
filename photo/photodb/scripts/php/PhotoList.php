@@ -44,7 +44,7 @@ class PhotoList
      * @param SqlPhotoList $sql
      * @return array database records of photos or false
      */
-    public function loadPhotos(SqlPhotoList $sql): array
+    public function get(SqlPhotoList $sql): array
     {
         $strSql = $sql->getPaged();
         $stmt = $this->cnn->prepare($strSql);
@@ -79,7 +79,7 @@ class PhotoList
      * @param array $i18n
      * @return string HTML
      */
-    public function renderData(array $photos, Website $web, Language $lang, array $i18n): string
+    public function render(array $photos, Website $web, Language $lang, array $i18n): string
     {
         $str = '';
         $css = '';

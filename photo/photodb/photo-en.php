@@ -47,7 +47,7 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
     <?php echo $pagingBar; ?>
 </div>
 <div>
-    <ul id="slides"><?php echo $photo->renderData($photos, $web, $language, $i18n); ?></ul>
+    <ul id="slides"><?php echo $photoList->render($photos, $web, $language, $i18n); ?></ul>
 </div>
 <div class="toolbar">
     <div class="bar-cont"><?php echo $pagingBar ?></div>

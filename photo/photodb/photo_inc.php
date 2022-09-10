@@ -71,7 +71,7 @@ foreach ($arrVal as $key => $val) {
         $mRating->arrItem[$key]->setActive();
     }
 }
-$photo = new PhotoList($db);
+$photoList = new PhotoList($db);
 $sql = new SqlPhotoList();
 $sql->qual = $params->qual;
 $sql->theme = $params->theme;
@@ -85,11 +85,11 @@ if (isset($params->search)) {
     $words = SearchQuery::extractWords($search);
     $sql->search = SearchQuery::createQuery($words, $language->get());
 }
-$numRec = $photo->getNumRec($sql);
+$numRec = $photoList->getNumRec($sql);
 $sql->offset = $params->pg + $params->pg * $params->numPerPg;
 $sql->limit = $params->numPerPg;
 $sql->setSort($params->sort);
-$photos = $photo->loadPhotos($sql);
+$photos = $photoList->get($sql);
 $pagedNav = new PagedNav($numRec, $params->numPerPg);
 $pagedNav->cssClass = 'bar-item pgNav';
 $pagedNav->renderText = false;
