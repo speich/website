@@ -48,3 +48,7 @@
 .mRating {
     display: flex;
 }
+
+.license img {
+	margin-right: 0.5em;
+}

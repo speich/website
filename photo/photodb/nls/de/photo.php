@@ -22,6 +22,7 @@ return [
 	'keywords' => 'Stichwörter',
 	'last changed' => 'zuletzt geändert',
 	'lens' => 'Objektiv',
+    'license' => 'Lizenz',
 	'map' => 'Karte',
 	'model' => 'Model',
 	'name' => 'Name',

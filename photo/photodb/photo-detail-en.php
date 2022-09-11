@@ -15,7 +15,7 @@
 <body data-config="<?php echo $jsConfig; ?>">
 <?php
 echo $bodyStart->render($mainNav, $sideNav, $langNav);;
-$photoDetail->render($photo[0], $language, $i18n);
+$photoDetail->render($photo, $language, $i18n);
 echo $bodyEnd->render();
 ?>
 </body>

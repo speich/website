@@ -22,6 +22,7 @@ return [
 	'keywords' => 'keywords',
 	'last changed' => 'last changed',
 	'lens' => 'lens',
+    'license' => 'license',
 	'map' => 'map',
 	'model' => 'model',
 	'name' => 'name',
