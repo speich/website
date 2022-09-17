@@ -206,7 +206,7 @@ button.bar-item svg.icon, .mRating svg.icon:not(:first-child) {
 .bar-cont, .bar-paging, .bar-options,
 .bar-paging .pages, .frmSearch,
 .toolbar .bar-sep-vert, .toolbar label, .toolbar .bar-item,
-.bar-options a, .menu2 div {
+.bar-options a, .bar-item a, .menu2 div {
 	display: flex;
 }
 
