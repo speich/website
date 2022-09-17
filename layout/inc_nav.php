@@ -101,10 +101,6 @@ $arrPersonNav['en'] = [
 ];
 
 
-$sideNav = new Menu();
-$sideNav->cssClass = 'sideMenu';
-$sideNav->setAutoActiveMatching(3);
-
 $langNav = new LanguageMenu($language, $web);
 $langNav->useLabel = true;
 $langNav->setWhitelist($web->getWhitelistQueryString());
@@ -114,20 +110,21 @@ switch ($mainNav->getActive()) {
     case 1:
         // do not render side navigation on map page
         if ($language->createPage($web->page) !== $language->createPage('photo-mapsearch.php')) {
-            createSideMenuPhoto($web, $sideNav, $arrPhotoNav[$language->get()], $language);
+            $items = createSideMenuPhoto($web, $arrPhotoNav, $language);
         }
         break;
     case 3:
-        foreach ($arrProjectNav[$language->get()] as $item) {
-            $sideNav->add($item);
-        }
+        $items = $arrProjectNav[$language->get()];
         break;
     case 5:
-        foreach ($arrPersonNav[$language->get()] as $item) {
-            $sideNav->add($item);
-        }
+        $items = $arrPersonNav[$language->get()];
         break;
+    default:
+        $items = [];
 }
+$sideNav = new Menu($items);
+$sideNav->cssClass = 'sideMenu';
+$sideNav->setAutoActiveMatching(3);
 
 /**
  * Creates the side menu photography for the main menu.
@@ -136,13 +133,9 @@ switch ($mainNav->getActive()) {
  * @param array $menuItems
  * @param Language $lang
  */
-function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
+function createSideMenuPhoto($web, $menuItems, $lang)
 {
     // TODO: move to a (new) photo db class
-    foreach ($menuItems as $item) {
-        $sideNav->add($item);
-    }
-
     $db = new PhotoDb\PhotoDb($web->getWebRoot());
     $db->connect();
     $ucLang = ucfirst($lang->get());
@@ -173,22 +166,25 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
     // note: country and theme will be added back in loop
     $query = new QueryString($web->getWhitelistQueryString());
     $path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
+    $arrQueryDel = ['pg', 'numRec', 'lang', 'imgId', 'lat1', 'lng1', 'lat2', 'lng2', 'theme', 'country'];
     $lastMenuId = null;
+    $items = $menuItems[$lang->get()];
     $row = $themes->fetch(PDO::FETCH_ASSOC);
     while ($row) {
-        $arrQueryDel = ['pg', 'numRec', 'lang', 'imgId', 'lat1', 'lng1', 'lat2', 'lng2', 'theme', 'country'];
         // remove query variable of current db record from query string variables to delete
-        if (($key = array_search($row['queryField'], $arrQueryDel, true)) !== false) {
+        $key = array_search($row['queryField'], $arrQueryDel, true);
+        if ($key !== false) {
             unset($arrQueryDel[$key]);
         }
         $arrQueryAdd = [$row['queryField'] => $row['queryValue']];
         $link = $path.$query->withString($arrQueryAdd, $arrQueryDel);
+
         // main subject areas (parent menu)
         if ($row['menuId'] !== $lastMenuId) {
-            $sideNav->add([$row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link]);
+            $items[] = [$row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link];
         }
         // sub menu
-        $sideNav->add([$row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link]);
+        $items[] = [$row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link];
         $lastMenuId = $row['menuId'];
         $row = $themes->fetch(PDO::FETCH_ASSOC);
     }
@@ -205,4 +201,6 @@ function createSideMenuPhoto($web, $sideNav, $menuItems, $lang)
             $sideNav->arrItem[2]->setActive(false);
         }
     */
+
+    return $items;
 }
