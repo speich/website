@@ -5,39 +5,23 @@ $sideNav->arrItem[1]->setActive();
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<title><?php echo $web->pageTitle; ?>Remote File Explorer (rfe)</title>
-<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.3/dijit/themes/claro/document.css">
-<link rel="stylesheet" type="text/css" href="/library/dojo/1.17.3/dijit/themes/claro/claro.css">
+<title><?php echo 'Remote File Explorer (rfe)'; ?></title>
+<link rel="stylesheet" href="/library/dojo/1.17.3/dijit/themes/claro/document.css">
+<link rel="stylesheet" href="/library/dojo/1.17.3/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
-<style type="text/css">
-#remoteFileExplorer {
-	width: 782px;
-	height: 600px;
-	border: 1px solid #48B100;
-}
-.loading {
-	margin: 2em 3em;
-}
-
-.loading img {
-	vertical-align: middle;
-	margin-right: 0.5em;
-}
-</style>
+<link rel="stylesheet" href="/projects/programming/remoteFileExplorer.min.css">
 <?php echo $head->render(); ?>
 </head>
 
-<body class="claro rfe">
+<body class="rfe">
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>remoteFileExplorer - a Windows Explorer like web application</h1>
 <p>This is a running demo of a <a href="https://dojotoolkit.org/reference-guide/dijit/Tree.html" target="_blank">dijit tree</a>
 	combined with a <a href="https://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="https://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
 <p>You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
-<div id="remoteFileExplorer"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
-<script type="text/javascript">
-var dojoConfig = {
-	async: true,
+<div id="remoteFileExplorer" class="claro"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
+<script src="/library/dojo/1.17.3/dojo/dojo.js" data-dojo-config="async: true,
 	packages: [
 		{name: 'dgrid', location: '/library/dgrid/0.3.21'},
 		{name: 'xstyle', location: '/library/xstyle/0.3.3'},
@@ -54,21 +38,8 @@ var dojoConfig = {
 		'dojo/dnd': {
 			'dojo/dnd/Selector': 'rfe/dnd/Selector'
 		}
-	}
-};
-</script>
-<script src="/library/dojo/1.17.3/dojo/dojo.js"></script>
-<script type="text/javascript">
-require(['dojo/ready', 'rfe/FileExplorer'], function(ready, FileExplorer) {
-	ready(function() {
-		var rfe = new FileExplorer({
-			id: 'remoteFileExplorer',
-			origPageUrl: '/projects/programming/remoteFileExplorer.php'
-		});
-		rfe.startup();
-	});
-});
-</script>
+	}"></script>
+<script src="/projects/programming/remoteFileExplorer.min.js"></script>
 <?php echo $bodyEnd->render(); ?>
 </body>
 </html>
