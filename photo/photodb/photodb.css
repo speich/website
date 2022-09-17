@@ -1,262 +1,268 @@
+#slides {
+    line-height: 0;
+}
+
 .slide {
-	margin: 1px 10px 10px 1px;
-	display: inline-block;
-	line-height: 1;
+    position: relative;
+    margin: 0 8px 8px 0;
+    display: inline-block;
+    line-height: 1;
 }
 
 .slideCanvas {
-	border: 20px solid #f0f0f0;
-	border-radius: 5px;
-	box-shadow: 2px 2px 3px rgba(120, 120, 120, 0.5);
-	line-height: 0;
+    border: 20px solid #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(120, 120, 120, 0.5);
+    line-height: 0;
 }
 
 .slideCanvas a {
-	text-decoration: none;
-	line-height: 0;
-	display: block;
-	position: relative;
+    text-decoration: none;
+    line-height: 0;
+    display: block;
+    position: relative;
 }
 
 .slideCanvas a::before {
-	display: block;
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	box-shadow: inset 2px 2px 3px rgba(120, 120, 120, 0.5);
+    display: block;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 2px 2px 3px rgba(120, 120, 120, 0.5);
 }
 
 .slideCanvas img {
-	display: block;
-	cursor: pointer;
+    display: block;
+    cursor: pointer;
 }
 
 .slideText {
-	position: relative;
-	top: -1.4em;
-	left: 20px;
+    position: absolute;
+    width: 100%;
+    bottom: 0.25em;
+    text-align: center;
 }
 
 .slideText a, .slideText a:link {
-	font-size: 0.8em;
-	color: #2e7300;
+    font-size: 0.8em;
+    color: #2e7300;
 }
 
 .slideHorizontal {
-	border-top-width: 50px;
-	border-bottom-width: 50px;
+    border-top-width: 50px;
+    border-bottom-width: 50px;
 }
 
 .slideHorizontal img {
-	max-width: 180px;
-	height: auto;
- 	aspect-ratio: attr(width) / attr(height);
+    max-width: 180px;
+    height: auto;
+    aspect-ratio: attr(width) / attr(height);
 }
 
 .slideVertical {
-	border-left-width: 50px;
-	border-right-width: 50px;
+    border-left-width: 50px;
+    border-right-width: 50px;
 }
 
 .slideVertical img {
-	width: auto;
-	max-height: 180px;
- 	aspect-ratio: attr(width) / attr(height);
+    width: auto;
+    max-height: 180px;
+    aspect-ratio: attr(width) / attr(height);
 }
 
 #slideFullScreenCont {
-	position: absolute;
-	display: none;
-	opacity: 0;
-	z-index: 999;
-	left: 0;
-	top: 0;
-	overflow: hidden;
-	height: 100%;
-	width: 100%;
-	background-color: #000000;
-	color: #ffffff;
-	cursor: pointer;
+    position: absolute;
+    display: none;
+    opacity: 0;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .slideFullScreen {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .slideFullScreen img {
-	display: block;
+    display: block;
 }
 
 .slideNavClose {
-	position: absolute;
-	margin: auto;
-	left: 0;
-	right: 0;
-	width: 100px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 100px;
 }
 
 .slideNavPrev, .slideNavNext {
-	position: absolute;
-	margin: auto;
-	height: 80px;
-	top: 0;
-	bottom: 0;
+    position: absolute;
+    margin: auto;
+    height: 80px;
+    top: 0;
+    bottom: 0;
 }
 
 .listItem {
-	padding: 4px 0;
-	border: 0 solid #cccccc;
-	border-bottom-width: 1px;
+    padding: 4px 0;
+    border: 0 solid #cccccc;
+    border-bottom-width: 1px;
 }
 
 .listItem h2 {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .photo {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 
 .menu2 {
-	margin: 0 0 0 0.5em;
+    margin: 0 0 0 0.5em;
 }
 
 .menu2 ul {
-	border: 1px solid #cccccc;
-	left: -1px;
+    border: 1px solid #cccccc;
+    left: -1px;
 }
 
 .menu2 ul li:hover {
-	background-color: #e6e6e6;
+    background-color: #e6e6e6;
 }
 
 .menu2 a:visited {
-	color: black;
+    color: black;
 }
 
 .menu2 a:hover {
-	color: #578626;
+    color: #578626;
 }
 
 .bar-options .menu {
-	/*z-index: 99;*/
+    /*z-index: 99;*/
 }
 
 .bar-paging .menu {
-	/*z-index: 98;*/
+    /*z-index: 98;*/
 }
 
 .mRecPp li, .mRecPp div {
-	min-width: 3em;
+    min-width: 3em;
 }
 
 .mSort li, .mSort div {
-	min-width: 9em;
+    min-width: 9em;
 }
 
 .mRating li, .mRating div {
-	min-width: 6em;
+    min-width: 6em;
 }
 
 .mRating svg.icon {
-	fill: url(../../layout/images/symbols.svg#gradient-vertical) #ffa500;
-	stroke-width: 0.5;
-	stroke: #578626;
+    fill: url(../../layout/images/symbols.svg#gradient-vertical) #ffa500;
+    stroke-width: 0.5;
+    stroke: #578626;
 }
 
 button.bar-item svg.icon, .mRating svg.icon:not(:first-child) {
-	margin-left: 0.3em;
+    margin-left: 0.3em;
 }
 
 .toolbar {
-	max-width: 72em;
-	margin: 1em 0 2em 0;
+    max-width: 72em;
+    margin: 1em 0 2em 0;
 }
 
 .frmSearch {
-	flex: auto;
-	margin: 0;
+    flex: auto;
+    margin: 0;
 }
 
 .frmSearch input[type=text] {
-	width: 100%;
-	height: 100%;
-	min-width: 16em;
-	border: 1px solid #ccc;
-	border-right: none;
-	padding-left: 0.6em;
+    width: 100%;
+    height: 100%;
+    min-width: 16em;
+    border: 1px solid #ccc;
+    border-right: none;
+    padding-left: 0.6em;
 }
 
 .bar-paging, .bar-cont {
-	padding: 0.3em;
+    padding: 0.3em;
 }
 
 .bar-paging {
-	border: solid #cccccc;
-	border-width: 1px 0 1px 0;
-	margin-bottom: 1em;
+    border: solid #cccccc;
+    border-width: 1px 0 1px 0;
+    margin-bottom: 1em;
 }
 
 .bar-cont, .bar-paging, .bar-options,
 .bar-paging .pages, .frmSearch,
 .toolbar .bar-sep-vert, .toolbar label, .toolbar .bar-item,
 .bar-options a, .bar-item a, .menu2 div {
-	display: flex;
+    display: flex;
 }
 
-.bar-cont, .bar-paging, .bar-paging .pages, .bar-options  {
-	flex-wrap: wrap;
+.bar-cont, .bar-paging, .bar-paging .pages, .bar-options {
+    flex-wrap: wrap;
 }
 
 .bar-item, .pages, button a {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .toolbar button {
-	border: 1px solid #cccccc;
-	background: #fafafa linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
-	display: flex;
+    border: 1px solid #cccccc;
+    background: #fafafa linear-gradient(to bottom, #ffffff, #efefef) no-repeat;
+    display: flex;
 }
 
 .toolbar button, .toolbar input {
-	padding: 0.3em 0.6em;
+    padding: 0.3em 0.6em;
 }
 
 .bar-cont .bar-item {
-	margin: 0.3em 0;
+    margin: 0.3em 0;
 }
 
 .toolbar button a {
-	text-decoration: none;
-	color: #000000;
+    text-decoration: none;
+    color: #000000;
 }
 
 svg.icon {
-	width: 1.5em;
-	height: 1.5em;
-	fill: #578626;
+    width: 1.5em;
+    height: 1.5em;
+    fill: #578626;
 }
 
 .bar-sep-vert {
-	background-color: #ccc;
-	margin: 0 1em;
-	width: 1px;
-	position: relative;
+    background-color: #ccc;
+    margin: 0 1em;
+    width: 1px;
+    position: relative;
 }
 
 .curPage, .pages a {
-	color: #000000;
-	text-decoration: none;
-	padding: 0.4em 0.8em;
+    color: #000000;
+    text-decoration: none;
+    padding: 0.4em 0.8em;
 }
 
 .curPage, .pages a:hover {
-	color: #cc0000;
+    color: #cc0000;
 }
