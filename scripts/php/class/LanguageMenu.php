@@ -19,7 +19,7 @@ class LanguageMenu extends \WebsiteTemplate\LanguageMenu
     public function render(): string
     {
         $url = $_SERVER['REQUEST_URI'];
-        if (strpos($url, '/articles/') === false) {
+        if (!str_contains($url, '/articles/')) {
             return parent::render();
         }
         $language = $this->lang;
