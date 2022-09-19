@@ -1,4 +1,4 @@
-<?php require_once __DIR__.'../scripts/php/inc_script.php'; ?>
+<?php require_once __DIR__.'/../scripts/php/inc_script.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>

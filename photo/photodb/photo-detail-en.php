@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
-    <title>Photo |<?php echo $web->pageTitle; ?></title>
+    <title><?php echo 'Photo database'.' | '.$photo['imgTitle']; ?></title>
     <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-detail-en.php"/>
     <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-detail.php"/>
     <link rel="canonical" href="https://www.speich.net/photo/photodb/photo-detail-en.php?imgId=<?php echo $_GET['imgId'] ?? ''; ?>"/>

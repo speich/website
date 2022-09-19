@@ -29,7 +29,6 @@ return [
 	'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.',
 	'order number' => 'Bestellnummer',
 	'original size' => 'Originalgrösse',
-	'page title' => 'Bildarchiv',
 	'per page' => 'pro Seite',
 	'photo' => 'Foto',
 	'photos' => 'Fotos',

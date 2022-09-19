@@ -2,10 +2,11 @@
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
-    <title>Foto | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-detail-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-detail.php"/>
-    <link rel="canonical" href="https://www.speich.net/photo/photodb/photo-detail.php?imgId=<?php echo $_GET['imgId'] ?? ''; ?>"/>
+    <title><?php echo $pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-detail-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-detail.php">
+    <link rel="canonical" href="https://www.speich.net/photo/photodb/photo-detail.php?imgId=<?php echo $_GET['imgId'] ?? ''; ?>">
+    <meta name="description" content="<?php echo $metaDesc; ?>">
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-detail.min.css" rel="stylesheet" type="text/css">

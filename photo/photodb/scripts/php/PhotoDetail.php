@@ -97,7 +97,7 @@ class PhotoDetail
 
         echo '<div class="col colRight">';
         echo '<div id="map">';
-        if ($record['showLoc'] === '0') {
+        if ($record['showLoc'] !== '1') {
             echo '<div id="mapNote">'.$i18n['Coordinates are not shown'].'</div>';
         }
         echo '</div>';
@@ -120,7 +120,7 @@ class PhotoDetail
     		    <li><span class="photoTxtLabel">'.$i18n['program'].':</span> '.$record['exposureProgram'].', '.$record['meteringMode'].'</li>
     		    <li><span class="photoTxtLabel">VR:</span> '.$record['vibrationReduction'].'</li>
     		    <li><span class="photoTxtLabel">'.$i18n['flash'].':</span> '.$record['flash'].'</li>
-    		    <li><span class="photoTxtLabel">'.$i18n['lens'].':</span> '.($record['lensSpec'] !== '' ? $record['lensSpec'] : ($record['lens'] !== '' ? $record['lens'] : '')).'</li>
+    		    <li><span class="photoTxtLabel">'.$i18n['lens'].':</span> '.($record['lensSpec'] !== '' ? $record['lensSpec'] : $record['lens']).'</li>
     	        <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$record['model'].'</li>
     	        </ul>';
         }
@@ -145,11 +145,12 @@ class PhotoDetail
     }
 
     /**
+     * Render the license of the photo
      * @param array $record
      * @param Language $lang
-     * @return string
+     * @return string html
      */
-    private function renderLicense($record, $lang)
+    private function renderLicense(array $record, Language $lang): string
     {
         $htmlDe = '<a rel="license" href="'.$record['licenseLink'].'" target="_blank"><img alt="Creative Commons Lizenzvertrag"
             src="'.$record['licenseLogo'].'" width="80" height="15"></a>Dieses Foto ist lizenziert unter einer <a rel="license" href="'.$record['licenseLink'].'" target="_blank">Creative Commons '.$record['licenseLabel'].'</a>.<br>

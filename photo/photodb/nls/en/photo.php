@@ -29,7 +29,6 @@ return [
 	'not found' => 'No records found with these settings.',
 	'order number' => 'order number',
 	'original size' => 'original size',
-	'page title' => 'Photo database',
 	'per page' => 'per page',
 	'photo' => 'photo',
 	'photos' => 'photos',

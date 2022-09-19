@@ -6,6 +6,7 @@ use PhotoDb\PhotoQueryString;
 use PhotoDb\SqlPhotoList;
 use PhotoDb\SearchQuery;
 use WebsiteTemplate\Menu;
+use WebsiteTemplate\MenuItem;
 use WebsiteTemplate\PagedNav;
 use WebsiteTemplate\QueryString;
 
@@ -18,6 +19,10 @@ $db->connect();
 $query = new QueryString();
 $params = new PhotoQueryString($_GET);
 
+
+$pageTitle = 'Fotodatenbank | Simon Speich';
+$metaDesc = 'Datenbank von Simon Speich mit hochaufgelösten Naturfotos, insbesondere von Wäldern, Vögeln und anderen Tieren.';
+
 // generate filter and sorting menus
 $arrDel = ['pg'];
 $arrVal = [
@@ -28,10 +33,12 @@ $arrVal = [
 ];
 $mRecPp = new Menu();
 $mRecPp->cssClass .= ' menu2 mRecPp';
-$mRecPp->add(['a', 'b', $params->numPerPg]);
+$item = new MenuItem('a', 'b', $params->numPerPg);
+$mRecPp->add($item);
 foreach ($arrVal as $key => $val) {
     $url = $web->page.$query->withString(['numPerPg' => $val], $arrDel);
-    $mRecPp->add([$key, 'a', $val, $url]);
+    $item = new MenuItem($key, 'a', $val, $url);
+    $mRecPp->add($item);
     if ($params->numPerPg === $val) {
         $mRecPp->arrItem[$key]->setActive();
     }
@@ -46,10 +53,12 @@ $arrVal = [
 ];
 $mSort = new Menu();
 $mSort->cssClass .= ' menu2 mSort';
-$mSort->add(['a', 'b', $arrVal[$params->sort]]);
+$item = new MenuItem('a', 'b', $arrVal[$params->sort]);
+$mSort->add($item);
 foreach ($arrVal as $key => $val) {
     $url = $web->page.$query->withString(['sort' => $key], $arrDel);
-    $mSort->add([$key, 'a', $val, $url]);
+    $item = new MenuItem($key, 'a', $val, $url);
+    $mSort->add($item);
     if ($params->sort === $key) {
         $mSort->arrItem[$key]->setActive();
     }
@@ -63,10 +72,12 @@ $arrVal = [
 ];
 $mRating = new Menu();
 $mRating->cssClass .= ' menu2 mRating';
-$mRating->add(['a', 'b', $arrVal[$params->qual]]);
+$item = new MenuItem('a', 'b', $arrVal[$params->qual]);
+$mRating->add($item);
 foreach ($arrVal as $key => $val) {
     $url = $web->page.$query->withString(['qual' => $key], $arrDel);
-    $mRating->add([$key, 'a', $val, $url]);
+    $item = new MenuItem($key, 'a', $val, $url);
+    $mRating->add($item);
     if ($params->qual === $key) {
         $mRating->arrItem[$key]->setActive();
     }

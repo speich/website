@@ -5,7 +5,7 @@ require_once __DIR__.'/index_inc.php';
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <title><?php echo $web->pageTitle; ?></title>
+    <title>Simon Speich - Nature photography and web programming</title>
     <link rel="alternate" hreflang="en" href="https://www.speich.net/index-en.php"/>
     <link rel="alternate" hreflang="de" href="https://www.speich.net/index.php"/>
     <meta name="description" content="Simon Speich's website about nature photography and web programming">
@@ -15,7 +15,7 @@ require_once __DIR__.'/index_inc.php';
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
-<h1>Simon Speich - nature photography and web programming</h1>
+<h1>Simon Speich - Nature photography and web programming</h1>
 <figure><a href="<?php echo $url; ?>" title="random photo from the image database"><img class="imgFrame" src="<?php echo $photo->src; ?>"
                 alt="photo: <?php echo $photo->ImgTitle ?>" width="<?php echo $photo->size[0]; ?>" height="<?php echo $photo->size[1]; ?>"></a>
     <figcaption><?php echo $photo->ImgTitle; ?></figcaption>

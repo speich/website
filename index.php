@@ -12,7 +12,7 @@ if ($language->get() !== $language->getDefault()) {
 <!DOCTYPE html>
 <html lang="de-ch">
 <head>
-    <title><?php echo $web->pageTitle; ?></title>
+    <title>Simon Speich - Naturfotografie und Webprogrammierung</title>
     <link rel="alternate" hreflang="en" href="https://www.speich.net/index-en.php"/>
     <link rel="alternate" hreflang="de" href="https://www.speich.net/index.php"/>
     <meta name="description" content="Website von Simon Speich über Naturfotografie und Webprogrammierung">
