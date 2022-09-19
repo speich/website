@@ -18,9 +18,10 @@ $language->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $language->autoSet();
 
 $web = new WebsiteSpeich();
-$web->setLastUpdate('2022-09-09');
+$web->setLastUpdate('2022-09-11');
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
+
 $windowTitle = $language->get() === 'de' ? 'Naturfotografie und Webprogrammierung' : 'Nature photography and web programming';
 $web->pageTitle = 'Simon Speich - '.$windowTitle;
 
