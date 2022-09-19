@@ -1,7 +1,7 @@
 <?php
 
-use speich\WebsiteSpeich;
 use speich\LanguageMenu;
+use speich\WebsiteSpeich;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\Menu;
 use WebsiteTemplate\QueryString;
@@ -30,9 +30,11 @@ $arrNav['en'] = [
 
 $mainNav = new Menu($arrNav[$language->get()]);
 $mainNav->cssClass = 'menu';
+/*if ($web->page === $language->createPage('photo-detail.php')) {
+    $mainNav->setActive($web->getDir().$language->createPage('photo.php'));
+}*/
 
-
-// set main menu active according to first (top) directory
+// set main menu items active according to first (top) directory for related pages such as /photo/ausruestung.php
 foreach ($mainNav->arrItem as $item) {
     // to find top (first) folder we need to remove webroot folder (if in web subdir) first
     $arrUrl = parse_url($_SERVER['REQUEST_URI']);
@@ -106,11 +108,24 @@ $langNav->useLabel = true;
 $langNav->setWhitelist($web->getWhitelistQueryString());
 
 /* render different side navigation depending on active main navigation */
-switch ($mainNav->getActive()) {
+
+
+
+//$mainNav->setActive();
+$activeNavId = $mainNav->getActive();
+$notPageMap = $language->createPage($web->page) !== $language->createPage('photo-mapsearch.php');
+$items = [];
+switch ($activeNavId) {
     case 1:
         // do not render side navigation on map page
-        if ($language->createPage($web->page) !== $language->createPage('photo-mapsearch.php')) {
+        if ($notPageMap) {
             $items = createSideMenuPhoto($web, $arrPhotoNav, $language);
+            if ($web->page === $language->createPage('photo-detail.php')) {
+                $sideNav->setActive($language->createPage('photo-detail.php').$query->withString());
+            }
+            if (isset($_GET['theme']) || isset($_GET['country'])) {
+                $sideNav->arrItem[1]->setActive(false);
+            }
         }
         break;
     case 3:
@@ -119,21 +134,27 @@ switch ($mainNav->getActive()) {
     case 5:
         $items = $arrPersonNav[$language->get()];
         break;
-    default:
-        $items = [];
 }
 $sideNav = new Menu($items);
+$sideNav->setAutoActiveMatching(Menu::MATCH_FULL);
 $sideNav->cssClass = 'sideMenu';
-$sideNav->setAutoActiveMatching(3);
+if ($activeNavId && $notPageMap) {
+    // unset item ('Alle Fotos'), otherwise it would always be active
+/*    if ($web->page === $language->createPage('ausruestung.php')) {
+        $sideNav->arrItem[1]->setActive(false);
+        $sideNav->arrItem[2]->setActive(false);
+    }*/
+}
+
 
 /**
  * Creates the side menu photography for the main menu.
  * @param WebsiteSpeich $web
- * @param Menu $sideNav
  * @param array $menuItems
  * @param Language $lang
+ * @return array
  */
-function createSideMenuPhoto($web, $menuItems, $lang)
+function createSideMenuPhoto(WebsiteSpeich $web, array $menuItems, Language $lang): array
 {
     // TODO: move to a (new) photo db class
     $db = new PhotoDb\PhotoDb($web->getWebRoot());
@@ -188,19 +209,6 @@ function createSideMenuPhoto($web, $menuItems, $lang)
         $lastMenuId = $row['menuId'];
         $row = $themes->fetch(PDO::FETCH_ASSOC);
     }
-    /*
-        if ($web->page === $lang->createPage('photo-detail.php')) {
-            $sideNav->setActive($lang->createPage('photo-detail.php').$query->withString(null, $arrQueryDel));
-        }
-        // unset item ('Alle Fotos'), otherwise it would always be active
-        if (isset($_GET['theme']) || isset($_GET['country'])) {
-            $sideNav->arrItem[1]->setActive(false);
-        }
-        if ($web->page === $lang->createPage('ausruestung.php')) {
-            $sideNav->arrItem[1]->setActive(false);
-            $sideNav->arrItem[2]->setActive(false);
-        }
-    */
 
     return $items;
 }
