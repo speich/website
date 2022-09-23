@@ -155,6 +155,7 @@ class PhotoDetail
         $htmlDe = '<a rel="license" href="'.$record['licenseLink'].'" target="_blank"><img alt="Creative Commons Lizenzvertrag"
             src="'.$record['licenseLogo'].'" width="80" height="15"></a>Dieses Foto ist lizenziert unter einer <a rel="license" href="'.$record['licenseLink'].'" target="_blank">Creative Commons '.$record['licenseLabel'].'</a>.<br>
             <strong>© Foto Simon Speich, wwww.speich.net</strong>. Für kommerzielle Zwecke oder höhere Bildauflösungen <a href="/contact/contact.php">kontaktieren</a> Sie bitte den Bildautor.</p>';
+
         $htmlEn = '<a rel="license" href="'.$record['licenseLink'].'" target="_blank"><img alt="Creative Commons Lizenzvertrag"
             src="'.$record['licenseLogo'].'" width="80" height="15"></a>This photo is licensed under a <a rel="license" href="'.$record['licenseLink'].'" target="_blank">Creative Commons '.$record['licenseLabel'].'</a>.<br>
             <strong>© Photo Simon Speich, www.speich.net</strong>. For a commercial licence or higher resolution please <a href="/contact/contact.php">contact</a> the author.</p>';
