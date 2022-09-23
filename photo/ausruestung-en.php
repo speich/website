@@ -11,9 +11,8 @@
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photo Equipment</h1>
-<figure class="photoContainer"><img src="images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action"
-            class="imgFrame" style="background-image: url(images/guyana-simon.jpg)">
-    <figcaption>Simon taking a photo of a <a href="photodb/photo-detail.php?country=12&numRec=32&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.
+<figure class="photoContainer"><img class="imgFrame" src="images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action">
+    <figcaption>Simon taking a photo of a <a href="photodb/photo-detail-en.php?country=12&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.
     </figcaption>
 </figure>
 <h2>Cameras</h2>
