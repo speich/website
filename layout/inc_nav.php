@@ -60,18 +60,18 @@ $query = new QueryString();
 $path = $web->getWebRoot().'photo/photodb/';
 $arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
 $arrPhotoNav['de'] = [
-    [1, 'f', 'Bildarchiv', $path.'photo.php'],
+    [1, 'f', 'Datenbank', $path.'photo.php'],
     [2, 1, 'Alle Fotos', $path.'photo.php'],
     [3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$query->withString(null, $arrQueryDel)],
-    [4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'],
-    [5, 'f', 'Auszeichnungen', $web->getWebRoot().'photo/auszeichnungen.php']
+    [4, 'f', 'Ausrüstung', $web->getWebRoot().'about/ausruestung.php'],
+    [5, 'f', 'Auszeichnungen', $web->getWebRoot().'about/auszeichnungen.php']
 ];
 $arrPhotoNav['en'] = [
-    [1, 'f', 'Photo Database', $path.'photo-en.php'],
+    [1, 'f', 'Database', $path.'photo-en.php'],
     [2, 1, 'All Photos', $path.'photo-en.php'],
     [3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$query->withString(null, $arrQueryDel)],
-    [4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'],
-    [5, 'f', 'Awards', $web->getWebRoot().'photo/auszeichnungen-en.php']
+    [4, 'f', 'Equipment', $web->getWebRoot().'about/ausruestung-en.php'],
+    [5, 'f', 'Awards', $web->getWebRoot().'about/auszeichnungen-en.php']
 ];
 
 $path = $web->getWebRoot().'articles/';
@@ -95,14 +95,14 @@ $arrProjectNav['en'] = [
 $path = $web->getWebRoot().'about/';
 $arrPersonNav['de'] = [
     [1, 'f', 'Über mich', $path.'simon-speich.php'],
-    [3, 'f', 'Auszeichungen', $web->getWebRoot().'photo/auszeichnungen.php'],
-    [4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'],
+    [3, 'f', 'Auszeichungen', $path.'auszeichnungen.php'],
+    [4, 'f', 'Ausrüstung', $path.'ausruestung.php'],
     [2, 'f', 'Diplomarbeit', $path.'diplomarbeit.php']
 ];
 $arrPersonNav['en'] = [
     [1, 'f', 'About me', $path.'simon-speich-en.php'],
-    [3, 'f', 'Awards', $web->getWebRoot().'photo/auszeichnungen-en.php'],
-    [4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'],
+    [3, 'f', 'Awards', $path.'auszeichnungen-en.php'],
+    [4, 'f', 'Equipment', $path.'ausruestung-en.php'],
     [2, 'f', 'Diploma Thesis', $path.'diplomarbeit-en.php']
 ];
 
