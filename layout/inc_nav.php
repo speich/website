@@ -16,7 +16,7 @@ $arrNav['de'] = [
     [1, 'N', 'Fotografie', $path.'photo/photodb/photo.php'],
     [2, 'N', 'Artikel', $path.'articles/de/'],
     [3, 'N', 'Projekte', $path.'projects/programming/progs.php'],
-    [5, 'N', 'Person', $path.'about/cv.php'],
+    [5, 'N', 'Person', $path.'about/simon-speich.php'],
     [6, 'N', 'Kontakt', $path.'contact/contact.php']
 ];
 
@@ -24,7 +24,7 @@ $arrNav['en'] = [
     [1, 'N', 'Photography', $path.'photo/photodb/photo-en.php'],
     [2, 'N', 'Articles', $path.'articles/en/'],
     [3, 'N', 'Projects', $path.'projects/programming/progs.php'],
-    [5, 'N', 'Person', $path.'about/cv-en.php'],
+    [5, 'N', 'Person', $path.'about/simon-speich-en.php'],
     [6, 'N', 'Contact', $path.'contact/contact-en.php']
 ];
 
@@ -94,13 +94,15 @@ $arrProjectNav['en'] = [
 
 $path = $web->getWebRoot().'about/';
 $arrPersonNav['de'] = [
-    [1, 'f', 'Lebenslauf', $path.'cv.php'],
+    [1, 'f', 'Über mich', $path.'simon-speich.php'],
     [3, 'f', 'Auszeichungen', $web->getWebRoot().'photo/auszeichnungen.php'],
+    [4, 'f', 'Ausrüstung', $web->getWebRoot().'photo/ausruestung.php'],
     [2, 'f', 'Diplomarbeit', $path.'diplomarbeit.php']
 ];
 $arrPersonNav['en'] = [
-    [1, 'f', 'Curriculum Vitae', $path.'cv-en.php'],
+    [1, 'f', 'About me', $path.'simon-speich-en.php'],
     [3, 'f', 'Awards', $web->getWebRoot().'photo/auszeichnungen-en.php'],
+    [4, 'f', 'Equipment', $web->getWebRoot().'photo/ausruestung-en.php'],
     [2, 'f', 'Diploma Thesis', $path.'diplomarbeit-en.php']
 ];
 
