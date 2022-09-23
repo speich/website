@@ -2,16 +2,23 @@
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
-<title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/cv-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/cv.php"/>
+<title>Biografie | <?php echo $web->pageTitle; ?></title>
+<link rel="alternate" hreflang="en" href="https://www.speich.net/about/simon-speich-en.php">
+<link rel="alternate" hreflang="de" href="https://www.speich.net/about/simon-speich.php">
+<meta name="description" content="Simon Speich ist ein Webentwickler und passionierter Naturfotograf.">
 <?php echo $head->render(); ?>
-<link rel="stylesheet" href="cv.css">
+<link rel="stylesheet" href="simon-speich.css">
 </head>
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
-<h1>Curriculum Vitae von Simon Speich</h1>
+<h1>Biografie</h1>
+<figure class="photoContainer"><img class="imgFrame" src="images/waldkauz.jpg" alt="Waldkauz umrahmt von Buchenblättern" width="328" height="328">
+    <figcaption>Ein Waldkauz (<span class="spec">Strix aluco</span>) umrahmt von Buchenblättern.</figcaption></figure>
+<p>Beruflich arbeite ich als Webprogrammierer, studiert habe ich Biologie mit wissenschaftlicher Fotografie im Wahlfach und in meiner Freizeit bin ich mit der
+    Kamera unterwegs um <a href="../photo/photodb/photo.php?theme=20">Wälder</a>, <a href="../photo/photodb/photo.php?theme=1">Tiere</a> und
+    insbesondere <a href="../photo/photodb/photo.php?theme=1">Vögel</a> im besten Licht und toller Perspektive einzufangen.</p>
+<h2>Curriculum Vitae</h2>
 <table class="tblCv">
 <tr> 
 <td colspan="3" class="tdCvHead">Berufserfahrung</td>
@@ -23,9 +30,9 @@
 	System-Spezialist, <a href="https://www.wsl.ch" target="_blank">Eidg. Forschungsanstalt für Wald, Schnee und Landschaft</a> WSL, Birmensdorf</p>
 <h3>Aufgaben:</h3>
 <ul class="main">
-<li>Konzeption, Gestaltung und Programmierung (PHP, JavaScript, SQL) von mehrsprachigen, datenbankgestützten Webprodukten</li>
-<li>Publikation sowie Dokumentation und Archivierung von Ergebnissen</li>
-<li>Redaktion und Unterhalt von Medien</li>
+<li>Konzeption, Gestaltung und Programmierung (PHP, JavaScript, SQL) von mehrsprachigen, datenbankgestützten Webprodukten.</li>
+<li>Publikation sowie Dokumentation und Archivierung von Ergebnissen.</li>
+<li>Redaktion und Unterhalt von Medien.</li>
 </ul>
 <h3>Projekte:</h3>
 <ul class="main">

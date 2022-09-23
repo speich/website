@@ -6,7 +6,9 @@ $web->setLastPage();
 <!DOCTYPE html>
 <html lang="de-CH">
 <head>
-    <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
+    <title><?php echo 'Kartensuche | '.$web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-mapsearch-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-mapsearch.php">
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-mapsearch.min.css" rel="stylesheet" type="text/css">

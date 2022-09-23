@@ -6,10 +6,10 @@ require_once __DIR__.'/index_inc.php';
 <html lang="en-us">
 <head>
     <title>Simon Speich - Nature photography and web programming</title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/index-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/index.php"/>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/index-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/index.php">
     <meta name="description" content="Simon Speich's website about nature photography and web programming">
-    <meta name="keywords" content="Simon Speich, nature photography, photo, photography, web programming, photo archive, JavaScript, PHP, nature, animals, birds, wildlife">
+    <meta name="keywords" content="Simon Speich, nature photography, photo, photography, web programming, photo archive, JavaScript, PHP, Linux, nature, animals, birds, wildlife">
     <?php echo $head->render(); ?>
 </head>
 
@@ -22,7 +22,7 @@ require_once __DIR__.'/index_inc.php';
 </figure>
 <h2>Photographic insights and perspectives</h2>
 <p>Do you enjoy looking at beautiful, high-resolution photos of wildlife and nature, especially of <a href="photo/photodb/photo-en.php?theme=1">birds</a> and of
-    the <a href="photo/photodb/photo-en.php?q=w%C3%A4lder&country=4">Swiss forests</a>, then the image database is exactly your right choice. There, you will
+    <a href="photo/photodb/photo-en.php?q=w%C3%A4lder&country=4">Swiss forests</a>, then the image database is exactly your right choice. There, you will
     currently find photos of <?php echo $numBirdSpecies; ?> bird species as well as <?php echo $numOtherSpecies ?> other animal species. The forests are
     represented with <?php echo $numForestFotos; ?> pictures. On the blog, I write <a href="articles/en/category/photography/">articles about photography</a>
     from time to time.</p>

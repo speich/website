@@ -1,15 +1,15 @@
 <?php
 require_once __DIR__.'/../../scripts/php/inc_script.php';
 require_once __DIR__.'/photo_inc.php';
-$canonical = '?qual=0';
+$canonical = '?qual=1';
 $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
-    <title><?php echo 'Photo database | Simon Speich'; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-en.php">
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo.php">
+    <title><?php echo 'Photo database | '.$web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-en.php<?php echo $canonical; ?>">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo.php<?php echo $canonical; ?>">
     <link rel="canonical" href="https://www.speich.net/photo/photodb/photo.php<?php echo $canonical; ?>">
     <meta name="description" content="Photo database containing high-resolution nature photos, especially of forests, birds and other wildlife.">
     <?php echo $head->render(); ?>

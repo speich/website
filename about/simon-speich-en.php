@@ -2,16 +2,23 @@
 <!DOCTYPE html>
 <html lang="<?php echo $language->get(); ?>">
 <head>
-<title>Curriculum Vitae | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/cv-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/cv.php"/>
+<title>Biography | <?php echo $web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/simon-speich-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/simon-speich.php">
+    <meta name="description" content="Simon Speich is a web developer and wildlife photographer.">
 <?php echo $head->render(); ?>
-<link rel="stylesheet" href="cv.css">
+<link rel="stylesheet" href="simon-speich.css">
 </head>
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
-<h1>Simon Speich's Curriculum Vitae</h1>
+<h1>Biography</h1>
+<figure class="photoContainer"><img class="imgFrame" src="images/waldkauz.jpg" alt="Waldkauz umrahmt von Buchenblättern" width="328" height="328">
+    <figcaption>A Tawny Owl (<span class="spec">Strix aluco</span>) framed by Purple Beech leaves.</figcaption></figure>
+<p>I work as a web developer for a living, studied biology including scientific photography as an elective subject and strive for capturing
+    <a href="../photo/photodb/photo-en.php?theme=20">forests</a>, <a href="../photo/photodb/photo-en.php?theme=8">wildlife</a> and especially
+    <a href="../photo/photodb/photo-en.php?theme=1">birds</a> in the best light and perspective in my free time.</p>
+<h2>Curriculum Vitae</h2>
 <table class="tblCv">
 <tr> 
 <td colspan="3" class="tdCvHead">Experience</td>
@@ -23,9 +30,9 @@
 	<a href="https://www.wsl.ch" target="_blank">Swiss Federal Institute for Forest, Snow and Landscape Research</a> WSL, Birmensdorf</p>
 <h3>Responsibilites:</h3>
 <ul class="main">
-<li>Concept, design and programming (PHP, JavaScript, SQL) of multilingual web products</li>
-<li>Publication as well as documentation and archiving of results</li>
-<li>Redaction and publishing of media</li>
+<li>Concept, design and programming (PHP, JavaScript, SQL) of multilingual web applications.</li>
+<li>Publication as well as documentation and archiving of results.</li>
+<li>Redaction and publishing of media.</li>
 </ul>
 <h3>Projects:</h3>
 <ul class="main">
@@ -53,7 +60,7 @@ Computers and Electronics in Agriculture Volume 132</li>
 </ul></td>
 </tr>
 </table>
-<p>For a more complete CV head over to the <a href="cv.php">German version</a>.</p>
+<p>For a more complete CV head over to the <a href="simon-speich.php">German version</a>.</p>
 <?php echo $bodyEnd->render(); ?>
 </body>
 </html>

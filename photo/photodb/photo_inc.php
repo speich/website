@@ -19,10 +19,6 @@ $db->connect();
 $query = new QueryString();
 $params = new PhotoQueryString($_GET);
 
-
-$pageTitle = 'Fotodatenbank | Simon Speich';
-$metaDesc = 'Datenbank von Simon Speich mit hochaufgelösten Naturfotos, insbesondere von Wäldern, Vögeln und anderen Tieren.';
-
 // generate filter and sorting menus
 $arrDel = ['pg'];
 $arrVal = [

@@ -3,9 +3,9 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title><?php echo $pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-detail-en.php">
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-detail.php">
-    <link rel="canonical" href="https://www.speich.net/photo/photodb/photo-detail.php?imgId=<?php echo $_GET['imgId'] ?? ''; ?>">
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-detail-en.php<?php echo $_GET['imgId'] ? '?imgId='.$_GET['imgId'] : ''; ?>">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-detail.php<?php echo $_GET['imgId'] ? '?imgId='.$_GET['imgId'] : ''; ?>">
+    <link rel="canonical" href="https://www.speich.net/photo/photodb/photo-detail.php<?php echo $_GET['imgId'] ? '?imgId='.$_GET['imgId'] : ''; ?>">
     <meta name="description" content="<?php echo $metaDesc; ?>">
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">

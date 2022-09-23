@@ -1,15 +1,18 @@
 <?php
 require_once __DIR__.'/photo_inc.php';
-$i18n = require_once __DIR__.'/nls/'.$language->get().'/photo-mapsearch.php';
+$i18n = require __DIR__.'/nls/'.$language->get().'/photo-mapsearch.php';
 $web->setLastPage();
 ?>
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-US">
 <head>
-    <title><?php echo $i18n['page title'].' | '.$web->pageTitle; ?></title>
+    <title><?php echo 'Search by location | '.$web->pageTitle; ?></title>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/photodb/photo-mapsearch-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/photodb/photo-mapsearch.php">
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-mapsearch.min.css" rel="stylesheet" type="text/css">
+    <script src="photo-mapsearch.min.js" type="module"></script>
 </head>
 
 <body>
@@ -27,6 +30,5 @@ $web->setLastPage();
 </div>
 
 <?php echo $bodyEnd->render(); ?>
-<script src="photo-mapsearch.min.js" type="module"></script>
 </body>
 </html>

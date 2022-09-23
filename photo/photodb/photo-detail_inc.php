@@ -25,11 +25,11 @@ $sql->setLangPostfix($language);
 $photo = $photoDetail->get($sql);
 if ($language->get() === 'de') {
     $pageTitle = $photo['imgTitle'].' | Fotodatenbank';
-    $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).' | Ein Bild fotografiert von Simon Speich zum Thema '.$photo['themes'].'.';
+    $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).'. Ein Bild fotografiert von Simon Speich zum Thema '.$photo['themes'].'.';
 }
 else {
     $pageTitle = $photo['imgTitle'].' | Photo database';
-    $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).' | A photo taken by Simon Speich about the topic '.$photo['themes'].'.';
+    $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).'. A photo taken by Simon Speich about the topic '.$photo['themes'].'.';
 }
 
 // pass data to js

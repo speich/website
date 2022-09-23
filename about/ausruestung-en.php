@@ -3,18 +3,19 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Equipment | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/ausruestung-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/ausruestung.php"/>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/ausruestung-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/ausruestung.php">
+    <meta name="description" content="Equipment and useful accessories for wildlife photography">
     <?php echo $head->render(); ?>
 </head>
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photo Equipment</h1>
-<figure class="photoContainer"><img class="imgFrame" src="images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action">
-    <figcaption>Simon taking a photo of a <a href="photodb/photo-detail-en.php?country=12&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.
-    </figcaption>
+<figure class="photoContainer"><img class="imgFrame" src="../photo/images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action">
+    <figcaption>Simon taking a photo of a <a href="../photo/photodb/photo-detail-en.php?country=12&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.</figcaption>
 </figure>
+<p>I've been taking photos with Nikon cameras and lenses for over 25 years — initially analog, then digital and now mirrorless.</p>
 <h2>Cameras</h2>
 <ul class="main">
     <li>Nikon Z9 (27.12.2021)</li>
@@ -22,14 +23,13 @@
 <ul class="main">
     <li>Nikon D850 (19.04.2018)</li>
     <li>Nikon D500 (15.12.2016)</li>
-    <li>Nikon F100 (12.06.2004)</li>
     <li>Sony Cybershot RX100 VA (06.10.2019)</li>
-    <li>Minox 35 GL</li>
 </ul>
 <h2>Lenses</h2>
 <ul class="main">
     <li>Nikkor Z MC 105mm 1:2,8 VR S (18.05.2022)</li>
     <li>Nikkor Z 70-200mm f/2.8 VR S (11.01.2022)</li>
+    <li>Nikkor Z 24mm-120 f/4 S (19.09.2022)</li>
     <li>Nikkor Z 24mm f/1.8 S (11.01.2022)</li>
 </ul>
 <ul class="main">
@@ -43,7 +43,7 @@
     <li>Nikkor 28mm f/2.8D AF (14.06.1996)</li>
     <li>Nikkor 24mm f/1.4G ED AF-S (26.03.2014)</li>
     <li>Nikkor 20mm f/2.8D AF (22.03.2012)</li>
-    <li>Nikkor 16-80mm f/2.8-4E AF-S ED VR (27.04.2018)</li>
+    <li>Nikkor DX 16-80mm f/2.8-4E AF-S ED VR (27.04.2018)</li>
 </ul>
 <h2>Accessories</h2>
 <ul class="main">
@@ -61,7 +61,7 @@
     <li>Teleconverter Nikon TC-14E III (16.02.2020)<br>
         For more information read my post <a href="/articles/en/2013/11/23/comparison-of-nikon-300mm-and-600mm-with-teleconverter-tc-14/">Comparison of Nikon
             300mm and 600mm with Teleconverter TC-14</a></li>
-    <li>GPS <a href="http://di-gps.com/shop/di-GPS-Eco-ProFessional-M-PF1-M" target="_blank">Dawntec di-GPS Eco ProF M</a> (07.2014)</li>
+    <li>GPS <a href="https://www.dawntech.co.uk/shop/index.php?route=product/product&path=70&product_id=64" target="_blank">Dawntec di-GPS Eco ProF M</a> (07.2014)</li>
     <li>Solar panel <a href="http://www.sistech.com/products-9171-0/default.asp" target="_blank">SIStech CHEPRE 18V/18Wp</a> (18.08.2012)<br>
         For more information read my post <a href="/articles/en/2012/11/25/how-to-recharge-your-camera-batteries-in-the-amazonian-jungle/">How to recharge your
             camera batteries in the Amazonian jungle</a></li>
@@ -79,10 +79,12 @@
     <li>Nikon D810 (29.12.2014–28.05.2018)</li>
     <li>Nikon D800 (21.03.2012–03.02.2017)</li>
     <li>Nikon D300 (08.01.2009–18.08.2014)</li>
+    <li>Nikon F100 (12.06.2004)</li>
     <li>Nikon F90x (1996–2004)</li>
     <li>Nikon Coolpix P4 (19.05.2006–06.12.2013)</li>
     <li>Sony Cybershot RX100 (06.12.2013)</li>
     <li>Ricoh Singlex (–2006)</li>
+    <li>Minox 35 GL</li>
     <li>Nikon 600mm f/4G ED VR AF-S (27.07.2008–30.03.2016)</li>
     <li>Nikon 600mm f/5.6 MF (14.03.1997–27.07.2008)</li>
     <li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013–20.05.2018)</li>
