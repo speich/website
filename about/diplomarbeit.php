@@ -15,7 +15,7 @@
 	auf Englisch verfügbar (<a href="diplomarbeit.pdf">Diplomarbeit</a>, pdf 1.6 MB).</p>
 <h2>Temporal and Spatial Pattern of Nocturnal Bird Migration across the Western
 	Mediterranean Sea Studied by Radar</h2>
-<figure><img src="images/bruchwasserlaeufer.jpg" alt="Foto eines Bruchwasserläufers">
+<figure><img class="imgFrame" src="images/bruchwasserlaeufer.jpg" alt="Foto eines Bruchwasserläufers" width="400" height="400">
 	<figcaption>Bruchwasserläufer <span class="spec">(Tringa glareola)</span>, Nikon F90x</figcaption>
 </figure>
 <h3><strong>General Introduction</strong></h3>
@@ -43,7 +43,7 @@
 		Institute</a> carried out a study supported by the <a href="https://www.snf.ch/" target="_blank">Swiss
 		National Science Foundation</a>, where bird migration across the western Mediterranean
 	was investigated in autumn 1996 and spring 1997. The aim of this study was to
-	find out if the the migratory stream occurs over a broad front across the Mediterranean
+	find out if the migratory stream occurs over a broad front across the Mediterranean
 	Sea and if islands such as the Balearic Islands, in particular the coastlines,
 	influence the migratory stream. Two tracking radars were operated, one on the
 	southern tip of the island Mallorca, the other near Malaga at the coast on the

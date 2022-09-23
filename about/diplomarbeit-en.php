@@ -11,9 +11,8 @@
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Diploma Thesis</h1>
-<h2>Temporal and Spatial Pattern of Nocturnal Bird Migration across the Western
-	Mediterranean Sea Studied by Radar</h2>
-<figure><img src="images/bruchwasserlaeufer.jpg" alt="photo of a wood sandpiper">
+<h2>Temporal and Spatial Pattern of Nocturnal Bird Migration across the Western Mediterranean Sea Studied by Radar</h2>
+<figure><img class="imgFrame" src="images/bruchwasserlaeufer.jpg" alt="photo of a wood sandpiper" width="400" height="400">
 		<figcaption>Wood sandpiper <span class="spec">(Tringa glareola)</span></figcaption>
 	</figure>
 <h3><strong>General Introduction</strong></h3>
@@ -41,7 +40,7 @@
 		Institute</a> carried out a study supported by the <a href="https://www.snf.ch/" target="_blank">Swiss
 		National Science Foundation</a>, where bird migration across the western Mediterranean
 	was investigated in autumn 1996 and spring 1997. The aim of this study was to
-	find out if the the migratory stream occurs over a broad front across the Mediterranean
+	find out if the migratory stream occurs over a broad front across the Mediterranean
 	Sea and if islands such as the Balearic Islands, in particular the coastlines,
 	influence the migratory stream. Two tracking radars were operated, one on the
 	southern tip of the island Mallorca, the other near Malaga at the coast on the
