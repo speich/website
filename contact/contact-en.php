@@ -11,16 +11,15 @@
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Contact</h1>
-<figure class="photoContainer"><img src="guyana-simon2.jpg" alt="Photo of Simon Speich" title="Simon with Nikon D800 and the AF-S 300mm/2.8 in Action"
-	class="imgFrame" style="background-image: url(guyana-simon2.jpg)">
-	<figcaption>Simon on a photo expedition to the
-		<a href="../articles/guyanas-wildlife-along-the-rewa-river/">rainforest of Guyana</a>.
-	</figcaption></figure>
-<p>
-<script type="text/javascript">
-document.write('You can reach me by e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a><br>');
-</script>
-or find me on <a href="https://github.com/speich" target="_blank">GitHub</a>.</p>
+<figure class="photoContainer"><img src="guyana-simon2.jpg" class="imgFrame" alt="Photo of Simon Speich" title="Simon with Nikon D800 and the AF-S 300mm/2.8 in Action">
+	<figcaption>Simon on a photo expedition to the <a href="../articles/guyanas-wildlife-along-the-rewa-river/">rainforest of Guyana</a>.</figcaption></figure>
+<p>Simon Speich<br>
+    Grellingerstrasse 79<br>
+    4052 Basel<br>
+    Switzerland</p>
+<p><script type="text/javascript">
+  document.write('You can reach me by e-mail <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a><br>');
+</script> or find me on <a href="https://github.com/speich" target="_blank">GitHub</a>.</p>
 <h2>Memberships</h2>
 <ul class="main">
 <li><a href="https://naturfotografen.ch/bilder/mitgliedergalerien/mitglied/simon-speich.html" target="_blank">Naturfotografen Schweiz</a> (in German)</li>
