@@ -3,6 +3,8 @@
 namespace PhotoDb;
 
 
+use function is_array;
+
 /**
  * This class is used to define the bind parameters for the SQL statement used to load marker data.
  * This class is only for convenience. It will let you know which bind variables are used in the SQL query returned
@@ -12,25 +14,25 @@ namespace PhotoDb;
  */
 class PhotoQueryString
 {
-    /** @var float latitude Northeast */
+    /** @var float|null latitude Northeast */
     public ?float $lat1;
 
-    /** @var float longitude Northeast */
+    /** @var float|null longitude Northeast */
     public ?float $lng1;
 
-    /** @var float latitude Southwest */
+    /** @var float|null latitude Southwest */
     public ?float $lat2;
 
-    /** @var float longitude Southwest */
+    /** @var float|null longitude Southwest */
     public ?float $lng2;
 
     /** @var int quality of the photo */
     public int $qual;
 
-    /** @var int theme of the photo */
+    /** @var int|null theme of the photo */
     public ?int $theme;
 
-    /** @var int country photo was taken */
+    /** @var int|null country photo was taken */
     public ?int $country;
 
     /** @var int number of photos per page */
@@ -47,22 +49,35 @@ class PhotoQueryString
 
     /**
      * PhotoListBindings constructor
-     * @param array|object $data query string data
+     * @param object|array $data query string data
      */
-    public function __construct($data)
+    public function __construct(object|array $data)
     {
+        if (is_array($data)) {
+            $data = (object)$data;
+        }
+        $this->validate($data);
         $this->sanitizeInput($data);
     }
 
     /**
+     * @param object $data
+     * @return void
+     */
+    public function validate(object $data): void
+    {
+        // theme and country are not allowed at the same time, since country is handled like a theme
+        if (property_exists($data, 'theme') && property_exists($data, 'country')) {
+            unset($data->country);
+        }
+    }
+
+    /**
      * If a value is not posted, default value will be set.
-     * @param array|object $data
+     * @param object $data
      */
     public function sanitizeInput($data): void
     {
-        if (\is_array($data)) {
-            $data = (object)$data;
-        }
         if (property_exists($data, 'q') && $data->q !== '') {
             $this->search = filter_var($data->q, FILTER_SANITIZE_SPECIAL_CHARS);
             $this->qual = property_exists($data, 'qual') ? filter_var($data->qual,

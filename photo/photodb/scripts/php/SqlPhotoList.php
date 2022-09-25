@@ -92,12 +92,13 @@ class SqlPhotoList extends SqlExtended
     public function getWhere(): string
     {
         // filtering
-        // to avoid confusion only allow one restriction at a time, e.g. either theme or country.
-        // filter by rating or coordinates (bounds) is always possible
+        // note: to avoid confusion only one restriction at a time, e.g. either theme or country should be allowed.
+        //       This is handled in the PhotoQueryString class. Flter by rating or coordinates (bounds) is always possible.
         $sql = 'it.ThemeId != 10 AND RatingId > :qual';
         if ($this->theme !== null) {
             $sql .= ' AND ThemeId = :theme';
-        } elseif ($this->country !== null) {
+        }
+        if ($this->country !== null) {
             $sql .= ' AND CountryId = :country';
         }
         if ($this->lat1 !== null && $this->lng1 !== null && $this->lat2 !== null && $this->lng2 !== null) {
