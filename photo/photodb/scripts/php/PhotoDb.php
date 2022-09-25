@@ -102,16 +102,19 @@ class PhotoDb {
 
 	/**
 	 * Provides access to the different paths in the PhotoDB project.
+     * Path is returned without the leading slash, but with a trailing slash
 	 * @param string $name
 	 * @return string
 	 */
-	public function getPath($name) {
+	public function getPath(string $name): string
+    {
 		switch($name) {
 			case 'webroot': $path = $this->webroot; break;	// redundant, but for convenience
 			case 'db': $path = $this->pathDb; break;
 			case 'img': $path = $this->pathImg; break;
 			default: $path = '/';
 		}
+
 		return $path;	// pdo functions need full path to work with subfolders on windows
 	}
 
