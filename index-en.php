@@ -16,8 +16,8 @@ require_once __DIR__.'/index_inc.php';
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Simon Speich - Nature photography and web programming</h1>
-<figure><a href="<?php echo $url; ?>" title="random photo from the image database"><img class="imgFrame" src="<?php echo $photo->src; ?>"
-                alt="photo: <?php echo $photo->ImgTitle ?>" width="<?php echo $photo->size[0]; ?>" height="<?php echo $photo->size[1]; ?>"></a>
+<figure><a href="<?php echo $photo->link; ?>"><img class="imgFrame" src="<?php echo $photo->src; ?>" srcset="<?php echo $photo->srcset; ?>"
+                alt="photo: <?php echo $photo->ImgTitle ?>" width="<?php echo $photo->w; ?>" height="<?php echo $photo->h; ?>"></a>
     <figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
 <h2>Photographic insights and perspectives</h2>

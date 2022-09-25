@@ -13,8 +13,8 @@ if ($language->get() !== $language->getDefault()) {
 <html lang="de-ch">
 <head>
     <title>Simon Speich - Naturfotografie und Webprogrammierung</title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/index-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/index.php"/>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/index-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/index.php">
     <meta name="description" content="Website von Simon Speich über Naturfotografie und Webprogrammierung">
     <meta name="keywords" content="Simon Speich, Naturfotografie, Foto, Fotografie, Webprogrammierung, Bilddatenbank, JavaScript, PHP, Natur, Tiere, Vögel, Flora und Fauna">
     <?php echo $head->render(); ?>
@@ -23,8 +23,8 @@ if ($language->get() !== $language->getDefault()) {
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Simon Speich - Naturfotografie und Webprogrammierung</h1>
-<figure><a href="<?php echo $url; ?>"><img class="imgFrame" src="<?php echo $photo->src; ?>" alt="Foto: <?php echo $photo->ImgTitle ?>"
-                width="<?php echo $photo->size[0]; ?>" height="<?php echo $photo->size[1]; ?>"></a>
+<figure><a href="<?php echo $photo->link; ?>"><img class="imgFrame" src="<?php echo $photo->src; ?>" srcset="<?php echo $photo->srcset; ?>"
+                alt="Foto: <?php echo $photo->ImgTitle ?>" width="<?php echo $photo->w; ?>" height="<?php echo $photo->h; ?>"></a>
     <figcaption><?php echo $photo->ImgTitle; ?></figcaption>
 </figure>
 <h2>Fotografische Ein- und Aussichten</h2>
