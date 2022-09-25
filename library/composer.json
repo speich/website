@@ -8,7 +8,8 @@
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-exif": "*",
-    "ext-intl": "*"
+    "ext-intl": "*",
+    "ext-imagick": "*"
   },
   "autoload": {
     "psr-4": {
