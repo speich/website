@@ -6,7 +6,7 @@ if (isset($_SERVER['PATH_INFO'], $_GET['w'])) {
     $imgPath = __DIR__.'/../../../..'.$_SERVER['PATH_INFO'];
 
     // set headers to allow for caching of photos
-    $etag = md5($imgPath);
+    $etag = md5($imgPath.$_GET['w']);   // include width to make different versions of different size, but same image cachable
     $etagHeader = isset($_SERVER['HTTP_IF_NONE_MATCH']) ? trim($_SERVER['HTTP_IF_NONE_MATCH']) : false;
     header("ETag: $etag");
     if ($etagHeader === $etag) {
