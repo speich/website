@@ -68,7 +68,7 @@ h2 + p {
     margin-top: 0;
 }
 
-figure {
+figure:not(.wp-block-gallery) {
     margin: 0 0 2em 0;
     display: flex;
     flex-direction: column;
@@ -81,7 +81,7 @@ figure img {
     aspect-ratio: attr(width) / attr(height);
 }
 
-figcaption {
+figcaption:not(.wp-element-caption) {
     font-size: 80%;
     border-bottom: 1px solid #cccccc;
     min-width: 33%;
