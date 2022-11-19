@@ -12,7 +12,7 @@
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
-<h1>Biografie</h1>
+<h1>Biografie von Simon Speich</h1>
 <figure class="photoContainer"><img class="imgFrame" src="images/waldkauz.jpg" alt="Waldkauz umrahmt von Buchenblättern" width="328" height="328">
     <figcaption>Ein Waldkauz (<span class="spec">Strix aluco</span>) umrahmt von Buchenblättern.</figcaption></figure>
 <p>Beruflich arbeite ich als Webprogrammierer, studiert habe ich Biologie mit wissenschaftlicher Fotografie im Wahlfach und in meiner Freizeit bin ich mit der

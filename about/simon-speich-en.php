@@ -12,7 +12,7 @@
 
 <body>
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
-<h1>Biography</h1>
+<h1>Biography of Simon Speich</h1>
 <figure class="photoContainer"><img class="imgFrame" src="images/waldkauz.jpg" alt="Waldkauz umrahmt von Buchenblättern" width="328" height="328">
     <figcaption>A Tawny Owl (<span class="spec">Strix aluco</span>) framed by Purple Beech leaves.</figcaption></figure>
 <p>I work as a web developer for a living, studied biology including scientific photography as an elective subject and strive for capturing
