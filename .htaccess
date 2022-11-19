@@ -18,6 +18,8 @@ Redirect 301 /computer/moztesting/3d.htm https://www.speich.net/projects/program
 Redirect 301 /computer/moztesting.php https://www.speich.net/projects/programming/3d.htm
 Redirect 301 /computer/artikel/integration-phpdocumentor-eclipse-en.php https://www.speich.net/articles/?p=8
 Redirect 301 /birds/fotos.php https://www.speich.net/photo/photodb/photo.php?theme=1
+Redirect 301 /about/cv.php https://www.speich.net/about/simon-speich.php
+Redirect 301 /about/cv-en.php https://www.speich.net/about/simon-speich-en.php
 
 RewriteCond %{HTTP_HOST} ^(f|ph)oto.speich.net$ [NC]
 RewriteRule ^(.*) https://www.speich.net/photo/photodb/photo.php [R=301,L]
