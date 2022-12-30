@@ -3,8 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Equipment | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/ausruestung-en.php">
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/ausruestung.php">
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/ausruestung-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/ausruestung.php">
     <meta name="description" content="Equipment and useful accessories for wildlife photography">
     <?php echo $head->render(); ?>
 </head>
@@ -27,6 +27,7 @@
 </ul>
 <h2>Lenses</h2>
 <ul class="main">
+    <li>Nikkor Z 600mm 1:4 TC VR S (30.11.2022)</li>
     <li>Nikkor Z MC 105mm 1:2,8 VR S (18.05.2022)</li>
     <li>Nikkor Z 70-200mm f/2.8 VR S (11.01.2022)</li>
     <li>Nikkor Z 24mm-120 f/4 S (19.09.2022)</li>

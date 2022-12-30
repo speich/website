@@ -3,8 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Ausrüstung | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/ausruestung-en.php">
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/ausruestung.php">
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/ausruestung-en.php">
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/ausruestung.php">
     <meta name="description" content="Ausrüstung und nützliches Zubehör für die Naturfotografie">
     <?php echo $head->render(); ?>
 </head>
@@ -13,8 +13,7 @@
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Foto-Ausrüstung</h1>
 <figure class="photoContainer"><img class="imgFrame" src="../photo/images/guyana-simon.jpg" alt="Foto von Simon Speich" title="Simon mit Nikon 300mm in Aktion">
-    <figcaption>Simon beim Fotografieren eines <a href="../photo/photodb/photo-detail.php?country=12&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.
-    </figcaption>
+    <figcaption>Simon beim Fotografieren eines <a href="../photo/photodb/photo-detail.php?country=12&imgId=4971">Harpy Eagle</a> im Regenwald von Guyana.</figcaption>
 </figure>
 <p>Seit mehr als 25 Jahre fotografiere ich nun schon mit Nikon Kameras und Objektiven — zuerst analog, dann digital und seit neustem spiegellos.</p>
 <h2>Kameras</h2>
@@ -28,6 +27,7 @@
 </ul>
 <h2>Objektive</h2>
 <ul class="main">
+    <li>Nikkor Z 600mm 1:4 TC VR S (30.11.2022)</li>
     <li>Nikkor Z MC 105mm 1:2,8 VR S (18.05.2022)</li>
     <li>Nikkor Z 70-200mm f/2.8 VR S (11.01.2022)</li>
     <li>Nikkor Z 24mm-120 f/4 S (19.09.2022)</li>
