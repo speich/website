@@ -3,8 +3,8 @@
 <html lang="<?php echo $language->get(); ?>">
 <head>
     <title>Photo Competitions | <?php echo $web->pageTitle; ?></title>
-    <link rel="alternate" hreflang="en" href="https://www.speich.net/photo/auszeichnungen-en.php"/>
-    <link rel="alternate" hreflang="de" href="https://www.speich.net/photo/auszeichnungen.php"/>
+    <link rel="alternate" hreflang="en" href="https://www.speich.net/about/auszeichnungen-en.php"/>
+    <link rel="alternate" hreflang="de" href="https://www.speich.net/about/auszeichnungen.php"/>
     <?php echo $head->render(); ?>
     <link rel="stylesheet" href="auszeichnungen.css">
 </head>
@@ -13,19 +13,29 @@
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photography Awards</h1>
 <div class="grid-container">
+    <h2>Schnappschuss 2022/23</h2>
+    <div>Naturhistorisches Museum Basel, <a
+                href="https://www.nmbs.ch/home/info_angebote/mediencorner/pressebilder/Schnappschuss-2022_23.html" target="_blank">Schnappschuss</a></div>
+    <div><a href="../articles/de/2023/03/24/2-platz-fur-mein-foto-pfostenschacher"><img
+                    src="../photo/photodb/images/thumbs/2022-05-Bulgarien/2022-05-Bulgarien-126.jpg" width="180" height="120"
+                    alt="high-key photo of Sandwich Terns and a Common Tern sitting on a wooden post"></a></div>
+    <div>category Animal Portraits/Animals in their Habitat, <strong>2. place</strong></div>
     <h2>NFS-Competition 2020</h2>
     <div>Naturfotografen Schweiz, <a href="https://www.naturfotografen.ch/bilder/wettbewerbsbilder/id-2020.html"
                 title="NFS-Wettbewerb 2020" target="_blank">NFS-Wettbewerb 2020</a></div>
-    <div><a href="../photo/photodb/photo-detail-en.php?imgId=8189"><img src="../photo/photodb/images/thumbs/ch/2019-06/2019-07-Schaffhausen-051.jpg" width="180" height="120"
+    <div><a href="../photo/photodb/photo-detail-en.php?imgId=8189"><img src="../photo/photodb/images/thumbs/ch/2019-06/2019-07-Schaffhausen-051.jpg" width="180"
+                    height="120"
                     alt="photot of male Central European Lesser Glow-worms (Lamprohiza splendidula)" title="traces of light in the forest"></a></div>
     <div>category "other animals", <strong>2. place</strong></div>
-    <div><a href="../photo/photodb/photo-detail-en.php?pg=7&country=1&qual=1&q=&imgId=7084"><img src="../photo/photodb/images/thumbs/2017-03-Florida/2017-03-Florida-221.jpg"
+    <div><a href="../photo/photodb/photo-detail-en.php?pg=7&country=1&qual=1&q=&imgId=7084"><img
+                    src="../photo/photodb/images/thumbs/2017-03-Florida/2017-03-Florida-221.jpg"
                     width="180" height="120" alt="photo of a Green Heron (Butorides virescens)" title="silent observer"></a></div>
     <div>special category "water", <strong>honorable mention</strong></div>
     <h2>NFS-Competition 2018</h2>
     <div>Naturfotografen Schweiz, <a href="https://www.naturfotografen.ch/wettbewerb/id-2018.html" title="NFS-Wettbewerb 2018" target="_blank">NFS-Wettbewerb
             2018</a></div>
-    <div><a href="../photo/photodb/photo-detail-en.php?imgId=7673"><img src="../photo/photodb/images/thumbs/2016-05-Ungarn/2016-05-Ungarn-352.jpg" width="180" height="120"
+    <div><a href="../photo/photodb/photo-detail-en.php?imgId=7673"><img src="../photo/photodb/images/thumbs/2016-05-Ungarn/2016-05-Ungarn-352.jpg" width="180"
+                    height="120"
                     alt="photo of starlings taking a bath"></a></div>
     <div>special category "movement / action", <strong>honorable mention</strong></div>
     <h2>NFS-Competition 2017</h2>
@@ -39,7 +49,8 @@
                     width="180" height="119" alt="photo of iced over trees"></a></div>
     <div>category landscape, <strong>honorable mention</strong></div>
     <h2>NFS-Competition 2016</h2>
-    <div>Naturfotografen Schweiz, <a href="https://www.naturfotografen.ch/wettbewerb/id-2016.html" title="NFS-Wettbewerb 2016"
+    <div>Naturfotografen Schweiz, <a href="https://web.archive.org/web/20220128014626/https://www.naturfotografen.ch/wettbewerb/id-2016.html"
+                title="NFS-Wettbewerb 2016"
                 target="_blank">NFS-Wettbewerb 2016</a></div>
     <div><a href="../photo/photodb/photo-detail-en.php?imgId=3851"><img src="../photo/photodb/images/thumbs/ch/ch014/ch014-078.jpg" width="180" height="119"
                     alt="photo of frosted trees"></a></div>
@@ -51,7 +62,8 @@
     <div><a href="../articles/de/2016/04/23/1311/"><img src="../photo/images/helmkasuar.jpg" width="133" height="200" alt="photo of a cassowary"></a></div>
     <div>category Black and White, <strong>highlight</strong></div>
     <div><a href="../photo/photodb/photo-detail-en.php?imgId=4693"><img
-                    src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-337.jpg" width="180" height="120" alt="photo of a frog in a sink"></a></div>
+                    src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-337.jpg" width="180" height="120" alt="photo of a frog in a sink"></a>
+    </div>
     <div>category Wildlife in Human Environment, <strong>final round</strong></div>
     <h2>Schnappschuss 2015/16</h2>
     <div>Naturhistorisches Museum Basel, <a
@@ -63,7 +75,8 @@
     <h2>GDT European Wildlife Photographer of the Year 2015</h2>
     <div></div>
     <div><a href="../photo/photodb/photo-detail-en.php?imgId=4693"><img
-                    src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-337.jpg" alt="photo of a frog in a sink" width="180" height="120"></a></div>
+                    src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-337.jpg" alt="photo of a frog in a sink" width="180" height="120"></a>
+    </div>
     <div>category Man and Nature, <strong>semifinal</strong></div>
     <div><a href="../photo/images/2012-10-Morteratsch-054.jpg"><img src="../photo/images/K5_Herbstwald.jpg" width="180" height="120"
                     alt="photo of an autumnal larch forest"></a></div>
@@ -78,7 +91,8 @@
     <h2>photo.vogelwarte.ch 2012</h2>
     <div>Swiss Ornithological Institute in Sempach, <a href="http://photo.vogelwarte.ch/en/gallery-2012/#pic-67" title="Finalist 2012" target="_blank">photo
             contest</a></div>
-    <div><a href="../photo/photodb/photo-detail-en.php?imgId=4702"><img src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-348.jpg" width="180" height="120"
+    <div><a href="../photo/photodb/photo-detail-en.php?imgId=4702"><img src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-348.jpg" width="180"
+                    height="120"
                     alt="photo of a Osprey with a fish in its claws"></a></div>
     <div><strong>finalist</strong></div>
     <h2>WWF Magazin</h2>
