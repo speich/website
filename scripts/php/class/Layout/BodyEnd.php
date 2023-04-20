@@ -31,11 +31,12 @@ class BodyEnd
      */
     protected function renderFooter(): string
     {
+        $currentYear = date('Y');
         if ($this->language->get() === 'de') {
-            $htmlFooter = '<p>© 2003-2022 speich.net, Konzept und Programmierung Simon Speich</p>';
+            $htmlFooter = '<p>© 2003–'.$currentYear.' speich.net, Konzept und Programmierung Simon Speich</p>';
             $htmlFooter .= '<p class="last-update">letzte Aktualisierung '.$this->web->getLastUpdate('d.m.Y').'</p>';
         } else {
-            $htmlFooter = '<p>© 2003-2022 speich.net, concept und programming Simon Speich</p>';
+            $htmlFooter = '<p>© 2003–'.$currentYear.' speich.net, concept und programming Simon Speich</p>';
             $htmlFooter .= '<p class="last-update">last update '.$this->web->getLastUpdate('d.m.Y').'</p>';
         }
 
