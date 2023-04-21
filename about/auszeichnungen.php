@@ -13,49 +13,65 @@
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Auszeichnungen Fotowettbewerbe</h1>
 <div class="grid-container">
+    <h2>GDT Naturfotograf des Jahres 2023</h2>
+    <div>GDT (Gesellschaft für Naturfotografie) e.V. , <a
+            href="https://www.gdtfoto.de/seiten/gdt-naturfotograf-des-jahres-ergebnisse-2023.html"
+            target="_blank">GDT Naturfotograf des Jahres 2023</a></div>
+    <div><a href="../photo/photodb/photo-detail.php?country=16&imgId=9543/"><img src="../photo/photodb/images/2015-09-Australia/2015-09-Australia-576.jpg"
+                width="180" height="120" alt="High-key Foto von Brandseeschwalben und einer Flussseeschwalbe, die auf Holzpfosten sitzen, die im Wasser stehen."></a></div>
+    <div>Geisterflieger<br>
+        Kategorie «Säugetiere», <strong>7. Rang</strong></div>
     <h2>Schnappschuss 2022/23</h2>
     <div>Naturhistorisches Museum Basel, <a
                 href="https://www.nmbs.ch/home/info_angebote/mediencorner/pressebilder/Schnappschuss-2022_23.html"
                 target="_blank">Schnappschuss</a></div>
     <div><a href="../articles/de/2023/03/24/2-platz-fur-mein-foto-pfostenschacher/"><img src="../photo/photodb/images/thumbs/2022-05-Bulgarien/2022-05-Bulgarien-126.jpg"
                     width="180" height="120" alt="High-key Foto von Brandseeschwalben und einer Flussseeschwalbe, die auf Holzpfosten sitzen, die im Wasser stehen."></a></div>
-    <div>Kategorie «Tierporträts/Tiere in ihrem Lebensraum», <strong>2. Rang</strong></div>
+    <div>Pfostenschacher<br>
+        Kategorie «Tierporträts/Tiere in ihrem Lebensraum», <strong>2. Rang</strong></div>
     <h2>NFS-Wettbewerb 2020</h2>
     <div>Naturfotografen Schweiz, <a href="https://www.naturfotografen.ch/bilder/wettbewerbsbilder/id-2020.html"
                 title="NFS-Wettbewerb 2020" target="_blank">NFS-Wettbewerb 2020</a></div>
     <div><a href="../photo/photodb/photo-detail.php?imgId=8189"><img src="../photo/photodb/images/thumbs/ch/2019-06/2019-07-Schaffhausen-051.jpg" width="180" height="120"
                     alt="Foto kleiner Leuchtkäfer (Lamprohiza splendidula)" title="Leuchtspuren im Wald"></a></div>
-    <div>Kategorie «Andere Tiere», <strong>2. Rang</strong></div>
+    <div>Leuchtspuren im Wald<br>
+        Kategorie «Andere Tiere», <strong>2. Rang</strong></div>
     <div><a href="../photo/photodb/photo-detail.php?pg=7&country=1&qual=1&q=&imgId=7084"><img src="../photo/photodb/images/thumbs/2017-03-Florida/2017-03-Florida-221.jpg"
                     width="180" height="120" alt="Foto Grünreiher (Butorides virescens)" title="Stiller Beobachter"></a></div>
-    <div>Sonderkategorie «Wasser», <strong>Lobenswerte Erwähnung</strong></div>
+    <div>Stiller Beobachter<br>
+        Sonderkategorie «Wasser», <strong>Lobenswerte Erwähnung</strong></div>
     <h2>NFS-Wettbewerb 2018</h2>
     <div>Naturfotografen Schweiz, <a href="https://www.naturfotografen.ch/wettbewerb/id-2018.html"
                 title="NFS-Wettbewerb 2018" target="_blank">NFS-Wettbewerb 2018</a></div>
     <div><a href="../photo/photodb/photo-detail.php?imgId=7673"><img
                     src="../photo/photodb/images/thumbs/2016-05-Ungarn/2016-05-Ungarn-352.jpg" width="180" height="120" alt="Foto badende Stare"></a></div>
-    <div>Sonderkategorie «Bewegung / Aktion», <strong>Lobenswerte Erwähnung</strong></div>
+    <div>Tinguely<br>
+        Sonderkategorie «Bewegung / Aktion», <strong>Lobenswerte Erwähnung</strong></div>
     <h2>NFS-Wettbewerb 2017</h2>
     <div>Naturfotografen Schweiz, <a href="https://www.naturfotografen.ch/wettbewerb/id-2017.html"
                 title="NFS-Wettbewerb 2017" target="_blank">NFS-Wettbewerb 2017</a></div>
     <div><a href="../photo/photodb/photo-detail.php?imgId=7104"><img src="../photo/photodb/images/thumbs/ch/2015-03-Pontresina/2015-03-Pontresina-005.jpg" width="180"
                     height="120" alt="Foto einer Haubenmeise"></a></div>
-    <div>Kategorie «Vögel», <strong>Lobenswerte Erwähnung</strong></div>
+    <div>Haubenmeise<br>
+        Kategorie «Vögel», <strong>Lobenswerte Erwähnung</strong></div>
     <div><a href="../photo/photodb/photo-detail.php?imgId=3156"><img src="../photo/photodb/images/thumbs/ch/ch012/ch012-031.jpg"
                     width="180" height="119" alt="Foto von vereisten Bäumen"></a></div>
-    <div>Kategorie «Landschaft», <strong>Lobenswerte Erwähnung</strong></div>
+    <div>Kitsch<br>
+        Kategorie «Landschaft», <strong>Lobenswerte Erwähnung</strong></div>
     <h2>NFS-Wettbewerb 2016</h2>
     <div>Naturfotografen Schweiz, <a href="https://web.archive.org/web/20220128014626/https://www.naturfotografen.ch/wettbewerb/id-2016.html" title="NFS-Wettbewerb 2016" target="_blank">NFS-Wettbewerb
             2016</a></div>
     <div><a href="../photo/photodb/photo-detail.php?imgId=3851"><img src="../photo/photodb/images/thumbs/ch/ch014/ch014-078.jpg" width="180" height="119"
                     alt="Foto von vereisten Bäumen"></a></div>
-    <div>Kategorie «Nature as Art», <strong>1. Rang</strong></div>
+    <div>Paintbrush<br>
+        Kategorie «Nature as Art», <strong>1. Rang</strong></div>
     <h2>Glanzlichter 2016</h2>
     <div>projekt natur & fotografie, <a
                 href="http://glanzlichter.com/template/index.cfm/fuseaction/executeMenuID/uuidMenu/7882AF21-F10E-77C3-B34D495D5BC2FAAA/lastuuid/7882AF21-F10E-77C3-B34D495D5BC2FAAA/23/index.htm"
                 title="Glanzlichter 2016, 18. internationaler Naturfoto-Wettbewerb" target="_blank">Glanzlichter 2016</a></div>
     <div><a href="../articles/de/2016/04/23/1311/"><img src="../photo/images/helmkasuar.jpg" width="133" height="200" alt="Foto eines Helmkasuars"></a></div>
-    <div>Kategorie «Black and White», <strong>Highlight</strong></div>
+    <div>Hutmode im Vogelreich<br>
+        Kategorie «Black and White», <strong>Highlight</strong></div>
     <div><a href="../photo/photodb/photo-detail.php?imgId=4693"><img src="../photo/photodb/images/thumbs/2012-04-Florida/2012-04-Florida-337.jpg" width="180" height="120"
                     alt="Foto von einem Frosch im Spülbecken"></a></div>
     <div>Kategorie «Wildlife in Human Environment», <strong>Endrunde</strong></div>
