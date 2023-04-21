@@ -20,16 +20,16 @@
 /wp/wp-signup.php
 /wp/wp-trackback.php
 /wp/xmlrpc.php
-/photo/photodb/dbfiles/
-/photo/photodb/images/
-# you can't commit empty folders in git. You need to put at least an empty file in it.
-!/photo/photodb/dbfiles/.gitkeep
-!/photo/photodb/images/.gitkeep
 /wp/wp-content/index.php
 /wp/.htpasswd
 /wp/wp-content/themes/twentynineteen/
 /wp/wp-content/themes/twentytwenty/
 /wp/wp-content/themes/twentytwentyone/
-/cgi/ExifToolLib/
 /wp/wp-content/languages/
 /wp/wp-content/plugins/
+/photo/photodb/dbfiles/
+/photo/photodb/images/
+# you can't commit empty folders in git. You need to put at least an empty file in it.
+!/photo/photodb/dbfiles/.gitkeep
+!/photo/photodb/images/.gitkeep
+/cgi/ExifToolLib/
