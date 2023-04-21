@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <PhpCSConfiguration standards="MySource;PEAR;PHPCS;PSR1;PSR2;Squiz;Zend" tool_path="$USER_HOME$/.config/composer/vendor/squizlabs/php_codesniffer/scripts/phpcs" />
@@ -9,12 +18,14 @@
     <include_path>
       <path value="$PROJECT_DIR$/layout" />
       <path value="$PROJECT_DIR$/photo/photodb/scripts/php" />
+      <path value="$PROJECT_DIR$/library/vendor/speich/websitetemplate" />
+      <path value="$PROJECT_DIR$/library/vendor/composer" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter id="3d87c39f-e604-4256-85b5-65bc6b3bac8c" name="developer@192.168.1.52:22 password" home="sshConfig://DATA" debugger_id="php.debugger.XDebug">
-        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/developer/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" SSH_CONFIG_ID="e3c3e14e-11d2-49f7-9a47-7376b31e9801" SSH_CONFIG_NAME="developer@192.168.1.52:22 password" SSH_CREDENTIALS_ID="sshConfig://developer@192.168.1.52:22 password" />
+      <interpreter id="3d87c39f-e604-4256-85b5-65bc6b3bac8c" name="developer@192.168.1.52:22 password" home="sshConfig://DATA" false="false" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="/home/developer/.phpstorm_helpers" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" SSH_CONFIG_ID="e3c3e14e-11d2-49f7-9a47-7376b31e9801" SSH_CONFIG_NAME="developer@192.168.1.52:22 password" SSH_CREDENTIALS_ID="sshConfig://developer@192.168.1.52:22 password" />
       </interpreter>
     </interpreters>
   </component>
@@ -179,10 +190,16 @@
       <extension name="zmq" enabled="false" />
     </extensions>
   </component>
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/library/vendor/autoload.php" phpunit_phar_path="" />
       <phpunit_by_interpreter interpreter_id="453f43ce-8201-4be3-b3e6-8aea110aa4b7" custom_loader_path="/home/simon/Websites/speich.net/library/vendor/autoload.php" />
     </phpunit_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
 </project>
