@@ -18,8 +18,11 @@
     Grellingerstrasse 79<br>
     4052 Basel</p>
 <p><script type="text/javascript">
-    document.write('Ich bin über die E-Mail Adresse <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> kontaktierbar<br>');
-    </script> oder auf <a href="https://github.com/speich" target="_blank">GitHub</a> zu finden.</p>
+      document.write('Ich bin über die E-Mail Adresse <a href="mailto:info' + '@' + 'speich.net">info' + '@' + 'speich.net</a> kontaktierbar<br>');
+    </script>
+    oder auf <a href="https://github.com/speich" target="_blank">GitHub</a> / <a href="https://stackoverflow.com/users/208746/simon"
+        target="_blank">Stackoverflow</a> zu finden.
+</p>
 <h2>Mitgliedschaften</h2>
 <ul class="main">
     <li><a href="https://naturfotografen.ch/bilder/mitgliedergalerien/mitglied/simon-speich.html" target="_blank">Naturfotografen Schweiz</a></li>
