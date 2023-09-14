@@ -19,10 +19,10 @@
 <h2>Kameras</h2>
 <ul class="main">
     <li>Nikon Z9 (27.12.2021)</li>
+    <li>Nikon Z8 (23.09.2023)</li>
 </ul>
 <ul class="main">
     <li>Nikon D850 (19.04.2018)</li>
-    <li>Nikon D500 (15.12.2016)</li>
     <li>Sony Cybershot RX100 VA (06.10.2019)</li>
 </ul>
 <h2>Objektive</h2>
@@ -78,6 +78,7 @@
 <ul class="main">
     <li>Nikon D810 (29.12.2014–28.05.2018)</li>
     <li>Nikon D800 (21.03.2012–03.02.2017)</li>
+    <li>Nikon D500 (15.12.2016)–13.09.2023</li>
     <li>Nikon D300 (08.01.2009–18.08.2014)</li>
     <li>Nikon F100 (12.06.2004)</li>
     <li>Nikon F90x (1996–2004)</li>
