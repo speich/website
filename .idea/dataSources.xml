@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="photodb.sqlite" uuid="7e490b30-c4f0-485a-b5a7-3a31c14c223f">
-      <driver-ref>f6fc1b78-d020-44cf-ab4e-64b69909aac3</driver-ref>
+      <driver-ref>4c7b6f67-4fb5-4e09-a12b-fecc327dc94b</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/photo/photodb/dbfiles/photodb.sqlite</jdbc-url>

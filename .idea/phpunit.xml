@@ -4,7 +4,6 @@
     <option name="directories">
       <list>
         <option value="$PROJECT_DIR$/wp/wp-includes/sodium_compat/tests" />
-        <option value="$PROJECT_DIR$/wp/wp-includes/sodium_compat/tests" />
       </list>
     </option>
   </component>
