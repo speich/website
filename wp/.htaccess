@@ -1,0 +1,10 @@
+# Use additional authentication with password file
+# if not on local development server
+# IFDefine does not work on cyon servers
+
+<FilesMatch "(wp-config.php|wp-login.php)">
+	AuthName "WP Login"
+	AuthType Basic
+	AuthUserFile "/home/speichne/public_html/wp/.htpasswd"
+	Require valid-user
+</FilesMatch>
