@@ -44,7 +44,6 @@
     <li>Nikkor 28mm f/2.8D AF (14.06.1996)</li>
     <li>Nikkor 24mm f/1.4G ED AF-S (26.03.2014)</li>
     <li>Nikkor 20mm f/2.8D AF (22.03.2012)</li>
-    <li>Nikkor DX 16-80mm f/2.8-4E AF-S ED VR (27.04.2018)</li>
 </ul>
 <h2>Accessories</h2>
 <ul class="main">
@@ -92,6 +91,7 @@
     <li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013–20.05.2018)</li>
     <li>Nikon 80-400mm f/4.5-5.6D ED VR AF (27.10.2005–20.09.2013)</li>
     <li>Nikon 18-200mm f/3.5-5.6 G ED VR AF-S (08.01.2009–27.05.2014)</li>
+    <li>Nikkor DX 16-80mm f/2.8-4E AF-S ED VR (27.04.2018–02.10.12023)</li>
     <li>Teleconverter Nikon TC-14E II (20.10.2008)<br>
     <li>GPS Dawntec di-GPS Pro (17.06.2011)</li>
     <li>GPS Solmeta Geotagger N2 (23.05.2009–2011)</li>
