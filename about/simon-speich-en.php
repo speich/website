@@ -31,7 +31,7 @@
 <h3>Responsibilites:</h3>
 <ul class="main">
 <li>Concept, design and programming (PHP, JavaScript, SQL) of multilingual web applications.</li>
-<li>Setup and maintenance of (virtual) Linux web server.</li>
+<li>Setup and maintenance of (virtual) Linux web servers.</li>
 <li>Publication as well as documentation and archiving of results.</li>
 <li>Redaction and publishing of media.</li>
 </ul>
