@@ -31,6 +31,7 @@
 <h3>Aufgaben:</h3>
 <ul class="main">
 <li>Konzeption, Gestaltung und Programmierung (PHP, JavaScript, SQL) von mehrsprachigen, datenbankgestützten Webprodukten.</li>
+<li>Installation und Unterhalt von (virtuellen) Linux Webservern.</li>
 <li>Publikation sowie Dokumentation und Archivierung von Ergebnissen.</li>
 <li>Redaktion und Unterhalt von Medien.</li>
 </ul>
