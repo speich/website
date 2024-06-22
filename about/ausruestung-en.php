@@ -13,16 +13,13 @@
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photo Equipment</h1>
 <figure class="photoContainer"><img class="imgFrame" src="../photo/images/guyana-simon.jpg" alt="Photo of Simon Speich" title="Simon with Nikon 300mm in Action">
-    <figcaption>Simon taking a photo of a <a href="../photo/photodb/photo-detail-en.php?country=12&imgId=4971">Harpy Eagle</a> in Guyana's rainforest.</figcaption>
+    <figcaption>Simon taking a photo of a <a href="../photo/photodb/photo-detail-en.php?country=12&imgId=4971">Harpy Eagle</a> with the Nikon 300mm f/2.8 in Guyana's rainforest.</figcaption>
 </figure>
 <p>I've been taking photos with Nikon cameras and lenses for over 25 years — initially analog, then digital and now mirrorless.</p>
 <h2>Cameras</h2>
 <ul class="main">
     <li>Nikon Z9 (27.12.2021)</li>
     <li>Nikon Z8 (23.09.2023)</li>
-</ul>
-<ul class="main">
-    <li>Nikon D850 (19.04.2018)</li>
     <li>Sony Cybershot RX100 VA (06.10.2019)</li>
 </ul>
 <h2>Lenses</h2>
@@ -38,11 +35,8 @@
     <li>Nikkor 500mm f/5.6E PF ED VR 20.02.2020</li>
     <li>Nikkor 300mm f/4G AF-S PF ED VR (19.04.2018)</li>
     <li>Nikkor 300mm f/2.8G AF-S ED VR II (22.12.2011)</li>
-    <li>Nikkor 105mm f/2.8D AF (14.06.1996)</li>
-    <li>Nikkor 70-200mm f/2.8G AF-S ED VR II (22.12.2011)</li>
     <li>Nikkor 50mm f/1.8 AF (11.04.1996)</li>
     <li>Nikkor 28mm f/2.8D AF (14.06.1996)</li>
-    <li>Nikkor 24mm f/1.4G ED AF-S (26.03.2014)</li>
     <li>Nikkor 20mm f/2.8D AF (22.03.2012)</li>
 </ul>
 <h2>Accessories</h2>
@@ -58,9 +52,6 @@
     <li>Tripod <a href="https://www.manfrotto.us/gitzo/tripods/systematic" target="_blank">Gitzo GT5541LS</a> (22.07.2008)</li>
     <li>Tripod <a href="https://www.manfrotto.us/gitzo/tripods/systematic" target="_blank">Gitzo GT4552TS</a> (22.10.2012)</li>
     <li>Tripod <a href="https://www.manfrotto.us/gitzo/tripods/systematic" target="_blank">Gitzo GT3541LS</a> (10.11.2008)</li>
-    <li>Teleconverter Nikon TC-14E III (16.02.2020)<br>
-        For more information read my post <a href="/articles/en/2013/11/23/comparison-of-nikon-300mm-and-600mm-with-teleconverter-tc-14/">Comparison of Nikon
-            300mm and 600mm with Teleconverter TC-14</a></li>
     <li>GPS <a href="https://www.dawntech.co.uk/shop/index.php?route=product/product&path=70&product_id=64" target="_blank">Dawntec di-GPS Eco ProF M</a> (07.2014)</li>
     <li>Solar panel <a href="http://www.sistech.com/products-9171-0/default.asp" target="_blank">SIStech CHEPRE 18V/18Wp</a> (18.08.2012)<br>
         For more information read my post <a href="/articles/en/2012/11/25/how-to-recharge-your-camera-batteries-in-the-amazonian-jungle/">How to recharge your
@@ -76,6 +67,7 @@
 </ul>
 <h2>Former equipment</h2>
 <ul class="main">
+    <li>Nikon D850 (19.04.2018–31.01.2024)</li>
     <li>Nikon D810 (29.12.2014–28.05.2018)</li>
     <li>Nikon D800 (21.03.2012–03.02.2017)</li>
     <li>Nikon D500 (15.12.2016)–13.09.2023</li>
@@ -88,10 +80,16 @@
     <li>Minox 35 GL</li>
     <li>Nikon 600mm f/4G ED VR AF-S (27.07.2008–30.03.2016)</li>
     <li>Nikon 600mm f/5.6 MF (14.03.1997–27.07.2008)</li>
+    <li>Nikkor 105mm f/2.8D AF (14.06.1996–08.03.2024)</li>
     <li>Nikon 80-400mm f/4.5-5.6G ED VR AF-S (20.09.2013–20.05.2018)</li>
     <li>Nikon 80-400mm f/4.5-5.6D ED VR AF (27.10.2005–20.09.2013)</li>
+    <li>Nikkor 70-200mm f/2.8G AF-S ED VR II (22.12.2011–30.01.2024)</li>
+    <li>Nikkor 24mm f/1.4G ED AF-S (26.03.2014–31.01.2024)</li>
     <li>Nikon 18-200mm f/3.5-5.6 G ED VR AF-S (08.01.2009–27.05.2014)</li>
     <li>Nikkor DX 16-80mm f/2.8-4E AF-S ED VR (27.04.2018–02.10.12023)</li>
+    <li>Teleconverter Nikon TC-14E III (16.02.2020–31.01.2024)<br>
+        For more information read my post <a href="/articles/en/2013/11/23/comparison-of-nikon-300mm-and-600mm-with-teleconverter-tc-14/">Comparison of Nikon
+            300mm and 600mm with Teleconverter TC-14</a></li>
     <li>Teleconverter Nikon TC-14E II (20.10.2008)<br>
     <li>GPS Dawntec di-GPS Pro (17.06.2011)</li>
     <li>GPS Solmeta Geotagger N2 (23.05.2009–2011)</li>
