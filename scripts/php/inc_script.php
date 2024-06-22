@@ -46,7 +46,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('style-src', "'self' 'unsafe-inline' https://fonts.googleapis.com");
     $cspHeader->set('worker-src', 'blob:');
 }
-header($cspHeader->toString());
+//header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
 $bodyStart = new BodyStart($web->getWebRoot(), $language);
 $bodyEnd = new BodyEnd($web, $language);
