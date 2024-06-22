@@ -5,6 +5,6 @@
 <FilesMatch "(wp-config.php|wp-login.php)">
 	AuthName "WP Login"
 	AuthType Basic
-	AuthUserFile "/home/speichne/public_html/wp/.htpasswd"
+	AuthUserFile "/home/speichne/public_html/speich.net/wp/.htpasswd"
 	Require valid-user
 </FilesMatch>
