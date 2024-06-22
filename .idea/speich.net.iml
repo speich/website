@@ -9,12 +9,12 @@
       <excludeFolder url="file://$MODULE_DIR$/library/vendor/speich/websitetemplate" />
       <excludeFolder url="file://$MODULE_DIR$/library/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
-      <excludeFolder url="file://$MODULE_DIR$/wp/wp-admin" />
       <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/languages" />
       <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/plugins" />
       <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/themes/twentynineteen" />
       <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/themes/twentytwentyone" />
-      <excludeFolder url="file://$MODULE_DIR$/wp/wp-includes" />
+      <excludeFolder url="file://$MODULE_DIR$/library" />
+      <excludeFolder url="file://$MODULE_DIR$/cgi" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

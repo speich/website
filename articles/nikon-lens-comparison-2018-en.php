@@ -4,7 +4,7 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: Canon vs. Nikon Telephoto Lenses: If weight plays a major role</title>
 <?php echo $head->render(); ?>
-<link rel="stylesheet" href="../library/dgrid/0.3.21/css/skins/claro.css">
+<link rel="stylesheet" href="../library/dgrid/css/skins/claro.css">
 <link href="../layout/layout.css" rel="stylesheet" type="text/css">
 <link href="nikon-lens-comparison.css" rel="stylesheet" type="text/css">
 </head>
@@ -30,21 +30,21 @@
 <script type="text/javascript">
 var dojoConfig = {
 	async: true,
-	baseUrl: '../library/dojo/1.17.3/',
+	baseUrl: '../library/dojo/',
 	packages: [
 		{name: 'dojo', location: 'dojo'},
 		{name: 'dijit', location: 'dijit'},
 		{name: 'dojox', location: 'dojox'},
-		{name: 'dgrid', location: '/library/dgrid/0.3.21'},
-		{name: 'xstyle', location: '/library/xstyle/0.3.3'},
-		{name: 'put-selector', location: '/library/put-selector/0.3.6'},
+		{name: 'dgrid', location: '/library/dgrid'},
+		{name: 'xstyle', location: '/library/xstyle'},
+		{name: 'put-selector', location: '/library/put-selector'},
 		{
 			name: 'snet', location: '/library/speich.net'
 		}
 	]
 };
 </script>
-<script src="../library/dojo/1.17.3/dojo/dojo.js" type="text/javascript"></script>
+<script src="../library/dojo/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/store/Memory',

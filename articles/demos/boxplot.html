@@ -13,14 +13,14 @@
 <body>
 <div id="boxplot"></div>
 
-<script src="../../library/dojo/1.17.3/dojo/dojo.js" data-dojo-config="async: true,
+<script src="../../library/dojo/dojo/dojo.js" data-dojo-config="async: true,
 	baseUrl: '/library',
 	packages: [
-		{name: 'dojo', location: 'dojo/1.17.3/dojo' },
-    {name: 'jquery', location: 'jquery', main: 'jquery-3.3.1.min'},
-    {name: 'jqplot', location: 'jqplot.1.0.9.d96a669', main: 'jquery.jqplot.min'},
-    {name: 'boxplot', location: 'speich.net/boxplot'}
-  ]"></script>
+		{name: 'dojo', location: 'dojo/dojo' },
+        {name: 'jquery', location: 'jquery', main: 'jquery.min'},
+        {name: 'jqplot', location: 'jqplot.1.0.9.d96a669', main: 'jquery.jqplot.min'},
+        {name: 'boxplot', location: 'speich.net/boxplot'}
+    ]"></script>
 <script>
 define.amd.jQuery = true;	// allow loading jquery with dojo amd
 require(['jquery'], function () {   // jquery has to be loaded before jqplot

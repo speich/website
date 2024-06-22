@@ -47,7 +47,7 @@ class SearchQuery
 
     /**
      * Creates the FTS4 search query.
-     * Postfixes each word with an asterix if an exact match is not wanted (e.g. not wrapped in parenthesis).
+     * Postfixes each word with an asterix if an exact match is not wanted (e.g. not wrapped in parentheses).
      * @param array $words
      * @param string $lang
      * @return string
@@ -59,7 +59,7 @@ class SearchQuery
         $language = new Language();
         $lang = $language->isValid($lang) === true ? $lang : $language->getDefault();
         foreach ($words as $i => $val) {
-            if (strpos($val, '"') !== false) {
+            if (str_contains($val, '"')) {
                 $search .= $val;
             }
             else {

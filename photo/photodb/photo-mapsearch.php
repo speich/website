@@ -12,7 +12,7 @@ $web->setLastPage();
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-mapsearch.min.css" rel="stylesheet" type="text/css">
-    <script src="photo-mapsearch.js" type="module" defer></script>
+    <script src="photo-mapsearch.js" nonce="<?php echo $cspHeader->nonceStyle; ?>" type="module" defer></script>
 </head>
 
 <body>

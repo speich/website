@@ -9,7 +9,8 @@
     "ext-json": "*",
     "ext-exif": "*",
     "ext-intl": "*",
-    "ext-imagick": "*"
+    "ext-imagick": "*",
+    "ext-zlib": "*"
   },
   "autoload": {
     "psr-4": {
