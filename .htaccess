@@ -1,16 +1,12 @@
-RewriteEngine On
 
-# ensure https, be carefull that the rewrite does not messup subdomains suchs as photo.speich.net
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=301,L]
-
-# set hsts header
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
-
-# required for cyon hosting
-AddHandler application/x-httpd-php80 .php
-
-DirectoryIndex index.php index.html index.htm
+RewriteEngine on
+AddHandler application/x-httpd-php83 .php
+RewriteCond %{HTTP_HOST} ^foto\.speich\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.foto\.speich\.net$
+RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/photo\/photodb\/photo\.php$1" [R=301,L]
+RewriteCond %{HTTP_HOST} ^photo\.speich\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.photo\.speich\.net$
+RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/photo\/photodb\/photo\-en\.php$1" [R=301,L]
 
 Redirect 301 /computer/visualization.php https://www.speich.net/articles/visualization.php
 Redirect 301 /computer/3d.php https://www.speich.net/projects/programming/3d.php
@@ -20,6 +16,3 @@ Redirect 301 /computer/artikel/integration-phpdocumentor-eclipse-en.php https://
 Redirect 301 /birds/fotos.php https://www.speich.net/photo/photodb/photo.php?theme=1
 Redirect 301 /about/cv.php https://www.speich.net/about/simon-speich.php
 Redirect 301 /about/cv-en.php https://www.speich.net/about/simon-speich-en.php
-
-RewriteCond %{HTTP_HOST} ^(f|ph)oto.speich.net$ [NC]
-RewriteRule ^(.*) https://www.speich.net/photo/photodb/photo.php [R=301,L]
