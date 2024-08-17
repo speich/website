@@ -19,7 +19,7 @@ $language->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $language->autoSet();
 
 $web = new WebsiteSpeich();
-$web::setLastUpdate('2024-06-22');
+$web::setLastUpdate('2024-08-17');
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 
