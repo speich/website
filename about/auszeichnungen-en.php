@@ -13,6 +13,14 @@
 <?php echo $bodyStart->render($mainNav, $sideNav, $langNav); ?>
 <h1>Photography Awards</h1>
 <div class="grid-container">
+    <h2>GDT Nature Photographer of the Year</h2>
+    <div>GDT (German society for nature photography), <a
+                href="https://www.gdtfoto.de/seiten/gdt-naturfotograf-des-jahres-results-2023.html?lang=English"
+                target="_blank">GDT Nature Photographer of the Year</a></div>
+    <div><a href="../photo/photodb/photo-detail-en.php?country=16&imgId=9543&lang=en"><img src="../photo/photodb/images/2015-09-Australia/2015-09-Australia-576.jpg"
+                    width="180" height="120" title="Ghost in the sky" alt="a flying fox with translucend wings"></a></div>
+    <div>Geisterflieger<br>
+        Kategorie «Säugetiere», <strong>7. Rang</strong></div>
     <h2>Schnappschuss 2022/23</h2>
     <div>Naturhistorisches Museum Basel, <a
                 href="https://www.nmbs.ch/home/info_angebote/mediencorner/pressebilder/Schnappschuss-2022_23.html" target="_blank">Schnappschuss</a></div>
