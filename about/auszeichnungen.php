@@ -18,7 +18,7 @@
             href="https://www.gdtfoto.de/seiten/gdt-naturfotograf-des-jahres-ergebnisse-2023.html"
             target="_blank">GDT Naturfotograf des Jahres 2023</a></div>
     <div><a href="../photo/photodb/photo-detail.php?country=16&imgId=9543"><img src="../photo/photodb/images/2015-09-Australia/2015-09-Australia-576.jpg"
-                width="180" height="120" alt="High-key Foto von Brandseeschwalben und einer Flussseeschwalbe, die auf Holzpfosten sitzen, die im Wasser stehen."></a></div>
+                width="180" height="120" title="Geisterflieger" alt="ein fliegender Flughund mit durchscheinenden Flügeln"></a></div>
     <div>Geisterflieger<br>
         Kategorie «Säugetiere», <strong>7. Rang</strong></div>
     <h2>Schnappschuss 2022/23</h2>
