@@ -21,16 +21,16 @@
 	Author: Kyle Scholz      http://kylescholz.com/
 	Copyright: 2006-2007
 	-->
-<script language="JavaScript" src="../library/jsviz/0.3.3/physics/ParticleModel.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/physics/Magnet.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/physics/Spring.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/physics/Particle.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/physics/RungeKuttaIntegrator.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/layout/graph/ForceDirectedLayout.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/layout/view/SVGGraphView.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/util/Timer.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/util/EventHandler.js"></script>
-<script language="JavaScript" src="../library/jsviz/0.3.3/io/DataGraph.js"></script>
+<script language="JavaScript" src="../library/jsviz/physics/ParticleModel.js"></script>
+<script language="JavaScript" src="../library/jsviz/physics/Magnet.js"></script>
+<script language="JavaScript" src="../library/jsviz/physics/Spring.js"></script>
+<script language="JavaScript" src="../library/jsviz/physics/Particle.js"></script>
+<script language="JavaScript" src="../library/jsviz/physics/RungeKuttaIntegrator.js"></script>
+<script language="JavaScript" src="../library/jsviz/layout/graph/ForceDirectedLayout.js"></script>
+<script language="JavaScript" src="../library/jsviz/layout/view/SVGGraphView.js"></script>
+<script language="JavaScript" src="../library/jsviz/util/Timer.js"></script>
+<script language="JavaScript" src="../library/jsviz/util/EventHandler.js"></script>
+<script language="JavaScript" src="../library/jsviz/io/DataGraph.js"></script>
 <script type="text/javascript">
 var d = document;
 

@@ -15,7 +15,7 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../library/photoswipe/5.3.0/photoswipe.css">
+    <link rel="stylesheet" href="../../library/photoswipe/photoswipe.css">
     <script src="photo.min.js" type="module"></script>
 </head>
 

@@ -6,8 +6,8 @@ $sideNav->arrItem[1]->setActive();
 <head>
 <meta charset="UTF-8">
 <title><?php echo 'Remote File Explorer (rfe)'; ?></title>
-<link rel="stylesheet" href="/library/dojo/1.17.3/dijit/themes/claro/document.css">
-<link rel="stylesheet" href="/library/dojo/1.17.3/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="/library/dojo/dijit/themes/claro/document.css">
+<link rel="stylesheet" href="/library/dojo/dijit/themes/claro/claro.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/reset.css">
 <link rel="stylesheet" href="/library/remoteFileExplorer/js/resources/rfe.css">
 <link rel="stylesheet" href="/projects/programming/remoteFileExplorer.min.css">
@@ -21,11 +21,11 @@ $sideNav->arrItem[1]->setActive();
 	combined with a <a href="https://dgrid.io/" target="_blank">dgrid</a> using REST. A <a href="https://dojotoolkit.org/reference-guide/dijit/form/ComboBox.html" target="_blank">customized dijit ComboBox</a> is used for the search.</p>
 <p>You can find the source code and the documentation on <a href="https://github.com/speich/remoteFileExplorer" target="_blank">GitHub</a>.</p>
 <div id="remoteFileExplorer" class="claro"><div class="loading"><img src="/layout/images/icon_loading.gif" alt="loading icon">File explorer is being loaded...</div></div>
-<script src="/library/dojo/1.17.3/dojo/dojo.js" data-dojo-config="async: true,
+<script src="/library/dojo/dojo/dojo.js" data-dojo-config="async: true,
 	packages: [
-		{name: 'dgrid', location: '/library/dgrid/0.3.21'},
-		{name: 'xstyle', location: '/library/xstyle/0.3.3'},
-		{name: 'put-selector', location: '/library/put-selector/0.3.6'},
+		{name: 'dgrid', location: '/library/dgrid'},
+		{name: 'xstyle', location: '/library/xstyle'},
+		{name: 'put-selector', location: '/library/put-selector'},
 		{name: 'rfe', location: '/library/remoteFileExplorer/js'},
 		{name: 'rfe-php', location: '/library/remoteFileExplorer/php'}
 	],

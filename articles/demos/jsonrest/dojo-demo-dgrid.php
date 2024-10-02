@@ -4,8 +4,8 @@
 <head>
 <title><?php echo $web->pageTitle; ?>: REST with dojo and PHP: Demo</title>
 <?php echo $head->render(); ?>
-<link href="../../../library/dojo/1.17.3/dijit/themes/claro/claro.css" rel="stylesheet"	type="text/css">
-<link rel="stylesheet" href="../../../library/dgrid/0.3.21/css/skins/claro.css">
+<link href="../../../library/dojo/dijit/themes/claro/claro.css" rel="stylesheet"	type="text/css">
+<link rel="stylesheet" href="../../../library/dgrid/css/skins/claro.css">
 <link rel="stylesheet" href="dojo-demo-dgrid.css">
 </head>
 
@@ -33,14 +33,14 @@
  var dojoConfig = {
 	  async: true,
 	  packages:[
-			{ name:'dgrid', location:'/library/dgrid/0.3.21'},
-			{ name:'xstyle', location:'/library/xstyle/0.3.3'},
-			{ name:'put-selector', location:'/library/put-selector/0.3.6'},
+			{ name:'dgrid', location:'/library/dgrid'},
+			{ name:'xstyle', location:'/library/xstyle'},
+			{ name:'put-selector', location:'/library/put-selector'},
 			{ name:'speich.net', location:'/library/speich.net'}
 	  ]
  };
 </script>
-<script src="../../../library/dojo/1.17.3/dojo/dojo.js" type="text/javascript"></script>
+<script src="../../../library/dojo/dojo/dojo.js" type="text/javascript"></script>
 <script type="text/javascript">
 require([
 	'dojo/when',

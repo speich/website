@@ -1,12 +1,17 @@
 @media screen and (min-width: 60em) {
-    .col {
-        display: inline-block;
-        width: 50%;
-        vertical-align: top;
+    .flexCont {
+        display: flex;
+        flex-direction: row;
+        gap: 2em;
+        flex: auto;
     }
 
-    .colLeft {
-        padding-right: 0.5em;
+    .flexCont > div {
+        width: 50%;
+    }
+
+    .flexCont > div > ul:first-of-type {
+        margin-top: 0;
     }
 }
 
@@ -50,5 +55,5 @@
 }
 
 .license img {
-	margin-right: 0.5em;
+    margin-right: 0.5em;
 }

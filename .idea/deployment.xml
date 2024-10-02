@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="speichne@speich.net" preserveFilePermissions="true" filePermissions="420" folderPermissions="493" confirmBeforeUploading="false">
+  <component name="PublishConfigData" serverName="speichne@speich.net" filePermissions="420" folderPermissions="493" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
       <paths name="speich.test">

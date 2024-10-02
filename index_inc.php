@@ -14,7 +14,7 @@ $photo = $stmt->fetchObject();
 $imgPath = $db->getPath('img').$photo->ImgFolder.'/'.$photo->ImgName;
 
 // create different srcsets
-//$imgPath = 'photo/photodb/images/ch/2008-09-Fenalet/2008-09-Fenalet-018.jpg';
+// $imgPath = 'photo/photodb/images/ch/2008-09-Fenalet/2008-09-Fenalet-018.jpg';
 $origSize = getimagesize($imgPath);
 $resizerPath = '/scripts/php/controller/images/img1.php/'.$imgPath;
 $photo->src = '/'.$imgPath;

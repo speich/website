@@ -5,8 +5,16 @@
       <sourceFolder url="file://$MODULE_DIR$/library/vendor/speich/websitetemplate/scripts/php" isTestSource="false" packagePrefix="WebsiteTemplate\" />
       <sourceFolder url="file://$MODULE_DIR$/library/../photo/photodb/scripts/php" isTestSource="false" packagePrefix="PhotoDb\" />
       <sourceFolder url="file://$MODULE_DIR$/library/../scripts/php/class" isTestSource="false" packagePrefix="speich\" />
+      <sourceFolder url="file://$MODULE_DIR$/wp/wp-includes/sodium_compat/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/library/vendor/speich/websitetemplate" />
       <excludeFolder url="file://$MODULE_DIR$/library/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/languages" />
+      <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/plugins" />
+      <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/themes/twentynineteen" />
+      <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/themes/twentytwentyone" />
+      <excludeFolder url="file://$MODULE_DIR$/library" />
+      <excludeFolder url="file://$MODULE_DIR$/cgi" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

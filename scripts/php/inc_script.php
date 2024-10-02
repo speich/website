@@ -1,5 +1,6 @@
 <?php
 
+use speich\CspHeader;
 use speich\Layout\BodyEnd;
 use speich\Layout\BodyStart;
 use speich\Layout\Head;
@@ -18,7 +19,7 @@ $language->arrLang = ['de' => 'Deutsch', 'en' => 'English'];
 $language->autoSet();
 
 $web = new WebsiteSpeich();
-$web->setLastUpdate('2023-04-20');
+$web::setLastUpdate('2024-09-16');
 $web->setWebroot('/');
 ini_set('default_charset', $web->charset);
 
@@ -27,6 +28,25 @@ $web->pageTitle = 'Simon Speich - '.$windowTitle;
 
 require_once __DIR__.'/../../layout/inc_nav.php';
 
-$head = new Head($web->getWebRoot());
+
+// TODO: add preload directive to enable hsts header, @see https://hstspreload.org/?domain=lfi.ch
+header('Strict-Transport-Security: max-age=63072000; includeSubdomains');
+$cspHeader = new CspHeader();
+if ($web->page === 'remoteFileExplorer.php') {
+    $cspHeader->set('script-src', "'self' 'unsafe-eval'");
+} elseif ($language->removePostfix($web->page) === 'photo-mapsearch.php' ||
+    $language->removePostfix($web->page) === 'photo-detail.php') {
+    // TODO: use strict CSP instead of allowlist
+    $cspHeader->set('script-src',
+        "'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com blob:");
+    $cspHeader->set('img-src', "'self'  mirrors.creativecommons.org https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:");
+    $cspHeader->set('frame-src', '*.google.com');
+    $cspHeader->set('connect-src', "'self' https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:");
+    $cspHeader->set('font-src', "'self' https://fonts.gstatic.com");
+    $cspHeader->set('style-src', "'self' 'unsafe-inline' https://fonts.googleapis.com");
+    $cspHeader->set('worker-src', 'blob:');
+}
+//header($cspHeader->toString());
+$head = new Head($web->getWebRoot(), $cspHeader);
 $bodyStart = new BodyStart($web->getWebRoot(), $language);
 $bodyEnd = new BodyEnd($web, $language);

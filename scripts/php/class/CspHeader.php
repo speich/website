@@ -22,6 +22,14 @@ class CspHeader
         'object-src' => "'none'",
         'worker-src' => "'none'"
     ];
+    public string $nonceStyle;
+    public string $nonceScript;
+
+    public function __construct()
+    {
+        $this->nonceScript = $this->getNonce();
+        $this->nonceStyle = $this->getNonce();
+    }
 
     /**
      * @param string $directive
@@ -39,9 +47,14 @@ class CspHeader
     {
         $str = '';
         foreach (self::$policies as $directive => $value) {
-            $str.= $directive.' '.$value.';';
+            $str .= $directive.' '.$value.';';
         }
 
         return 'Content-Security-Policy: '.$str;
+    }
+
+    private function getNonce(): string
+    {
+        return bin2hex(string: openssl_random_pseudo_bytes(32));
     }
 }

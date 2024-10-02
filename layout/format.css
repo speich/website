@@ -161,7 +161,7 @@ nav.main ul, nav.lang ul {
 }
 
 nav.main li, nav.lang li {
-    margin: 0.5em;
+    margin: 1em;
 }
 
 nav.main li a, nav.lang li a {
@@ -386,6 +386,11 @@ ul.main, .entry-content ul {
         margin-left: -1em;
         margin-right: -1em;
     }
+
+    nav.main li, nav.lang li {
+        margin: 0.5em;
+    }
+
     nav.lang ul {
         margin-left: -0.5em;
         margin-right: -0.5em;
