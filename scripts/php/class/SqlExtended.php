@@ -27,7 +27,7 @@ abstract class SqlExtended extends SqlFull
      * Uses the name of the property as the name of the placeholder and its value as the value to bind.
      * @param callable $fnc function that binds the property values to the placeholders
      */
-    public function bind($fnc): void
+    public function bind(callable $fnc): void
     {
         $vars = $this->getPublicVars();
         foreach ($vars as $name => $val) {
