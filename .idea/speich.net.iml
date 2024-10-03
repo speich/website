@@ -6,7 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/library/../photo/photodb/scripts/php" isTestSource="false" packagePrefix="PhotoDb\" />
       <sourceFolder url="file://$MODULE_DIR$/library/../scripts/php/class" isTestSource="false" packagePrefix="speich\" />
       <sourceFolder url="file://$MODULE_DIR$/wp/wp-includes/sodium_compat/tests" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/library/vendor/speich/websitetemplate" />
+      <sourceFolder url="file://$MODULE_DIR$/library/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/library/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/wp/wp-content/languages" />

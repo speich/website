@@ -3,7 +3,7 @@
   <component name="PHPUnit">
     <option name="directories">
       <list>
-        <option value="$PROJECT_DIR$/wp/wp-includes/sodium_compat/tests" />
+        <option value="C:\Users\simon\PhpstormProjects\speich.net\tests" />
       </list>
     </option>
   </component>

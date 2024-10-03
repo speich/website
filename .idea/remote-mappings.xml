@@ -18,6 +18,13 @@
             </list>
           </settings>
         </remote-mappings>
+        <remote-mappings server-id="php@3d87c39f-e604-4256-85b5-65bc6b3bac8c">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/speich.net" />
+            </list>
+          </settings>
+        </remote-mappings>
       </list>
     </list>
   </component>
