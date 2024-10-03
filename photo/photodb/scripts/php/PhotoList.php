@@ -93,11 +93,11 @@ class PhotoList
         $query = new QueryString();
         foreach ($photos as $row) {
             // get image dimensions
-            $imgFile = $web->getWebRoot().$this->db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
-            $thumbSize = getimagesize(__DIR__.'/../../../..'.$imgFile);
-            $imgSize = getimagesize(__DIR__.'/../../../..'.$web->getWebRoot().$this->db->getPath('img').$row['imgFolder'].'/'.$row['imgName']);
+            $thumbPath = $web->getWebRoot().$this->db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
+            $imgPath = str_replace('thumbs/', '', $thumbPath);
+            $thumbSize = getimagesize(__DIR__.'/../../../..'.$thumbPath);
+            $imgSize = getimagesize(__DIR__.'/../../../..'.$imgPath);
             $imgTitle = $row['imgTitle'];
-            $link = str_replace('thumbs/', '', $imgFile);
             $detailLink = $lang->createPage('photo-detail.php').$query->withString(['imgId' => $row['imgId']]);
             if ($imgSize[0] > $imgSize[1]) {
                 $css = 'slideHorizontal';
@@ -112,11 +112,11 @@ class PhotoList
 
             $str .= '<li class="slide">';
             $str .= '<div class="slideCanvas '.$css.'">';
-            $str .= '<a href="'.$link.'" title="'.$imgTitle.'" data-pswp-width="'.$imgSize[0].'" data-pswp-height="'.$imgSize[1].'">';
-            $str .= '<img class="'.$cssImg.'" src="'.$imgFile.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'">';
+            $str .= '<a href="'.$imgPath.'" title="'.$imgTitle.'" data-pswp-width="'.$imgSize[0].'" data-pswp-height="'.$imgSize[1].'">';
+            $str .= '<img class="'.$cssImg.'" src="'.$imgPath.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'">';
             $str .= '</a></div>';
             $title = $i18n['zoom photo'].': '.$imgTitle;
-            $str .= '<div class="slideText"><a title="'.$title.'" href="'.$link.'">'.$i18n['zoom'].'</a> | ';
+            $str .= '<div class="slideText"><a title="'.$title.'" href="'.$imgPath.'">'.$i18n['zoom'].'</a> | ';
             $str .= '<a title="'.$i18n['show details'].'" href="'.$detailLink.'">'.$i18n['details'].'</a></div>';
             $str .= '</li>';
         }
