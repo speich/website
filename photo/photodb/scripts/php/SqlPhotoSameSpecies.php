@@ -33,8 +33,7 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getWhere(): string
     {
-        return 'i.RatingId = 3
-            AND N.ScientificNameId = :scientificNameId
+        return 'N.ScientificNameId = :scientificNameId
             AND N.ImgId <> :imgId';
     }
 
@@ -51,6 +50,6 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getOrderBy(): string
     {
-        return '';
+        return 'i.RatingId DESC';
     }
 }
