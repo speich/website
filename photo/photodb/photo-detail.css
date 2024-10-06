@@ -6,6 +6,7 @@
         flex: auto;
     }
 
+
     .flexCont > div {
         width: 50%;
     }
@@ -17,6 +18,21 @@
 
 .col > h3 {
     margin-top: 0;
+}
+
+figure:not(.wp-block-gallery) {
+    margin-bottom: 3em;
+}
+
+.sameSpecies {
+    margin: -2px;
+}
+
+.sameSpecies img {
+    width: calc(50% - 4px);
+    height: auto;
+    margin: 2px;
+    vertical-align: top;
 }
 
 #exifInfo {

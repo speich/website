@@ -14,7 +14,8 @@ class SqlPhotoDetail extends SqlExtended
 
     public int $imgId;
 
-    public function setLangPostfix(Language $language) {
+    public function setLangPostfix(Language $language): void
+    {
         $this->langPostfix = ucfirst($language->get());
     }
 
@@ -33,14 +34,14 @@ class SqlPhotoDetail extends SqlExtended
         	E.GpsLatitude gpsLatitude, E.GpsLongitude gpsLongitude, E.GpsAltitude gpsAltitude, E.GpsAltitudeRef gpsAltitudeRef,
         	E.LensSpec lensSpec, E.Lens lens, E.FileType fileType, E.VibrationReduction vibrationReduction,
         	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
-        	GROUP_CONCAT(DISTINCT T.Name".$this->langPostfix.') themes,
+        	GROUP_CONCAT(DISTINCT T.Name" . $this->langPostfix . ') themes,
         	GROUP_CONCAT(DISTINCT K.Name) categories,
-        	N.Id scientificNameId, GROUP_CONCAT(DISTINCT N.NameDe) scientificNameDe, GROUP_CONCAT(DISTINCT N.NameEn) scientificNameEn, GROUP_CONCAT(DISTINCT N.NameLa) scientificNameLa,
-        	S.Name'.$this->langPostfix.' sex, S.Symbol symbol,
+        	GROUP_CONCAT(DISTINCT N.Id) scientificNameId, GROUP_CONCAT(DISTINCT N.NameDe) scientificNameDe, GROUP_CONCAT(DISTINCT N.NameEn) scientificNameEn, GROUP_CONCAT(DISTINCT N.NameLa) scientificNameLa,
+        	S.Name' . $this->langPostfix . ' sex, S.Symbol symbol,
         	GROUP_CONCAT(DISTINCT L.Name) locations,
-        	GROUP_CONCAT(DISTINCT C.Name'.$this->langPostfix.') countries,
-        	C2.Name'.$this->langPostfix.' country,
-        	Lc.UrlLink licenseLink, Lc.UrlLogo licenseLogo, Lc.Label'.$this->langPostfix.' licenseLabel';
+        	GROUP_CONCAT(DISTINCT C.Name' . $this->langPostfix . ') countries,
+        	C2.Name' . $this->langPostfix . ' country,
+        	Lc.UrlLink licenseLink, Lc.UrlLogo licenseLogo, Lc.Label' . $this->langPostfix . ' licenseLabel';
     }
 
     /**

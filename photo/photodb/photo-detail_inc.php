@@ -22,7 +22,7 @@ $photoDetail = new PhotoDetail($photoDb);
 $sql = new SqlPhotoDetail();
 $sql->imgId = $imgId;
 $sql->setLangPostfix($language);
-$photo = $photoDetail->get($sql);
+$photo = $photoDetail->query($sql);
 if ($language->get() === 'de') {
     $pageTitle = $photo['imgTitle'].' | Fotodatenbank';
     $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).'. Ein Bild fotografiert von Simon Speich zum Thema '.$photo['themes'].'.';
