@@ -42,8 +42,7 @@ class PhotoDetail
 
     /**
      * Query for images of the same species.
-     * @param int $imgId image id
-     * @param int $speciesId scientific name id
+     * @param array $record
      * @return bool|array
      */
     public function querySameSpecies(array $record): bool|array
@@ -69,7 +68,6 @@ class PhotoDetail
      */
     function render(array $record, Language $lang, array $i18n): void
     {
-        var_dump($record);
         $db = $this->db;
         $photo = new PhotoList($db);
         $query = new QueryString();
