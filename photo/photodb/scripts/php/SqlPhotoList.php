@@ -131,20 +131,12 @@ class SqlPhotoList extends SqlExtended
         if (isset($this->search)) {
             $sql = 'Rank DESC, LastChange DESC';
         } else {
-            switch ($this->sort) {
-                case self::SORT_BY_DATECREATED:
-                    $sql = 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC';
-                    break;
-                case self::SORT_BY_DATECHANGED:
-                    $sql = 'LastChange DESC';
-                    break;
-                case self::SORT_BY_IMGTITLE:
-                    $sql = 'ImgTitle';
-                    break;
-                case self::SORT_BY_DATEADDED:
-                default:
-                    $sql = 'i.DateAdded DESC';
-            }
+            $sql = match ($this->sort) {
+                self::SORT_BY_DATECREATED => 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC',
+                self::SORT_BY_DATECHANGED => 'LastChange DESC',
+                self::SORT_BY_IMGTITLE => 'ImgTitle',
+                default => 'i.DateAdded DESC',
+            };
         }
 
         return $sql;
