@@ -16,8 +16,8 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getList(): string
     {
-        return 'i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName,
-            RANK() OVER (PARTITION BY N.ScientificNameId ORDER BY i.ratingId DESC, i.Id) rankNr';
+        return 't.imgId, t.imgFolder, t.imgName,
+           RANK() OVER (PARTITION BY t.ScientificNameId ORDER BY t.ratingId DESC, t.num) rankNr';
     }
 
     /**
@@ -25,8 +25,18 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getFrom(): string
     {
-        return 'Images i
-            INNER JOIN Images_ScientificNames N ON i.Id = N.ImgId';
+
+        // since we now, that scientificNameId can be trusted we don't need to use bind
+        $sqlIn = implode(',', $this->scientificNameId);
+
+        return "(SELECT i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.RatingId,
+            N.ScientificNameId,
+            random() num
+            FROM Images i
+            INNER JOIN Images_ScientificNames N ON i.Id = N.ImgId
+            WHERE N.ScientificNameId IN ($sqlIn)
+            AND N.ImgId <> :imgId
+            ) t";
     }
 
     /**
@@ -34,11 +44,8 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getWhere(): string
     {
-        // since we now, that scientificNameId can be trusted we don't need to use bind
-        $sqlIn = implode(',', $this->scientificNameId);
 
-        return "N.ScientificNameId IN ($sqlIn)
-            AND N.ImgId <> :imgId";
+        return '';
     }
 
     /**
@@ -54,7 +61,7 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getOrderBy(): string
     {
-        return 'i.RatingId DESC, rankNr';
+        return 't.ratingId DESC, rankNr';
     }
 
     public function setScientificNameId(array $scientificNameId): void
