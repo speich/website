@@ -35,6 +35,12 @@ class SqlPhotoList extends SqlExtended
     /** @var string|null */
     public ?string $search;
 
+    /**
+     * limit the query to a species
+     * @var string|null
+     */
+    public ?string $species;
+
     /** @var int sort list of photos by date created */
     public const SORT_BY_DATEADDED = 1;
     public const SORT_BY_DATECREATED = 2;
@@ -72,7 +78,7 @@ class SqlPhotoList extends SqlExtended
         if (isset($this->search)) {
             // @see https://sqlite.org/fts3.html#appendix_a as to why we should use a subquery
             $search = ' INNER JOIN (
-                SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\'), \''.implode(',', $this->colWeights).'\', Rating - 1) Rank 
+                SELECT ImgId, SCORE(MATCHINFO(Images_fts, \'xncp\'), \'' . implode(',', $this->colWeights) . '\', Rating - 1) Rank 
                 FROM Images_fts
                 WHERE Images_fts MATCH :search
                 ORDER BY Rank DESC
@@ -83,7 +89,8 @@ class SqlPhotoList extends SqlExtended
         }
 
         return 'Images i 
-            INNER JOIN Images_Themes it ON i.Id = it.ImgId'.$search;
+            INNER JOIN Images_Themes it ON i.Id = it.ImgId' . $search.'
+            LEFT JOIN Images_ScientificNames sc ON i.Id = sc.ImgId';
     }
 
     /**
@@ -100,6 +107,9 @@ class SqlPhotoList extends SqlExtended
         }
         if ($this->country !== null) {
             $sql .= ' AND CountryId = :country';
+        }
+        if ($this->species !== null) {
+            $sql .= ' AND sc.ScientificNameId = :species';
         }
         if ($this->lat1 !== null && $this->lng1 !== null && $this->lat2 !== null && $this->lng2 !== null) {
             if ($this->lng2 < $this->lng1) {
@@ -149,8 +159,8 @@ class SqlPhotoList extends SqlExtended
     public function getNumRecord(): string
     {
         return 'SELECT COUNT(Id) numRec FROM (
-                SELECT i.Id FROM '.$this->getFrom().'
-                WHERE '.$this->getWhere().' GROUP BY i.Id
+                SELECT i.Id FROM ' . $this->getFrom() . '
+                WHERE ' . $this->getWhere() . ' GROUP BY i.Id
             )';
     }
 

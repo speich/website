@@ -6,11 +6,7 @@ namespace PhotoDb;
 use function is_array;
 
 /**
- * This class is used to define the bind parameters for the SQL statement used to load marker data.
- * This class is only for convenience. It will let you know which bind variables are used in the SQL query returned
- * by the getSql method. The properties will show in autocomplete of an IDE. It allows the programmer
- * to know which variable names are required to use with the SQL statement for binding without even knowing the exact
- * bind name.
+ * This class is used to sanitize all query string parameters, which then can be used in a SQéL query.
  */
 class PhotoQueryString
 {
@@ -46,6 +42,11 @@ class PhotoQueryString
 
     /** @var string|null search query */
     public ?string $search;
+
+    /**
+     * @var mixed|null
+     */
+    public ?int $species;
 
     /**
      * PhotoListBindings constructor
@@ -88,6 +89,8 @@ class PhotoQueryString
         }
         $this->theme = property_exists($data, 'theme') ? filter_var($data->theme, FILTER_SANITIZE_NUMBER_INT) : null;
         $this->country = property_exists($data, 'country') ? filter_var($data->country,
+            FILTER_SANITIZE_NUMBER_INT) : null;
+        $this->species = property_exists($data, 'species') ? filter_var($data->species,
             FILTER_SANITIZE_NUMBER_INT) : null;
         $this->lat1 = property_exists($data, 'lat1') ? filter_var($data->lat1, FILTER_SANITIZE_NUMBER_FLOAT,
             FILTER_FLAG_ALLOW_FRACTION) : null;
