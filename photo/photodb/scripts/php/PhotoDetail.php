@@ -130,7 +130,8 @@ class PhotoDetail
             $datum = $record['ImgDateManual'];
         }
 
-        return '<ul>
+        return '<h3>'.ucfirst($i18n['photo']).'</h3>
+            <ul>
     	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$record['scientificNameDe'].' - '.$record['scientificNameEn'].'</li>
                 <em><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <em>'.$record['scientificNameLa'].' <span title="'.$record['sex'].'">'.$record['symbol'].'</span></em></em>
                 </ul><ul>
