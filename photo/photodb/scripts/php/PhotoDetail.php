@@ -71,30 +71,30 @@ class PhotoDetail
         $db = $this->db;
         $photo = new PhotoList($db);
         $query = new QueryString();
-        $backPage = $lang->createPage('photo.php') . $query->withString(null, ['imgId']);
+        $backPage = $lang->createPage('photo.php').$query->withString(null, ['imgId']);
         if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {
-            $backPage = $lang->createPage('photo-mapsearch.php') . '?' . $_SERVER['QUERY_STRING'];    // when coming from map via js lastPage was not set with latest query vars, use current
+            $backPage = $lang->createPage('photo-mapsearch.php').'?'.$_SERVER['QUERY_STRING'];    // when coming from map via js lastPage was not set with latest query vars, use current
         }
-        $imgFile = $db->webroot . $db->getPath('img') . $record['imgFolder'] . '/' . $record['imgName'];
+        $imgFile = $db->webroot.$db->getPath('img').$record['imgFolder'].'/'.$record['imgName'];
 
-        echo '<h1>' . $record['imgTitle'] . '</h1>';
-        echo $record['imgDesc'] ? '<p>' . $photo->renderDescLinks($record['imgDesc']) . '</p>' : '';
+        echo '<h1>'.$record['imgTitle'].'</h1>';
+        echo $record['imgDesc'] ? '<p>'.$photo->renderDescLinks($record['imgDesc']).'</p>' : '';
         echo '<figure>
-            <a title="' . $i18n['photo'] . ': ' . $record['imgTitle'] . '" href="' . $imgFile . '">
-            <img src="' . $imgFile . '" id="photo" alt="' . $record['imgTitle'] . '"/></a>
-            <figcaption>' . $record['imgTitle'] . '<br>
-             © ' . ucfirst($i18n['photo']) . ' Simon Speich, www.speich.net</figcaption></figure>';
+            <a title="'.$i18n['photo'].': '.$record['imgTitle'].'" href="'.$imgFile.'">
+            <img src="'.$imgFile.'" id="photo" alt="'.$record['imgTitle'].'"/></a>
+            <figcaption>'.$record['imgTitle'].'<br>
+             © '.ucfirst($i18n['photo']).' Simon Speich, www.speich.net</figcaption></figure>';
         echo '<div class="flexCont">
-                <div>' . $this->renderDetail($record, $photo, $i18n) . '</div>
-                <div class="sameSpecies">' . $this->renderSpecies($record, $lang) . '</div>
+                <div>'.$this->renderDetail($record, $photo, $i18n).'</div>
+                <div class="sameSpecies">'.($record['scientificNameId'] === null ? '' : $this->renderSpecies($record, $i18n, $lang)).'</div>
             </div>';
-        echo '<p><a href="' . $backPage . '">' . $i18n['back'] . '</a></p>';
+        echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
         echo '<div id="exifInfo" class="flexCont">
-                <div>' . $this->renderExif($record, $i18n) . $this->renderDbInfo($record, $i18n) . '</div>
-                <div>' . $this->renderMap($record, $i18n) . '</div>
+                <div>'.$this->renderExif($record, $i18n).$this->renderDbInfo($record, $i18n).'</div>
+                <div>'.$this->renderMap($record, $i18n).'</div>
             </div>';
-        echo '<p class="license">' . $this->renderLicense($record, $lang) . '</p>
-            <p><a href="' . $backPage . '">' . $i18n['back'] . '</a></p>';
+        echo '<p class="license">'.$this->renderLicense($record, $lang).'</p>
+            <p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
     }
 
     /**
@@ -105,12 +105,12 @@ class PhotoDetail
      */
     private function renderLicense(array $record, Language $lang): string
     {
-        $htmlDe = '<a rel="license" href="' . $record['licenseLink'] . '" target="_blank"><img alt="Creative Commons Lizenzvertrag"
-            src="' . $record['licenseLogo'] . '" width="80" height="15"></a>Dieses Foto ist lizenziert unter einer <a rel="license" href="' . $record['licenseLink'] . '" target="_blank">Creative Commons ' . $record['licenseLabel'] . '</a>.<br>
+        $htmlDe = '<a rel="license" href="'.$record['licenseLink'].'" target="_blank"><img alt="Creative Commons Lizenzvertrag"
+            src="'.$record['licenseLogo'].'" width="80" height="15"></a>Dieses Foto ist lizenziert unter einer <a rel="license" href="'.$record['licenseLink'].'" target="_blank">Creative Commons '.$record['licenseLabel'].'</a>.<br>
             <strong>© Foto Simon Speich, wwww.speich.net</strong>. Für kommerzielle Zwecke oder höhere Bildauflösungen <a href="/contact/contact.php">kontaktieren</a> Sie bitte den Bildautor.';
 
-        $htmlEn = '<a rel="license" href="' . $record['licenseLink'] . '" target="_blank"><img alt="Creative Commons Lizenzvertrag"
-            src="' . $record['licenseLogo'] . '" width="80" height="15"></a>This photo is licensed under a <a rel="license" href="' . $record['licenseLink'] . '" target="_blank">Creative Commons ' . $record['licenseLabel'] . '</a>.<br>
+        $htmlEn = '<a rel="license" href="'.$record['licenseLink'].'" target="_blank"><img alt="Creative Commons Lizenzvertrag"
+            src="'.$record['licenseLogo'].'" width="80" height="15"></a>This photo is licensed under a <a rel="license" href="'.$record['licenseLink'].'" target="_blank">Creative Commons '.$record['licenseLabel'].'</a>.<br>
             <strong>© Photo Simon Speich, www.speich.net</strong>. For a commercial licence or higher resolution please <a href="/contact/contact.php">contact</a> the author.';
 
 
@@ -131,22 +131,22 @@ class PhotoDetail
         }
 
         return '<ul>
-    	        <li><span class="photoTxtLabel">' . $i18n['name'] . ':</span> ' . $record['scientificNameDe'] . ' - ' . $record['scientificNameEn'] . '</li>
-                <em><span class="photoTxtLabel">' . $i18n['scientific name'] . ':</span> <em>' . $record['scientificNameLa'] . ' <span title="' . $record['sex'] . '">' . $record['symbol'] . '</span></em></em>
+    	        <li><span class="photoTxtLabel">'.$i18n['name'].':</span> '.$record['scientificNameDe'].' - '.$record['scientificNameEn'].'</li>
+                <em><span class="photoTxtLabel">'.$i18n['scientific name'].':</span> <em>'.$record['scientificNameLa'].' <span title="'.$record['sex'].'">'.$record['symbol'].'</span></em></em>
                 </ul><ul>
-                <li><span class="photoTxtLabel">' . $i18n['dimensions'] . ($dim['isCropped'] ? ' (' . $i18n['cropped'] . ') ' : '') . ':</span> ' . $dim['w'] . ' x ' . $dim['h'] . ' px</li>
-                <li><span class="photoTxtLabel">' . $i18n['date'] . ':</span> ' . $datum . '</li>
-                <li><span class="photoTxtLabel">' . $i18n['order number'] . ':</span> ' . $record['imgId'] . '</li>
-                <li><span class="photoTxtLabel">' . $i18n['file name'] . ':</span> ' . $record['imgName'] . '</li>
+                <li><span class="photoTxtLabel">'.$i18n['dimensions'].($dim['isCropped'] ? ' ('.$i18n['cropped'].') ' : '').':</span> '.$dim['w'].' x '.$dim['h'].' px</li>
+                <li><span class="photoTxtLabel">'.$i18n['date'].':</span> '.$datum.'</li>
+                <li><span class="photoTxtLabel">'.$i18n['order number'].':</span> '.$record['imgId'].'</li>
+                <li><span class="photoTxtLabel">'.$i18n['file name'].':</span> '.$record['imgName'].'</li>
             </ul>
             <ul>
-                <li><span class="photoTxtLabel">' . $i18n['place'] . ':</span> ' . $record['locations'] . '</li>
-    	        <li><span class="photoTxtLabel">' . $i18n['country'] . ':</span> ' . ($record['countries'] ?? $record['country']) . '</li>
+                <li><span class="photoTxtLabel">'.$i18n['place'].':</span> '.$record['locations'].'</li>
+    	        <li><span class="photoTxtLabel">'.$i18n['country'].':</span> '.($record['countries'] ?? $record['country']).'</li>
             </ul>
             <ul>
-                <li><span class="photoTxtLabel">' . $i18n['keywords'] . ':</span> ' . ($record['categories'] !== '' ? $record['categories'] . '<br/>' : '') . '</li>
+                <li><span class="photoTxtLabel">'.$i18n['keywords'].':</span> '.($record['categories'] !== '' ? $record['categories'].'<br/>' : '').'</li>
             </ul>
-            <p class="mRating"><span class="photoTxtLabel">' . $i18n['rating'] . ':</span> ' . $star . '</p>';
+            <p class="mRating"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>';
 
     }
 
@@ -154,7 +154,7 @@ class PhotoDetail
     {
         $str = '<div id="map">';
         if ($record['showLoc'] !== '1') {
-            $str .= '<div id="mapNote">' . $i18n['Coordinates are not shown'] . '</div>';
+            $str .= '<div id="mapNote">'.$i18n['Coordinates are not shown'].'</div>';
         }
         $str .= '</div>';
 
@@ -163,27 +163,27 @@ class PhotoDetail
 
     private function renderExif(array $record, array $i18n): string
     {
-        $str = '<h3>' . $i18n['technical information'] . ' (Exif)</h3>';
+        $str = '<h3>'.$i18n['technical information'].' (Exif)</h3>';
         if ($record['model'] === 'Nikon SUPER COOLSCAN 5000 ED') {
-            $str .= '<ul><li><span class="photoTxtLabel">' . $i18n['type of film'] . ':</span> ' . $record['film'] . '</li>
-    		    <li><span class="photoTxtLabel">' . $i18n['model'] . ': </span>' . $record['model'] . ', ' . $record['make'] . '</li></ul>';
+            $str .= '<ul><li><span class="photoTxtLabel">'.$i18n['type of film'].':</span> '.$record['film'].'</li>
+    		    <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$record['model'].', '.$record['make'].'</li></ul>';
         } else {
             $str .= '<ul>
-                <li><span class="photoTxtLabel">' . $i18n['exposure'] . ':</span> ' . $record['exposureTime'] . ' at ƒ' . number_format($record['fNumber'], 1) . '
-    <li><span class="photoTxtLabel">ISO:</span> ' . $record['iso'] . '</li>
-    		    <li><span class="photoTxtLabel">' . $i18n['focal length'] . ':</span> ' . $record['focalLength'] . ', ' . $i18n['distance'] . ' : ' . $record['focusDistance'] . '</li>
+                <li><span class="photoTxtLabel">'.$i18n['exposure'].':</span> '.$record['exposureTime'].' at ƒ'.number_format($record['fNumber'], 1).'
+    <li><span class="photoTxtLabel">ISO:</span> '.$record['iso'].'</li>
+    		    <li><span class="photoTxtLabel">'.$i18n['focal length'].':</span> '.$record['focalLength'].', '.$i18n['distance'].' : '.$record['focusDistance'].'</li>
     		    </ul>
     		    <ul>
-    		    <li><span class="photoTxtLabel">' . $i18n['program'] . ':</span> ' . $record['exposureProgram'] . ', ' . $record['meteringMode'] . '</li>
-    		    <li><span class="photoTxtLabel">VR:</span> ' . $record['vibrationReduction'] . '</li>
-    		    <li><span class="photoTxtLabel">' . $i18n['flash'] . ':</span> ' . $record['flash'] . '</li>
-    		    <li><span class="photoTxtLabel">' . $i18n['lens'] . ':</span> ' . ($record['lensSpec'] !== '' ? $record['lensSpec'] : $record['lens']) . '</li>
-    	        <li><span class="photoTxtLabel">' . $i18n['model'] . ': </span>' . $record['model'] . '</li>
+    		    <li><span class="photoTxtLabel">'.$i18n['program'].':</span> '.$record['exposureProgram'].', '.$record['meteringMode'].'</li>
+    		    <li><span class="photoTxtLabel">VR:</span> '.$record['vibrationReduction'].'</li>
+    		    <li><span class="photoTxtLabel">'.$i18n['flash'].':</span> '.$record['flash'].'</li>
+    		    <li><span class="photoTxtLabel">'.$i18n['lens'].':</span> '.($record['lensSpec'] !== '' ? $record['lensSpec'] : $record['lens']).'</li>
+    	        <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$record['model'].'</li>
     	        </ul>';
         }
         $str .= '<ul>
-            <li><span class="photoTxtLabel">' . $i18n['position'] . ' (GPS):</span> ' . ($record['showLoc'] === '1' ? $record['gpsLatitude'] . ' / ' . $record['gpsLongitude'] : '') . '</li>
-        	<li><span class="photoTxtLabel">' . $i18n['hight'] . ' (GPS):</span> ' . $record['gpsAltitude'] . ' m ' . ($record['gpsAltitudeRef'] === '1' ? 'b.s.l.' : 'a.s.l.') . '</li>
+            <li><span class="photoTxtLabel">'.$i18n['position'].' (GPS):</span> '.($record['showLoc'] === '1' ? $record['gpsLatitude'].' / '.$record['gpsLongitude'] : '').'</li>
+        	<li><span class="photoTxtLabel">'.$i18n['hight'].' (GPS):</span> '.$record['gpsAltitude'].' m '.($record['gpsAltitudeRef'] === '1' ? 'b.s.l.' : 'a.s.l.').'</li>
         	</ul>';
 
         return $str;
@@ -191,33 +191,43 @@ class PhotoDetail
 
     private function renderDbInfo(array $record, array $i18n): string
     {
-        $str = '<h3>' . $i18n['database information'] . '</h3>';
-        $str .= '<ul><li><span class="photoTxtLabel">' . $i18n['added'] . ':</span> ' . (!empty($record['dateAdded']) ? date('d.m.Y H:i:s',
-                $record['dateAdded']) : '') . '</li>
-    	    <li><span class="photoTxtLabel">' . $i18n['changed'] . ':</span> ' . (!empty($record['lastChange']) ? date('d.m.Y H:i:s',
-                $record['lastChange']) : '') . '</li>
-            <li><span class="photoTxtLabel">' . $i18n['published'] . ':</span> ' . (!empty($record['lastChange']) ? date('d.m.Y H:i:s',
-                $record['datePublished']) : '') . '</li></ul>';
-        $str .= '<ul><li><span class="photoTxtLabel">' . $i18n['file format'] . ':</span> ' . $record['fileType'] . ' (' . $record['fileSize'] . ')</li></ul>';
+        $str = '<h3>'.$i18n['database information'].'</h3>';
+        $str .= '<ul><li><span class="photoTxtLabel">'.$i18n['added'].':</span> '.(!empty($record['dateAdded']) ? date('d.m.Y H:i:s',
+                $record['dateAdded']) : '').'</li>
+    	    <li><span class="photoTxtLabel">'.$i18n['changed'].':</span> '.(!empty($record['lastChange']) ? date('d.m.Y H:i:s',
+                $record['lastChange']) : '').'</li>
+            <li><span class="photoTxtLabel">'.$i18n['published'].':</span> '.(!empty($record['lastChange']) ? date('d.m.Y H:i:s',
+                $record['datePublished']) : '').'</li></ul>';
+        $str .= '<ul><li><span class="photoTxtLabel">'.$i18n['file format'].':</span> '.$record['fileType'].' ('.$record['fileSize'].')</li></ul>';
 
         return $str;
     }
 
-    private function renderSpecies(array $record, Language $lang): string
+    private function renderSpecies(array $record, array $i18n, Language $lang): string
     {
-        $data = $this->querySameSpecies($record);
-        $title = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
-        $title = $title === '' ? $record['scientificNameLa'] : $title;
         $alt = '';
         $str = '';
-        foreach ($data as $species) {
-            $href = '/photo/photodb/photo-detail.php?imgId='.$species['imgId'];
-            $thumbPath = $this->db->webroot . $this->db->getPath('img') . 'thumbs/' . $species['imgFolder'] . '/' . $species['imgName'];
+        $data = $this->querySameSpecies($record);
+        foreach ($data as $item) {
+            $href = '/photo/photodb/photo-detail.php?imgId='.$item['imgId'];
+            $thumbPath = $this->db->webroot.$this->db->getPath('img').'thumbs/'.$item['imgFolder'].'/'.$item['imgName'];
             $imgPath = str_replace('thumbs/', '', $thumbPath);
-            $thumbSize = getimagesize(__DIR__ . '/../../../..' . $thumbPath);
-            $str .= '<a href="' . $href . '" alt="'. $alt . '"><img src="' . $imgPath . '" width="' . $thumbSize[0] . '" height="' . $thumbSize[1] . '"></a>';
+            $thumbSize = getimagesize(__DIR__.'/../../../..'.$thumbPath);
+            $str .= '<a href="'.$href.'" alt="'.$alt.'"><img src="'.$imgPath.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'"></a>';
         }
-        $str .= 'weitere Fotos: ' . $title;
+
+        $species = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
+        $species = $species === '' ? $record['scientificNameLa'] : $species;
+        $arrSpecies = explode(',', $species);
+        $arrSpeciesId = explode(',', str_replace(' ', '', $record['scientificNameId']));
+        $params = ['qual' => 0];
+        $query = new QueryString();
+        $str .= $i18n['more photos'].':';
+        foreach ($arrSpecies as $key => $species) {
+            $params['species'] = $arrSpeciesId[$key];
+            $href = $lang->createPage('photo.php').$query->withString($params, ['imgId']);
+            $str .= ($key > 0 ? '|' : '').' <a href="'.$href.'">'.$species.'</a>';
+        }
 
         return $str;
     }
