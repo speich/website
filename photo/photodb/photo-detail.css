@@ -6,7 +6,6 @@
         flex: auto;
     }
 
-
     .flexCont > div {
         width: 50%;
     }
@@ -16,7 +15,7 @@
     }
 }
 
-.col > h3 {
+.flexCont h3:first-of-type {
     margin-top: 0;
 }
 
@@ -36,7 +35,7 @@ figure:not(.wp-block-gallery) {
 }
 
 #exifInfo {
-    padding: 1em 0;
+    padding: 1.5em 0;
     border-top: 0.1em solid #49b102;
     border-bottom: 0.1em solid #49b102;
 }
