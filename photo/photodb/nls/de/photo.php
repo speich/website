@@ -25,7 +25,7 @@ return [
     'license' => 'Lizenz',
 	'map' => 'Karte',
 	'model' => 'Model',
-    'more photos' => 'weitere Fotos',
+    'more photos' => 'weitere Fotos dieser Art',
 	'name' => 'Name',
 	'not found' => 'Mit diesen Einstellungen wurden keine Datensätze gefunden.',
 	'order number' => 'Bestellnummer',
