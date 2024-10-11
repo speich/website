@@ -205,7 +205,10 @@ class PhotoDetail
 
     private function renderSpecies(array $record, array $i18n, Language $lang): string
     {
-        $alt = '';
+        $species = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
+        $species = $species === '' ? $record['scientificNameLa'] : $species;
+
+        $alt = $i18n['photo'].': '.$species;
         $str = '';
         $data = $this->querySameSpecies($record);
         foreach ($data as $item) {
@@ -213,11 +216,9 @@ class PhotoDetail
             $thumbPath = $this->db->webroot.$this->db->getPath('img').'thumbs/'.$item['imgFolder'].'/'.$item['imgName'];
             $imgPath = str_replace('thumbs/', '', $thumbPath);
             $thumbSize = getimagesize(__DIR__.'/../../../..'.$thumbPath);
-            $str .= '<a href="'.$href.'" alt="'.$alt.'"><img src="'.$imgPath.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'"></a>';
+            $str .= '<a href="'.$href.'" alt="'.$alt.'" title="'.$species.'"><img src="'.$imgPath.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'"></a>';
         }
 
-        $species = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
-        $species = $species === '' ? $record['scientificNameLa'] : $species;
         $arrSpecies = explode(',', $species);
         $arrSpeciesId = explode(',', str_replace(' ', '', $record['scientificNameId']));
         $params = ['qual' => 0];
