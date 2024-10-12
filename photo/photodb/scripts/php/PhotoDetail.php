@@ -227,7 +227,7 @@ class PhotoDetail
         $str .= $i18n['more photos'].':';
         foreach ($arrSpecies as $key => $species) {
             $params['species'] = $arrSpeciesId[$key];
-            $href = $lang->createPage('photo.php').$query->withString($params, ['imgId']);
+            $href = $lang->createPage('photo.php').$query->withString($params, ['imgId', 'pg']);
             $str .= ($key > 0 ? '|' : '').' <a href="'.$href.'">'.$species.'</a>';
         }
 
