@@ -10,7 +10,6 @@
     <?php echo $head->render(); ?>
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo-detail.min.css" rel="stylesheet" type="text/css">
-    <script src="photo-detail.min.js" type="module"></script>
 </head>
 
 <body data-config="<?php echo $jsConfig; ?>">

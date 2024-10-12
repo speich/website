@@ -38,11 +38,6 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
             <div class="bar-item"><label><?php echo $i18n['sorting']; ?></label><?php echo $mSort->render(); ?></div>
             <div class="bar-sep-vert"></div>
             <div class="bar-item"><label><?php echo $i18n['rating']; ?></label><?php echo $mRating->render(); ?></div>
-            <div class="bar-sep-vert"></div>
-            <button id="map" class="bar-item" title="<?php echo $i18n['show on map']; ?>"><a href="photo-mapsearch.php<?php echo $query->getString(); ?>">
-                    <?php echo $i18n['map']; ?>
-                    <svg class="icon"><use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#map-marker"></use></svg>
-                </a></button>
         </div>
     </div>
     <div class="bar-cont"><?php echo $pagingBar; ?></div>

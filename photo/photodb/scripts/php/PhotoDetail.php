@@ -85,13 +85,18 @@ class PhotoDetail
             <figcaption>'.$record['imgTitle'].'<br>
              © '.ucfirst($i18n['photo']).' Simon Speich, www.speich.net</figcaption></figure>';
         echo '<div class="flexCont">
-                <div>'.$this->renderDetail($record, $photo, $i18n).'</div>
-                <div class="sameSpecies">'.($record['scientificNameId'] === null ? '' : $this->renderSpecies($record, $i18n, $lang)).'</div>
-            </div>';
+                <div>'.$this->renderDetail($record, $photo, $i18n).'</div>';
+        if ($record['scientificNameId'] !== null) {
+            echo '<div class="sameSpecies">
+                    <div>'.$this->renderSpecies($record, $i18n, $lang).'</div>'.
+                    $this->renderSpeciesLink($record, $i18n, $lang).
+                '</div>';
+        }
+        echo '</div>';
         echo '<p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
         echo '<div id="exifInfo" class="flexCont">
-                <div>'.$this->renderExif($record, $i18n).$this->renderDbInfo($record, $i18n).'</div>
-                <div>'.$this->renderMap($record, $i18n).'</div>
+                <div>'.$this->renderExif($record, $i18n).'</div>
+                <div>'.$this->renderDbInfo($record, $i18n).'</div>
             </div>';
         echo '<p class="license">'.$this->renderLicense($record, $lang).'</p>
             <p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
@@ -149,17 +154,6 @@ class PhotoDetail
             </ul>
             <p class="mRating"><span class="photoTxtLabel">'.$i18n['rating'].':</span> '.$star.'</p>';
 
-    }
-
-    private function renderMap(array $record, array $i18n): string
-    {
-        $str = '<div id="map">';
-        if ($record['showLoc'] !== '1') {
-            $str .= '<div id="mapNote">'.$i18n['Coordinates are not shown'].'</div>';
-        }
-        $str .= '</div>';
-
-        return $str;
     }
 
     private function renderExif(array $record, array $i18n): string
@@ -220,11 +214,18 @@ class PhotoDetail
             $str .= '<a href="'.$href.'" alt="'.$alt.'" title="'.$species.'"><img src="'.$imgPath.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'"></a>';
         }
 
+        return $str;
+    }
+
+    private function renderSpeciesLink(array $record, array $i18n, Language $lang): string {
+        $species = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
+        $species = $species === '' ? $record['scientificNameLa'] : $species;
+
         $arrSpecies = explode(',', $species);
         $arrSpeciesId = explode(',', str_replace(' ', '', $record['scientificNameId']));
         $params = ['qual' => 0];
         $query = new QueryString();
-        $str .= $i18n['more photos'].':';
+        $str = $i18n['more photos'].':';
         foreach ($arrSpecies as $key => $species) {
             $params['species'] = $arrSpeciesId[$key];
             $href = $lang->createPage('photo.php').$query->withString($params, ['imgId', 'pg']);

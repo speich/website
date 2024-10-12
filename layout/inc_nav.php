@@ -62,14 +62,12 @@ $arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
 $arrPhotoNav['de'] = [
     [1, 'f', 'Datenbank', $path.'photo.php'],
     [2, 1, 'Alle Fotos', $path.'photo.php'],
-    [3, 'f', 'Geografische Suche', $path.'photo-mapsearch.php'.$query->withString(null, $arrQueryDel)],
     [4, 'f', 'Ausrüstung', $web->getWebRoot().'about/ausruestung.php'],
     [5, 'f', 'Auszeichnungen', $web->getWebRoot().'about/auszeichnungen.php']
 ];
 $arrPhotoNav['en'] = [
     [1, 'f', 'Database', $path.'photo-en.php'],
     [2, 1, 'All Photos', $path.'photo-en.php'],
-    [3, 'f', 'Search on Map', $path.'photo-mapsearch-en.php'.$query->withString(null, $arrQueryDel)],
     [4, 'f', 'Equipment', $web->getWebRoot().'about/ausruestung-en.php'],
     [5, 'f', 'Awards', $web->getWebRoot().'about/auszeichnungen-en.php']
 ];
