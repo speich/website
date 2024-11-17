@@ -47,8 +47,8 @@ class SqlPhotoList extends SqlExtended
     public const SORT_BY_DATECHANGED = 3;
     public const SORT_BY_IMGTITLE = 4;
 
-    /** @var String sort order */
-    private string $sort;  // note: only binding vars should be public
+    /** @var int sort order */
+    private int $sort;  // note: only binding vars should be public
 
     /**
      * Weights to be used for each column for the SCORE function.
@@ -142,10 +142,10 @@ class SqlPhotoList extends SqlExtended
             $sql = 'Rank DESC, LastChange DESC';
         } else {
             $sql = match ($this->sort) {
+                self::SORT_BY_DATEADDED => 'i.DateAdded DESC',
                 self::SORT_BY_DATECREATED => 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC',
-                self::SORT_BY_DATECHANGED => 'LastChange DESC',
                 self::SORT_BY_IMGTITLE => 'ImgTitle',
-                default => 'i.DateAdded DESC',
+                default => 'LastChange DESC',
             };
         }
 
@@ -165,9 +165,9 @@ class SqlPhotoList extends SqlExtended
     }
 
     /**
-     * @param String $sort
+     * @param int $sort
      */
-    public function setSort(string $sort): void
+    public function setSort(int $sort): void
     {
         $this->sort = $sort;
     }
