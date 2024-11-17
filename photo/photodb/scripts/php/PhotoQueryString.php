@@ -101,7 +101,7 @@ class PhotoQueryString
         $this->lng2 = property_exists($data, 'lng2') ? filter_var($data->lng2, FILTER_SANITIZE_NUMBER_FLOAT,
             FILTER_FLAG_ALLOW_FRACTION) : null;
         $this->sort = property_exists($data, 'sort') ? filter_var($data->sort,
-            FILTER_SANITIZE_NUMBER_INT) : SqlPhotoList::SORT_BY_DATEADDED;
+            FILTER_SANITIZE_NUMBER_INT) : SqlPhotoList::SORT_BY_DATECHANGED;
         $this->numPerPg = property_exists($data, 'numPerPg') ? filter_var($data->numPerPg,
             FILTER_SANITIZE_NUMBER_INT) : PhotoList::NUMPERPAGE_MEDIUM;
         $this->pg = property_exists($data, 'pg') ? filter_var($data->pg, FILTER_SANITIZE_NUMBER_INT) - 1 : $this->pg;
