@@ -38,6 +38,7 @@ return [
 	'position' => 'position',
 	'program' => 'program',
 	'published' => 'published',
+    'random'  => 'random',
 	'rating' => 'rating',
 	'scientific name' => 'scientific name',
     'search photos' => 'search photos',

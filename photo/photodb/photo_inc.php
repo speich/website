@@ -45,7 +45,8 @@ $arrVal = [
     SqlPhotoList::SORT_BY_IMGTITLE => $i18n['by title'],
     SqlPhotoList::SORT_BY_DATEADDED => $i18n['date added'],
     SqlPhotoList::SORT_BY_DATECREATED => $i18n['date created'],
-    SqlPhotoList::SORT_BY_DATECHANGED => $i18n['last changed']
+    SqlPhotoList::SORT_BY_DATECHANGED => $i18n['last changed'],
+    SqlPhotoList::SORT_BY_RANDOM => $i18n['random']
 ];
 $mSort = new Menu();
 $mSort->cssClass .= ' menu2 mSort';

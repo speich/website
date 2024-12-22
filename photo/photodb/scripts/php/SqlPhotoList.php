@@ -46,6 +46,7 @@ class SqlPhotoList extends SqlExtended
     public const SORT_BY_DATECREATED = 2;
     public const SORT_BY_DATECHANGED = 3;
     public const SORT_BY_IMGTITLE = 4;
+    public const SORT_BY_RANDOM = 5;
 
     /** @var int sort order */
     private int $sort;  // note: only binding vars should be public
@@ -145,6 +146,7 @@ class SqlPhotoList extends SqlExtended
                 self::SORT_BY_DATEADDED => 'i.DateAdded DESC',
                 self::SORT_BY_DATECREATED => 'CASE WHEN ImgDateOriginal IS NULL THEN 0 ELSE ImgDateOriginal END DESC, CASE WHEN ImgDateManual IS NULL THEN 0 ELSE ImgDateManual END DESC',
                 self::SORT_BY_IMGTITLE => 'ImgTitle',
+                self::SORT_BY_RANDOM => 'RANDOM()',
                 default => 'LastChange DESC',
             };
         }
