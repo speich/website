@@ -72,9 +72,6 @@ class PhotoDetail
         $photo = new PhotoList($db);
         $query = new QueryString();
         $backPage = $lang->createPage('photo.php').$query->withString(null, ['imgId']);
-        if (strpos($backPage, $lang->createPage('photo-mapsearch.php')) !== false) {
-            $backPage = $lang->createPage('photo-mapsearch.php').'?'.$_SERVER['QUERY_STRING'];    // when coming from map via js lastPage was not set with latest query vars, use current
-        }
         $imgFile = $db->webroot.$db->getPath('img').$record['imgFolder'].'/'.$record['imgName'];
 
         echo '<h1>'.$record['imgTitle'].'</h1>';
