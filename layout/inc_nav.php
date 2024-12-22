@@ -107,25 +107,21 @@ $arrPersonNav['en'] = [
 
 /* render different side navigation depending on active main navigation */
 $activeNavId = $mainNav->getActive();
-$notPageMap = $language->createPage($web->page) !== $language->createPage('photo-mapsearch.php');
 $items = [];
 $sideNav = new Menu();
 $sideNav->setAutoActiveMatching(Menu::MATCH_FULL);
 $sideNav->cssClass = 'sideMenu';
 switch ($activeNavId) {
     case 1:
-        // do not render side navigation on map page
-        if ($notPageMap) {
-            $items = createSideMenuPhoto($web, $arrPhotoNav, $language);
-            $sideNav->addAll($items);
-            if ($web->page === $language->createPage('photo-detail.php')) {
-                $url = $web->getDir().$language->createPage('photo.php').$query->withString(null, ['imgId', 'lang']);
-                $sideNav->setActive($url);
-            }
-            if (isset($_GET['theme']) || isset($_GET['country'])) {
-                // unset item ('Alle Fotos'), otherwise it would always be active
-                $sideNav->arrItem['2']->setActive(false);
-            }
+        $items = createSideMenuPhoto($web, $arrPhotoNav, $language);
+        $sideNav->addAll($items);
+        if ($web->page === $language->createPage('photo-detail.php')) {
+            $url = $web->getDir().$language->createPage('photo.php').$query->withString(null, ['imgId', 'lang']);
+            $sideNav->setActive($url);
+        }
+        if (isset($_GET['theme']) || isset($_GET['country'])) {
+            // unset item ('Alle Fotos'), otherwise it would always be active
+            $sideNav->arrItem['2']->setActive(false);
         }
         break;
     case 3:
