@@ -43,6 +43,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('worker-src', "'self' blob:");
     $cspHeader->set('font-src', "'self' data:");
 } elseif (str_contains($web->path, '/wp/wp-admin/')) {
+    $cspHeader->set('img-src', "'self' data:");
     $cspHeader->set('script-src', "'self' 'unsafe-inline'");
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
     $cspHeader->set('font-src', "'self' data:");
