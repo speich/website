@@ -30,12 +30,18 @@ require_once __DIR__.'/../../layout/inc_nav.php';
 
 
 // TODO: add preload directive to enable hsts header, @see https://hstspreload.org/?domain=lfi.ch
-header('Strict-Transport-Security: max-age=63072000; includeSubdomains');
+header('Strict-Transport-Security: max-age=63072000; includeSubdomains;');
+// relax CSP for specific sites
 $cspHeader = new CspHeader();
 if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('script-src', "'self' 'unsafe-eval'");
+    $cspHeader->set('style-src', "'self' 'unsafe-inline'");
+} else if (str_contains($web->path, '/articles/')) {
+    $cspHeader->set('script-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
+    $cspHeader->set('img-src', "'self' *.speich.test *.speich.net");
+    $cspHeader->set('style-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
 }
-//header($cspHeader->toString());
+header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
 $bodyStart = new BodyStart($web->getWebRoot(), $language);
 $bodyEnd = new BodyEnd($web, $language);
