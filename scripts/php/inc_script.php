@@ -38,10 +38,11 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
 } else if (str_contains($web->path, '/articles/') || str_contains($web->path, '/wp/wp-admin/')) {
     $cspHeader->set('script-src', "'self' 'unsafe-inline'");
-    $cspHeader->set('img-src', "'self' img.chmedia.ch secure.gravatar.com s.w.org");
+    $cspHeader->set('img-src', "'self' data: img.chmedia.ch secure.gravatar.com s.w.org");
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
     $cspHeader->set('worker-src', "'self' blob:");
     $cspHeader->set('font-src', "'self' data:");
+    $cspHeader->set('frame-src', "'self' data:");
 }
 header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
