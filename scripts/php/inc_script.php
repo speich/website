@@ -42,7 +42,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
     $cspHeader->set('worker-src', "'self' blob:");
     $cspHeader->set('font-src', "'self' data:");
-    $cspHeader->set('frame-src', "'self' data:");
+    $cspHeader->set('frame-src', "'self' blob:");
 }
 header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
