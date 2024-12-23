@@ -47,6 +47,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('script-src', "'self' 'unsafe-inline'");
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
     $cspHeader->set('font-src', "'self' data:");
+    $cspHeader->set('frame-src', "'self' data:");
 }
 
 header($cspHeader->toString());
