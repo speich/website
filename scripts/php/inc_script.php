@@ -42,8 +42,12 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
     $cspHeader->set('worker-src', "'self' blob:");
     $cspHeader->set('font-src', "'self' data:");
-
+} elseif (str_contains($web->path, '/wp/wp-admin/')) {
+    $cspHeader->set('script-src', "'self' 'unsafe-inline'");
+    $cspHeader->set('style-src', "'self' 'unsafe-inline'");
+    $cspHeader->set('font-src', "'self' data:");
 }
+
 header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
 $bodyStart = new BodyStart($web->getWebRoot(), $language);
