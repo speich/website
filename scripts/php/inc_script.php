@@ -36,20 +36,13 @@ $cspHeader = new CspHeader();
 if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('script-src', "'self' 'unsafe-eval'");
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
-} else if (str_contains($web->path, '/articles/')) {
+} else if (str_contains($web->path, '/articles/') || str_contains($web->path, '/wp/wp-admin/')) {
     $cspHeader->set('script-src', "'self' 'unsafe-inline'");
     $cspHeader->set('img-src', "'self' img.chmedia.ch secure.gravatar.com s.w.org");
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
     $cspHeader->set('worker-src', "'self' blob:");
     $cspHeader->set('font-src', "'self' data:");
-} elseif (str_contains($web->path, '/wp/wp-admin/')) {
-    $cspHeader->set('img-src', "'self' data:");
-    $cspHeader->set('script-src', "'self' 'unsafe-inline'");
-    $cspHeader->set('style-src', "'self' 'unsafe-inline'");
-    $cspHeader->set('font-src', "'self' data:");
-    $cspHeader->set('frame-src', "'self' blob:");
 }
-
 header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
 $bodyStart = new BodyStart($web->getWebRoot(), $language);
