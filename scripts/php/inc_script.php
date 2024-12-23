@@ -38,7 +38,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('style-src', "'self' 'unsafe-inline'");
 } else if (str_contains($web->path, '/articles/')) {
     $cspHeader->set('script-src', "'self' 'unsafe-inline'");
-    $cspHeader->set('img-src', "'self' secure.gravatar.com s.w.org");
+    $cspHeader->set('img-src', "'self' img.chmedia.ch secure.gravatar.com s.w.org");
     $cspHeader->set('style-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
     $cspHeader->set('worker-src', "'self' blob:");
     $cspHeader->set('font-src', "'self' data:");
