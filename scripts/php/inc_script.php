@@ -40,7 +40,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('script-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
     $cspHeader->set('img-src', "'self' *.speich.test *.speich.net");
     $cspHeader->set('style-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
-} else if (str_contains($web->path, '/articles/de/2022/08/05/') {
+} else if (str_contains($web->path, '/articles/de/2022/08/05/')) {
     $cspHeader->set('img-src', "'self' img.chmedia.ch");
 }
 header($cspHeader->toString());
