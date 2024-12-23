@@ -41,6 +41,7 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('img-src', "'self' *.speich.test *.speich.net img.chmedia.ch secure.gravatar.com");
     $cspHeader->set('style-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
     $cspHeader->set('worker-src', "'self' *.speich.net");
+    $cspHeader->set('font-src', "'self' data:");
 
 }
 header($cspHeader->toString());
