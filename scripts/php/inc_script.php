@@ -40,6 +40,8 @@ if ($web->page === 'remoteFileExplorer.php') {
     $cspHeader->set('script-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
     $cspHeader->set('img-src', "'self' *.speich.test *.speich.net img.chmedia.ch secure.gravatar.com");
     $cspHeader->set('style-src', "'self' 'unsafe-inline' *.speich.test *.speich.net");
+    $cspHeader->set('worker-src', "'self'");
+
 }
 header($cspHeader->toString());
 $head = new Head($web->getWebRoot(), $cspHeader);
