@@ -174,12 +174,13 @@ function createSideMenuPhoto(WebsiteSpeich $web, array $menuItems, Language $lan
     //       country and theme will be added back in the loop
     $query = new QueryString($web->getWhitelistQueryString());
     $path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
-    $arrQueryDel = ['pg', 'q', 'numRec', 'lang', 'imgId', 'theme', 'country'];
+    $arrQueryDelMaster = ['pg', 'q', 'numRec', 'lang', 'imgId', 'theme', 'country'];
     $lastMenuId = null;
     $items = $menuItems[$lang->get()];
     $row = $themes->fetch(PDO::FETCH_ASSOC);
     while ($row) {
         // remove query variable of current db record from query string variables to delete
+        $arrQueryDel = $arrQueryDelMaster;
         $key = array_search($row['queryField'], $arrQueryDel, true);
         if ($key !== false) {
             unset($arrQueryDel[$key]);
