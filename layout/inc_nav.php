@@ -58,7 +58,6 @@ $langNav->setWhitelist($web->getWhitelistQueryString());
  *****************************/
 $query = new QueryString();
 $path = $web->getWebRoot().'photo/photodb/';
-$arrQueryDel = ['lat1', 'lng1', 'lat1', 'lat2', 'lng2'];
 $arrPhotoNav['de'] = [
     [1, 'f', 'Datenbank', $path.'photo.php'],
     [2, 1, 'Alle Fotos', $path.'photo.php'],
@@ -170,12 +169,12 @@ function createSideMenuPhoto(WebsiteSpeich $web, array $menuItems, Language $lan
 			ORDER BY menuLabel ASC, submenuLabel ASC';
     $themes = $db->db->query($sql);
 
-    // The query string of the links of the side menu should only contain the theme={id} (or other non photo database related query variables).
+    // The query string of the links of the side menu should only contain the theme={id} (or other non-photo database related query variables).
     // Note: we treat country as a theme, so do not allow country and theme vars in the query string at the same time. Also,
     //       country and theme will be added back in the loop
     $query = new QueryString($web->getWhitelistQueryString());
     $path = $web->getWebRoot().$lang->createPage('photo/photodb/photo.php');
-    $arrQueryDel = ['pg', 'q', 'numRec', 'lang', 'imgId', 'lat1', 'lng1', 'lat2', 'lng2', 'theme', 'country'];
+    $arrQueryDel = ['pg', 'q', 'numRec', 'lang', 'imgId', 'theme', 'country'];
     $lastMenuId = null;
     $items = $menuItems[$lang->get()];
     $row = $themes->fetch(PDO::FETCH_ASSOC);

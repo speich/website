@@ -11,18 +11,6 @@ use speich\SqlExtended;
  */
 class SqlPhotoList extends SqlExtended
 {
-    /** @var string|null latitude Northeast */
-    public ?string $lat1;
-
-    /** @var string|null longitude Northeast */
-    public ?string $lng1;
-
-    /** @var string|null latitude Southwest */
-    public ?string $lat2;
-
-    /** @var string|null longitude Southwest */
-    public ?string $lng2;
-
     /** @var String quality of the photo */
     public string $qual;
 
@@ -111,15 +99,6 @@ class SqlPhotoList extends SqlExtended
         }
         if ($this->species !== null) {
             $sql .= ' AND sc.ScientificNameId = :species';
-        }
-        if ($this->lat1 !== null && $this->lng1 !== null && $this->lat2 !== null && $this->lng2 !== null) {
-            if ($this->lng2 < $this->lng1) {
-                $sql .= ' AND (Imglat >= :lat2 AND Imglng >= :lng2) AND (Imglat <= :lat1 AND Imglng <= :lng1)'; // parentheses are just for readability
-            } // special case lng2|lng1 <-> 180|-180
-            else {
-                $sql .= ' AND ((Imglat >= :lng2 AND Imglng >= :lng2) OR (Imglat <= :lat1 AND Imglng <= :lng1))';
-            }
-            $sql .= " AND Imglat NOT NULL AND Imglng NOT NULL AND Imglat != '' AND Imglng != ''";
         }
 
         return $sql;

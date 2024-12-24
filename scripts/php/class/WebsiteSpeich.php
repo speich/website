@@ -17,10 +17,6 @@ class WebsiteSpeich extends Website
         'sort',
         'imgId',
         'numPerPg',
-        'lat1',
-        'lat2',
-        'lng1',
-        'lng2',
         'q'
     ];
 

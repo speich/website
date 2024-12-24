@@ -10,18 +10,6 @@ use function is_array;
  */
 class PhotoQueryString
 {
-    /** @var float|null latitude Northeast */
-    public ?float $lat1;
-
-    /** @var float|null longitude Northeast */
-    public ?float $lng1;
-
-    /** @var float|null latitude Southwest */
-    public ?float $lat2;
-
-    /** @var float|null longitude Southwest */
-    public ?float $lng2;
-
     /** @var int quality of the photo */
     public int $qual;
 

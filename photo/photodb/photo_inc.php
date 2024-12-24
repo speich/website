@@ -85,10 +85,6 @@ $sql->qual = $params->qual;
 $sql->theme = $params->theme;
 $sql->country = $params->country;
 $sql->species = $params->species;
-$sql->lat1 = $params->lat1;
-$sql->lng1 = $params->lng1;
-$sql->lat2 = $params->lat2;
-$sql->lng2 = $params->lng2;
 if (isset($params->search)) {
     $search = str_replace('&#34;', '"', $params->search);
     $words = SearchQuery::extractWords($search);
