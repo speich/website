@@ -6,7 +6,7 @@ namespace PhotoDb;
 use function is_array;
 
 /**
- * This class is used to sanitize all query string parameters, which then can be used in a SQéL query.
+ * This class is used to sanitize all query string parameters, which then can be used in a SQL query.
  */
 class PhotoQueryString
 {
@@ -81,29 +81,15 @@ class PhotoQueryString
     {
         if (property_exists($data, 'q') && $data->q !== '') {
             $this->search = filter_var($data->q, FILTER_SANITIZE_SPECIAL_CHARS);
-            $this->qual = property_exists($data, 'qual') ? filter_var($data->qual,
-                FILTER_SANITIZE_NUMBER_INT) : PhotoList::QUALITY_LOW;
+            $this->qual = property_exists($data, 'qual') ? filter_var($data->qual,FILTER_SANITIZE_NUMBER_INT) : PhotoList::QUALITY_LOW;
         } else {
-            $this->qual = property_exists($data, 'qual') ? filter_var($data->qual,
-                FILTER_SANITIZE_NUMBER_INT) : PhotoList::QUALITY_HIGH;
+            $this->qual = property_exists($data, 'qual') ? filter_var($data->qual,FILTER_SANITIZE_NUMBER_INT) : PhotoList::QUALITY_HIGH;
         }
         $this->theme = property_exists($data, 'theme') ? filter_var($data->theme, FILTER_SANITIZE_NUMBER_INT) : null;
-        $this->country = property_exists($data, 'country') ? filter_var($data->country,
-            FILTER_SANITIZE_NUMBER_INT) : null;
-        $this->species = property_exists($data, 'species') ? filter_var($data->species,
-            FILTER_SANITIZE_NUMBER_INT) : null;
-        $this->lat1 = property_exists($data, 'lat1') ? filter_var($data->lat1, FILTER_SANITIZE_NUMBER_FLOAT,
-            FILTER_FLAG_ALLOW_FRACTION) : null;
-        $this->lng1 = property_exists($data, 'lng1') ? filter_var($data->lng1, FILTER_SANITIZE_NUMBER_FLOAT,
-            FILTER_FLAG_ALLOW_FRACTION) : null;
-        $this->lat2 = property_exists($data, 'lat2') ? filter_var($data->lat2, FILTER_SANITIZE_NUMBER_FLOAT,
-            FILTER_FLAG_ALLOW_FRACTION) : null;
-        $this->lng2 = property_exists($data, 'lng2') ? filter_var($data->lng2, FILTER_SANITIZE_NUMBER_FLOAT,
-            FILTER_FLAG_ALLOW_FRACTION) : null;
-        $this->sort = property_exists($data, 'sort') ? filter_var($data->sort,
-            FILTER_SANITIZE_NUMBER_INT) : SqlPhotoList::SORT_BY_DATECHANGED;
-        $this->numPerPg = property_exists($data, 'numPerPg') ? filter_var($data->numPerPg,
-            FILTER_SANITIZE_NUMBER_INT) : PhotoList::NUMPERPAGE_MEDIUM;
+        $this->country = property_exists($data, 'country') ? filter_var($data->country, FILTER_SANITIZE_NUMBER_INT) : null;
+        $this->species = property_exists($data, 'species') ? filter_var($data->species, FILTER_SANITIZE_NUMBER_INT) : null;
+        $this->sort = property_exists($data, 'sort') ? filter_var($data->sort,FILTER_SANITIZE_NUMBER_INT) : SqlPhotoList::SORT_BY_DATECHANGED;
+        $this->numPerPg = property_exists($data, 'numPerPg') ? filter_var($data->numPerPg, FILTER_SANITIZE_NUMBER_INT) : PhotoList::NUMPERPAGE_MEDIUM;
         $this->pg = property_exists($data, 'pg') ? filter_var($data->pg, FILTER_SANITIZE_NUMBER_INT) - 1 : $this->pg;
     }
 }
