@@ -8,6 +8,10 @@ RewriteCond %{HTTP_HOST} ^photo\.speich\.net$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.photo\.speich\.net$
 RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/photo\/photodb\/photo\-en\.php$1" [R=301,L]
 
+RewriteCond %{HTTP_HOST} ^linux\.speich\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.linux\.speich\.net$
+RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/articles\/en\/category\linux\/" [R=301,L]
+
 Redirect 301 /computer/visualization.php https://www.speich.net/articles/visualization.php
 Redirect 301 /computer/3d.php https://www.speich.net/projects/programming/3d.php
 Redirect 301 /computer/moztesting/3d.htm https://www.speich.net/projects/programming/3d.htm
