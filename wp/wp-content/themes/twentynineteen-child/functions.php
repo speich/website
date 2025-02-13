@@ -31,3 +31,4 @@ add_filter( 'wp_nav_menu_args', function($args) {
 
     return $args;
 });
+add_filter( 'automatic_updates_is_vcs_checkout', '__return_false', 1 );
