@@ -10,7 +10,7 @@ RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/photo\/photodb\/photo\-en\.php$
 
 RewriteCond %{HTTP_HOST} ^linux\.speich\.net$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.linux\.speich\.net$
-RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/articles\/en\/category\linux\/" [R=301,L]
+RewriteRule ^(.*)$ "https\:\/\/www\.speich\.net\/articles\/en\/category\/linux\/" [R=301,L]
 
 Redirect 301 /computer/visualization.php https://www.speich.net/articles/visualization.php
 Redirect 301 /computer/3d.php https://www.speich.net/projects/programming/3d.php
