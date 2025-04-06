@@ -27,9 +27,10 @@ unvollendet, Samples: Red Hot Chilli Peppers, Korg M1, u.a.</li>
 <li><a href="phaser.mp3">Phaser</a> (335 kb)<br>
 unvollendet, Samples Korg M1, u.a.</li>
 <li><a href="brutaldeluxe.mp3">Brutal Deluxe</a> (519 kb)<br>
-Mein erstes Impuls Tracker Projekt, unvollendet. An die beklauten Opfer (Samples) 
-kann ich mich nicht mehr erinnern.</li>
+Mein erstes Impuls Tracker Projekt, unvollendet. Den Ursprung der Samples weiss ich nicht mehr.</li>
 </ul>
+<h2>Korg M1 Sequencer</h2>
+<p>Für Fans des Korg M1, hier noch ein paar Musik-Stücke, die ich ausschliesslich mit dem <a href="/articles/de/2025/03/31/korg-m1-generaluberholung/#example">M1 Sequencer</a> erstellt habe.</p>
 <?php echo $bodyEnd->render(); ?>
 </body>
 </html>
