@@ -95,7 +95,7 @@ $sql->offset = $params->pg + $params->pg * $params->numPerPg;
 $sql->limit = $params->numPerPg;
 $sql->setSort($params->sort);
 $photos = $photoList->get($sql);
-$pagedNav = new PagedNav($numRec, $params->numPerPg);
+$pagedNav = new PagedNav($web->page, $numRec, $params->numPerPg);
 $pagedNav->cssClass = 'bar-item pgNav';
 $pagedNav->renderText = false;
 $pagedNav->setWhitelist($web->getWhitelistQueryString());
@@ -106,5 +106,5 @@ $pagingBar = '<div class="bar-paging">'.
     '<div class="bar-item">'.$i18n['per page'].'</div>'.
 		'<div class="bar-item">'.$mRecPp->render().'</div>'.
     '<div class="bar-sep-vert"></div>'.
-    $pagedNav->render($params->pg + 1, $web).
+    $pagedNav->render($params->pg + 1).
     '</div>';
