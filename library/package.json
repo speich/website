@@ -5,7 +5,7 @@
 	"repository": "github:speich/website",
 	"version": "0.1.0",
 	"dependencies": {
-		"@googlemaps/markerclustererplus": "^1.2.10",
+		"@googlemaps/markerclustererplus": "1.2.10",
 		"dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
 		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
 		"dijit": "1.17.3",
@@ -13,16 +13,16 @@
 		"dojox": "1.17.3",
 		"jquery": "3.7.1",
 		"photoswipe": "5.4.4",
-		"prismjs": "1.29.0",
-		"put-selector": "^0.3.6",
+		"prismjs": "1.30.0",
+		"put-selector": "0.3.6",
 		"tinyamd": "https://github.com/speich/tinyamd",
-		"xstyle": "^0.3.3"
+		"xstyle": "0.3.3"
 	},
 	"devDependencies": {
-		"copyfiles": "^2.4.1",
-		"csso-cli": "^4.0.2",
-		"rimraf": "^5.0.7",
-		"uglifyjs-folder": "^3.3.0"
+		"copyfiles": "2.4.1",
+		"csso-cli": "4.0.2",
+		"rimraf": "5.0.10",
+		"uglifyjs-folder": "3.3.0"
 	},
 	"scripts": {
 		"dialog-confirm:build": "cp node_modules/dialog-confirm/DialogConfirm.js speich.net/DialogConfirm/DialogConfirm.js && uglifyjs-folder speich.net/DialogConfirm -eo speich.net/DialogConfirm -x .js",
