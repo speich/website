@@ -27,7 +27,7 @@
     <li>Nikkor Z 600mm 1:4 TC VR S (30.11.2022)</li>
     <li>Nikkor Z MC 105mm 1:2,8 VR S (18.05.2022)</li>
     <li>Nikkor Z 70-200mm f/2.8 VR S (11.01.2022)</li>
-    <li>Nikkor Z 24mm-120 f/4 S (19.09.2022)</li>
+    <li>Nikkor Z 24-120mm f/4 S (19.09.2022)</li>
     <li>Nikkor Z 24mm f/1.8 S (11.01.2022)</li>
 </ul>
 <ul class="main">
