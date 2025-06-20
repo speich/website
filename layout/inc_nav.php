@@ -113,6 +113,7 @@ $sideNav->cssClass = 'sideMenu';
 switch ($activeNavId) {
     case 1:
         $items = createSideMenuPhoto($web, $arrPhotoNav, $language);
+    var_dump($items);
         $sideNav->addAll($items);
         if ($web->page === $language->createPage('photo-detail.php')) {
             $url = $web->getDir().$language->createPage('photo.php').$query->withString(null, ['imgId', 'lang']);
@@ -141,7 +142,7 @@ switch ($activeNavId) {
  * @param Language $lang
  * @return array
  */
-function createSideMenuPhoto(WebsiteSpeich $web, array $menuItems, Language $lang): array
+function  createSideMenuPhoto(WebsiteSpeich $web, array $menuItems, Language $lang): array
 {
     // TODO: move to a (new) photo db class
     $db = new PhotoDb\PhotoDb($web->getWebRoot());
