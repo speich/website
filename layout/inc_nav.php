@@ -113,7 +113,6 @@ $sideNav->cssClass = 'sideMenu';
 switch ($activeNavId) {
     case 1:
         $items = createSideMenuPhoto($web, $arrPhotoNav, $language);
-    var_dump($items);
         $sideNav->addAll($items);
         if ($web->page === $language->createPage('photo-detail.php')) {
             $url = $web->getDir().$language->createPage('photo.php').$query->withString(null, ['imgId', 'lang']);
@@ -121,6 +120,7 @@ switch ($activeNavId) {
         }
         if (isset($_GET['theme']) || isset($_GET['country'])) {
             // unset item ('Alle Fotos'), otherwise it would always be active
+            echo 'here';
             $sideNav->arrItem['2']->setActive(false);
         }
         break;
