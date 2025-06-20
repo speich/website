@@ -120,7 +120,6 @@ switch ($activeNavId) {
         }
         if (isset($_GET['theme']) || isset($_GET['country'])) {
             // unset item ('Alle Fotos'), otherwise it would always be active
-            echo 'here';
             $sideNav->arrItem['2']->setActive(false);
         }
         break;
