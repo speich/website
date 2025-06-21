@@ -106,7 +106,6 @@ $arrPersonNav['en'] = [
 
 /* render different side navigation depending on active main navigation */
 $activeNavId = $mainNav->getActive();
-var_dump($activeNavId);
 $items = [];
 $sideNav = new Menu();
 $sideNav->setAutoActiveMatching(Menu::MATCH_FULL);
