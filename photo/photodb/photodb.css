@@ -1,5 +1,6 @@
 #slides {
     line-height: 0;
+    text-align: center;
 }
 
 .slide {
@@ -47,31 +48,6 @@
 .slideText a, .slideText a:link {
     font-size: 0.8em;
     color: #2e7300;
-}
-
-.slideHorizontal {
-    border-top-width: 50px;
-    border-bottom-width: 50px;
-}
-
-.slideHorizontal img {
-    max-width: 180px;
-    height: auto;
-}
-
-.slideVertical {
-    border-left-width: 50px;
-    border-right-width: 50px;
-}
-
-.slideVertical img {
-    width: auto;
-    max-height: 180px;
-}
-
-.slideQuadratic img {
-    max-width: 180px;
-    max-height: 180px;
 }
 
 #slideFullScreenCont {
@@ -212,6 +188,10 @@ button.bar-item svg.icon, .mRating svg.icon:not(:first-child) {
     margin-bottom: 1em;
 }
 
+.bar-paging:first-of-type {
+    display: none;
+}
+
 .bar-cont, .bar-paging, .bar-options,
 .bar-paging .pages, .frmSearch,
 .toolbar .bar-sep-vert, .toolbar label, .toolbar .bar-item,
@@ -268,4 +248,36 @@ svg.icon {
 
 .curPage, .pages a:hover {
     color: #cc0000;
+}
+
+@media screen and (min-width: 45em) {
+
+    .slideHorizontal {
+        border-top-width: 50px;
+        border-bottom-width: 50px;
+    }
+
+    .slideHorizontal img {
+        max-width: 180px;
+        height: auto;
+    }
+
+    .slideVertical {
+        border-left-width: 50px;
+        border-right-width: 50px;
+    }
+
+    .slideVertical img {
+        width: auto;
+        max-height: 180px;
+    }
+
+    .slideQuadratic img {
+        max-width: 180px;
+        max-height: 180px;
+    }
+
+    .bar-paging:first-of-type {
+        display: flex;
+    }
 }
