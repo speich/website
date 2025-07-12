@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/speich/WebsiteTemplate.git",
-                "reference": "575f4e53bea1f27468efccc3614814f4707c87f1"
+                "reference": "b79dc9802d8a41f7949bab70ad6e0ea39b8b7c36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/speich/WebsiteTemplate/zipball/575f4e53bea1f27468efccc3614814f4707c87f1",
-                "reference": "575f4e53bea1f27468efccc3614814f4707c87f1",
+                "url": "https://api.github.com/repos/speich/WebsiteTemplate/zipball/b79dc9802d8a41f7949bab70ad6e0ea39b8b7c36",
+                "reference": "b79dc9802d8a41f7949bab70ad6e0ea39b8b7c36",
                 "shasum": ""
             },
             "require": {
@@ -40,10 +40,10 @@
             ],
             "description": "A simple template for your website project when using PHP and JavaScript",
             "support": {
-                "source": "https://github.com/speich/WebsiteTemplate/tree/master",
+                "source": "https://github.com/speich/WebsiteTemplate/tree/0.18",
                 "issues": "https://github.com/speich/WebsiteTemplate/issues"
             },
-            "time": "2025-05-04T14:36:32+00:00"
+            "time": "2025-07-12T12:33:16+00:00"
         }
     ],
     "packages-dev": [
@@ -1022,5 +1022,5 @@
         "ext-zlib": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
