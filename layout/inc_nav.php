@@ -109,8 +109,6 @@ $activeNavId = $mainNav->getActive();
 $items = [];
 $sideNav = new Menu();
 $sideNav->setAutoActiveMatching(Menu::MATCH_FULL);
-$sideNav->allChildrenOpen = true;
-$sideNav->allChildrenRendered = true;
 $sideNav->cssClass = 'sideMenu';
 switch ($activeNavId) {
     case 1:
