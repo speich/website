@@ -12,10 +12,12 @@
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <PhpCSConfiguration standards="MySource;PEAR;PHPCS;PSR1;PSR2;Squiz;Zend" tool_path="$USER_HOME$/.config/composer/vendor/squizlabs/php_codesniffer/scripts/phpcs" />
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="3d87c39f-e604-4256-85b5-65bc6b3bac8c" standards="MySource;PEAR;PHPCS;PSR1;PSR2;Squiz;Zend" tool_path="/home/simon/.config/composer/vendor/squizlabs/php_codesniffer/scripts/phpcs" timeout="30000" />
     </phpcs_settings>
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
+      <path value="$PROJECT_DIR$/scripts/php" />
       <path value="$PROJECT_DIR$/layout" />
       <path value="$PROJECT_DIR$/photo/photodb/scripts/php" />
       <path value="$PROJECT_DIR$/library/vendor/speich/websitetemplate" />
@@ -32,8 +34,8 @@
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
       <interpreter name="developer@192.168.1.52:22 password">
-        <phpinfo binary_type="PHP" php_cli="/usr/bin/php8.2" path_separator=":" remote_host="192.168.1.44" version="8.2.20">
-          <additional_php_ini>/etc/php/8.2/cli/conf.d/10-opcache.ini, /etc/php/8.2/cli/conf.d/10-pdo.ini, /etc/php/8.2/cli/conf.d/15-xml.ini, /etc/php/8.2/cli/conf.d/20-calendar.ini, /etc/php/8.2/cli/conf.d/20-ctype.ini, /etc/php/8.2/cli/conf.d/20-curl.ini, /etc/php/8.2/cli/conf.d/20-dom.ini, /etc/php/8.2/cli/conf.d/20-enchant.ini, /etc/php/8.2/cli/conf.d/20-exif.ini, /etc/php/8.2/cli/conf.d/20-ffi.ini, /etc/php/8.2/cli/conf.d/20-fileinfo.ini, /etc/php/8.2/cli/conf.d/20-ftp.ini, /etc/php/8.2/cli/conf.d/20-gd.ini, /etc/php/8.2/cli/conf.d/20-gettext.ini, /etc/php/8.2/cli/conf.d/20-iconv.ini, /etc/php/8.2/cli/conf.d/20-imagick.ini, /etc/php/8.2/cli/conf.d/20-intl.ini, /etc/php/8.2/cli/conf.d/20-mbstring.ini, /etc/php/8.2/cli/conf.d/20-pdo_sqlite.ini, /etc/php/8.2/cli/conf.d/20-phar.ini, /etc/php/8.2/cli/conf.d/20-posix.ini, /etc/php/8.2/cli/conf.d/20-readline.ini, /etc/php/8.2/cli/conf.d/20-shmop.ini, /etc/php/8.2/cli/conf.d/20-simplexml.ini, /etc/php/8.2/cli/conf.d/20-sockets.ini, /etc/php/8.2/cli/conf.d/20-sqlite3.ini, /etc/php/8.2/cli/conf.d/20-sysvmsg.ini, /etc/php/8.2/cli/conf.d/20-sysvsem.ini, /etc/php/8.2/cli/conf.d/20-sysvshm.ini, /etc/php/8.2/cli/conf.d/20-tokenizer.ini, /etc/php/8.2/cli/conf.d/20-xdebug.ini, /etc/php/8.2/cli/conf.d/20-xmlreader.ini, /etc/php/8.2/cli/conf.d/20-xmlwriter.ini, /etc/php/8.2/cli/conf.d/20-xsl.ini</additional_php_ini>
+        <phpinfo binary_type="PHP" php_cli="/usr/bin/php8.2" path_separator=":" remote_host="192.168.1.44" version="8.2.22">
+          <additional_php_ini>/etc/php/8.2/cli/conf.d/10-mysqlnd.ini, /etc/php/8.2/cli/conf.d/10-opcache.ini, /etc/php/8.2/cli/conf.d/10-pdo.ini, /etc/php/8.2/cli/conf.d/15-xml.ini, /etc/php/8.2/cli/conf.d/20-calendar.ini, /etc/php/8.2/cli/conf.d/20-ctype.ini, /etc/php/8.2/cli/conf.d/20-curl.ini, /etc/php/8.2/cli/conf.d/20-dom.ini, /etc/php/8.2/cli/conf.d/20-enchant.ini, /etc/php/8.2/cli/conf.d/20-exif.ini, /etc/php/8.2/cli/conf.d/20-ffi.ini, /etc/php/8.2/cli/conf.d/20-fileinfo.ini, /etc/php/8.2/cli/conf.d/20-ftp.ini, /etc/php/8.2/cli/conf.d/20-gd.ini, /etc/php/8.2/cli/conf.d/20-gettext.ini, /etc/php/8.2/cli/conf.d/20-iconv.ini, /etc/php/8.2/cli/conf.d/20-imagick.ini, /etc/php/8.2/cli/conf.d/20-intl.ini, /etc/php/8.2/cli/conf.d/20-mbstring.ini, /etc/php/8.2/cli/conf.d/20-mysqli.ini, /etc/php/8.2/cli/conf.d/20-pdo_mysql.ini, /etc/php/8.2/cli/conf.d/20-pdo_sqlite.ini, /etc/php/8.2/cli/conf.d/20-phar.ini, /etc/php/8.2/cli/conf.d/20-posix.ini, /etc/php/8.2/cli/conf.d/20-readline.ini, /etc/php/8.2/cli/conf.d/20-shmop.ini, /etc/php/8.2/cli/conf.d/20-simplexml.ini, /etc/php/8.2/cli/conf.d/20-sockets.ini, /etc/php/8.2/cli/conf.d/20-sqlite3.ini, /etc/php/8.2/cli/conf.d/20-sysvmsg.ini, /etc/php/8.2/cli/conf.d/20-sysvsem.ini, /etc/php/8.2/cli/conf.d/20-sysvshm.ini, /etc/php/8.2/cli/conf.d/20-tokenizer.ini, /etc/php/8.2/cli/conf.d/20-xdebug.ini, /etc/php/8.2/cli/conf.d/20-xmlreader.ini, /etc/php/8.2/cli/conf.d/20-xmlwriter.ini, /etc/php/8.2/cli/conf.d/20-xsl.ini</additional_php_ini>
           <configuration_file>/etc/php/8.2/cli/php.ini</configuration_file>
           <configuration_options>
             <configuration_option name="include_path" value=".:/usr/share/php" />
@@ -71,9 +73,12 @@
             <extension name="json" />
             <extension name="libxml" />
             <extension name="mbstring" />
+            <extension name="mysqli" />
+            <extension name="mysqlnd" />
             <extension name="openssl" />
             <extension name="pcntl" />
             <extension name="pcre" />
+            <extension name="pdo_mysql" />
             <extension name="pdo_sqlite" />
             <extension name="posix" />
             <extension name="random" />
@@ -99,7 +104,7 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.2">
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.3">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpRuntimeConfiguration">
@@ -161,9 +166,6 @@
       <extension name="odbc" enabled="false" />
       <extension name="opentelemetry" enabled="false" />
       <extension name="pdflib" enabled="false" />
-      <extension name="pdo_ibm" enabled="false" />
-      <extension name="pdo_mysql" enabled="false" />
-      <extension name="pdo_pgsql" enabled="false" />
       <extension name="pgsql" enabled="false" />
       <extension name="pspell" enabled="false" />
       <extension name="pthreads" enabled="false" />
@@ -194,6 +196,11 @@
       <extension name="zmq" enabled="false" />
     </extensions>
   </component>
+  <component name="PhpStan">
+    <PhpStan_settings>
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="3d87c39f-e604-4256-85b5-65bc6b3bac8c" timeout="60000" />
+    </PhpStan_settings>
+  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
@@ -202,6 +209,11 @@
       <phpunit_by_interpreter interpreter_id="453f43ce-8201-4be3-b3e6-8aea110aa4b7" custom_loader_path="/home/simon/Websites/speich.net/library/vendor/autoload.php" />
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/library/vendor/autoload.php" phpunit_phar_path="" />
     </phpunit_settings>
+  </component>
+  <component name="Psalm">
+    <Psalm_settings>
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="3d87c39f-e604-4256-85b5-65bc6b3bac8c" timeout="60000" />
+    </Psalm_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
     <option name="transferred" value="true" />

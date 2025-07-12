@@ -2,9 +2,10 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/baikal/Core/Frameworks/BaikalAdmin/Resources/html5.min.js" />
+        <item url="file://$PROJECT_DIR$/baikal/Core/Resources/Web/BaikalAdmin/html5.min.js" />
+        <item url="file://$PROJECT_DIR$/baikal/html/res/core/BaikalAdmin/html5.min.js" />
         <item url="file://$PROJECT_DIR$/contact/contact.min.js" />
-        <item url="file://$PROJECT_DIR$/photo/photodb/photo-detail.min.js" />
-        <item url="file://$PROJECT_DIR$/photo/photodb/photo-mapsearch.min.js" />
         <item url="file://$PROJECT_DIR$/photo/photodb/photo.min.js" />
         <item url="file://$PROJECT_DIR$/projects/programming/3dhtml.min.js" />
         <item url="file://$PROJECT_DIR$/projects/programming/remoteFileExplorer.min.js" />
@@ -173,9 +174,10 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/baikal/Core/Frameworks/BaikalAdmin/Resources/html5.min.js" />
+      <root url="file://$PROJECT_DIR$/baikal/Core/Resources/Web/BaikalAdmin/html5.min.js" />
+      <root url="file://$PROJECT_DIR$/baikal/html/res/core/BaikalAdmin/html5.min.js" />
       <root url="file://$PROJECT_DIR$/contact/contact.min.js" />
-      <root url="file://$PROJECT_DIR$/photo/photodb/photo-detail.min.js" />
-      <root url="file://$PROJECT_DIR$/photo/photodb/photo-mapsearch.min.js" />
       <root url="file://$PROJECT_DIR$/photo/photodb/photo.min.js" />
       <root url="file://$PROJECT_DIR$/projects/programming/3d.min.js" />
       <root url="file://$PROJECT_DIR$/projects/programming/3dhtml.min.js" />
