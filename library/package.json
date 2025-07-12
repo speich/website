@@ -5,7 +5,6 @@
 	"repository": "github:speich/website",
 	"version": "0.1.0",
 	"dependencies": {
-		"@googlemaps/markerclustererplus": "1.2.10",
 		"dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
 		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
 		"dijit": "1.17.3",
@@ -21,7 +20,7 @@
 	"devDependencies": {
 		"copyfiles": "2.4.1",
 		"csso-cli": "4.0.2",
-		"rimraf": "5.0.10",
+		"rimraf": "6.0.1",
 		"uglifyjs-folder": "3.3.0"
 	},
 	"scripts": {
@@ -40,9 +39,6 @@
 			"dojox:js": "uglifyjs-folder dojo/dojox -eo dojo/dojox -x .js",
 		"dojox:build": "npm run dojox:copy && npm run dojox:js",
 		"jquery:build": "rimraf jquery && copyfiles -u 3 node_modules/jquery/dist/**/* jquery",
-			"markerclustererplus:copy": "rimraf markerclustererplus && copyfiles -u 3 \"node_modules/@googlemaps/markerclustererplus/dist/*.*\" \"node_modules/@googlemaps/markerclustererplus/images/*\" markerclustererplus",
-			"markerclustererplus:js": "uglifyjs-folder markerclustererplus -eo markerclustererplus -x .min.js",
-		"markerclustererplus:build": "npm run markerclustererplus:copy && npm run markerclustererplus:js",
 			"photoswipe:copy": "rimraf photoswipe && copyfiles -u 3 \"node_modules/photoswipe/dist/**/*\" photoswipe",
 			"photoswipe:css": "csso photoswipe/photoswipe.css -o photoswipe/photoswipe.min.css",
 		"photoswipe:build": "npm run photoswipe:copy && npm run photoswipe:css",
