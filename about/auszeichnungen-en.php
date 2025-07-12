@@ -33,7 +33,7 @@
     <div>Soft focus<br>
         special category «Reflections», <strong>honorable mention</strong></div>
 
-    <h2>GDT Nature Photographer of the Year</h2>
+    <h2>GDT Nature Photographer of the Year 2023</h2>
     <div>GDT (German society for nature photography), <a
                 href="https://www.gdtfoto.de/seiten/gdt-naturfotograf-des-jahres-results-2023.html?lang=English"
                 target="_blank">GDT Nature Photographer of the Year</a></div>
