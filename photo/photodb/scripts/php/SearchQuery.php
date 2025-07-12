@@ -56,8 +56,8 @@ class SearchQuery
     {
         $search = '';
         $len = count($words);
-        $language = new Language();
-        $lang = $language->isValid($lang) === true ? $lang : $language->getDefault();
+        //$language = new Language();
+        //$lang = $language->isValid($lang) === true ? $lang : $language->getDefault();
         foreach ($words as $i => $val) {
             if (str_contains($val, '"')) {
                 $search .= $val;
