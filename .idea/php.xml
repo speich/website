@@ -20,8 +20,8 @@
       <path value="$PROJECT_DIR$/scripts/php" />
       <path value="$PROJECT_DIR$/layout" />
       <path value="$PROJECT_DIR$/photo/photodb/scripts/php" />
-      <path value="$PROJECT_DIR$/library/vendor/speich/websitetemplate" />
       <path value="$PROJECT_DIR$/library/vendor/composer" />
+      <path value="$PROJECT_DIR$/library/vendor/speich/websitetemplate" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

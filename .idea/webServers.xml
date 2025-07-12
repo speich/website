@@ -18,11 +18,12 @@
         <option name="numberOfConnections" value="8" />
       </webServer>
       <webServer id="9d377f4c-6ef3-47b6-8bf5-180a65c8c4a0" name="speich.test" url="https://speich.test">
-        <fileTransfer rootFolder="/var/www/html/speich.net" accessType="SFTP" host="192.168.1.52" port="22" sshConfigId="e3c3e14e-11d2-49f7-9a47-7376b31e9801" sshConfig="developer@192.168.1.52:22 password">
+        <fileTransfer rootFolder="/home/developer" accessType="SFTP" host="192.168.1.52" port="22" sshConfigId="e3c3e14e-11d2-49f7-9a47-7376b31e9801" sshConfig="developer@192.168.1.52:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" connections="8" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
           </advancedOptions>
         </fileTransfer>
+        <option name="numberOfConnections" value="8" />
       </webServer>
     </option>
   </component>
