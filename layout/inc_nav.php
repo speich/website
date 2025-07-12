@@ -190,7 +190,9 @@ function  createSideMenuPhoto(WebsiteSpeich $web, array $menuItems, Language $la
 
         // main subject areas (parent menu)
         if ($row['menuId'] !== $lastMenuId) {
-            $items[] = [$row['menuId'], 1, htmlspecialchars($row['menuLabel']), $link];
+            // set birds instead of amphibians and plants instead of lichens to be selected by default
+            $modLink = str_replace(array('theme=13', 'theme=18'), array('theme=1', 'theme=3'), $link);
+            $items[] = [$row['menuId'], 1, htmlspecialchars($row['menuLabel']), $modLink];
         }
         // sub menu
         $items[] = [$row['submenuId'], $row['menuId'], htmlspecialchars($row['submenuLabel']), $link];
