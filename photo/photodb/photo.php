@@ -45,5 +45,4 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
 <div><ul id="slides"><?php echo $photoList->render($photos, $web, $language, $i18n); ?></ul></div>
 <div class="toolbar"><div class="bar-cont"><?php echo $pagingBar ?></div></div>
 <?php echo $bodyEnd->render(); ?>
-</body>
-</html>
+</body></html>
