@@ -32,7 +32,9 @@ $mRecPp->cssClass .= ' menu2 mRecPp';
 $item = new MenuItem('a', 'b', $params->numPerPg);
 $mRecPp->add($item);
 foreach ($arrVal as $key => $val) {
-    $url = $web->page.$query->withString(['numPerPg' => $val], $arrDel);
+    $arrInc = $params->get();
+    $arrInc['numPerPg'] = $val;
+    $url = $web->page.$query->withString($arrInc, $arrDel);
     $item = new MenuItem($key, 'a', $val, $url);
     $mRecPp->add($item);
     if ($params->numPerPg === $val) {
@@ -42,18 +44,20 @@ foreach ($arrVal as $key => $val) {
 
 // TODO: show title or image when sorting by it
 $arrVal = [
-    SqlPhotoList::SORT_BY_IMGTITLE => $i18n['by title'],
-    SqlPhotoList::SORT_BY_DATEADDED => $i18n['date added'],
-    SqlPhotoList::SORT_BY_DATECREATED => $i18n['date created'],
     SqlPhotoList::SORT_BY_DATECHANGED => $i18n['last changed'],
-    SqlPhotoList::SORT_BY_RANDOM => $i18n['random']
+    SqlPhotoList::SORT_BY_RANDOM => $i18n['random'],
+    SqlPhotoList::SORT_BY_DATECREATED => $i18n['date created'],
+    SqlPhotoList::SORT_BY_DATEADDED => $i18n['date added'],
+    SqlPhotoList::SORT_BY_IMGTITLE => $i18n['by title']
 ];
 $mSort = new Menu();
 $mSort->cssClass .= ' menu2 mSort';
 $item = new MenuItem('a', 'b', $arrVal[$params->sort]);
 $mSort->add($item);
 foreach ($arrVal as $key => $val) {
-    $url = $web->page.$query->withString(['sort' => $key], $arrDel);
+    $arrInc = $params->get();
+    $arrInc['sort'] = $key;
+    $url = $web->page.$query->withString($arrInc, $arrDel);
     $item = new MenuItem($key, 'a', $val, $url);
     $mSort->add($item);
     if ($params->sort === $key) {
@@ -72,7 +76,9 @@ $mRating->cssClass .= ' menu2 mRating';
 $item = new MenuItem('a', 'b', $arrVal[$params->qual]);
 $mRating->add($item);
 foreach ($arrVal as $key => $val) {
-    $url = $web->page.$query->withString(['qual' => $key], $arrDel);
+    $arrInc = $params->get();
+    $arrInc['qual'] = $key;
+    $url = $web->page.$query->withString($arrInc, $arrDel);
     $item = new MenuItem($key, 'a', $val, $url);
     $mRating->add($item);
     if ($params->qual === $key) {

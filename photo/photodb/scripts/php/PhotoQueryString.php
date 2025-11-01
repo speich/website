@@ -16,7 +16,7 @@ class PhotoQueryString
     /** @var int|null theme of the photo */
     public ?int $theme;
 
-    /** @var int|null country photo was taken */
+    /** @var int|null the country the photo was taken */
     public ?int $country;
 
     /** @var int number of photos per page */
@@ -79,5 +79,10 @@ class PhotoQueryString
         $this->sort = property_exists($data, 'sort') ? filter_var($data->sort,FILTER_SANITIZE_NUMBER_INT) : SqlPhotoList::SORT_BY_DATECHANGED;
         $this->numPerPg = property_exists($data, 'numPerPg') ? filter_var($data->numPerPg, FILTER_SANITIZE_NUMBER_INT) : PhotoList::NUMPERPAGE_MEDIUM;
         $this->pg = property_exists($data, 'pg') ? filter_var($data->pg, FILTER_SANITIZE_NUMBER_INT) - 1 : $this->pg;
+    }
+
+    public function get(): array
+    {
+        return get_object_vars($this);
     }
 }
