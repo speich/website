@@ -44,7 +44,9 @@
     <li>Nikon FTZ II Objektivadapter (01.12.2021)</li>
 </ul>
 <ul class="main">
-    <li>Schwenkkopf <a href="https://www.jobu-design.com/product-page/jobu-heavy-duty-mk-iv" target="_blank">Jobu Heavy Duty MK IV</a><br>
+    <li>Blitz Godox V860 III, Godox X3 TTL kabelloser Blitzauslöser, JJC TTL Blitzauslösekabel, Hähnel Diffusor mit Klemme (21.09.2025)</li>
+    <li>Koenig Photobag <a href="https://www.koenig-photobags.de/" target="_blank">fotoRucksack2</a> (21.07.2017)</li>
+    <li>Schwenkkopf <a href="https://www.jobu-design.com/product-page/jobu-heavy-duty-mk-iv" target="_blank">Jobu Heavy Duty MK IV</a> (25.04.2016)<br>
         Weitere Informationen <a href="/articles/en/2016/04/23/replacement-foot-for-the-nikon-600mm-fl/">Gimbal and replacement foot for the Nikon 600mm FL/</a>
     </li>
     <li>Kugelkopf <a href="https://www.reallyrightstuff.com/bh55-ball-head" target="_blank">Really Right Stuff BH-55 LR</a> (21.06.2008)</li>
