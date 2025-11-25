@@ -3,7 +3,7 @@
 	"description": "Dependencies for the website speich.net",
 	"homepage": "https://www.speich.net",
 	"repository": "github:speich/website",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"dependencies": {
 		"dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
 		"dialog-confirm": "https://github.com/speich/DialogConfirm/",
@@ -20,7 +20,7 @@
 	"devDependencies": {
 		"copyfiles": "2.4.1",
 		"csso-cli": "4.0.2",
-		"rimraf": "6.0.1",
+		"rimraf": "6.1.2",
 		"uglifyjs-folder": "3.3.0"
 	},
 	"scripts": {
@@ -51,6 +51,6 @@
 			"xstyle:js": "uglifyjs-folder xstyle -eo xstyle -x .js",
 		"xstyle:build": "npm run xstyle:copy && npm run xstyle:js",
 		"tinyamd:build": "cp node_modules/tinyamd/tinyamd.min.js tinyamd.min.js",
-		"build": "npm run dialog-confirm:build & npm run dgrid:build & npm run dojo:build & npm run dijit:build & npm run dojox:build & npm run markerclustererplus:build & npm run jquery:build & npm run photoswipe:build & npm run prismjs:build & npm run put-selector:build & npm run xstyle:build & npm run tinyamd:build"
+		"build": "npm run dialog-confirm:build & npm run dgrid:build & npm run dojo:build & npm run dijit:build & npm run dojox:build & npm run markerclustererplus:build & npm run jquery:build & npm run photoswipe:build & npm run prismjs:build & npm run put-selector:build & npm run xstyle:build & npm run tinyamd:build && npm audit fix"
 	}
 }
