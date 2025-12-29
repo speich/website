@@ -6,11 +6,6 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/photo/photodb/dbfiles/photodb.sqlite</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$USER_HOME$/dbdrivers/sqlite-jdbc-3.7.2.jar</url>
-        </library>
-      </libraries>
     </data-source>
     <data-source source="LOCAL" name="phpmyadmin@phpmyadmin" uuid="42f13e52-cbbc-4db4-8499-12c1ef46f67f">
       <driver-ref>mysql.8</driver-ref>
