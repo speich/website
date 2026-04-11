@@ -5,6 +5,7 @@ namespace PhotoDb;
 use PDO;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\QueryString;
+use function count;
 use function strlen;
 
 /**
@@ -75,7 +76,7 @@ class PhotoDetail
         $backPage = $lang->createPage('photo.php').$query->withString(null, ['imgId']);
         $imgFile = $db->webroot.$db->getPath('img').$record['imgFolder'].'/'.$record['imgName'];
 
-        echo '<h1>'.$record['imgTitle'].'</h1>';
+        echo '<h1>'.$this->renderTitle($record, $lang).'</h1>';
         echo $record['imgDesc'] ? '<p>'.$photo->renderDescLinks($record['imgDesc']).'</p>' : '';
         echo '<figure>
             <a title="'.$i18n['photo'].': '.$record['imgTitle'].'" href="'.$imgFile.'">
@@ -98,6 +99,23 @@ class PhotoDetail
             </div>';
         echo '<p class="license">'.$this->renderLicense($record, $lang).'</p>
             <p><a href="'.$backPage.'">'.$i18n['back'].'</a></p>';
+    }
+
+    /**
+     * Render the title of the photo
+     * For English if the title is only available in German, use scientific name instead if available
+     * @param array $record
+     * @param Language $lang
+     * @return mixed
+     */
+    public function renderTitle(array $record, Language $lang):string {
+        if ($lang->get() === 'de' || $record['scientificNameId'] === null) {
+            $title = $record['imgTitle'];
+        } else {
+            $title = $record['scientificNameEn'] ?? $record['scientificNameLa'];
+        }
+
+        return $title;
     }
 
     /**
@@ -218,6 +236,11 @@ class PhotoDetail
 
         $arrSpecies = explode(',', $species);
         $arrSpeciesId = explode(',', str_replace(' ', '', $record['scientificNameId']));
+
+        if (count($arrSpecies ) < 2) {
+            return '';
+        }
+
         $params = ['qual' => 0];
         $query = new QueryString();
         $str = $i18n['more photos'].':';

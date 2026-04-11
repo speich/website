@@ -24,10 +24,11 @@ $sql->imgId = $imgId;
 $sql->setLangPostfix($language);
 $photo = $photoDetail->query($sql);
 if ($language->get() === 'de') {
-    $pageTitle = $photo['imgTitle'].' | Fotodatenbank';
-    $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).'. Ein Bild fotografiert von Simon Speich zum Thema '.$photo['themes'].'.';
-}
-else {
-    $pageTitle = $photo['imgTitle'].' | Photo database';
-    $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).'. A photo taken by Simon Speich about the topic '.$photo['themes'].'.';
+    $title = $photoDetail->renderTitle($photo, $language);
+    $pageTitle = $title.' | Fotodatenbank';
+    $metaDesc = ($photo['imgDesc'] ?: $title).'. Ein Bild fotografiert von Simon Speich zum Thema '.$photo['themes'].'.';
+} else {
+    $title = $photoDetail->renderTitle($photo, $language);
+    $pageTitle = $title.' | Photo database';
+    $metaDesc = $title.'. A photo taken by Simon Speich about the topic '.$photo['themes'].'.';
 }
