@@ -31,7 +31,6 @@ class SqlPhotoDetail extends SqlExtended
         	E.FocalLength focalLength, E.ExposureProgram exposureProgram,
         	E.MeteringMode meteringMode, E.Flash flash, E.FocusDistance focusDistance, E.ImageWidth imageWidth,
         	E.ImageHeight imageHeight, E.DateTimeOriginal dateTimeOriginal,
-        	E.GpsLatitude gpsLatitude, E.GpsLongitude gpsLongitude, E.GpsAltitude gpsAltitude, E.GpsAltitudeRef gpsAltitudeRef,
         	E.LensSpec lensSpec, E.Lens lens, E.FileType fileType, E.VibrationReduction vibrationReduction,
         	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
         	GROUP_CONCAT(DISTINCT T.Name" . $this->langPostfix . ') themes,

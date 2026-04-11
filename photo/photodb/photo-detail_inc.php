@@ -31,11 +31,3 @@ else {
     $pageTitle = $photo['imgTitle'].' | Photo database';
     $metaDesc = ($photo['imgDesc'] ?: $photo['imgTitle']).'. A photo taken by Simon Speich about the topic '.$photo['themes'].'.';
 }
-
-// pass data to js
-$jsConfig = [
-    'lat' => empty($photo['imgLat']) ? null : $photo['imgLat'],
-    'lng' => empty($photo['imgLng']) ? null : $photo['imgLng']
-];
-$jsConfig = json_encode($jsConfig, JSON_NUMERIC_CHECK);
-$jsConfig = htmlspecialchars($jsConfig, ENT_COMPAT, $web->charset);

@@ -5,6 +5,7 @@ namespace PhotoDb;
 use PDO;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\QueryString;
+use function strlen;
 
 /**
  * Render information about a single photo as html.
@@ -66,7 +67,7 @@ class PhotoDetail
      * @param Language $lang
      * @param array $i18n internationalization
      */
-    function render(array $record, Language $lang, array $i18n): void
+    public function render(array $record, Language $lang, array $i18n): void
     {
         $db = $this->db;
         $photo = new PhotoList($db);
@@ -86,7 +87,7 @@ class PhotoDetail
         if ($record['scientificNameId'] !== null) {
             echo '<div class="sameSpecies">
                     <div>'.$this->renderSpecies($record, $i18n, $lang).'</div>'.
-                    $this->renderSpeciesLink($record, $i18n, $lang).
+                $this->renderSpeciesLink($record, $i18n, $lang).
                 '</div>';
         }
         echo '</div>';
@@ -173,10 +174,6 @@ class PhotoDetail
     	        <li><span class="photoTxtLabel">'.$i18n['model'].': </span>'.$record['model'].'</li>
     	        </ul>';
         }
-        $str .= '<ul>
-            <li><span class="photoTxtLabel">'.$i18n['position'].' (GPS):</span> '.($record['showLoc'] === '1' ? $record['gpsLatitude'].' / '.$record['gpsLongitude'] : '').'</li>
-        	<li><span class="photoTxtLabel">'.$i18n['hight'].' (GPS):</span> '.$record['gpsAltitude'].' m '.($record['gpsAltitudeRef'] === '1' ? 'b.s.l.' : 'a.s.l.').'</li>
-        	</ul>';
 
         return $str;
     }
@@ -214,7 +211,8 @@ class PhotoDetail
         return $str;
     }
 
-    private function renderSpeciesLink(array $record, array $i18n, Language $lang): string {
+    private function renderSpeciesLink(array $record, array $i18n, Language $lang): string
+    {
         $species = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
         $species = $species === '' ? $record['scientificNameLa'] : $species;
 

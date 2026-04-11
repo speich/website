@@ -12,7 +12,6 @@
     <link href="photo-detail.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<body data-config="<?php echo $jsConfig; ?>">
 <?php
 echo $bodyStart->render($mainNav, $sideNav, $langNav);;
 $photoDetail->render($photo, $language, $i18n);
