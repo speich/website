@@ -32,4 +32,4 @@ add_filter( 'wp_nav_menu_args', function($args) {
     return $args;
 });
 add_filter( 'automatic_updates_is_vcs_checkout', '__return_false', 1 );
-add_filter('wp_img_tag_add_auto_sizes', '__return_false');  /* fix image stretch issue in chrome
+add_filter('wp_img_tag_add_auto_sizes', '__return_false');  /* fix image stretch issue in chrome */
