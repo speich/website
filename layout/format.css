@@ -81,7 +81,7 @@ figure img {
     aspect-ratio: attr(width) / attr(height);
 }
 
-figcaption:not(.wp-element-caption) {
+figcaption {
     font-size: 80%;
     border-bottom: 1px solid #cccccc;
     min-width: 33%;
