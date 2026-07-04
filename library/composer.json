@@ -17,8 +17,16 @@
       "speich\\": "../scripts/php/class",
       "PhotoDb\\": "../photo/photodb/scripts/php",
       "WebsiteTemplate\\": "vendor/speich/websitetemplate/scripts/php"
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "8.5"
     },
-    "include-path": ["/layout"]
+    "preferred-install": "dist",
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "github-protocols": ["https"]
   },
   "repositories": [
     {
