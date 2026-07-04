@@ -2,6 +2,7 @@
 namespace PhotoDb;
 
 use PDO;
+use Pdo\Sqlite;
 use PDOException;
 use PhotoDb\FtsFunctions;
 
@@ -11,23 +12,23 @@ use PhotoDb\FtsFunctions;
  * Creates the photo database.
  */
 class PhotoDb {
-	/** @var PDO|null */
-	public $db;
+	/** @var Sqlite|null */
+	public ?Sqlite $db = null;
 	// paths are always appended to webroot ('/' or a subfolder) and start therefore with a foldername
 	// and not with a slash, but end with a slash
     // TODO: use json config file instead as in fotodb
-	private $dbName = 'photodb.sqlite';
-	private $dbUserPrefs = 'user.sqlite'; 
-	private $pathDb = 'photo/photodb/dbfiles/';
-	private $pathImg = 'photo/photodb/images/';
-	private $execTime = 300;
-	public $webroot;
-	protected $hasActiveTransaction = false;	// keep track of open transactions
+	private string $dbName = 'photodb.sqlite';
+	private string $dbUserPrefs = 'user.sqlite';
+	private string $pathDb = 'photo/photodb/dbfiles/';
+	private string $pathImg = 'photo/photodb/images/';
+	private int $execTime = 300;
+	public string $webroot;
+	protected bool $hasActiveTransaction = false;	// keep track of open transactions
 	
 	/**
 	 * @param string $webroot path to root folder
 	 */
-	public function __construct($webroot) {
+	public function __construct(string $webroot) {
 		$this->webroot = $webroot;
 		set_time_limit($this->execTime);
 	}
@@ -38,7 +39,8 @@ class PhotoDb {
 	 * If you set the argument $UseNativeDriver to true the native SQLite driver
 	 * is used instead of PDO.
 	 */
-	public function connect() {
+	public function connect(): void
+    {
 		$path = __DIR__.'/../../../../'.$this->pathDb;
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -46,12 +48,12 @@ class PhotoDb {
         ];
 		if ($this->db === null) {	// check if not already connected to db
 			try {
-				$this->db = new PDO('sqlite:'.$path.$this->dbName, null, null, $options);
+				$this->db = new Sqlite('sqlite:'.$path.$this->dbName, null, null, $options);
 				// Do every time you connect since they are only valid during connection (not permanent)
 				$this->db->exec('PRAGMA full_column_names = 0');
 				$this->db->exec('PRAGMA short_column_names = 1');	// green hosting's sqlite older driver version does not support short column names = off
-				$this->db->sqliteCreateAggregate('GROUP_CONCAT', [$this, 'groupConcatStep'], [$this, 'groupConcatFinalize']);
-                $this->db->sqliteCreateFunction('SCORE', [FtsFunctions::class, 'tfIdfWeighted']);
+				$this->db->createAggregate('GROUP_CONCAT', [$this, 'groupConcatStep'], [$this, 'groupConcatFinalize']);
+                $this->db->createFunction('SCORE', [FtsFunctions::class, 'tfIdfWeighted']);
 			}
 			catch (PDOException $error) {
 				echo $error->getMessage();
