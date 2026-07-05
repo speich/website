@@ -1,0 +1,23 @@
+{
+	"name": "speich.net",
+	"description": "Dependencies for the website speich.net",
+	"homepage": "https://www.speich.net",
+	"repository": "github:speich/website",
+	"version": "0.1.1",
+	"dependencies": {
+		"dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
+		"dialog-confirm": "github:speich/DialogConfirm",
+		"dijit": "1.17.3",
+		"dojo": "1.17.3",
+		"dojox": "1.17.3",
+		"jquery": "3.7.1", 
+		"photoswipe": "5.4.4",
+		"prismjs": "1.30.0",
+		"put-selector": "0.3.6",
+		"tinyamd": "github:speich/tinyamd",
+		"xstyle": "0.3.3"
+	},
+	"scripts": {
+		"build": "bun run build.js"
+	}
+}

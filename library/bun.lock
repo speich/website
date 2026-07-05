@@ -1,0 +1,45 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "speich.net",
+      "dependencies": {
+        "dgrid": "https://github.com/SitePen/dgrid#v0.3.21",
+        "dialog-confirm": "github:speich/DialogConfirm",
+        "dijit": "1.17.3",
+        "dojo": "1.17.3",
+        "dojox": "1.17.3",
+        "jquery": "3.7.1",
+        "photoswipe": "5.4.4",
+        "prismjs": "1.30.0",
+        "put-selector": "0.3.6",
+        "tinyamd": "github:speich/tinyamd",
+        "xstyle": "0.3.3",
+      },
+    },
+  },
+  "packages": {
+    "dgrid": ["dgrid@github:SitePen/dgrid#7438ff6", { "peerDependencies": { "dojo": "^1.7.11", "put-selector": "0.3.6", "xstyle": "^0.3.3" } }, "dojo-dojo1-dgrid-7438ff6", "sha512-yWXwMd42kVh3HzRFXbYheFMzWLSgm2iil6CT3TJzqFl3tbag3TKicTowseetELfHzNQze1jBEVUcxj+k/r2EAg=="],
+
+    "dialog-confirm": ["dialog-confirm@github:speich/DialogConfirm#4e9c90e", { "dependencies": { "dijit": "^1.17.2", "dojo": "^1.17.2" } }, "speich-DialogConfirm-4e9c90e", "sha512-lRRBLDax/PD3uFCD4ZFVM9oWNoCYOaS40bSG2FWOu0+wm0+2shHMIqEACO2rerO0MUcsYdwqd5OYk0wxrXtIEg=="],
+
+    "dijit": ["dijit@1.17.3", "", { "dependencies": { "dojo": "1.17.3" } }, "sha512-QS+1bNhPT+BF9E+iomQSi5qI+o3oUNSx1r5TF8WlGH4LybGZP+IIGJBOO5/41YduBPljVXhY7vaPsgrycxC6UQ=="],
+
+    "dojo": ["dojo@1.17.3", "", {}, "sha512-iWDx1oSfCEDnIrs8cMW7Zh9Fbjgxu8iRagFz+Qi2eya3MXIAxFXKhv2A7dpi+bfpMpFozLwcsLV8URLw6BsHsA=="],
+
+    "dojox": ["dojox@1.17.3", "", { "dependencies": { "dijit": "1.17.3", "dojo": "1.17.3" } }, "sha512-n2SvGoVTZlOQUQmoqEfW6oGAfmyBtjl4DzWkxoojdTxBq8O0r7pDKBrW3nRrpQW9uZFHfB1XIA3BXS0cnrue/Q=="],
+
+    "jquery": ["jquery@3.7.1", "", {}, "sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg=="],
+
+    "photoswipe": ["photoswipe@5.4.4", "", {}, "sha512-WNFHoKrkZNnvFFhbHL93WDkW3ifwVOXSW3w1UuZZelSmgXpIGiZSNlZJq37rR8YejqME2rHs9EhH9ZvlvFH2NA=="],
+
+    "prismjs": ["prismjs@1.30.0", "", {}, "sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw=="],
+
+    "put-selector": ["put-selector@0.3.6", "", {}, "sha512-usnm25gsnYkxRnSK5n0tXAgnQQ5DZV4zOqW8VwcDKSo0YebzOGMRx1Xl+LahwtnH+vqg97hlAi6qPUpqgIhX8g=="],
+
+    "tinyamd": ["tinyamd@github:speich/tinyamd#3f8e7e1", {}, "speich-tinyamd-3f8e7e1", "sha512-wb34vI24noo6m1dR/WPRq+Rdq1JUnxTi0t+oGHBsdKpVCjHkPs3mUiPB/6RNczvX6hXHu1wO6QR1Eq4hJHGvcQ=="],
+
+    "xstyle": ["xstyle@0.3.3", "", { "dependencies": { "put-selector": "0.3.6" } }, "sha512-Q4gKk0FFJ1xvNZJkls4wOF0yDQ4sTT6X8gr2MzA+C/JHduPafqLZzRrIdp9VxV1gr/ai5JF+evckreL1Hi5ZDQ=="],
+  }
+}
