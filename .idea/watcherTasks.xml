@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions" suppressed-tasks="Babel">
-    <enabled-global>
-      <option value="Esbuild-JS" />
-      <option value="Esbuild-CSS" />
-    </enabled-global>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="compose -f ../frankenphp/docker-compose.yml exec -T --workdir /app/speich.net/$FileRelativeDir$ assets bun build --outdir=. --entry-naming=&quot;[name].min.[ext]&quot; --minify --sourcemap=linked --external=&quot;*.woff2&quot; --external=&quot;*.svg&quot; --external=&quot;*.php&quot; --external=&quot;*.php?hires&quot; --external=&quot;*.css&quot; $FileName$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ALWAYS" />
+      <option name="fileExtension" value="*" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="bun JS / CSS" />
+      <option name="output" value="$FileNameWithoutExtension$.min.js:$FileNameWithoutExtension$.min.js.map:$FileNameWithoutExtension$.min.css:$FileNameWithoutExtension$.min.css.map" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="docker" />
+      <option name="runOnExternalChanges" value="true" />
+      <option name="scopeName" value="Bun JS / CSS" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$ProjectFileDir$/../frankenphp" />
+      <envs />
+    </TaskOptions>
   </component>
 </project>
