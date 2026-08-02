@@ -16,7 +16,7 @@ class PhotoDb
 {
     /** @var Sqlite|null */
     public ?Sqlite $db = null;
-    // paths are always appended to webroot ('/' or a subfolder) and start therefore with a foldername
+    // paths are always appended to webroot ('/' or a subfolder) and start therefore with a folder name
     // and not with a slash, but end with a slash
     // TODO: use json config file instead as in fotodb
     private string $dbName = 'photodb.sqlite';
@@ -179,7 +179,7 @@ class PhotoDb
      * @param string $context
      * @return string|null
      */
-    public function strToTime($context): ?string
+    public function strToTime(string $context): ?string
     {
         $result = null;
         if (strlen($context) > 4) {

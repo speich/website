@@ -16,24 +16,36 @@ class FtsFunctions
      * @param string $string
      * @return string
      */
-    public static function removeDiacritics($string): string
+    public static function removeDiacritics(string $string): string
     {
         $transliterator = Transliterator::createFromRules(
             ':: Any-Latin; :: Latin-ASCII; :: NFD; :: [:Nonspacing Mark:] Remove; :: Lower(); :: NFC;',
             Transliterator::FORWARD
         );
 
-        return $transliterator->transliterate($string);
+        return $transliterator === null ? $string : $transliterator->transliterate($string);
+    }
+
+    /**
+     * Remove punctuation from a string.
+     * @param string $string
+     * @return string
+     */
+    public static function removePunctuation(string $string): string
+    {
+        $str = preg_replace("/[^\w\s]+/u", ' ', $string);
+
+        return $str ?? $string;
     }
 
     /**
      * Calculates term frequency - inverse document frequency
      * Expects binary output from MATCHINFO(fts4table, 'xncp') as input.
      * @see https://nlp.stanford.edu/IR-book/html/htmledition/tf-idf-weighting-1.html
-     * @param $ftsTable
+     * @param string $matchinfoOut binary string from matchinfo
      * @return float|int
      */
-    public static function tfIdf($matchinfoOut)
+    public static function tfIdf(string $matchinfoOut): float|int
     {
         $arrInt32 = unpack('L*', $matchinfoOut);
 
@@ -43,6 +55,7 @@ class FtsFunctions
         $numRows = array_pop($arrInt32);
 
         $score = 0;
+        $tf = 0;
         foreach ($arrInt32 as $i => $int) {
             $remainder = ($i - 1) % 3;
             if ($remainder === 0) {
@@ -62,15 +75,15 @@ class FtsFunctions
      * Expects the binary output from MATCHINFO with format parameters 'xncp';
      * @param string $matchinfoOut binary string from matchinfo
      * @param string $colWeights comma separated column weights
+     * @param int $rating
      * @return float|int
      */
-    public static function tfIdfWeighted(string $matchinfoOut, string $colWeights, int $rating)
+    public static function tfIdfWeighted(string $matchinfoOut, string $colWeights, int $rating): float|int
     {
         $arrInt32 = unpack('L*', $matchinfoOut);
         /** @var array $weights */
         $weights = explode(',', $colWeights);
 
-        $numPhrases = array_pop($arrInt32);
         $numCols = array_pop($arrInt32);
         $numRows = array_pop($arrInt32);
         $score = 0;
