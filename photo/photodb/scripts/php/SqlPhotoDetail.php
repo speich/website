@@ -34,7 +34,7 @@ class SqlPhotoDetail extends SqlExtended
         	E.LensSpec lensSpec, E.Lens lens, E.FileType fileType, E.VibrationReduction vibrationReduction,
         	X.CropTop, X.CropLeft, X.CropRight, X.CropBottom, X.CropAngle,
         	GROUP_CONCAT(DISTINCT T.Name" . $this->langPostfix . ') themes,
-        	GROUP_CONCAT(DISTINCT K.Name) categories,
+        	GROUP_CONCAT(DISTINCT K.Name' . $this->langPostfix . ') categories,
         	GROUP_CONCAT(DISTINCT N.Id) scientificNameId, GROUP_CONCAT(DISTINCT N.NameDe) scientificNameDe, GROUP_CONCAT(DISTINCT N.NameEn) scientificNameEn, GROUP_CONCAT(DISTINCT N.NameLa) scientificNameLa,
         	S.Name' . $this->langPostfix . ' sex, S.Symbol symbol,
         	GROUP_CONCAT(DISTINCT L.Name) locations,
