@@ -232,7 +232,7 @@ class PhotoDetail
     private function renderSpeciesLink(array $record, array $i18n, Language $lang): string
     {
         $species = $lang->get() === 'en' ? $record['scientificNameEn'] : $record['scientificNameDe'];
-        $species = $species === '' ? $record['scientificNameLa'] : $species;
+        $species = empty($species) ? $record['scientificNameLa'] : $species;
 
         $arrSpecies = explode(',', $species);
         $arrSpeciesId = explode(',', str_replace(' ', '', $record['scientificNameId']));
