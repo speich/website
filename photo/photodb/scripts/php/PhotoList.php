@@ -14,15 +14,15 @@ use WebsiteTemplate\Website;
 class PhotoList
 {
     /** @var int include this photo quality in the list */
-    public const QUALITY_LOW = 0;
-    public const QUALITY_MEDIUM = 1;
-    public const QUALITY_HIGH = 2;
+    public const int QUALITY_LOW = 0;
+    public const int QUALITY_MEDIUM = 1;
+    public const int QUALITY_HIGH = 2;
 
     /** @var int number of photos shown in the list */
-    public const NUMPERPAGE_LOW = 14;
-    public const NUMPERPAGE_MEDIUM = 28;
-    public const NUMPERPAGE_HIGH = 56;
-    public const NUMPERPAGE_VERYHIGH = 112;
+    public const int NUMPERPAGE_LOW = 14;
+    public const int NUMPERPAGE_MEDIUM = 28;
+    public const int NUMPERPAGE_HIGH = 56;
+    public const int NUMPERPAGE_VERYHIGH = 112;
 
     /** @var PDO|PhotoDb */
     private PDO|PhotoDb $db;
