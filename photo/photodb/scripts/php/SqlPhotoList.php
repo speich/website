@@ -98,7 +98,7 @@ class SqlPhotoList extends SqlExtended
     {
 
         if (isset($this->search)) {
-            $sql = 'Rank DESC, LastChange DESC';
+            $sql = 'r.Value DESC, Rank DESC, LastChange DESC';
         } else {
             $sql = match ($this->sort) {
                 self::SORT_BY_DATEADDED => 'i.DateAdded DESC',
@@ -146,6 +146,7 @@ class SqlPhotoList extends SqlExtended
 
             return 'Images i 
                 INNER JOIN Images_Themes it ON i.Id = it.ImgId' . $search.'
+                INNER JOIN Rating r ON i.RatingId = r.Id
                 LEFT JOIN Images_ScientificNames sc ON i.Id = sc.ImgId';
         }
     }
