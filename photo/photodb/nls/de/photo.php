@@ -41,6 +41,7 @@ return [
     'random'  => 'zufällig',
 	'rating' => 'Bewertung',
 	'scientific name' => 'Wissenschaftlicher Name',
+    'search' => 'Suchen',
     'search photos' => 'Fotos suchen',
 	'show details' => 'Bilddetails anzeigen',
 	'show on map' => 'Fotos auf Karte anzeigen',

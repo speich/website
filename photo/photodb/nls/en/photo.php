@@ -41,6 +41,7 @@ return [
     'random'  => 'random',
 	'rating' => 'rating',
 	'scientific name' => 'scientific name',
+    'search' => 'search',
     'search photos' => 'search photos',
 	'show details' => 'show image details',
 	'show on map' => 'display photos on a map',

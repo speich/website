@@ -24,7 +24,7 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
 <div class="toolbar">
     <div class="bar-cont">
         <form method="GET" role="search" class="bar-item frmSearch">
-            <label class="visuallyHidden" for="q"><?php echo $i18n['search photos']; ?></label><input type="text" id="q" name="q"
+            <label class="visuallyHidden" for="q"><?php echo $i18n['search']; ?></label><input type="text" id="q" name="q"
                     value="<?php echo isset($_GET['q']) ? htmlentities($_GET['q'], ENT_QUOTES, $web->charset) : ''; ?>"
                     placeholder="<?php echo $i18n['search photos']; ?>">
             <button type="submit" aria-label="suchen">
