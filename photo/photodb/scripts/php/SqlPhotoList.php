@@ -61,9 +61,9 @@ class SqlPhotoList extends SqlExtended
         'Locations' => 1,
         'KeywordsDe' => 1,
         'KeywordsEn' => 1,
-        'CommonNamesDe' => 3,
-        'CommonNamesEn' => 3,
-        'ScientificNames' => 4,
+        'CommonNamesDe' => 4,
+        'CommonNamesEn' => 4,
+        'ScientificNames' => 5,
         'Rating' => 0,  /* skip scoring since it handled separately*/
         'ImgTitlePrefixes' => 1,
         'ImgDescPrefixes' => 1,
