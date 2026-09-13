@@ -240,15 +240,12 @@ class PhotoDetail
 
     private function renderSpeciesLink(): string
     {
-        $species = $this->language->get() === 'en' ? $this->data['scientificNameEn'] : $this->data['scientificNameDe'];
-        $species = empty($species) ? $this->data['scientificNameLa'] : $species;
-
-        $arrSpecies = explode(',', $species);
-        $arrSpeciesId = explode(',', str_replace(' ', '', $this->data['scientificNameId']));
-
         if (count($this->dataMore) < 2) {
             return '';
         }
+
+        $arrSpecies = explode(',', $this->data['scientificNameLa']);
+        $arrSpeciesId = explode(',', str_replace(' ', '', $this->data['scientificNameId']));
 
         $params = ['qual' => 0];
         $query = new QueryString();
