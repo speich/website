@@ -13,8 +13,8 @@
 </head>
 
 <?php
-echo $bodyStart->render($mainNav, $sideNav, $langNav);;
-$photoDetail->render($photo, $language, $i18n);
+echo $bodyStart->render($mainNav, $sideNav, $langNav);
+$photo->render();
 echo $bodyEnd->render();
 ?>
 </body>

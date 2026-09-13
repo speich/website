@@ -6,7 +6,6 @@ use PhotoDb\SqlPhotoDetail;
 
 
 require_once __DIR__.'/../../scripts/php/inc_script.php';
-$i18n = require __DIR__.'/nls/'.$language->get().'/photo.php';
 
 if (isset($_GET['imgId'])) {
     $imgId = $_GET['imgId'];
@@ -18,17 +17,12 @@ if (isset($_GET['imgId'])) {
 
 $photoDb = new PhotoDb($web->getWebRoot());
 $photoDb->connect();
-$photoDetail = new PhotoDetail($photoDb);
-$sql = new SqlPhotoDetail();
-$sql->imgId = $imgId;
-$sql->setLangPostfix($language);
-$photo = $photoDetail->query($sql);
+$photo = new PhotoDetail($photoDb, $imgId, $language);
+$title = $photo->renderTitle();
 if ($language->get() === 'de') {
-    $title = $photoDetail->renderTitle($photo, $language);
     $pageTitle = $title.' | Fotodatenbank';
-    $metaDesc = ($photo['imgDesc'] ?: $title).'. Ein Bild fotografiert von Simon Speich zum Thema '.$photo['themes'].'.';
+    $metaDesc = ($photo->data['imgDesc'] ?: $title).'. Ein Bild fotografiert von Simon Speich zum Thema '.$photo->data['themes'].'.';
 } else {
-    $title = $photoDetail->renderTitle($photo, $language);
     $pageTitle = $title.' | Photo database';
-    $metaDesc = $title.'. A photo taken by Simon Speich about the topic '.$photo['themes'].'.';
+    $metaDesc = $title.'. A photo taken by Simon Speich about the topic '.$photo->data['themes'].'.';
 }
