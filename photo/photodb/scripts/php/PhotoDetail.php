@@ -246,14 +246,17 @@ class PhotoDetail
 
         $arrSpecies = explode(',', $this->data['scientificNameLa']);
         $arrSpeciesId = explode(',', str_replace(' ', '', $this->data['scientificNameId']));
+        $commonName = $this->language->get() === 'en' ? $this->data['scientificNameEn'] : $this->data['scientificNameDe'];
+        $commonName = explode(',', $commonName);
 
         $params = ['qual' => 0];
         $query = new QueryString();
         $str = $this->i18n['more photos'].':';
         foreach ($arrSpecies as $key => $species) {
+            $name = trim($commonName[$key]) === '' ? $species : trim($commonName[$key]);
             $params['species'] = $arrSpeciesId[$key];
             $href = $this->language->createPage('photo.php').$query->withString($params, ['imgId', 'pg']);
-            $str .= ($key > 0 ? '|' : '').' <a href="'.$href.'">'.$species.'</a>';
+            $str .= ($key > 0 ? '|' : '').' <a href="'.$href.'">'.$name.'</a>';
         }
 
         return $str;
