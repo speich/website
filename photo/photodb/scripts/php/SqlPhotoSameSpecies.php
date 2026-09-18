@@ -26,7 +26,7 @@ class SqlPhotoSameSpecies extends SqlExtended
     public function getFrom(): string
     {
 
-        // since we now, that scientificNameId can be trusted we don't need to use bind
+        // since we know, that scientificNameId can be trusted we don't need to use bind
         $sqlIn = implode(',', $this->scientificNameId);
 
         return "(SELECT i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.RatingId,
