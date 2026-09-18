@@ -23,7 +23,9 @@ class PhotoDetail
     public readonly array|bool $data;
     
     /** @var array|bool database data with ids of more images of same species*/
-    private array|bool $dataMore;
+    private null|array|bool $dataMore;
+
+    private int $numMore = 4;
     
     private array $i18n;
     private PhotoList $dataList;
@@ -41,7 +43,7 @@ class PhotoDetail
         $sql->imgId = $imgId;
         $sql->setLangPostfix($language);
         $this->data = $this->query($sql);
-        $this->dataMore = $this->querySameSpecies();
+        $this->dataMore = $this->data['scientificNameId'] === null ? null : $this->querySameSpecies();
         $this->i18n = require __DIR__.'/../../nls/'.$language->get().'/photo.php';
         $this->dataList = new PhotoList($db);
     }
@@ -67,7 +69,7 @@ class PhotoDetail
     private function querySameSpecies(): bool|array
     {
         $sql = new SqlPhotoSameSpecies();
-        $sql->limit = 4;
+        $sql->limit = $this->numMore + 1;
         $sql->offset = 0;
         $sql->imgId = $this->data['imgId'];
         $sql->setScientificNameId(explode(',', $this->data['scientificNameId']));
@@ -227,7 +229,10 @@ class PhotoDetail
         $alt = $this->i18n['photo'].': '.$species;
         $str = '';
         
-        foreach ($this->dataMore as $item) {
+        foreach ($this->dataMore as $key => $item) {
+            if ($key === $this->numMore) {
+                break;
+            }
             $href = '/photo/photodb/photo-detail.php?imgId='.$item['imgId'];
             $thumbPath = $this->db->webroot.$this->db->getPath('img').'thumbs/'.$item['imgFolder'].'/'.$item['imgName'];
             $imgPath = str_replace('thumbs/', '', $thumbPath);
@@ -240,23 +245,23 @@ class PhotoDetail
 
     private function renderSpeciesLink(): string
     {
-        if (count($this->dataMore) < 2) {
-            return '';
-        }
+        $str = '';
 
-        $arrSpecies = explode(',', $this->data['scientificNameLa']);
-        $arrSpeciesId = explode(',', str_replace(' ', '', $this->data['scientificNameId']));
-        $commonName = $this->language->get() === 'en' ? $this->data['scientificNameEn'] : $this->data['scientificNameDe'];
-        $commonName = explode(',', $commonName);
+        if (count($this->dataMore) > $this->numMore) {
+            $arrSpecies = explode(',', $this->data['scientificNameLa']);
+            $arrSpeciesId = explode(',', str_replace(' ', '', $this->data['scientificNameId']));
+            $commonName = $this->language->get() === 'en' ? $this->data['scientificNameEn'] : $this->data['scientificNameDe'];
+            $commonName = explode(',', $commonName);
 
-        $params = ['qual' => 0];
-        $query = new QueryString();
-        $str = $this->i18n['more photos'].':';
-        foreach ($arrSpecies as $key => $species) {
-            $name = trim($commonName[$key]) === '' ? $species : trim($commonName[$key]);
-            $params['species'] = $arrSpeciesId[$key];
-            $href = $this->language->createPage('photo.php').$query->withString($params, ['imgId', 'pg']);
-            $str .= ($key > 0 ? '|' : '').' <a href="'.$href.'">'.$name.'</a>';
+            $params = ['qual' => 0];
+            $query = new QueryString();
+            $str = $this->i18n['more photos'].':';
+            foreach ($arrSpecies as $key => $species) {
+                $name = trim($commonName[$key]) === '' ? $species : trim($commonName[$key]);
+                $params['species'] = $arrSpeciesId[$key];
+                $href = $this->language->createPage('photo.php').$query->withString($params, ['imgId', 'pg']);
+                $str .= ($key > 0 ? '|' : '').' <a href="'.$href.'">'.$name.'</a>';
+            }
         }
 
         return $str;
