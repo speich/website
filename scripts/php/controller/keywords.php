@@ -4,7 +4,7 @@ use PhotoDb\PhotoDb;
 use speich\WebsiteSpeich;
 use WebsiteTemplate\Header;
 use WebsiteTemplate\Language;
-use PhotoDb\SearchQuery;
+
 
 date_default_timezone_set('Europe/Zurich');
 setlocale(LC_COLLATE, 'de_CH');
@@ -16,21 +16,42 @@ $language = new Language();
 $language->set($_GET['lang'] ?? 'de');
 $web = new WebsiteSpeich();
 $db = new PhotoDb($web->getWebRoot());
+$db->connect();
 
-$words = SearchQuery::extractWords($_GET['q'], 4, 0);
-$query = SearchQuery::createQuery($words, $language->get());
+// Sanitize the query: remove FTS control characters that could break the SQLite MATCH syntax
+$query = $_GET['q'] ?? '';
+$query = preg_replace('/[*"^:\-]/', '', $query);
+$query = trim($query);
 
-
-
-// re-format array to object
-if ($words) {   // can be false or 0 records
-    $arr2 = [];
-    foreach ($words as $label) {
-        $arr2[] = ['q' => $label];
-    }
-    $response = json_encode($arr2);
-} else {
-    $response = json_encode([]);
+if ($query === '') {
+    echo json_encode([]);
+    exit;
 }
-header('Content-Type: '.$header->getContentType().'; '.$header->getCharset());
-echo $response;
+
+// Build the FTS MATCH string
+// If a user types "rot fuch", we want it to match "KeywordPrefixes:rot* KeywordPrefixes:fuch*"
+$words = preg_split('/\s+/', $query);
+$matchTerms = [];
+foreach ($words as $word) {
+    $matchTerms[] = "KeywordPrefixes:" . $word . "*";
+}
+$matchString = "Language:" . $language->get() . " " . implode(' ', $matchTerms);
+
+$sql = "SELECT Keyword 
+        FROM Keywords_fts 
+        WHERE Keywords_fts MATCH :match 
+        ORDER BY Keyword ASC
+        LIMIT 12";
+$stmt = $db->db->prepare($sql);
+$stmt->execute([':match' => $matchString]);
+
+// Format for typeahead-standalone
+$results = [];
+foreach ($stmt as $row) {
+    $results[] = [
+        'keyword' => $row['Keyword']
+    ];
+}
+
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode($results, JSON_UNESCAPED_UNICODE);
