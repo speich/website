@@ -16,7 +16,8 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
     <link href="photodb.min.css" rel="stylesheet" type="text/css">
     <link href="photo.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../../library/photoswipe/photoswipe.css">
-    <script src="photo.min.js" type="module"></script>
+    <link rel="stylesheet" href="../../library/typeahead-standalone/package/dist/basic.css">
+    <script src="photo.js" type="module"></script>
 </head>
 
 <body>

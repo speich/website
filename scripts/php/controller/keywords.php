@@ -35,7 +35,7 @@ $matchTerms = [];
 foreach ($words as $word) {
     $matchTerms[] = "KeywordPrefixes:" . $word . "*";
 }
-$matchString = "Language:" . $language->get() . " " . implode(' ', $matchTerms);
+$matchString = "Lang:" . $language->get() . " " . implode(' ', $matchTerms);
 
 $sql = "SELECT Keyword 
         FROM Keywords_fts 
