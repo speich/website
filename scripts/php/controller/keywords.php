@@ -33,17 +33,23 @@ if ($query === '') {
 $words = preg_split('/\s+/', $query);
 $matchTerms = [];
 foreach ($words as $word) {
-    $matchTerms[] = "KeywordPrefixes:" . $word . "*";
+    $matchTerms[] = $word . "*";
 }
-$matchString = "Lang:" . $language->get() . " " . implode(' ', $matchTerms);
+$matchString = implode(' ', $matchTerms);
 
+// FTS4 searches ALL indexed columns (Keyword and KeywordPrefixes).
+// Column Lang is ignored by MATCH because of 'notindexed', but filtered in the WHERE clause.
 $sql = "SELECT Keyword 
         FROM Keywords_fts 
         WHERE Keywords_fts MATCH :match 
+          AND Lang = :lang 
         ORDER BY Keyword ASC
         LIMIT 12";
 $stmt = $db->db->prepare($sql);
-$stmt->execute([':match' => $matchString]);
+$stmt->execute([
+    ':match' => $matchString,
+    ':lang' => $language->get()
+]);
 
 // Format for typeahead-standalone
 $results = [];
