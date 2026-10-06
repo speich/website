@@ -12,13 +12,15 @@ lightbox.init();
 const currentLang = document.documentElement.lang || 'de';
 const searchInput = document.getElementById('q');
 const typeaheadInstance = typeahead({
-    input: searchInput ,
+    input: searchInput,
+    limit: 12,
+    highlight: true,
     source: {
         remote: {
             url: `/scripts/php/controller/keywords.php?lang=${currentLang}&q=%QUERY`,
             wildcard: '%QUERY'
         },
-        identifier: 'keyword'
+        keys: ['keyword']
     }
 });
 
