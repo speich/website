@@ -113,7 +113,7 @@ class PhotoList
             $str .= '<li class="slide">';
             $str .= '<div class="slideCanvas '.$css.'">';
             $str .= '<a href="'.$imgPath.'" title="'.$imgTitle.'" data-pswp-width="'.$imgSize[0].'" data-pswp-height="'.$imgSize[1].'">';
-            $str .= '<img class="'.$cssImg.'" src="'.$imgPath.'" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'">';
+            $str .= '<img class="'.$cssImg.'" src="'.$thumbPath.'" loading="lazy" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'">';
             $str .= '</a></div>';
             $title = $i18n['zoom photo'].': '.$imgTitle;
             $str .= '<div class="slideText"><a title="'.$title.'" href="'.$imgPath.'">'.$i18n['zoom'].'</a> | ';
