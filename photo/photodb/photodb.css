@@ -187,6 +187,43 @@ button.bar-item svg.icon, .mRating svg.icon:not(:first-child) {
     padding-left: 0.6em;
 }
 
+/* Make the typeahead wrapper a flex container to pass the height down */
+.frmSearch .typeahead-standalone {
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+}
+
+/* Force the inputs inside to fill the wrapper's height and width */
+.frmSearch .typeahead-standalone .tt-input,
+.frmSearch .typeahead-standalone .tt-hint {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* Ensures padding/borders don't cause overflow */
+}
+
+.frmSearch .tt-input,
+.frmSearch .tt-hint {
+    /* Ensures pixel-perfect alignment of input value and input hint */
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+
+    /* Fixes the fuzzy/bold sub-pixel rendering when text overlaps */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure the hint is a clear, light gray */
+.frmSearch .tt-hint {
+    color: #999999 !important;
+}
+
+.typeahead-standalone .tt-list div[class^="tt-"] {
+    padding: 0.3em 0.6em;
+}
+
 .bar-paging, .bar-cont {
     padding: 0.3em;
 }

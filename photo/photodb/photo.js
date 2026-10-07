@@ -24,6 +24,14 @@ const typeaheadInstance = typeahead({
     }
 });
 
+// Fix the initial PHP pre-fill overlap
+const hintInput = searchInput.parentElement.querySelector('.tt-hint');
+
+// If there is a pre-filled value from PHP on page load, empty the hint box
+if (hintInput && searchInput.value !== '') {
+    hintInput.value = '';
+}
+
 // Submit the form immediately when a suggestion is clicked
 searchInput.addEventListener('typeaheadSelect', (ev) => {
     // The input value is automatically updated by the library before this fires
