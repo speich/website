@@ -13,10 +13,11 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
     <link rel="canonical" href="https://www.speich.net/photo/photodb/photo.php<?php echo $canonical; ?>">
     <meta name="description" content="Photo database containing high-resolution nature photos, especially of forests, birds and other wildlife.">
     <?php echo $head->render(); ?>
-    <link href="photodb.min.css" rel="stylesheet" type="text/css">
-    <link href="photo.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../library/typeahead-standalone/package/dist/basic.css">
     <link rel="stylesheet" href="../../library/photoswipe/photoswipe.css">
-    <script src="photo.min.js" type="module"></script>
+    <link href="photodb.css" rel="stylesheet" type="text/css">
+    <link href="photo.css" rel="stylesheet" type="text/css">
+    <script src="photo.js" type="module"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
         <form method="GET" role="search" class="bar-item frmSearch">
             <label class="visuallyHidden" for="q"><?php echo $i18n['search photos']; ?></label><input type="text" id="q" name="q"
                     value="<?php echo isset($_GET['q']) ? htmlentities($_GET['q'], ENT_QUOTES, $web->charset) : ''; ?>"
-                    placeholder="<?php echo $i18n['search photos']; ?>">
+                    placeholder="<?php echo $i18n['search photos']; ?>" autocomplete="off" spellcheck="false">
             <button type="submit" aria-label="search">
                 <svg class="icon">
                     <use xlink:href="<?php echo $web->getWebRoot(); ?>layout/images/symbols.svg#magnifying-glass"></use>
