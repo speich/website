@@ -15,12 +15,31 @@ const typeaheadInstance = typeahead({
     input: searchInput,
     limit: 12,
     highlight: true,
+    diacritics: true,
+    preventSubmit: true,
     source: {
         remote: {
             url: `/scripts/php/controller/keywords.php?lang=${currentLang}&q=%QUERY`,
             wildcard: '%QUERY'
         },
         keys: ['keyword']
+    },
+    onSubmit: (e, selectedItem) => {
+        // selectedItem contains the JSON object if they chose something from the dropdown.
+        // (If they just typed raw text and hit enter, selectedItem is undefined)
+        if (selectedItem) {
+            let keyword = selectedItem.keyword;
+
+            // Wrap in double quotes if there's a space for exact phrase matching
+            if (keyword.includes(' ')) {
+                searchInput.value = `"${keyword}"`;
+            } else {
+                searchInput.value = keyword;
+            }
+        }
+
+        // Finally, manually trigger the form submission
+        searchInput.closest('form').submit();
     }
 });
 
@@ -31,9 +50,3 @@ const hintInput = searchInput.parentElement.querySelector('.tt-hint');
 if (hintInput && searchInput.value !== '') {
     hintInput.value = '';
 }
-
-// Submit the form immediately when a suggestion is clicked
-searchInput.addEventListener('typeaheadSelect', (ev) => {
-    // The input value is automatically updated by the library before this fires
-    ev.target.closest('form').submit();
-});
