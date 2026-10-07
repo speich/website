@@ -36,19 +36,27 @@ foreach ($words as $word) {
     $matchTerms[] = $word . "*";
 }
 $matchString = implode(' ', $matchTerms);
+// Create a LIKE string for the exact prefix match (e.g., "wal%")
+$likeString = $query . '%';
 
 // FTS4 searches ALL indexed columns (Keyword and KeywordPrefixes).
 // Column Lang is ignored by MATCH because of 'notindexed', but filtered in the WHERE clause.
+// Prioritize the exact prefix using boolean sorting (1 or 0)
+// COLLATE NOCASE ensures that typing "wal" matches "Wald" correctly
 $sql = "SELECT Keyword 
         FROM Keywords_fts 
         WHERE Keywords_fts MATCH :match 
           AND Lang = :lang 
-        ORDER BY Keyword ASC
-        LIMIT 12";
+        ORDER BY 
+          (Keyword LIKE :like COLLATE NOCASE) DESC, 
+          Keyword ASC
+        LIMIT 10";
+
 $stmt = $db->db->prepare($sql);
 $stmt->execute([
     ':match' => $matchString,
-    ':lang' => $language->get()
+    ':lang' => $language->get(),
+    ':like' => $likeString
 ]);
 
 // Format for typeahead-standalone
