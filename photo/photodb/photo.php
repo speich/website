@@ -17,7 +17,7 @@ $canonical .=  isset($_GET['pg']) ? '&pg='.$_GET['pg'] : '';
     <link rel="stylesheet" href="../../library/photoswipe/photoswipe.css">
     <link href="photodb.css" rel="stylesheet" type="text/css">
     <link href="photo.min.css" rel="stylesheet" type="text/css">
-    <script src="photo.js" type="module"></script>
+    <script src="photo.js" type="module" nonce="<?php echo $cspHeader->nonceScript; ?>"></script>
 </head>
 
 <body>
