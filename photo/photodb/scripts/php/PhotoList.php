@@ -95,25 +95,23 @@ class PhotoList
             // get image dimensions
             $thumbPath = $web->getWebRoot().$this->db->getPath('img').'thumbs/'.$row['imgFolder'].'/'.$row['imgName'];
             $imgPath = str_replace('thumbs/', '', $thumbPath);
-            $thumbSize = getimagesize(__DIR__.'/../../../..'.$thumbPath);
-            $imgSize = getimagesize(__DIR__.'/../../../..'.$imgPath);
             $imgTitle = $row['imgTitle'];
             $detailLink = $lang->createPage('photo-detail.php').$query->withString(['imgId' => $row['imgId']]);
-            if ($imgSize[0] > $imgSize[1]) {
+            if ($row['imgWidth'] > $row['imgHeight']) {
                 $css = 'slideHorizontal';
                 $cssImg = 'slideImgHorizontal';
-            } elseif ($imgSize[0] < $imgSize[1]) {
+            } elseif ($row['imgWidth'] < $row['imgHeight']) {
                 $css = 'slideVertical';
                 $cssImg = 'slideImgVertical';
-            } elseif ($imgSize[0] === $imgSize[1]) {
+            } elseif ($row['imgWidth'] === $row['imgHeight']) {
                 $css = 'slideQuadratic';
                 $cssImg = 'slideImgQuadratic';
             }
 
             $str .= '<li class="slide">';
             $str .= '<div class="slideCanvas '.$css.'">';
-            $str .= '<a href="'.$imgPath.'" title="'.$imgTitle.'" data-pswp-width="'.$imgSize[0].'" data-pswp-height="'.$imgSize[1].'">';
-            $str .= '<img class="'.$cssImg.'" src="'.$thumbPath.'" loading="lazy" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'">';
+            $str .= '<a href="'.$imgPath.'" title="'.$imgTitle.'" data-pswp-width="'.$row['imgWidth'].'" data-pswp-height="'.$row['imgHeight'].'">';
+            $str .= '<img class="'.$cssImg.'" src="'.$thumbPath.'" loading="lazy" alt="'.$i18n['photo'].'" title="'.$i18n['thumbnail of'].' '.$imgTitle.'" width="'.$row['thumbWidth'].'" height="'.$row['thumbHeight'].'">';
             $str .= '</a></div>';
             $title = $i18n['zoom photo'].': '.$imgTitle;
             $str .= '<div class="slideText"><a title="'.$title.'" href="'.$imgPath.'">'.$i18n['zoom'].'</a> | ';

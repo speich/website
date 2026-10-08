@@ -80,7 +80,8 @@ class SqlPhotoList extends SqlExtended
      */
     public function getList(): string
     {
-        return 'i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.ImgTitle imgTitle';
+        return 'i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.ImgTitle imgTitle,
+            i.ImgWidth imgWidth, i.ImgHeight imgHeight, i.ThumbWidth thumbWidth, i.ThumbHeight thumbHeight';
     }
 
     /**
