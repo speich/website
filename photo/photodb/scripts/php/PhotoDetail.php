@@ -149,6 +149,10 @@ class PhotoDetail
         return $this->language->get() === 'de' ? $htmlDe : $htmlEn;        
     }
 
+    /**
+     * Render the detail information of the photo
+     * @return string html
+     */
     private function renderDetail(): string
     {
         $dim = $this->dataList->getImageSize($this->data);
@@ -183,6 +187,10 @@ class PhotoDetail
 
     }
 
+    /**
+     * Render the technical (Exif) information of the photo
+     * @return string html
+     */
     private function renderExif(): string
     {
         $str = '<h3>'.$this->i18n['technical information'].' (Exif)</h3>';
@@ -207,6 +215,10 @@ class PhotoDetail
         return $str;
     }
 
+    /**
+     * Render the database information of the photo
+     * @return string html
+     */
     private function renderDbInfo(): string
     {
         $str = '<h3>'.$this->i18n['database information'].'</h3>';
@@ -221,6 +233,10 @@ class PhotoDetail
         return $str;
     }
 
+    /**
+     * Render thumbnails of more photos of the same species
+     * @return string html
+     */
     private function renderSpecies(): string
     {
         $species = $this->language->get() === 'en' ? $this->data['scientificNameEn'] : $this->data['scientificNameDe'];
@@ -235,14 +251,16 @@ class PhotoDetail
             }
             $href = '/photo/photodb/photo-detail.php?imgId='.$item['imgId'];
             $thumbPath = $this->db->webroot.$this->db->getPath('img').'thumbs/'.$item['imgFolder'].'/'.$item['imgName'];
-            $imgPath = str_replace('thumbs/', '', $thumbPath);
-            $thumbSize = getimagesize(__DIR__.'/../../../..'.$thumbPath);
-            $str .= '<a href="'.$href.'" alt="'.$alt.'" title="'.$species.'"><img src="'.$imgPath.'" width="'.$thumbSize[0].'" height="'.$thumbSize[1].'"></a>';
+            $str .= '<a href="'.$href.'" alt="'.$alt.'" title="'.$species.'"><img src="'.$thumbPath.'" width="'.$item['thumbWidth'].'" height="'.$item['thumbHeight'].'"></a>';
         }
 
         return $str;
     }
 
+    /**
+     * Render links to more photos of the same species
+     * @return string html
+     */
     private function renderSpeciesLink(): string
     {
         $str = '';
