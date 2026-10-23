@@ -16,7 +16,7 @@ class SqlPhotoSameSpecies extends SqlExtended
      */
     public function getList(): string
     {
-        return 't.imgId, t.imgFolder, t.imgName,
+        return 't.imgId, t.imgFolder, t.imgName, t.thumbWidth, t.thumbHeight,
            RANK() OVER (PARTITION BY t.ScientificNameId ORDER BY t.ratingId DESC, t.num) rankNr';
     }
 
@@ -30,6 +30,7 @@ class SqlPhotoSameSpecies extends SqlExtended
         $sqlIn = implode(',', $this->scientificNameId);
 
         return "(SELECT i.Id imgId, i.ImgFolder imgFolder, i.ImgName imgName, i.RatingId,
+            i.ThumbWidth thumbWidth, i.ThumbHeight thumbHeight,
             N.ScientificNameId,
             random() num
             FROM Images i
