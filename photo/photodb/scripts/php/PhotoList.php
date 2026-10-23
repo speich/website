@@ -6,6 +6,7 @@ use PDO;
 use WebsiteTemplate\Language;
 use WebsiteTemplate\QueryString;
 use WebsiteTemplate\Website;
+use function count;
 
 
 /**
@@ -84,7 +85,7 @@ class PhotoList
         $str = '';
         $css = '';
         $cssImg = '';
-        if (\count($photos) === 0) {
+        if (count($photos) === 0) {
             $str .= '<p>'.$i18n['not found'].'</p>';
 
             return $str;
